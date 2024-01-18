@@ -1,0 +1,805 @@
+<?php
+require('app/help.php');
+
+$sql_sasisopa_ayuda = "SELECT * FROM pu_sasisopa_ayuda WHERE id_usuario = '".$Session_IDUsuarioBD."' and detalle = '5-funciones-responsabilidades-autoridad' and estado = 0 LIMIT 1";
+$result_sasisopa_ayuda = mysqli_query($con, $sql_sasisopa_ayuda);
+$numero_sasisopa_ayuda = mysqli_num_rows($result_sasisopa_ayuda);
+
+if ($numero_sasisopa_ayuda == 1) {
+while($row_ayuda = mysqli_fetch_array($result_sasisopa_ayuda, MYSQLI_ASSOC)){
+$idAyuda = $row_ayuda['id'];
+}
+}else{
+$idAyuda = 0;
+}
+?> 
+<html lang="es">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>SASISOPA</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width initial-scale=1.0">
+  <link rel="shortcut icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
+  <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
+  <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="<?php echo RUTA_JS ?>alertify.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <style media="screen">
+  .LoaderPage {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: url('imgs/iconos/load-img.gif') 50% 50% no-repeat rgb(249,249,249);
+  }
+  </style>
+  <script type="text/javascript">
+  $(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+  $(".LoaderPage").fadeOut("slow");
+  <?php if ($numero_sasisopa_ayuda == 1) {echo "btnAyuda();";} ?>
+
+  ListaAsistencia(5);
+  ListaRepresentanteT();
+
+  });
+  function regresarP(){
+  window.history.back();
+  }
+
+  function ListaRepresentanteT(){  
+  $('#DivListaRT').load('public/sasisopa/vistas/lista-representante-tecnico.php');
+  }
+
+  function btnAyuda(){
+  $('#ModalFunciones').modal('show');
+  }
+
+  function btnFinAyuda(){
+
+var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
+
+ var parametros = {
+ "idAyuda" : <?=$idAyuda; ?>
+ };
+
+  if (puntosSasisopa != 0) {
+
+   $.ajax({
+   data:  parametros,
+   url:   'public/sasisopa/actualizar/actualizar-ayuda.php',
+   type:  'post',
+   beforeSend: function() {
+   },
+   complete: function(){
+   },
+   success:  function (response) {
+   $('#ModalFunciones').modal('hide');
+   }
+   });
+
+  }else{
+  $('#ModalFunciones').modal('hide');
+  }
+  }
+
+  function Rete(){
+$('#ModalReTe').modal('show');
+}
+function Gerente(){
+$('#ModalGerente').modal('show');  
+}
+function JefePiso(){
+$('#ModalJefePiso').modal('show'); 
+}
+function Facturista(){
+$('#ModalFacturista').modal('show');  
+}
+function Despachador(){
+ $('#ModalDespachador').modal('show');   
+}
+function AuxiliarAdmi(){
+ $('#ModalAuxiliar').modal('show');   
+}
+function Mantenimiento(){
+$('#ModalMantenimiento').modal('show');
+ }
+
+//----------------------------------------------------------------------------------------------------------------
+function btnAsistencia(){
+
+ var parametros = {
+ "PuntoSasisopa" : 5
+ };
+
+   $.ajax({
+   data:  parametros,
+   url:   'public/sasisopa/agregar/agregar-lista-asistencia.php',
+   type:  'post',
+   beforeSend: function() {
+   },
+   complete: function(){
+   },
+   success:  function (response) {
+
+    if(response != 0){
+      window.location = "lista-asistencia/" + response; 
+    }else{
+     alertify.error('Error al crear registro'); 
+    }
+   
+   }
+   });
+ 
+   }
+
+function ListaAsistencia(idSasisopa){
+$('#DivListaAsistencia').load('public/sasisopa/vistas/lista-asistencia.php?idSasisopa=' + idSasisopa); 
+}
+function EditarAsistencia(id){
+window.location = "lista-asistencia/" + id; 
+}
+
+function EliminarAsistencia(id){
+
+  var parametros = {
+    "id" : id
+    };
+
+    alertify.confirm('',
+function(){
+  $.ajax({
+     data:  parametros,
+     url:   'public/sasisopa/eliminar/eliminar-lista-asistencia.php',
+     type:  'post',
+     beforeSend: function() {
+     },
+     complete: function(){
+    
+     },
+     success:  function (response) {
+
+    if (response == 1) {
+    ListaAsistencia(5)
+    }else{
+    alertify.error('Error al eliminar')
+    }
+
+     }
+     });
+},
+function(){
+}).setHeader('Lista de asistencia').set({transition:'zoom',message: '¿Desea eliminar la comunicación interna de la estación?',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+
+}
+
+function DescargarAsistencia(id){
+window.location = "descargar-lista-asistencia/" + id;   
+}
+
+function btnRepresentanteT(){
+$('#ModalRT').modal('show');
+}
+
+function btnGuardar(){
+
+var NombreRT = $('#NombreRT').val();
+var FechaAsignacion = $('#FechaAsignacion').val();
+
+
+var PDF = document.getElementById("PDF");
+var PDF_file = PDF.files[0];
+var PDF_filePath = PDF.value;
+
+var data = new FormData();
+var url = 'public/sasisopa/agregar/agregar-representante-tecnico.php';
+var ext = $("#PDF").val().split('.').pop();
+
+if (NombreRT != "") {
+$('#NombreRT').css('border',''); 
+if (FechaAsignacion != "") {
+$('#FechaAsignacion').css('border',''); 
+if (ext == "PDF" || ext == "pdf") {
+$('#Resultado').html('');
+$('#ManualPDF').css('border','');  
+
+  data.append('NombreRT', NombreRT);
+  data.append('FechaAsignacion', FechaAsignacion);
+  data.append('PDF_file', PDF_file);
+
+$.ajax({
+  url: url,
+  type: 'POST',
+  contentType: false,
+  data: data,
+  processData: false,
+  cache: false
+  }).done(function(data){
+
+$('#NombreRT').val('');
+$('#FechaAsignacion').val('');
+$('#PDF').val('');
+ListaRepresentanteT();
+$('#ModalRT').modal('hide');
+
+  });
+
+}else{
+$('#Resultado').html('<small class="text-danger">Solo se aceptan formato PDF</small>');
+$('#PDF').css('border','2px solid #A52525');    
+}
+}else{
+$('#FechaAsignacion').css('border','2px solid #A52525');  
+}
+}else{
+$('#NombreRT').css('border','2px solid #A52525');  
+}
+
+}
+
+function EliminarRT(id){
+
+  var parametros = {
+    "id" : id
+    };
+
+    alertify.confirm('',
+function(){
+  $.ajax({
+     data:  parametros,
+     url:   'public/sasisopa/eliminar/eliminar-representante-tecnico.php',
+     type:  'post',
+     beforeSend: function() {
+     },
+     complete: function(){
+    
+     },
+     success:  function (response) {
+
+    if (response == 1) {
+    ListaRepresentanteT();
+    }else{
+    alertify.error('Error al eliminar')
+    }
+
+     }
+     });
+},
+function(){
+}).setHeader('Representante técnico').set({transition:'zoom',message: '¿Desea eliminar el formato de asignación de representante técnico?',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+
+}
+  </script>
+  </head>
+  <body>
+
+    <div class="LoaderPage"></div>
+    <div class="fixed-top navbar-admin">
+    <?php require('public/componentes/header.menu.php'); ?>
+    </div>
+
+    <div class="magir-top-principal">
+
+    <div class="row no-gutters">
+    <div class="col-12">
+    <div class="card adm-card" style="border: 0;">
+    <div class="adm-car-title">
+      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
+      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
+      </div>
+    <div class="float-left"><h4>5. FUNCIONES, RESPONSABILIDADES Y AUTORIDAD</h4></div>
+    <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
+    <a onclick="btnAyuda()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Ayuda" >
+    <img src="<?php echo RUTA_IMG_ICONOS."info.png"; ?>">
+    </a>
+    </div>
+
+    </div>
+
+    <div class="card-body">
+    <div class="text-center">
+    <?php if ($Session_Organigrama != "") {
+    ?>
+    <div class="row">
+    <div class="col-12 col-md-10">
+    <img src="<?=RUTA_IMG_ORGANIGRAMA.$Session_Organigrama;?>" style="width: 100%;"> 
+    </div>
+    <div class="col-12 col-md-2">
+    
+  <div class="card rounded-0">
+  <h5 class="card-header">Responsabilidades</h5>
+  <div class="card-body p-2">
+  
+<button type="button" style="width: 100%;" class="btn btn-primary rounded-0 btn-sm mt-1" onclick="Rete()">Representante Técnico</button>
+
+<button type="button" style="width: 100%;" class="btn btn-primary rounded-0 btn-sm mt-1" onclick="Gerente()">Gerente</button>
+
+<button type="button" style="width: 100%;" class="btn btn-primary rounded-0 btn-sm mt-1" onclick="JefePiso()">Jefe de Piso</button>
+
+<button type="button" style="width: 100%;" class="btn btn-primary rounded-0 btn-sm mt-1" onclick="Facturista()">Facturista</button>
+
+<button type="button" style="width: 100%;" class="btn btn-primary rounded-0 btn-sm mt-1" onclick="Despachador()">Despachador</button>
+
+<button type="button" style="width: 100%;" class="btn btn-primary rounded-0 btn-sm mt-1" onclick="AuxiliarAdmi()">Auxiliar administrativo</button>
+
+<button type="button" style="width: 100%;" class="btn btn-primary rounded-0 btn-sm mt-1" onclick="Mantenimiento()">Mantenimiento</button>
+  
+  </div>
+  </div>
+
+    </div>
+    </div>
+    <?php
+    }else{
+      echo "<div class='border p-4'><small>No se encontró el organigrama para mostrar, póngase en contacto con su administrador</small></div>";
+    } ?>
+
+    </div>
+
+    <hr>
+
+<div class="row">
+          
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2">
+          
+          <div class="border">
+            <div class="p-3">
+            
+            <div class="row">
+            
+            <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11">
+            <h5>Fo.ADMONGAS.010 (Registro de la atención y el seguimiento a la comunicación interna y externa.)</h5>
+            </div>
+
+            <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1">
+            <a class="float-right" onclick="btnAsistencia()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Crear" >
+            <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
+            </a>
+            </div>
+            </div>
+
+            <div id="DivListaAsistencia"></div>
+
+            </div>
+            
+          </div>
+        </div>
+
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2">
+          
+          <div class="border">
+            <div class="p-3">
+            
+            <div class="row">
+            
+            <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11">
+              <h5>Formato de asignación de representante técnico</h5>
+            </div>
+
+            <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1">
+            <a class="float-right" onclick="btnRepresentanteT()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Crear" >
+            <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
+            </a>
+            </div>
+            </div>
+
+            <div id="DivListaRT"></div>
+
+            </div>
+            
+          </div>
+        </div>
+</div>
+
+    </div>
+
+
+    </div>
+    </div>
+    </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-lg" id="ModalReTe" data-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content" style="border-radius: 0px;border: 0px;">
+        <div class="modal-header">
+          <h4 class="modal-title">Representante Técnico</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+
+          <table class="table table-bordered table-striped table-sm">
+            <thead style="font-size: 1.2em">
+              <tr>
+                <th colspan="3" class="text-center table-warning" >Funciones Responsabilidades y autoridad del RT</th>
+              </tr>              
+              <tr class="table-primary">
+                <th class="text-center">Autoridad</th>
+                <th class="text-center">Funciones</th>
+                <th class="text-center">Responsabilidades</th>
+              </tr>
+            </thead>
+            <tbody style="font-size: 1.1em">
+              <tr>
+                <td rowspan="5" class="text-center align-middle">Alta</td>
+                <td class="text-center">Asegurar que el SA es conforme con los requisitos establecidos en los lineamientos y demás normativa aplicable.</td>
+                <td rowspan="5" class="text-center align-middle">Organizar y
+                coordinar las
+                actividades que se
+                desprendan de
+                asuntos
+                relacionados con el
+                SA</td>
+              </tr>
+              <tr>
+                <td class="text-center">Informar a la alta dirección del Regulado
+acerca del desempeño del SA.</td>
+              </tr>
+              <tr>
+                <td class="text-center">Proponer la adopción de medidas para
+aplicar las mejores prácticas nacionales e
+internacionales en la implementación del
+SA.</td>
+              </tr>
+              <tr>
+                <td class="text-center">Coordinar y apoyar al resto de las áreas en
+la definición e implementación de las
+acciones necesarias para subsanar los
+incumplimientos de los requisitos del SA.
+</td>
+              </tr>
+              <tr>
+                <td class="text-center">Informar a la Agencia de cualquier
+situación crítica relativa al proyecto que
+pudiera poner en riesgo la SISOPA.</td>
+              </tr>
+            </tbody>
+          </table>
+
+  
+        </div>
+      </div>
+    </div>
+    </div>
+
+     <div class="modal fade bd-example-modal-lg" id="ModalGerente" data-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content" style="border-radius: 0px;border: 0px;">
+        <div class="modal-header">
+          <h4 class="modal-title">Gerente</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+
+          <table class="table table-bordered table-striped table-sm">
+            <thead style="font-size: 1.2em">
+              <tr>
+                <th colspan="3" class="text-center table-warning" >Funciones y responsabilidades del personal</th>
+              </tr>              
+              <tr class="table-primary">
+                <th class="text-center">Autoridad</th>
+                <th class="text-center">Funciones</th>
+                <th class="text-center">Responsabilidades</th>
+              </tr>
+            </thead>
+            <tbody style="font-size: 1.1em">
+              <tr>
+                <td class="text-center align-middle">Media-Alta</td>
+                <td class="text-center">Revisar y opinar sobre el SA a
+implementar, Informar y compartir puntos
+de vista sobre el desempeño del SA,
+colaborar activamente para el éxito de la
+implementación del SA, proponer
+opciones para el seguimiento al
+cumplimiento al SA, Coordina las acciones
+necesarias para el cumplimiento de
+hallazgos </td>
+                <td class="text-center align-middle">Organizar y
+                Informar al RT
+cualquier situación
+referente al SA</td>
+              </tr>              
+            </tbody>
+          </table>
+
+  
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-lg" id="ModalJefePiso" data-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content" style="border-radius: 0px;border: 0px;">
+        <div class="modal-header">
+          <h4 class="modal-title">Jefe de Piso</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+
+          <table class="table table-bordered table-striped table-sm">
+            <thead style="font-size: 1.2em">
+              <tr>
+                <th colspan="3" class="text-center table-warning" >Funciones y responsabilidades del personal</th>
+              </tr>              
+              <tr class="table-primary">
+                <th class="text-center">Autoridad</th>
+                <th class="text-center">Funciones</th>
+                <th class="text-center">Responsabilidades</th>
+              </tr>
+            </thead>
+            <tbody style="font-size: 1.1em">
+              <tr>
+                <td class="text-center align-middle">Media</td>
+                <td class="text-center">Revisar el SA, integrarse activamente a la
+implementación del SA, transmitir
+información a área de despacho</td>
+                <td class="text-center align-middle">Informar al gerente
+cualquier situación
+referente al SA</td>
+              </tr>              
+            </tbody>
+          </table>
+
+  
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-lg" id="ModalFacturista" data-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content" style="border-radius: 0px;border: 0px;">
+        <div class="modal-header">
+          <h4 class="modal-title">Facturista</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+
+          <table class="table table-bordered table-striped table-sm">
+            <thead style="font-size: 1.2em">
+              <tr>
+                <th colspan="3" class="text-center table-warning" >Funciones y responsabilidades del personal</th>
+              </tr>              
+              <tr class="table-primary">
+                <th class="text-center">Autoridad</th>
+                <th class="text-center">Funciones</th>
+                <th class="text-center">Responsabilidades</th>
+              </tr>
+            </thead>
+            <tbody style="font-size: 1.1em">
+              <tr>
+                <td class="text-center align-middle">Media</td>
+                <td class="text-center">Revisar el SA, integrarse activamente a la
+implementación del SA, transmitir
+información a área de despacho</td>
+                <td class="text-center align-middle">Informar al gerente
+cualquier situación
+referente al SA</td>
+              </tr>              
+            </tbody>
+          </table>
+
+  
+        </div>
+      </div>
+    </div>
+    </div>
+
+     <div class="modal fade bd-example-modal-lg" id="ModalDespachador" data-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content" style="border-radius: 0px;border: 0px;">
+        <div class="modal-header">
+          <h4 class="modal-title">Despachador</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+
+          <table class="table table-bordered table-striped table-sm">
+            <thead style="font-size: 1.2em">
+              <tr>
+                <th colspan="3" class="text-center table-warning" >Funciones y responsabilidades del personal</th>
+              </tr>              
+              <tr class="table-primary">
+                <th class="text-center">Autoridad</th>
+                <th class="text-center">Funciones</th>
+                <th class="text-center">Responsabilidades</th>
+              </tr>
+            </thead>
+            <tbody style="font-size: 1.1em">
+              <tr>
+                <td class="text-center align-middle">Baja</td>
+                <td class="text-center">Estar informado sobre el SA, participar
+activamente el capacitaciones
+</td>
+                <td class="text-center align-middle">Informar al gerente
+cualquier situación
+referente al SA</td>
+              </tr>              
+            </tbody>
+          </table>
+
+  
+        </div>
+      </div>
+    </div>
+    </div>
+
+     <div class="modal fade bd-example-modal-lg" id="ModalAuxiliar" data-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content" style="border-radius: 0px;border: 0px;">
+        <div class="modal-header">
+          <h4 class="modal-title">Auxiliar administrativo</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+
+          <table class="table table-bordered table-striped table-sm">
+            <thead style="font-size: 1.2em">
+              <tr>
+                <th colspan="3" class="text-center table-warning" >Funciones y responsabilidades del personal</th>
+              </tr>              
+              <tr class="table-primary">
+                <th class="text-center">Autoridad</th>
+                <th class="text-center">Funciones</th>
+                <th class="text-center">Responsabilidades</th>
+              </tr>
+            </thead>
+            <tbody style="font-size: 1.1em">
+              <tr>
+                <td class="text-center align-middle">Baja</td>
+                <td class="text-center">Estar informado sobre el SA, participar
+activamente las capacitaciones
+</td>
+                <td class="text-center align-middle">Informar al gerente
+cualquier situación
+referente al SA</td>
+              </tr>              
+            </tbody>
+          </table>
+
+  
+        </div>
+      </div>
+    </div>
+    </div>
+
+      <div class="modal fade bd-example-modal-lg" id="ModalMantenimiento" data-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content" style="border-radius: 0px;border: 0px;">
+        <div class="modal-header">
+          <h4 class="modal-title">Mantenimiento</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+
+          <table class="table table-bordered table-striped table-sm">
+            <thead style="font-size: 1.2em">
+              <tr>
+                <th colspan="3" class="text-center table-warning" >Funciones y responsabilidades del personal</th>
+              </tr>              
+              <tr class="table-primary">
+                <th class="text-center">Autoridad</th>
+                <th class="text-center">Funciones</th>
+                <th class="text-center">Responsabilidades</th>
+              </tr>
+            </thead>
+            <tbody style="font-size: 1.1em">
+              <tr>
+                <td class="text-center align-middle">Media</td>
+                <td class="text-center">Participar de manera activa en la
+implementación del SA, opinar y compartir
+puntos de vista, proponer opciones de
+cumplimiento de hallazgos
+</td>
+                <td class="text-center align-middle">Informar al gerente
+y al RT cualquier
+situación referente
+al SA</td>
+              </tr>              
+            </tbody>
+          </table>
+
+  
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-lg" id="ModalFunciones" data-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content" style="border-radius: 0px;border: 0px;">
+        <div class="modal-header">
+          <h4 class="modal-title">Bienvenido al elemento 5 FUNCIONES, RESPONSABILIDADES Y AUTORIDAD, del Sistema de Administración</h4>
+        </div>
+        <div class="modal-body">
+
+          <p class="text-justify" style="font-size: 1.1em">
+            Aquí vas a poder consultar la estructura orgánica de la empresa, así como las funciones, responsabilidades y autoridad de cada puesto sobre el sistema de Administración.
+          </p>
+          
+          <hr>
+
+          <label class="font-weight-bold" style="font-size: 1.1em">Como hacerlo:</label>
+          <ul style="font-size: 1.1em">
+            <li>Dar clic sobre el puesto para conocer las funciones, responsabilidades y autoridad</li>
+          </ul>
+
+          <hr>
+
+          <label class="font-weight-bold" style="font-size: 1.1em">Responsables:</label>
+          <p class="text-justify" style="font-size: 1.1em">Recuerda que es responsabilidad del <span class="text-danger font-weight-bold">Representante Técnico (RT)</span>, <span class="text-danger font-weight-bold">Gerente de la Estación</span>, el dar a conocer a cada uno de los puestos sus funciones, responsabilidades dentro del Sistema de Administración. </p>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda()">Aceptar</button>
+        </div>
+      </div>
+    </div>
+    </div>
+
+      <div class="modal fade bd-example-modal-lg" id="ModalRT" data-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content" style="border-radius: 0px;border: 0px;">
+        <div class="modal-header">
+          <h4 class="modal-title">Agregar formato de asignación de representante técnico</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+
+         <div class="row">
+          <div class="col-12 col-md-6">
+          <div class="mb-2"><small class="text-secondary">* Nombre del representante técnico:</small></div>
+          <input class="form-control input-style rounded-0" type="text" id="NombreRT">        
+          </div>
+          <div class="col-12 col-md-6">
+          <div class="mb-2"><small class="text-secondary">* Fecha de asignación:</small></div>
+          <input class="form-control input-style rounded-0" type="date" id="FechaAsignacion">        
+          </div>
+         </div>
+
+
+         <div class="mb-2 mt-2"><small class="text-secondary">* PDF:</small></div>
+         <input type="file" id="PDF">
+         <div id="Resultado"></div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnGuardar()">Aceptar</button>
+        </div>
+      </div>
+    </div>
+    </div>
+
+   <script src="<?php echo RUTA_JS ?>bootstrap.min.js"></script>
+  </body>
+  </html>

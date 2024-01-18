@@ -1,0 +1,10 @@
+<?php
+require('../../../../app/help.php');
+
+$sql = "UPDATE tb_usuarios SET
+nombre = '".$_POST['Nombres']."'
+WHERE id= '".$_POST['idUsuario']."' ";
+mysqli_query($con, $sql);
+mysqli_close($con);
+?>
+  

@@ -1,0 +1,24 @@
+body{
+	background: white;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1em;
+}
+.magir-top-principal{margin-top: 60px;}
+.adm-card{
+  border: 0px;
+  box-shadow: 1px 1px 5px #EDEDED;
+  margin: 20px;
+}
+.adm-car-title{
+  width: 100%;
+  border-bottom: 2px solid #3399cc;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.c-pointer {
+ cursor: pointer;
+}
+
