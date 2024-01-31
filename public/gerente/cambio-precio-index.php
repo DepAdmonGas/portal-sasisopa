@@ -97,6 +97,7 @@ require('app/help.php');
    success:  function (response) {
 
     if (response > 0) {
+    CambioPrecio();
     PaginaWeb(IDEstacion,response);
     }else{
     alertify.error('No se actualizo la información');  

@@ -1,6 +1,6 @@
 <?php
-set_time_limit(8000);
-ini_set('max_execution_time', 8000);
+set_time_limit(12000);
+ini_set('max_execution_time', 12000);
 
 require_once '../../../dompdf/autoload.inc.php';
 include_once "../../../app/help.php";
@@ -230,15 +230,44 @@ h6, .h6 {
 $contenid0 .= '</head>';
 $contenid0 .= '<body';
 
+$contenid0 .= '<div>';
 $RutaLogo = SERVIDOR."imgs/logo/Logo.png";
 $DataLogo = file_get_contents($RutaLogo);
 $baseLogo = 'data:image/;base64,' . base64_encode($DataLogo);
 
 
-$contenid0 .= '<div class="text-center"><img src="'.$baseLogo.'" style="width: 150px"></div>';
-$contenid0 .= '<div class="text-center mt-2"><b>Capacitación interna '.$Year.'</b></div>';
-$contenid0 .= '<div class="text-center">'.$Session_Permisocre.'</div>';
-$contenid0 .= '<div class="text-center">'.$Session_Razonsocial.'</div>';
+$contenid0 .= '<table class="table table-bordered">';
+$contenid0 .= '<tbody>';
+$contenid0 .= '<tr>';
+
+$contenid0 .= '<td class="align-middle text-center">';
+$contenid0 .= '<img src="'.$baseLogo.'" style="width: 150px;">';
+$contenid0 .= '</td>';
+$contenid0 .= '<td colspan="2" class="align-middle text-center">';
+$contenid0 .= '<b>Programa de Capacitacion y adiestramiento</b>';
+$contenid0 .= '</td>';
+$contenid0 .= '<td class="align-middle text-center">';
+$contenid0 .= '<b>Fo.ADMONGAS.009</b>';
+$contenid0 .= '</td>';
+
+$contenid0 .= '</tr>';
+//------------------------------------------------------------------
+$contenid0 .= '<tr>';
+$contenid0 .= '<td class="align-middle text-center">';
+$contenid0 .= 'Realizado por:<br> Nelly Estrada Garcia';
+$contenid0 .= '</td>';
+$contenid0 .= '<td class="align-middle text-center">';
+$contenid0 .= 'Revisado por:<br> Eduardo Galicia Flores';
+$contenid0 .= '</td>';
+$contenid0 .= '<td class="align-middle text-center">';
+$contenid0 .= 'Autorizado por:<br> '.$Session_ApoderadoLegal.'';
+$contenid0 .= '</td>';
+$contenid0 .= '<td class="align-middle text-center">';
+$contenid0 .= 'Fecha de autorizacion 01/10/2018';
+$contenid0 .= '</td>';
+$contenid0 .= '</tr>';            
+$contenid0 .= '</tbody>';
+$contenid0 .= '</table>';
 
 $sql_modulos_cursos = "SELECT num_modulo, titulo, id FROM tb_cursos_modulos WHERE id = '".$idModulo."' ORDER BY num_modulo ASC"; 
 $result_modulos_cursos = mysqli_query($con, $sql_modulos_cursos);
@@ -257,6 +286,7 @@ $contenid0 .= '<div class="bg-light" style="padding: 5px;margin-top: 7px;margin-
 $contenid0 .= '<table class="table table-bordered table-striped table-hover table-sm" style="font-size: .70em;">
 <thead>
 <tr>
+  <th class="text-center">No</th>
   <th class="text-center">Nombre Usuario</th>
   <th class="text-center">Puesto</th>
   <th class="text-center">Fecha Programada</th>
@@ -268,7 +298,7 @@ $contenid0 .= '<table class="table table-bordered table-striped table-hover tabl
 $sql_usuarios = "SELECT id, nombre, usuario, id_puesto FROM tb_usuarios WHERE id_gas = '".$Session_IDEstacion."' and id_puesto <> 1 and estatus = 0 ";
 $result_usuarios = mysqli_query($con, $sql_usuarios);
 $numero_usuarios = mysqli_num_rows($result_usuarios);
-
+$num = 1;
 while($row_usuarios = mysqli_fetch_array($result_usuarios, MYSQLI_ASSOC)){
 $idusuario = $row_usuarios['id'];
 $nombreusuario = $row_usuarios['nombre'];
@@ -308,11 +338,14 @@ $puesto = $row_puesto['tipo_puesto'];
 }
 
 $contenid0 .= "<tr>";
+$contenid0 .= "<td class='text-center'>".$num."</td>";
 $contenid0 .= "<td>".$nombreusuario."</td>";
 $contenid0 .= "<td class='text-center'>".$puesto."</td>";
 $contenid0 .= "<td class='text-center'>".$FechaProgramada['fechaprogramada']."</td>";
 $contenid0 .= "<td class='text-center'>".$title."</td>";
 $contenid0 .= "</tr>";
+
+$num++;
 }
 
 $contenid0 .= '</tbody>
@@ -321,6 +354,7 @@ $contenid0 .= '</tbody>
 }
 
 }
+$contenid0 .= '</div>';
 
 $contenid0 .= '</body>';
 $contenid0 .= '</html>';

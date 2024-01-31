@@ -3,7 +3,7 @@ require('../../../app/help.php');
 
 if($_POST['categoria'] == 2){
 
-$Result = CambioPrecio($Session_IDEstacion,$_POST['Fecha'],$_POST['HoraInicio'],$_POST['HoraTermino'],$_POST['Producto'],$Session_IDUsuarioBD,$_POST['Detalle'],$con);
+CambioPrecio($Session_IDEstacion,$_POST['Fecha'],$_POST['HoraInicio'],$_POST['HoraTermino'],$_POST['Producto'],$Session_IDUsuarioBD,$_POST['Detalle'],$con);
 
 echo 1;
 
@@ -72,11 +72,11 @@ while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 
 $idDispensario = $row['id'];
 
-if($Producto == 'G SUPER'){
+if($Producto == 'G SUPER' || $Producto == 'MAGNA'){
 GuardaRegistro($idDispensario,$Fecha,$HoraInicio,$HoraTermino,$Producto,$idUsuario,$Detalle,$row['producto1'],$con);
-}else if($Producto == 'G PREMIUM'){
+}else if($Producto == 'G PREMIUM' || $Producto == 'PREMIUM'){
 GuardaRegistro($idDispensario,$Fecha,$HoraInicio,$HoraTermino,$Producto,$idUsuario,$Detalle,$row['producto2'],$con);
-}else if($Producto == 'G DIESEL'){
+}else if($Producto == 'G DIESEL' || $Producto == 'DIESEL'){
 GuardaRegistro($idDispensario,$Fecha,$HoraInicio,$HoraTermino,$Producto,$idUsuario,$Detalle,$row['producto3'],$con);
 }
 

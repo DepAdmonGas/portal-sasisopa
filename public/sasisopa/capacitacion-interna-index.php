@@ -83,25 +83,29 @@ background: rgba(204, 204, 204, 0.35);
   window.location.href = "capacitacion-interna-modulos/" + idModulo;
   }
 
-    function ModalBuscar(){
+  function ModalBuscar(){
   $('#ModalBuscar').modal('show');
   }
 
-    function btnBuscar(){
+  function btnBuscar(){
 
-let BuscarYear = $('#BuscarYear').val();
+  let BuscarYear = $('#BuscarYear').val();
 
-if (BuscarYear != "") {
-$('#BuscarYear').css('border','');
+  if (BuscarYear != "") {
+  $('#BuscarYear').css('border','');
 
-$('#DivContenido').load('public/sasisopa/vistas/lista-capacitacion-interna-reporte.php?Year=' + BuscarYear);  
-$('#ModalBuscar').modal('hide');
+  $('#DivContenido').load('public/sasisopa/vistas/lista-capacitacion-interna-reporte.php?Year=' + BuscarYear);  
+  $('#ModalBuscar').modal('hide');
 
-}else{
-$('#BuscarYear').css('border','2px solid #A52525');
-}
+  }else{
+  $('#BuscarYear').css('border','2px solid #A52525');
+  }
 
-}
+  }
+
+  function Reconocimiento(id){
+  window.open('descargar-reconocimiento/' + id, '_blank');
+  }
   </script>
   </head> 
   <body>

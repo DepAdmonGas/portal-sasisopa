@@ -433,7 +433,7 @@ function(){
 
 $.ajax({
  data:  parametros,
- url:   'public/sasisopa/agregar/editar-lista-comprobacion.php',
+ url:   'public/sasisopa/actualizar/editar-lista-comprobacion.php',
  type:  'post',
  beforeSend: function() {
  },

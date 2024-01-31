@@ -9,7 +9,8 @@ $sql_modulo = "SELECT * FROM tb_cursos_calendario WHERE id_personal = '".$idusua
 $query_modulo = mysqli_query($con, $sql_modulo);
 $numero_modulos = mysqli_num_rows($query_modulo);
 while($row_modulo = mysqli_fetch_array($query_modulo, MYSQLI_ASSOC)){
-$fechaprogramada = $row_modulo['fecha_programada'];
+  $id = $row_modulo['id'];
+  $fechaprogramada = $row_modulo['fecha_programada'];
 $fechareal = $row_modulo['fecha_real'];
 $resultado = $row_modulo['resultado'];
 $estado = $row_modulo['estado'];
@@ -27,6 +28,7 @@ $fechap = "S/I";
 
 
   $array = array(
+    "idCalendario" => $id, 
     "fechaprogramada" => $fechap,   
     "resultado" => $resultado,
     "estado" => $estado
@@ -63,6 +65,7 @@ echo '<table class="table table-bordered table-striped table-hover table-sm" sty
   <th class="text-center">Email</th>
   <th class="text-center">Fecha Programada</th>
   <th class="text-center">Resultado</th>
+  <th class="text-center"></th>
 </tr>
 </thead>
 <tbody>';
@@ -82,6 +85,7 @@ $idpuesto = $row_usuarios['id_puesto'];
 
 $FechaProgramada = FechaProgramada($idusuario,$row['id'],$Year,$con);
 
+$idCalendario = $FechaProgramada['idCalendario'];
 $estadoModulo = $FechaProgramada['estado'];
 $puntos      =  $FechaProgramada['resultado'];
 
@@ -90,16 +94,21 @@ $calificacion = $puntos;
 
 if($calificacion >= 90 && $calificacion <= 100){
 $title = "<b class='text-success'>".$calificacion."% Excelente</b>";
+$Reconocimiento = '<a style="cursor: pointer;" onclick="Reconocimiento('.$idCalendario.')"><img src="'.RUTA_IMG_ICONOS.'pdf.png"></a>';
 }else if($calificacion >= 80 && $calificacion <= 89){
 $title = "<b class='text-primary'>".$calificacion."% Bueno</b>";
+$Reconocimiento = '<a style="cursor: pointer;" onclick="Reconocimiento('.$idCalendario.')"><img src="'.RUTA_IMG_ICONOS.'pdf.png"></a>';
 }else if($calificacion >= 60 && $calificacion <= 79){
 $title = "<b class='text-warning'>".$calificacion."% Regular</b>";
+$Reconocimiento = '<a style="cursor: pointer;" onclick="Reconocimiento('.$idCalendario.')"><img src="'.RUTA_IMG_ICONOS.'pdf.png"></a>';
 }else{
 $title = "<b class='text-danger'>".$calificacion."% Malo</b>";
+$Reconocimiento = '';
 }
 
 }else{
 $title = "<b>S/I</b>";
+$Reconocimiento = '';
 }
 
 
@@ -118,6 +127,7 @@ echo "<td class='text-center'>".$telefono."</td>";
 echo "<td class='text-center'>".$email."</td>";
 echo "<td class='text-center'><b>".$FechaProgramada['fechaprogramada']."</b></td>";
 echo "<td class='text-center'>".$title."</td>";
+echo '<td class="text-center">'.$Reconocimiento.'</td>';
 echo "</tr>";
 }
 

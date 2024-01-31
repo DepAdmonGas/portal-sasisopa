@@ -18,6 +18,7 @@ $numero_resultado = mysqli_num_rows($result_resultado);
 			<th class="align-middle text-center">Nombre completo</th>
 			<th class="align-middle text-center" width="20px"></th>
 			<th class="align-middle text-center" width="20px"></th>
+			<th class="align-middle text-center" width="20px"></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -35,20 +36,26 @@ while($row_usuario = mysqli_fetch_array($result_usuario, MYSQLI_ASSOC)){
 $nomencargado = $row_usuario['nombre'];
 }
 
-$imgPDF = "<a target='_blank' href='".$row_resultado['archivo']."' ><img src='".RUTA_IMG_ICONOS."pdf-16.png'></a>";
+if($row_resultado['archivo'] != ""){
+	$imgPDF = "<a target='_blank' href='".$row_resultado['archivo']."' ><img src='".RUTA_IMG_ICONOS."pdf-16.png'></a>";
+}else{
+	$imgPDF = "<img src='".RUTA_IMG_ICONOS."eliminar-red-16.png'>";
+}
+
 
 		echo "<tr>";
 		echo "<td class='text-center'><b>".$i."</b></td>";
 		echo "<td class='text-center'><b>".FormatoFecha($explode[0])."</b></td>";
 		echo "<td class='text-center'>".$nomencargado."</td>";
 		echo "<td class='text-center align-middle' width='20px'>".$imgPDF."</td>";
-		echo "<td class='text-center align-middle' width='20px' style='cursor: pointer;'><img src='".RUTA_IMG_ICONOS."eliminar-red-16.png' onclick='Eliminar(".$id.")'></td>";
+		echo "<td class='text-center align-middle' width='20px' style='cursor: pointer;'><img src='".RUTA_IMG_ICONOS."edit-black-16.png' onclick='Editar(".$id.")'></td>";
+				echo "<td class='text-center align-middle' width='20px' style='cursor: pointer;'><img src='".RUTA_IMG_ICONOS."eliminar-red-16.png' onclick='Eliminar(".$id.")'></td>";
 		echo "</tr>";
 		
 		$i++;
 		}
 	}else{
-	echo "<tr><td colspan='5' class='text-center'><small>No se encontró información para mostrar</small></td></tr>";
+	echo "<tr><td colspan='6' class='text-center'><small>No se encontró información para mostrar</small></td></tr>";
 	}
 	?>
 	</tbody>

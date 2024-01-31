@@ -268,6 +268,58 @@ $('#DetalleImplementacion').load('public/sasisopa/vistas/detalle-implementacion-
 
   }
 
+  function Editar(id){
+    $('#ModalDetalle').modal('show');
+  $('#DetalleImplementacion').load('public/sasisopa/vistas/editar-informe-evaluacion-desempeno.php?id=' + id); 
+  }
+
+  function BtnEditar(id){
+
+    let EditFecha = $('#EditFecha').val();
+
+var data = new FormData();
+var url = "public/sasisopa/actualizar/editar-informe-evaluacion-desempeno.php";
+
+  var ArchivoPDF = document.getElementById("EditArchivoPDF");
+  var file = ArchivoPDF.files[0];
+  var filePath = ArchivoPDF.value;
+  var valpdf = filePath.split('.').pop();
+
+if (EditFecha != "") {
+$('#EditFecha').css('border','');
+
+  alertify.confirm('',
+    function(){
+
+  data.append('id', id);
+  data.append('EditFecha', EditFecha);
+  data.append('file', file);
+
+    $.ajax({
+  url: url,
+  type: 'POST',
+  contentType: false,
+  data: data,
+  processData: false,
+  cache: false
+  }).done(function(data){
+
+    alertify.message('Se edito correctamente la evaluación de desempeño');
+    InformeEvaluacion();
+    $('#ModalDetalle').modal('hide');
+
+  });
+
+    },
+    function(){
+    }).setHeader('Mensaje').set({transition:'zoom',message: 'Desea editar la revisión de resultados seleccionado',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+
+}else{
+$('#EditFecha').css('border','2px solid #A52525');  
+}
+
+  }
+
   </script>
   </head>
   <body>

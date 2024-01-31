@@ -12,7 +12,71 @@ $ocultarP = "d-none";
 }else{
 $ocultarP =  ""; 
 }
- 
+
+function Actividades($idEstacion,$CalenDate,$con){
+
+  $Pendientes = 0;
+  $Finalizadas = 0;
+
+$sql = "SELECT * FROM tb_calendario_actividades WHERE id_estacion = '".$idEstacion."' AND fecha_inicio < '".$CalenDate."' ";
+$result = mysqli_query($con, $sql);
+$numero = mysqli_num_rows($result);
+while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+
+if($row['estado']  == 0){
+$Pendientes = $Pendientes + 1;
+}else if($row['estado']  == 1){
+$Finalizadas = $Finalizadas + 1;   
+}
+
+}
+$array = array('Total' => $numero, 
+              'Pendientes' => $Pendientes, 
+              'Finalizadas' => $Finalizadas);
+
+return $array; 
+}
+
+function Cursos($idEstacion,$CalenDate,$con){
+  $Pendientes = 0;
+  $Finalizadas = 0;
+
+$sql = "SELECT * FROM tb_cursos_calendario WHERE id_estacion = '".$idEstacion."' AND fecha_programada < '".$CalenDate."' ";
+$result = mysqli_query($con, $sql);
+$numero = mysqli_num_rows($result);
+while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+
+if($row['estado']  == 0){
+$Pendientes = $Pendientes + 1;
+}else if($row['estado']  == 1){
+$Finalizadas = $Finalizadas + 1;   
+}
+
+if($row['resultado'] <= 59){
+$Resultado = $Resultado + 1;   
+}
+
+}
+
+$array = array('Total' => $numero, 
+              'Pendientes' => $Pendientes, 
+              'Finalizadas' => $Finalizadas,
+              'Resultado' => $Resultado);
+
+return $array;   
+}
+
+$Actividades = Actividades($Session_IDEstacion,$fecha_del_dia,$con);
+$Cursos = Cursos($Session_IDEstacion,$fecha_del_dia,$con);
+
+$TotalPendientes = $Actividades['Pendientes'] + $Cursos['Pendientes'];
+
+if($TotalPendientes > 0){
+  $TotalCalendario = '<div class="float-end"><span class="badge bg-danger text-white"><small>'.$TotalPendientes.'</small></span></div>';
+}else{
+ $TotalCalendario = ''; 
+}
+
 ?>
 <html lang="es">
   <head>
@@ -192,6 +256,31 @@ function Programar(idTema,idUsuario){
   }
 }
 
+//--------------------------------------------------------
+
+function DetalleActividad(id){
+
+  var parametros = {
+    "idCalendario" : id
+    };
+
+  $.ajax({
+   data:  parametros,
+   url:   'public/home/agregar/crear-actividad-sasisopa.php',
+   type:  'post',
+   beforeSend: function() {
+   },
+   complete: function(){
+   },
+   success:  function (response) {
+
+    window.location.href = response;
+
+   }
+   });
+
+}
+
 </script>
 </head>
   
@@ -217,6 +306,7 @@ function Programar(idTema,idUsuario){
     <li>
     <a class="pointer" onclick="HomeCalendario(<?=$Diastrto;?>,<?=$fecha_mes;?>,<?=$fecha_year;?>)">
     <i class="fa-solid fa-calendar" aria-hidden="true" style="padding-right: 10px;"></i>Calendario
+    <?=$TotalCalendario;?>
     </a>
     </li>
 

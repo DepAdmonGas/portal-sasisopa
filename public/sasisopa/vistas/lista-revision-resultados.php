@@ -33,7 +33,12 @@ while($row_usuario = mysqli_fetch_array($result_usuario, MYSQLI_ASSOC)){
 $nomencargado = $row_usuario['nombre'];
 }
 
-$imgPDF = "<a target='_blank' href='".$row_resultado['archivo']."' ><img src='".RUTA_IMG_ICONOS."pdf-16.png'></a>";
+if($row_resultado['archivo'] != ""){
+	$imgPDF = "<a target='_blank' href='".$row_resultado['archivo']."' ><img src='".RUTA_IMG_ICONOS."pdf-16.png'></a>";
+}else{
+	$imgPDF = "<img src='".RUTA_IMG_ICONOS."eliminar-red-16.png'>";
+}
+
 
 		echo "<tr>";
 		echo "<td class='text-center'>".$row_resultado['id']."</td>";

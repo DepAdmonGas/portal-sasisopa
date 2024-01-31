@@ -29,7 +29,7 @@ require('../../../app/help.php');
       $numero = mysqli_num_rows($result);
       while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 
-      echo '<tr onclick="ModalDSOM('.$id.')">
+      echo '<tr>
           <td class="text-center align-middle" >'.FormatoFecha($row['fecha']).'</td>
           <td class="text-center align-middle" >'.$row['objetivo_meta'].'</td>
           <td class="text-center align-middle" >'.$row['nivel_cumplimiento'].'</td>
@@ -46,6 +46,7 @@ require('../../../app/help.php');
       </table>
 
       <div class="text-right">
+      <button type="button" class="btn btn-warning" onclick="EditarDSOM(<?=$_GET['idSeguimiento'];?>)">Editar</button>
         <button type="button" class="btn btn-danger" onclick="EliminarObjetivo(1,<?=$_GET['idSeguimiento'];?>)">Eliminar</button>
       </div>
 

@@ -21,7 +21,12 @@ $numero_protocolo = mysqli_num_rows($result_protocolo);
 if ($numero_protocolo > 0) {
 while($row_protocolo = mysqli_fetch_array($result_protocolo, MYSQLI_ASSOC)){
 $id = $row_protocolo['id'];
-$imgPDF = "<a target='_blank' href='".$row_protocolo['archivo']."' ><img src='".RUTA_IMG_ICONOS."pdf-16.png'></a>";
+
+if($row_protocolo['archivo'] != ""){
+    $imgPDF = "<a target='_blank' href='".$row_protocolo['archivo']."' ><img src='".RUTA_IMG_ICONOS."pdf-16.png'></a>";	
+    }else{
+    $imgPDF = "<img src='".RUTA_IMG_ICONOS."eliminar-red-16.png'>";
+    }
 
 echo "<tr>";
 echo "<td class='text-center align-middle'>".FormatoFecha($row_protocolo['fechacreacion'])."</td>";

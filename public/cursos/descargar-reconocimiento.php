@@ -36,26 +36,25 @@ while($rowPersonal = mysqli_fetch_array($resultPersonal, MYSQLI_ASSOC)){
 $NomUsuario = $rowPersonal['nombre'];
 }
 
-
 $pdf = new FPDF('L','mm','A4');
 $pdf->AddPage();
 $pdf->title = utf8_decode($titulo);
 
-$pdf->Image('public/cursos/fondo.jpg','0','0','300','210','JPG');
+$pdf->Image('public/cursos/fondo-2024.jpg','0','0','300','210','JPG');
 
-$pdf->SetFont('Arial','',20);
-$pdf->SetY(94);
+$pdf->SetFont('Arial','',30);
+$pdf->SetY(100);
 $pdf->CELL(0,10,utf8_decode($NomUsuario),0,0,'C');
-$pdf->Ln(26);
+$pdf->Ln(33);
 
-$pdf->SetFont('Arial','',15);
+$pdf->SetFont('Arial','',17);
 $pdf->SetX(70);
-$pdf->SetMargins(60, 0);
+$pdf->SetMargins(68, 0);
 $pdf->MULTICELL(0,6,utf8_decode($titulo),0,'C');
-$pdf->Ln(45);
+$pdf->Ln(20);
 
 $pdf->SetFont('Arial','',12);
-$pdf->SetX(15);
+$pdf->SetX(77);
 $pdf->CELL(0,10,FormatoFecha($fecha),0,0);
 
 $pdf->Output();

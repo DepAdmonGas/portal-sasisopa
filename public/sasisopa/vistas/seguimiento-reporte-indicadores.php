@@ -12,6 +12,8 @@ $numero_capacitacion = mysqli_num_rows($result_capacitacion);
 <th class="text-center align-middle">#</th>
 <th class="text-center align-middle">Fecha</th>
 <th class="text-center align-middle"></th>
+<th class="text-center align-middle"></th>
+<th class="text-center align-middle"></th>
 </tr>
 </thead>
 <tbody>
@@ -26,6 +28,7 @@ echo "<td class='text-center'>".$num."</td>";
 echo "<td class='text-center'>".FormatoFecha($row_capacitacion['fecha'])."</td>";
 
 echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."ojo.png' style='cursor: pointer;' onclick='ModalDSRI(".$id.")'></td>";
+echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."editar.png' style='cursor: pointer;' onclick='ModalEditSRI(".$id.")'></td>";
 echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."eliminar.png' style='cursor: pointer;' onclick='EliminarObjetivo(2,".$id.")'></td>";
 
 echo "</tr>";

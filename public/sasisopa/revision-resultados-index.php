@@ -462,36 +462,38 @@ $('#DivDetalle').load('public/sasisopa/vistas/modal-editar-informe-revision-resu
 function BtnEditar(id){
 let EditFecha = $('#EditFecha').val();
 
+var data = new FormData();
+var url = "public/sasisopa/actualizar/editar-revision-resultados.php";
+
+  var ArchivoPDF = document.getElementById("EditArchivoPDF");
+  var file = ArchivoPDF.files[0];
+  var filePath = ArchivoPDF.value;
+  var valpdf = filePath.split('.').pop();
+
 if (EditFecha != "") {
 $('#EditFecha').css('border','');
-
-    var parametros = {
-      "id" : id,
-      "EditFecha" : EditFecha
-    };
 
   alertify.confirm('',
     function(){
 
+  data.append('id', id);
+  data.append('EditFecha', EditFecha);
+  data.append('file', file);
+
     $.ajax({
-     data:  parametros,
-     url:   'public/sasisopa/actualizar/editar-revision-resultados.php',
-     type:  'post',
-     beforeSend: function() {
+  url: url,
+  type: 'POST',
+  contentType: false,
+  data: data,
+  processData: false,
+  cache: false
+  }).done(function(data){
 
-     },
-     complete: function(){
-
-
-     },
-     success:  function (response) {
-
-      alertify.message('Se edito correctamente la revisión de resultados');
+    alertify.message('Se edito correctamente la revisión de resultados');
       ListaResultados();
       $('#ModalEditar').modal('hide');
 
-     }
-     });
+  });
 
     },
     function(){

@@ -57,8 +57,8 @@ $idAyuda = 0;
   $(".LoaderPage").fadeOut("slow");
   <?php if ($numero_sasisopa_ayuda == 1) {echo "btnAyuda();";} ?>
 
-  SeguimientoReporteIndicador();
   SeguimientoObjetivosMetas();
+  SeguimientoReporteIndicador();
 
   });
   function regresarP(){
@@ -356,6 +356,139 @@ function(){
 function ModalDSRI(id){
 $('#ModalDetalle').modal('show'); 
 $('#DivDetalle').load('public/sasisopa/vistas/detalle-seguimiento-reporte-indicadores.php?idSeguimiento=' + id);  
+}
+//------------------------------------------------------------
+
+function ModalEditSRI(id){
+  $('#ModalDetalle').modal('show'); 
+  $('#DivDetalle').load('public/sasisopa/vistas/modal-seguimiento-reporte-indicadores.php?idSeguimiento=' + id);  
+}
+
+function btnEditSRI(idSeguimiento){
+  var EditFecha = $('#EditFecha').val();
+  var EditCapacitacion = $('#EditCapacitacion').val();
+  var EditExperienciaC = $('#EditExperienciaC').val();
+  var EditVentas = $('#EditVentas').val();
+  var EditMedidasC = $('#EditMedidasC').val();
+  var EditFechaAplicacion = $('#EditFechaAplicacion').val();
+
+  if(EditFecha != ""){
+  $('#EditFecha').css('border','');
+  if(EditCapacitacion != ""){
+  $('#EditCapacitacion').css('border','');
+  if(EditExperienciaC != ""){
+  $('#EditExperienciaC').css('border','');
+  if(EditVentas != ""){
+  $('#EditVentas').css('border','');
+  if(EditMedidasC != ""){
+  $('#EditMedidasC').css('border','');
+  if(EditFechaAplicacion != ""){
+  $('#EditFechaAplicacion').css('border','');
+
+  var parametros = {
+  "idSeguimiento" : idSeguimiento,
+  "EditFecha" : EditFecha,
+  "EditCapacitacion" : EditCapacitacion,
+  "EditExperienciaC" : EditExperienciaC,
+  "EditVentas" : EditVentas,
+  "EditMedidasC" : EditMedidasC,
+  "EditFechaAplicacion" : EditFechaAplicacion
+  };
+
+  alertify.confirm('',
+  function(){
+
+  $.ajax({
+  data:  parametros,
+  url:   'public/sasisopa/actualizar/editar-seguimiento-reporte-indicador.php',
+  type:  'post',
+  beforeSend: function() {
+  },
+  complete: function(){
+  },
+  success:  function (response) {
+
+  if(response == 1){
+
+  SeguimientoReporteIndicador()
+
+  $('#ModalDetalle').modal('hide'); 
+  $('#EditFecha').val("");
+  $('#EditCapacitacion').val("");
+  $('#EditExperienciaC').val("");
+  $('#EditVentas').val("");
+  $('#EditMedidasC').val("");
+  $('#EditFechaAplicacion').val("");
+
+  }else{
+  alertify.error('Error al crear el registro'); 
+  }
+
+  }
+  });
+
+  },
+  function(){
+  }).setHeader('Seguimiento y reporte de indicadores').set({transition:'zoom',message: 'Desea agregar la siguiente información',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+
+
+  }else{
+  $('#EditFechaAplicacion').css('border','2px solid #A52525');
+  }
+  }else{
+  $('#EditMedidasC').css('border','2px solid #A52525');
+  }
+  }else{
+  $('#EditVentas').css('border','2px solid #A52525');
+  }
+  }else{
+  $('#EditExperienciaC').css('border','2px solid #A52525');
+  }
+  }else{
+  $('#EditCapacitacion').css('border','2px solid #A52525');
+  }
+  }else{
+  $('#EditFecha').css('border','2px solid #A52525');
+  }
+
+}
+//-------------------------------------------------
+
+function EditarDSOM(id){
+$('#DivDetalle').load('public/sasisopa/vistas/modal-seguimiento-objetivos-metas.php?idSeguimiento=' + id); 
+}
+
+function BtnEditSOM(val,opcion,id){
+  
+let detalle = val.value;
+
+let parametros = {
+  "idSeguimiento" : id,
+  "opcion" : opcion,
+  "detalle" : detalle
+  };
+
+  $.ajax({
+  data:  parametros,
+  url:   'public/sasisopa/actualizar/editar-seguimiento-objetivo-metas.php',
+  type:  'post',
+  beforeSend: function() {
+  },
+  complete: function(){
+  },
+  success:  function (response) {
+
+
+  }
+  });
+
+}
+
+function btnReturnSOM(id){
+
+SeguimientoObjetivosMetas()
+$('#DivDetalle').load('public/sasisopa/vistas/detalle-seguimiento-objetivos-metas.php?idSeguimiento=' + id); 
+
 }
 
   </script>

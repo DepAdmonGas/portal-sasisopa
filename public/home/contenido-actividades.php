@@ -84,7 +84,7 @@ return $array;
         $Actividad = Actividad($row['id_actividad'],$con);
 		
 		$id = $row['id'];
-		echo ' <li class="list-group-item list-group-item-action fs-6 fw-light '.$color.'" onclick="DetalleActividad('.$id.','.$row['estado'].')">
+		echo ' <li class="list-group-item list-group-item-action fs-6 fw-light '.$color.'" onclick="DetalleActividad('.$id.')">
 		<b>00'.$row['folio'].'</b> '.$Actividad['formato'].' '.$Actividad['actividad'].'</li>';
 		}
 		echo '</ul>';
