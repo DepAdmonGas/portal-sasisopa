@@ -48,6 +48,9 @@ break;
 case 'gestoria-firma-apoderado':
 $ruta_elegida = 'public/administrador/gestoria-firma-apoderado-index.php';
 break;
+case 'gestoria-entregas':
+$ruta_elegida = 'public/administrador/gestoria-entregas-index.php';
+break;
 case 'programa-implementacion':
 $ruta_elegida = 'public/gerente/programa-implementacion-index.php';
 break;
@@ -550,12 +553,17 @@ break;
     $ruta_elegida = 'public/cursos/cursos-temas-evaluacion.php';
     }
 
-    
-
     //----------------------------------
     //----------------------------------
     
-
+    else if ($partes_ruta[1] == 'gestoria-entregas-editar') {
+    $GET_ID = $partes_ruta[2];
+    $ruta_elegida = 'public/administrador/gestoria-entregas-editar.php';
+    }
+    else if ($partes_ruta[1] == 'gestoria-entregas-descargar') {
+    $GET_ID = $partes_ruta[2];
+    $ruta_elegida = 'public/administrador/gestoria-entregas-descargar.php';
+    }
 
 
   }else if(count($partes_ruta) == 4){

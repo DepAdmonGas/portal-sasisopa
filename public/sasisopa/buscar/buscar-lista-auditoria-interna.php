@@ -25,7 +25,9 @@ return $archivo;
 <th class="text-center">Fecha</th>
 <th class="text-center">Auditor</th>
 <th class="text-center" colspan="3">Fo.ADMONGAS.024 <small>(INFORME DE AUDITORÍA)</small></th>
+<th class="text-center" >Anexos</th>
 <th class="text-center" colspan="3">Fo.ADMONGAS.025 <small>(PLAN DE ATENCIÓN DE HALLAZGOS)</small></th>
+<th class="text-center" >Anexos</th>
 </thead>
 <tbody>
 <?php
@@ -53,12 +55,16 @@ echo "<tr>";
 echo "<td class='text-center align-middle' id='td1".$id."'>".$id."</td>";
 echo "<td class='text-center align-middle' id='td2".$id."'>".FormatoFecha($fechahora[0])."</td>";
 echo "<td class='text-center align-middle' id='td3".$id."'>".$row_auditoria['auditor']."</td>";
+
 echo "<td class='text-center align-middle' id='td4".$id."'><a href='".RUTA_ARCHIVOS_ADMONGAS."Fo.ADMONGAS.024.doc' download><img src='".RUTA_IMG_ICONOS."descargar.png'></a></td>";
 echo "<td class='text-center align-middle' id='td5".$id."'><a class='c-pointer' onclick='Modal024(".$id.")'><img src='".RUTA_IMG_ICONOS."subir.png'></a></td>";
 echo "<td class='text-center align-middle' id='td6".$id."'>".$F024."</td>";
+echo "<td class='text-center align-middle' id='td10".$id."'><a class='c-pointer' onclick='ModalAnexo(".$id.",24)'><img src='".RUTA_IMG_ICONOS."documento.png'></a></td>";
+
 echo "<td class='text-center align-middle' id='td7".$id."'><a href='".RUTA_ARCHIVOS_ADMONGAS."Fo.ADMONGAS.025.docx' download><img src='".RUTA_IMG_ICONOS."descargar.png'></a></td>";
 echo "<td class='text-center align-middle' id='td8".$id."'><a class='c-pointer' onclick='Modal025(".$id.")'><img src='".RUTA_IMG_ICONOS."subir.png'></a></td>";
 echo "<td class='text-center align-middle' id='td9".$id."'>".$F025."</td>";
+echo "<td class='text-center align-middle' id='td11".$id."'><a class='c-pointer' onclick='ModalAnexo(".$id.",25)'><img src='".RUTA_IMG_ICONOS."documento.png'></a></td>";
 echo "</tr>";
 
 }

@@ -189,6 +189,10 @@ function BTNCalibracion(id){
 window.location.href = 'gestoria-calibracion-tanques/'+id;
 }
 
+function rootentregas(){
+  window.location.href = 'gestoria-entregas';
+}
+
   </script>
   </head>
   
@@ -240,6 +244,12 @@ window.location.href = 'gestoria-calibracion-tanques/'+id;
   </a>
   </li>
   <?php } ?>  
+
+  <li>
+  <a class="pointer" onclick="rootentregas()">
+  <i class="fa-solid fa-file" aria-hidden="true" style="padding-right: 10px;"></i>Entregas
+  </a>
+  </li>
   </ul>
 
   </nav>
