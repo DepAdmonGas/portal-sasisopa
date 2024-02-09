@@ -21,7 +21,7 @@ INNER JOIN tb_cursos_temas
 ON tb_cursos_calendario.id_tema = tb_cursos_temas.id 
 INNER JOIN tb_cursos_modulos
 ON tb_cursos_temas.id_modulo = tb_cursos_modulos.id
-WHERE YEAR(tb_cursos_calendario.fecha_programada) = '".$GET_idYear."' AND tb_cursos_modulos.num_modulo = '".$GET_idModulo."' ";
+WHERE YEAR(tb_cursos_calendario.fecha_programada) = '".$GET_idYear."' AND tb_cursos_modulos.num_modulo = '".$GET_idModulo."' AND tb_cursos_calendario.id_estacion = '".$Session_IDEstacion."' ";
   $result_temas = mysqli_query($con, $sql_temas);
   $count_temas = mysqli_num_rows($result_temas);
   while($row_temas = mysqli_fetch_array($result_temas, MYSQLI_ASSOC)) {
