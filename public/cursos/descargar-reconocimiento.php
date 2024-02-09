@@ -10,6 +10,7 @@ tb_cursos_calendario.id_estacion,
 tb_cursos_calendario.id_personal, 
 tb_cursos_calendario.id_tema,
 tb_cursos_calendario.resultado, 
+tb_cursos_calendario.observaciones,
 tb_cursos_calendario.estado, 
 tb_cursos_temas.num_tema,
 tb_cursos_temas.titulo,
@@ -27,6 +28,13 @@ WHERE tb_cursos_calendario.id = '".$GET_idCalendario."' ";
   $fecha = $row_temas['fecha_programada'];
   $titulo = $row_temas['titulo'];
   $idpersonal = $row_temas['id_personal'];
+
+  if($row_temas['observaciones'] == ""){
+    $Observacion = '';
+    }else{
+    $Observacion = ' ('.$row_temas['observaciones'].')';
+    }
+
   }
 
 $sqlPersonal = "SELECT nombre FROM tb_usuarios WHERE id = '".$idpersonal."' "; 
@@ -50,7 +58,7 @@ $pdf->Ln(33);
 $pdf->SetFont('Arial','',17);
 $pdf->SetX(70);
 $pdf->SetMargins(68, 0);
-$pdf->MULTICELL(0,6,utf8_decode($titulo),0,'C');
+$pdf->MULTICELL(0,6,utf8_decode($titulo.$Observacion),0,'C');
 $pdf->Ln(20);
 
 $pdf->SetFont('Arial','',12);
