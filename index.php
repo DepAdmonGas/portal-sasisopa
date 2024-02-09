@@ -626,6 +626,12 @@ break;
     $ruta_elegida = 'public/reporte-sasisopa/reporte-sasisopa-elementos.php';
     }
 
+    else if ($partes_ruta[1] == 'descargar-reconocimiento-modulo') {
+      $GET_idYear = $partes_ruta[2];
+      $GET_idModulo = $partes_ruta[3];
+      $ruta_elegida = 'public/cursos/descargar-reconocimiento-modulo.php';
+      }
+
   }else if(count($partes_ruta) == 5){
 
     if ($partes_ruta[1] == 'reconocimiento-pdf') {

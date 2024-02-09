@@ -1,6 +1,6 @@
 <?php
-set_time_limit(12000);
-ini_set('max_execution_time', 12000);
+set_time_limit(32000);
+ini_set('max_execution_time', 32000);
 
 require_once '../../../dompdf/autoload.inc.php';
 include_once "../../../app/help.php";

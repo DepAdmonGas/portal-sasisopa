@@ -47,8 +47,11 @@ $numero_modulos_cursos  = mysqli_num_rows($result_modulos_cursos);
 while($row_modulos_cursos = mysqli_fetch_array($result_modulos_cursos, MYSQLI_ASSOC)){
 
 echo '<div class="bg-info p-2 text-white mt-2"><h6>'.$row_modulos_cursos['num_modulo'].'. '.$row_modulos_cursos['titulo'].'</h6></div>';
-echo '<div class="text-right mt-2">
+echo '<div class="text-right mt-2">Programa de Capacitacion y
+adiestramiento 
 <a style="cursor: pointer;" href="public/sasisopa/vistas/descargar-capacitacion-interna.php?Year='.$Year.'&idModulo='.$row_modulos_cursos['id'].'"><img src="'.RUTA_IMG_ICONOS.'pdf.png"></a></div></div>';
+echo '<div class="text-right mt-2">Reconocimientos personal
+<a style="cursor: pointer;" onclick="ReconocimientosPersonal('.$Year.','.$row_modulos_cursos['id'].')" ><img src="'.RUTA_IMG_ICONOS.'pdf.png"></a></div></div>';
 
 $sql = "SELECT * FROM tb_cursos_temas WHERE id_modulo = '".$row_modulos_cursos['num_modulo']."' ORDER BY num_tema ASC"; 
 $result = mysqli_query($con, $sql);

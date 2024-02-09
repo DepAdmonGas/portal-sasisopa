@@ -106,6 +106,10 @@ background: rgba(204, 204, 204, 0.35);
   function Reconocimiento(id){
   window.open('descargar-reconocimiento/' + id, '_blank');
   }
+
+  function ReconocimientosPersonal(year,modulo){
+  window.open('descargar-reconocimiento-modulo/' + year + '/' + modulo, '_blank');
+  }
   </script>
   </head> 
   <body>

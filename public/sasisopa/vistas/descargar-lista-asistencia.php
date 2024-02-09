@@ -258,6 +258,22 @@ $contenid0 .= '<b>Nombre del encargado de la comunicación:</b> '.$encargado;
 $contenid0 .= '</td>';
 $contenid0 .= '</tr>';
 
+if($numero_comunicado != 0){
+
+$contenid0 .= '<tr>';
+$contenid0 .= '<td class="align-middle" colspan="3">';
+$contenid0 .= '<b>Tipo de comunicación:</b> '.$tipocomunicacion;
+$contenid0 .= '</td>';
+$contenid0 .= '</tr>';
+
+$contenid0 .= '<tr>';
+$contenid0 .= '<td class="align-middle" colspan="3">';
+$contenid0 .= '<b>Material utilizado para la comunicación:</b> '.$material;
+$contenid0 .= '</td>';
+$contenid0 .= '</tr>';
+
+}
+
 $contenid0 .= '</tbody>';
 $contenid0 .= '</table>';
 
