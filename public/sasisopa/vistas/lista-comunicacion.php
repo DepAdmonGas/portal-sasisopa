@@ -81,6 +81,12 @@ while($row_usuario = mysqli_fetch_array($result_usuario, MYSQLI_ASSOC)){
 $nomencargado = $row_usuario['nombre'];
 }
 
+if($row_comunicado['asistencia'] == 0){
+$Descargar = "<img src='".RUTA_IMG_ICONOS."pdf.png' style='cursor: pointer;' onclick='Descargar(".$_GET['Year'].",0,".$row_comunicado['id'].")'>";
+}else{
+$Descargar = "<img src='".RUTA_IMG_ICONOS."pdf.png' style='cursor: pointer;' onclick='DescargarAsistencia(".$row_comunicado['asistencia'].")'>";  
+}
+
 echo "<tr style='cursor: pointer'>";
 echo "<td class='text-center align-middle' onclick='BtnDetalle(".$row_comunicado['id'].")'>".$row_comunicado['no_comunicacion']."</td>";
 echo "<td class='text-center align-middle' onclick='BtnDetalle(".$row_comunicado['id'].")'>".FormatoFecha($row_comunicado['fecha'])."</td>";
@@ -90,7 +96,7 @@ echo "<td class='text-center align-middle' onclick='BtnDetalle(".$row_comunicado
 echo "<td class='text-center align-middle' onclick='BtnDetalle(".$row_comunicado['id'].")'>".$row_comunicado['material']."</td>";
 echo "<td class='text-center align-middle' onclick='BtnDetalle(".$row_comunicado['id'].")'>".$row_comunicado['seguimiento']."</td>";
 echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."subir.png' style='cursor: pointer;' onclick='ModalEvidencia(".$row_comunicado['id'].")'></td>";
-echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."pdf.png' style='cursor: pointer;' onclick='Descargar(".$_GET['Year'].",0,".$row_comunicado['id'].")'></td>";
+echo "<td class='text-center align-middle' width='30'>".$Descargar."</td>";
 echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."editar.png' style='cursor: pointer;' onclick='Editar(".$row_comunicado['id'].")'></td>";
 echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."eliminar.png' style='cursor: pointer;' onclick='Eliminar(".$row_comunicado['id'].")'></td>";
 echo "</tr>";

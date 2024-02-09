@@ -239,6 +239,63 @@ $('#ArchivoPdf').css('border','2px solid #A52525');
 }
 }
 
+function ModalAnexo(id,formato){
+  $('#ModalDetalle').modal('show');
+  $('#ContenidoDetalle').load('public/sasisopa/vistas/modal-auditoria-interna-anexos.php?id=' + id + '&formato=' + formato);
+}
+
+function BtnGuardar(id,formato){
+
+  let Documento = $('#Documento').val();
+  let ArchivoPdf = document.getElementById("ArchivoPdf");
+  let ArchivoPdf_file = ArchivoPdf.files[0];
+  let ArchivoPdf_filePath = ArchivoPdf.value;
+  let ext = $("#ArchivoPdf").val().split('.').pop();
+
+  let data = new FormData();
+  let url = 'public/sasisopa/agregar/agregar-anexo-auditoria-interna.php';
+
+  if (Documento != "") {
+  $('#Documento').css('border','');
+  if (ArchivoPdf_filePath != "") {
+  $('#ArchivoPdf').css('border','');
+  if (ext == "PDF" || ext == "pdf") {
+  $('#ResultIA').html('');
+  $('#ArchivoPdf').css('border','');
+
+    data.append('id', id);
+    data.append('formato', formato);
+    data.append('Documento', Documento);
+    data.append('ArchivoPdf_file', ArchivoPdf_file);
+
+    $.ajax({
+    url: url,
+    type: 'POST',
+    contentType: false,
+    data: data,
+    processData: false,
+    cache: false
+    }).done(function(data){
+
+      console.log(data)
+      ModalAnexo(id,formato)
+
+    });
+
+  }else{
+  $('#ResultIA').html('<small class="text-danger">Solo se aceptan formato PDF</small>');
+  $('#ArchivoPdf').css('border','2px solid #A52525');  
+  }
+  }else{
+  $('#ArchivoPdf').css('border','2px solid #A52525');  
+  }
+  }else{
+  $('#Documento').css('border','2px solid #A52525');  
+  }
+
+
+}
+
   </script>
   </head>
   <body>

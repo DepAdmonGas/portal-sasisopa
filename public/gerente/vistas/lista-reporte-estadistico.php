@@ -164,6 +164,11 @@ echo "<td class='text-center align-middle'><b>".$tovolpro1."</b></td>";
 $mermapr1 = ($row_reportepro1['volumen_final'] + $row_reportepro1['volumen_venta']) - ($row_reportepro1['volumen_inicial'] + $tovolpro1);
 
 echo "<td class='text-center align-middle text-danger'><b>".round($mermapr1,2)."</b></td>";
+
+$TP1VI = $TP1VI + $row_reportepro1['volumen_inicial'];
+$TP1VV = $TP1VV + $row_reportepro1['volumen_venta'];
+$TP1VF = $TP1VF + $row_reportepro1['volumen_final'];
+$TP1VC = $TP1VC + $tovolpro1;
 }
 
 }
@@ -187,6 +192,12 @@ echo "<td class='text-center  align-middle'><b>".$tovolpro2."</b></td>";
 
 $mermapr2 = ($row_reportepro2['volumen_final'] + $row_reportepro2['volumen_venta']) - ($row_reportepro2['volumen_inicial'] + $tovolpro2);
 echo "<td class='text-center  align-middle text-danger'><b>".round($mermapr2,2)."</b></td>";
+
+$TP2VI = $TP2VI + $row_reportepro2['volumen_inicial'];
+$TP2VV = $TP2VV + $row_reportepro2['volumen_venta'];
+$TP2VF = $TP2VF + $row_reportepro2['volumen_final'];
+$TP2VC = $TP2VC + $tovolpro2;
+
 }
 }
 
@@ -209,6 +220,12 @@ echo "<td class='text-center align-middle'><b>".$tovolpro3."</b></td>";
 
 $mermapr3 = ($row_reportepro3['volumen_final'] + $row_reportepro3['volumen_venta']) - ($row_reportepro3['volumen_inicial'] + $tovolpro3);
 echo "<td class='text-center align-middle text-danger'><b>".round($mermapr3,2)."</b></td>";
+
+$TP3VI = $TP3VI + $row_reportepro3['volumen_inicial'];
+$TP3VV = $TP3VV + $row_reportepro3['volumen_venta'];
+$TP3VF = $TP3VF + $row_reportepro3['volumen_final'];
+$TP3VC = $TP3VC + $tovolpro3;
+
 }
 }
 ?>
@@ -242,6 +259,32 @@ $toMensajes = $numero_mensaje;
 </tr>
 <?php
 }
+echo '<tr>';
+if ($Session_ProductoUno != "") {
+echo '<td><b>TOTAL:</b></td>
+<td class="text-center"><b>'.$TP1VI.'</b></td>
+<td class="text-center"><b>'.$TP1VV.'</b></td>
+<td class="text-center"><b>'.$TP1VF.'</b></td>
+<td class="text-center"><b>'.$TP1VC.'</b></td>';
+}
+
+if ($Session_ProductoDos != "") {
+  echo '<td></td>
+  <td class="text-center"><b>'.$TP2VI.'</b></td>
+  <td class="text-center"><b>'.$TP2VV.'</b></td>
+  <td class="text-center"><b>'.$TP2VF.'</b></td>
+  <td class="text-center"><b>'.$TP2VC.'</b></td>';
+}
+
+if ($Session_ProductoTres != "") {
+  echo '<td></td>
+  <td class="text-center"><b>'.$TP3VI.'</b></td>
+  <td class="text-center"><b>'.$TP3VV.'</b></td>
+  <td class="text-center"><b>'.$TP3VF.'</b></td>
+  <td class="text-center"><b>'.$TP3VC.'</b></td>';
+}
+
+echo '</tr>';
 ?>
 </tbody>
 </table>

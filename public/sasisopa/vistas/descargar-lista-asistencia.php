@@ -17,8 +17,17 @@ $finalidad = $row['finalidad'];
 $encargado = $row['encargado'];
 }
 
-function BuscarFirma($usuario,$con){
+$sql_comunicado = "SELECT * FROM se_comunicacion_i_e WHERE asistencia = '".$GET_idRegistro."'";
+$result_comunicado = mysqli_query($con, $sql_comunicado);
+$numero_comunicado = mysqli_num_rows($result_comunicado);
+if($numero_comunicado == 1){
+while($row_comunicado = mysqli_fetch_array($result_comunicado, MYSQLI_ASSOC)){
+$tipocomunicacion = $row_comunicado['tipo_comunicacion'];
+$material = $row_comunicado['material'];
+}
+}
 
+function BuscarFirma($usuario,$con){
 $sql = "SELECT firma FROM tb_usuarios WHERE nombre = '".$usuario."' ORDER BY id DESC LIMIT 1 ";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
@@ -259,7 +268,6 @@ $contenid0 .= '</td>';
 $contenid0 .= '</tr>';
 
 if($numero_comunicado != 0){
-
 $contenid0 .= '<tr>';
 $contenid0 .= '<td class="align-middle" colspan="3">';
 $contenid0 .= '<b>Tipo de comunicación:</b> '.$tipocomunicacion;
@@ -271,7 +279,6 @@ $contenid0 .= '<td class="align-middle" colspan="3">';
 $contenid0 .= '<b>Material utilizado para la comunicación:</b> '.$material;
 $contenid0 .= '</td>';
 $contenid0 .= '</tr>';
-
 }
 
 $contenid0 .= '</tbody>';
