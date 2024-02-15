@@ -157,8 +157,8 @@ table {
   }
 </style>';
 
-function Estacion($idEstacion, $con){
-    $sql = "SELECT permisocre,razonsocial,direccioncompleta FROM tb_estaciones WHERE id = '".$idEstacion."'";
+function Estacion($razonsocial, $con){
+    $sql = "SELECT permisocre,razonsocial,direccioncompleta FROM tb_estaciones WHERE razonsocial = '".$razonsocial."'";
     $result = mysqli_query($con, $sql);
     $numero = mysqli_num_rows($result);
     while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
@@ -173,9 +173,8 @@ $sql = "SELECT * FROM tb_entregas WHERE id = '".$GET_ID."' ";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-$id_estacion = $row['id_estacion'];
-$Estacion = Estacion($id_estacion, $con);
-$razonsocial = $Estacion['razonsocial'];
+$razonsocial = $row['estacion'];
+$Estacion = Estacion($razonsocial, $con);
 $direccion = $Estacion['direccion'];
 $destinatario = $row['destinatario'];
 $fecha = $row['fecha'];

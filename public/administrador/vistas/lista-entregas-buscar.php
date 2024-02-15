@@ -35,8 +35,7 @@ $numero = mysqli_num_rows($result);
 if ($numero > 0) {
 $i = 1;
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-$id_estacion = $row['id_estacion'];
-$Estacion = Estacion($id_estacion, $con);
+$Estacion = $row['estacion'];
 
 if($row['estatus'] == 0){
 $TbColor = 'table-danger';

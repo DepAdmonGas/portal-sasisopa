@@ -18,7 +18,7 @@ function idReporte($con){
   $ID = idReporte($con);
 
   $sql_insert = "INSERT INTO tb_entregas (
-  id, id_estacion,fecha,destinatario,estatus)
+  id, estacion,fecha,destinatario,estatus)
   VALUES (
   '".$ID."',
   '".$_POST['idEstacion']."',

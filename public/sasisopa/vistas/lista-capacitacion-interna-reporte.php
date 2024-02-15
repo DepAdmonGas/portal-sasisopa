@@ -5,7 +5,7 @@ $Year = $_GET['Year'];
 
 function FechaProgramada($idusuario,$idTema,$year,$con){
 
-$sql_modulo = "SELECT * FROM tb_cursos_calendario WHERE id_personal = '".$idusuario."' AND id_tema = '".$idTema."' AND YEAR(fecha_programada) = '".$year."' ORDER BY fecha_programada ASC";
+$sql_modulo = "SELECT * FROM tb_cursos_calendario WHERE id_personal = '".$idusuario."' AND id_tema = '".$idTema."' AND YEAR(fecha_programada) = '".$year."' ORDER BY fecha_programada DESC LIMIT 1 ";
 $query_modulo = mysqli_query($con, $sql_modulo);
 $numero_modulos = mysqli_num_rows($query_modulo);
 while($row_modulo = mysqli_fetch_array($query_modulo, MYSQLI_ASSOC)){

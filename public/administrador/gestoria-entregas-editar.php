@@ -24,9 +24,7 @@ require('app/help.php');
     $result = mysqli_query($con, $sql);
     $numero = mysqli_num_rows($result);
     while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-    $id_estacion = $row['id_estacion'];
-    $Estacion = Estacion($id_estacion, $con);
-    $razonsocial = $Estacion['razonsocial'];
+    $Estacion = $row['estacion'];
     $direccion = $Estacion['direccion'];
     $destinatario = $row['destinatario'];
     $fecha = $row['fecha'];
@@ -333,13 +331,13 @@ require('app/help.php');
     <div class="col-12 col-sm-4">
     <div class="mt-2 mb-1"><small class="text-secondary">Estación de envio:</small></div>
     <select class="selectize" placeholder="Estación" id="idEstacion">
-    <option value="<?=$id_estacion;?>"><?=$razonsocial;?></option>
+    <option value="<?=$Estacion;?>"><?=$Estacion;?></option>
     <?php
     $sqlEs = "SELECT * FROM tb_estaciones WHERE numlista <= 8 ORDER BY numlista ASC";
     $resultEs = mysqli_query($con, $sqlEs);
     $numeroEs = mysqli_num_rows($resultEs);
     while($rowEs = mysqli_fetch_array($resultEs, MYSQLI_ASSOC)){
-    echo '<option value="'.$rowEs['id'].'">'.$rowEs['razonsocial'].'</option>';
+    echo '<option value="'.$rowEs['razonsocial'].'">'.$rowEs['razonsocial'].'</option>';
     }
     ?>
     </select>
