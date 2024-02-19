@@ -4,7 +4,7 @@ require('../../../app/help.php');
 if($_POST['Action'] == 1){
 
 $sql = "UPDATE tb_entregas SET
-id_estacion = '".$_POST['idEstacion']."',
+estacion = '".$_POST['idEstacion']."',
 fecha = '".$_POST['Fecha']."',
 destinatario = '".$_POST['Destinatario']."',
 estatus = 1
@@ -17,8 +17,8 @@ $sql = "SELECT * FROM tb_entregas WHERE id = '".$_POST['id']."' ";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-$id_estacion = $row['id_estacion'];
-$Estacion = Estacion($id_estacion, $con);
+$razonsocial = $row['estacion'];
+$Estacion = Estacion($razonsocial, $con);
 $emailuno = $Estacion['emailuno'];
 }
 
@@ -45,8 +45,8 @@ $emailuno = $Estacion['emailuno'];
 
 }
 
-function Estacion($idEstacion, $con){
-    $sql = "SELECT permisocre,razonsocial,direccioncompleta,email FROM tb_estaciones WHERE id = '".$idEstacion."'";
+function Estacion($Estacion, $con){
+    $sql = "SELECT permisocre,razonsocial,direccioncompleta,email FROM tb_estaciones WHERE razonsocial = '".$Estacion."'";
     $result = mysqli_query($con, $sql);
     $numero = mysqli_num_rows($result);
     while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
@@ -90,7 +90,7 @@ function Estacion($idEstacion, $con){
             $result = mysqli_query($con, $sql);
             $numero = mysqli_num_rows($result);
             while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-            $id_estacion = $row['id_estacion'];
+            $id_estacion = $row['estacion'];
             $Estacion = Estacion($id_estacion, $con);
             $razonsocial = $Estacion['razonsocial'];
             $direccion = $Estacion['direccion'];
