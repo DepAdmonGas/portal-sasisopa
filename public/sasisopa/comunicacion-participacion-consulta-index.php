@@ -441,6 +441,30 @@ var Resultid = id + "";
 window.location = "descargar-comunicacion-participacion-consulta/" + ResultYear + "/" + ResultidEstacion + "/" + Resultid;
 }
 
+function DescargarCompleto(Year,idEstacion,id){
+
+  if(Year == 0){
+var ResultYear = "X";
+}else{
+var ResultYear = Year;
+}
+
+if(idEstacion == 0){
+var ResultidEstacion = "X";
+}else{
+var ResultidEstacion = idEstacion;
+}
+
+if(id == 0){
+var Resultid = "X";
+}else{
+var Resultid = id + "";
+}
+
+window.location = "descargar-comunicacion-participacion-consulta-reporte/" + ResultYear + "/" + ResultidEstacion + "/" + Resultid;
+
+}
+
 function btnQuejasS(){
 $('#ModalQS').modal('show');
 }

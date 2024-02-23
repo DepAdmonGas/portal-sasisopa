@@ -48,8 +48,12 @@ require('app/help.php');
     $('#DivPersonal').load('public/sasisopa/vistas/lista-personal-estacion.php');
   }
 
-    function FichaPersonal(idUsuario){
+  function FichaPersonal(idUsuario){
   window.location = "descargar-ficha-personal/" + idUsuario;  
+  }
+
+  function btnDescargar(){
+  window.location = "descargar-ficha-personal-reporte";
   }
   </script>
   </head>
@@ -72,13 +76,12 @@ require('app/help.php');
     
     <div class="float-left"><h4>PERFILES DEL PERSONAL</h4></div>
 
-<!-- BOTON DE AYUDA
     <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
-    <a onclick="btnAyuda()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Ayuda" >
-    <img src="<?php echo RUTA_IMG_ICONOS."info.png"; ?>">
+    <a onclick="btnDescargar()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Descargar" >
+    <img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>">
     </a>
     </div>
--->
+
 
     </div>
     <div class="card-body">

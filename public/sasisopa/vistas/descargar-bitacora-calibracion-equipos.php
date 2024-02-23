@@ -26,7 +26,6 @@ $sql = "SELECT * FROM tb_dispensarios WHERE id = '".$iddispensario."' ";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-
 $nodispensario = $row['no_dispensario'];
 $marca = $row['marca'];
 $modelo = $row['modelo'];
@@ -507,7 +506,7 @@ $contenid0 .= '<div style="page-break-before: always;"> </div>';
       $contenid0 .= '</head>';
       $contenid0 .= '<tbody>';
 
-      $sql = "SELECT * FROM tb_calibracion_equipos WHERE id_estacion = '".$Session_IDEstacion."' AND YEAR(fecha) = '".$GET_YEAR."' AND estado = 1 ORDER BY fecha DESC ";
+      $sql = "SELECT * FROM tb_calibracion_equipos WHERE id_estacion = '".$Session_IDEstacion."' AND estado = 1 ORDER BY fecha DESC ";
       $result = mysqli_query($con, $sql);
       $numero = mysqli_num_rows($result);
       while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){

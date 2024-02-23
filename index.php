@@ -95,6 +95,11 @@ break;
 case 'perfiles-personal':
 $ruta_elegida = 'public/sasisopa/perfiles-personal-index.php';
 break;
+
+case 'descargar-ficha-personal-reporte':
+$ruta_elegida = 'public/sasisopa/vistas/descargar-ficha-personal-reporte.php';
+break;
+
 case 'capacitacion-interna':
 $ruta_elegida = 'public/sasisopa/capacitacion-interna-index.php';
 break;
@@ -665,6 +670,12 @@ break;
     $GET_idRegistro = $partes_ruta[4];
     $ruta_elegida = 'public/sasisopa/vistas/descargar-comunicacion-participacion-consulta.php';
     }
+    else if ($partes_ruta[1] == 'descargar-comunicacion-participacion-consulta-reporte') {
+      $GET_idYear = $partes_ruta[2];
+      $GET_idEstacion = $partes_ruta[3];
+      $GET_idRegistro = $partes_ruta[4];
+      $ruta_elegida = 'public/sasisopa/vistas/descargar-comunicacion-participacion-consulta-reporte.php';
+      }
 
   }else if(count($partes_ruta) == 6){
 

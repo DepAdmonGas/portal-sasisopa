@@ -38,7 +38,12 @@ $('#DivDetalle').load('public/sasisopa/vistas/detalle-comunicacion.php?idcomunic
 </div>
 
 <div class="text-right mb-2">
-	
+    
+    <a class="mr-2" onclick="DescargarCompleto(<?=$_GET['Year']?>,<?=$Session_IDEstacion;?>,0)" style="cursor: pointer;">
+    Reporte completo
+    <img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>">
+    </a>
+
 	<a onclick="Descargar(<?=$_GET['Year']?>,<?=$Session_IDEstacion;?>,0)" style="cursor: pointer;">
     <img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>">
     </a>

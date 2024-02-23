@@ -78,22 +78,22 @@ require('app/help.php');
   }
   </style>
   <script type="text/javascript">
-  $(document).ready(function($){
-  $(".LoaderPage").fadeOut("slow");
+    $(document).ready(function($){
+    $(".LoaderPage").fadeOut("slow");
 
-  $('.selectize').selectize({
-  sortField: 'text'
-  }); 
+    $('.selectize').selectize({
+    sortField: 'text'
+    }); 
 
-  ListaContenido(<?=$GET_ID;?>);
- 
-  });
+    ListaContenido(<?=$GET_ID;?>);
+  
+    });
 
-  function regresarP(){
-   window.history.back();
-  }
+    function regresarP(){
+    window.history.back();
+    }
 
-  function ListaContenido(id){
+    function ListaContenido(id){
     $('#Contenido').load('../public/administrador/vistas/lista-entregas-documentos.php?id=' + id);  
       
     }
@@ -157,24 +157,24 @@ require('app/help.php');
     function Eliminar(idEntrega,id){
   
     alertify.confirm('',
- function(){
+    function(){
 
-  var parametros = {
+      var parametros = {
       "id" : id
       };
 
-  $.ajax({
-   data:  parametros,
-   url:   '../public/administrador/eliminar/eliminar-entregas-documento.php',
-   type:  'post',
-   beforeSend: function() {
-   },
-   complete: function(){
-   },
-   success:  function (response) {
-    ListaContenido(idEntrega)
-   }
-   });
+      $.ajax({
+      data:  parametros,
+      url:   '../public/administrador/eliminar/eliminar-entregas-documento.php',
+      type:  'post',
+      beforeSend: function() {
+      },
+      complete: function(){
+      },
+      success:  function (response) {
+        ListaContenido(idEntrega)
+      }
+      });
 
     },
     function(){
@@ -189,7 +189,6 @@ require('app/help.php');
     }
 
     function AgregarAcuse(idEntrega,id){
-
     var Imagen = document.getElementById("Imagen");
     var Imagen_file = Imagen.files[0];
     var Imagen_filePath = Imagen.value;
@@ -221,7 +220,7 @@ require('app/help.php');
     let idEstacion = $('#idEstacion').val();
 
     alertify.confirm('',
- function(){
+    function(){
 
   var parametros = {
     "Action" : 1,
@@ -254,36 +253,35 @@ require('app/help.php');
 
     function FinalizarEntrega(id){
 
-      let Recibe = $('#Recibe').val();
+    let Recibe = $('#Recibe').val();
 
-      if (Recibe != "") {
-  $('#Recibe').css('border','');
+    if (Recibe != "") {
+    $('#Recibe').css('border','');
 
     alertify.confirm('',
- function(){
+    function(){
 
-  var parametros = {
-    "Action" : 2,
-    "id" : id,
-    "Recibe" : Recibe
-      };
+    var parametros = {
+      "Action" : 2,
+      "id" : id,
+      "Recibe" : Recibe
+        };
 
-  $.ajax({
-   data:  parametros,
-   url:   '../public/administrador/editar/finalizar-entrega.php',
-   type:  'post',
-   beforeSend: function() {
-   },
-   complete: function(){
-   },
-   success:  function (response) {
-    regresarP()
-   }
-   });
+    $.ajax({
+    data:  parametros,
+    url:   '../public/administrador/editar/finalizar-entrega.php',
+    type:  'post',
+    beforeSend: function() {
+    },
+    complete: function(){
+    },
+    success:  function (response) {
+      regresarP()
+    }
+    });
 
     },
     function(){
-
     }).setHeader('Mensaje').set({transition:'zoom',message: 'Desea finalizar la entrega',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show(); 
 
     }else{
@@ -376,7 +374,6 @@ require('app/help.php');
     </div>
     </div>
     </div>
-
     </div>
 
 </div>
