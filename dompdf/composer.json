@@ -6,16 +6,8 @@
     "license": "LGPL-2.1",
     "authors": [
         {
-            "name": "Fabien Ménager",
-            "email": "fabien.menager@gmail.com"
-        },
-        {
-            "name": "Brian Sweeney",
-            "email": "eclecticgeek@gmail.com"
-        },
-        {
-            "name": "Gabriel Bull",
-            "email": "me@gabrielbull.com"
+            "name": "AdmonGas",
+            "email": "dep.sistemas@admongas.com.mx"
         }
     ],
     "autoload": {

@@ -22,7 +22,7 @@ $numero_resultado = mysqli_num_rows($result_resultado);
 <table class="table table-bordered table-sm">
 <tr>
 <td class="text-center align-middle"><img class="text-center" src="<?php echo RUTA_IMG_LOGOS."Logo.png";?>" style="width: 200px;"></td>
-<td colspan="2" class="text-center align-middle"><b>Registro de la atención y el seguimiento a la comunicación interna y externa.</b></td>
+<td colspan="2" class="text-center align-middle"><b>Control de la implementación de los procedimientos del SASISOPA</b></td>
 <td class="text-center align-middle">Fo.ADMONGAS.029</td>
 </tr>
 <tr>

@@ -181,7 +181,7 @@ $contenid0 .= '<td class="align-middle text-center">';
 $contenid0 .= '<img src="'.$baseLogo.'" style="width: 150px;">';
 $contenid0 .= '</td>';
 $contenid0 .= '<td colspan="2" class="align-middle text-center">';
-$contenid0 .= '<b>Registro de la atención y el seguimiento a la comunicación interna y externa.</b>';
+$contenid0 .= '<b>Control de la implementación de los procedimientos del SASISOPA.</b>';
 $contenid0 .= '</td>';
 $contenid0 .= '<td class="align-middle text-center">';
 $contenid0 .= '<b>Fo.ADMONGAS.029</b>';
@@ -269,7 +269,7 @@ $dompdf->loadHtml($contenid0);
 $dompdf->setPaper("A4", "landscape");
 $dompdf->render();
 $dompdf->get_canvas()->page_text(760, 570, "Pagina: {PAGE_NUM} de {PAGE_COUNT}", $font, 8, array(0,0,0));
-$dompdf->stream('Registro de la atención y el seguimiento a la comunicación interna y externa.pdf');
+$dompdf->stream('Control de la implementación de los procedimientos del SASISOPA.pdf');
 
 //------------------
 mysqli_close($con);
