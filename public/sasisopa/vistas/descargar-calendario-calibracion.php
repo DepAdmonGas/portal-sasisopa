@@ -155,7 +155,7 @@ $Dic = YearCol($Year, intval($Mes), 12,$estado);
 $Cotenido .= '<tr>';
 $Cotenido .= '<td class="align-middle text-center">'.$row['no_tanque'].'</td>';
 $Cotenido .= '<td class="align-middle">Tanques de almacenamiento ('.$row['capacidad'].', '.$row['producto'].')</td>';
-$Cotenido .= '<td class="align-middle text-center">2 años</td>';
+$Cotenido .= '<td class="align-middle text-center">10 años</td>';
 $Cotenido .= '<td class="align-middle text-center '.$Ene['Col'].'">'.$Ene['Year'].'</td>';
 $Cotenido .= '<td class="align-middle text-center '.$Feb['Col'].'">'.$Feb['Year'].'</td>';
 $Cotenido .= '<td class="align-middle text-center '.$Mar['Col'].'">'.$Mar['Year'].'</td>';
