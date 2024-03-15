@@ -6,7 +6,7 @@ $partes_ruta = explode("/", $rura);
 $partes_ruta = array_filter($partes_ruta);
 $partes_ruta = array_slice($partes_ruta, 0);
 
-$ruta_elegida = '';
+$ruta_elegida = 'public/error/404.php';
 
 if ($partes_ruta[0] == 'portal-sasisopa') 
 {
