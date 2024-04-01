@@ -35,7 +35,6 @@ die();
 $explodeUsuario = explode(" ", $session_nomusuario);
 $nombreCorto = $explodeUsuario[0]." ".$explodeUsuario[1];
 
-
 $sql_estacion = "SELECT * FROM tb_estaciones WHERE id = '".$Session_IDEstacion."' ";
 $result_estacion = mysqli_query($con, $sql_estacion);
 $numero_estacion = mysqli_num_rows($result_estacion);

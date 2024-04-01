@@ -120,7 +120,7 @@ $fila = 1;
     }else if($dato1 == 33){
     $Clave = 'CAMF';
     $Motivo = 'Cambio de fecha y hora';
-    $Producto = 'CAMF';
+    $Producto = '';
     $Lado = 0;
     }else if($dato1 == 66){
     $Clave = 'ACTU';
@@ -136,8 +136,6 @@ $fila = 1;
 
   function AgregarDA($idEstacion,$Dispensario,$dato1,$dato2,$dato3,$dato4,$dato5,$dato6,$con)
   {
-
-  if ($dato1 != 65) {
 
   $Detalle = Detalle($dato1);
   $Fecha = $dato4.'-'.$dato3.'-'.$dato2;
@@ -164,9 +162,7 @@ $fila = 1;
   '".$dato6."'
   )";
   mysqli_query($con, $sql_insert);
-  
-
-  }
+ 
 
   return true;
 
@@ -188,7 +184,20 @@ $fila = 1;
   $Fecha = $dato4.'-'.$dato3.'-'.$dato2;
   $Responsable = Responsable($idEstacion,$con);
 
-  if ($dato1 != 65) {
+  $sql = "SELECT id FROM tb_dispensarios_apertura_bitacora WHERE 
+  id_dispensario = '".$Dispensario."' AND 
+  fecha = '".$Fecha."' AND
+  hora_inicio = '".$dato5."' AND 
+  lado = '".$Detalle['Lado']."' AND 
+  producto = '".$Detalle['Producto']."' AND 
+  clave = '".$Detalle['Clave']."' AND 
+  detalle = '".$dato6."' 
+  ORDER BY id ASC LIMIT 1 ";
+  $result = mysqli_query($con, $sql);
+  $numero = mysqli_num_rows($result);
+  
+  if($numero == 0){
+
   $sql_insert = "INSERT INTO tb_dispensarios_apertura_bitacora (
   id_dispensario,
   fecha,
@@ -214,9 +223,10 @@ $fila = 1;
   '".$dato6."'
   )";
   mysqli_query($con, $sql_insert);
+  
+  }
 
-    }
-    
+   
   return true;
 
   }

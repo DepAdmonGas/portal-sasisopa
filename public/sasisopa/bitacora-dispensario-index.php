@@ -59,15 +59,15 @@ $estacion = $row_estaciones['nombre'];
   $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
   $(".LoaderPage").fadeOut("slow");
-  ListaDispensario();
+  ListaDispensario(1);
   });
 
   function regresarP(id){
   window.history.back();
   }
 
-  function ListaDispensario(){
-  $('#ListaDispensario').load('public/sasisopa/vistas/lista-bitacora-dispensarios.php');
+  function ListaDispensario(page){
+  $('#ListaDispensario').load('public/sasisopa/vistas/lista-bitacora-dispensarios.php?page=' + page);
   }
 
   function btnAagregar(){
@@ -124,7 +124,7 @@ $.ajax({
 
 if(response == 1){
 
-ListaDispensario()
+ListaDispensario(1)
 $('#Categoria').val('');
 $('#Fecha').val('');
 $('#HoraInicio').val('');
@@ -200,7 +200,7 @@ $.ajax({
 
 if(response == 1){
 
-ListaDispensario()
+ListaDispensario(1)
 $('#Categoria').val('');
 $('#Fecha').val('');
 $('#HoraInicio').val('');
@@ -254,7 +254,7 @@ $.ajax({
 if(response == 1){
 
 $('#ContenidoModal').load('public/sasisopa/vistas/detalle-bitacora-dispensarios.php?id=' + id);
-ListaDispensario();
+ListaDispensario(1);
 
 }
 

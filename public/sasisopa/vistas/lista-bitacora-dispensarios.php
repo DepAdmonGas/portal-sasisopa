@@ -4,6 +4,10 @@ require('../../../app/help.php');
 $selyear = date("Y");
 $selmes = date("m");
 
+$pagina = $_GET['page'];
+$registro_por_pagina = 200;
+$start_pagina = ($pagina-1)*$registro_por_pagina;
+
 $sql_lista = "SELECT 
 tb_dispensarios_apertura_bitacora.id,
 tb_dispensarios.id_estacion, 
@@ -25,7 +29,9 @@ INNER JOIN tb_dispensarios
 ON tb_dispensarios_apertura_bitacora.id_dispensario = tb_dispensarios.id 
 INNER JOIN tb_usuarios
 ON tb_dispensarios_apertura_bitacora.responsable = tb_usuarios.id
-WHERE tb_dispensarios.id_estacion = '".$Session_IDEstacion."' ORDER BY tb_dispensarios_apertura_bitacora.fecha desc , tb_dispensarios_apertura_bitacora.hora_inicio desc LIMIT 1000";
+WHERE tb_dispensarios.id_estacion = '".$Session_IDEstacion."' 
+ORDER BY tb_dispensarios_apertura_bitacora.fecha desc , 
+tb_dispensarios_apertura_bitacora.hora_inicio desc LIMIT $start_pagina , $registro_por_pagina";
 $result_lista = mysqli_query($con, $sql_lista);
 $numero_lista = mysqli_num_rows($result_lista);
 ?>
@@ -85,4 +91,97 @@ echo "<tr><td colspan='13' class='text-center text-secondary' style='font-size: 
 ?>
 </tbody>
 </table>
+
+<?php
+function TotalConte($idEstacion,$con){
+	$sql_rs = "SELECT 
+    tb_dispensarios_apertura_bitacora.id,
+    tb_dispensarios.id_estacion, 
+    tb_dispensarios.no_dispensario,
+    tb_dispensarios.marca,
+    tb_dispensarios.modelo,
+    tb_dispensarios.serie,
+    tb_dispensarios_apertura_bitacora.fecha,
+    tb_dispensarios_apertura_bitacora.hora_inicio,
+    tb_dispensarios_apertura_bitacora.hora_termino,
+    tb_dispensarios_apertura_bitacora.lado,
+    tb_dispensarios_apertura_bitacora.producto,
+    tb_dispensarios_apertura_bitacora.clave,
+    tb_dispensarios_apertura_bitacora.motivo,
+    tb_usuarios.nombre,
+    tb_dispensarios_apertura_bitacora.detalle
+    FROM tb_dispensarios_apertura_bitacora 
+    INNER JOIN tb_dispensarios 
+    ON tb_dispensarios_apertura_bitacora.id_dispensario = tb_dispensarios.id 
+    INNER JOIN tb_usuarios
+    ON tb_dispensarios_apertura_bitacora.responsable = tb_usuarios.id
+    WHERE tb_dispensarios.id_estacion = '".$idEstacion."'  ";
+	$result_rs = mysqli_query($con, $sql_rs);
+	$numero = mysqli_num_rows($result_rs);
+	return $numero;
+	}
+
+$TotalConte = TotalConte($Session_IDEstacion,$con);
+$TotalPaginas = ceil($TotalConte/$registro_por_pagina);
+$adjacents  = 1;
+
+echo paginate($pagina, $TotalPaginas, $adjacents,$estadoBuscar);
+
+function paginate($page, $tpages, $adjacents,$estadoBuscar) {
+	$prevlabel = "Anterior";
+	$nextlabel = "Siguiente";
+	$out = '<ul class="pagination justify-content-end pagination-sm rounded-0">';
+
+	// previous label
+
+	if($page==1) {
+	$out.= "<li class='page-item disabled rounded-0'><a class='page-link rounded-0'>$prevlabel</a></li>";
+	} else if($page==2) {
+	$out.= "<li class='page-item rounded-0'><a class='page-link rounded-0' href='javascript:void(0);' onclick='ListaDispensario(1,$estadoBuscar)'>$prevlabel</a></li>";
+	}else {
+	$out.= "<li><a class='page-link rounded-0' href='javascript:void(0);' onclick='ListaDispensario(".($page-1).",$estadoBuscar)'>$prevlabel</a></li>";
+	}
+
+	// first label
+	if($page>($adjacents+1)) {
+	$out.= "<li class='page-item rounded-0'><a class='page-link rounded-0' href='javascript:void(0);' onclick='ListaDispensario(1,$estadoBuscar)'>1</a></li>";
+	}
+	// interval
+	if($page>($adjacents+2)) {
+	$out.= "<li class='page-item rounded-0'><a class='page-link rounded-0'>...</a></li>";
+	}
+
+	// pages
+
+	$pmin = ($page>$adjacents) ? ($page-$adjacents) : 1;
+	$pmax = ($page<($tpages-$adjacents)) ? ($page+$adjacents) : $tpages;
+	for($i=$pmin; $i<=$pmax; $i++) {
+	if($i==$page) {
+	$out.= "<li class='page-item rounded-0 active'><a class='page-link rounded-0'>$i</a></li>";
+	}else if($i==1) {
+	$out.= "<li class='page-item rounded-0'><a class='page-link rounded-0' href='javascript:void(0);' onclick='ListaDispensario(1,$estadoBuscar)'>$i</a></li>";
+	}else {
+	$out.= "<li class='page-item rounded-0'><a class='page-link rounded-0' href='javascript:void(0);' onclick='ListaDispensario(".$i.",$estadoBuscar)'>$i</a></li>";
+	}
+	}
+	// interval
+	if($page<($tpages-$adjacents-1)) {
+	$out.= "<li class='page-item rounded-0'><a class='page-link rounded-0'>...</a></li>";
+	}
+	// last
+	if($page<($tpages-$adjacents)) {
+	$out.= "<li class='page-item rounded-0'><a class='page-link rounded-0' href='javascript:void(0);' onclick='ListaDispensario($tpages,$estadoBuscar)'>$tpages</a></li>";
+	}
+	// next
+	if($page<$tpages) {
+	$out.= "<li class='page-item rounded-0'><a class='page-link rounded-0' href='javascript:void(0);' onclick='ListaDispensario(".($page+1).",$estadoBuscar)'>$nextlabel</a></li>";
+	}else {
+	$out.= "<li class='page-item rounded-0 disabled'><a class='page-link rounded-0'>$nextlabel</a></li>";
+	}
+
+	$out.= "</ul>";
+	return $out;
+}
+?>
+
 </div>
