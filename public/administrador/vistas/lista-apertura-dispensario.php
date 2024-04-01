@@ -20,6 +20,10 @@ $dispensario = $row['no_dispensario'];
 
 return $dispensario;
 }
+
+$pagina = $_GET['page'];
+$registro_por_pagina = 200;
+$start_pagina = ($pagina-1)*$registro_por_pagina;
 ?>
 
 
@@ -58,7 +62,7 @@ return $dispensario;
 <tbody>
 <?php 
 
-$sql = "SELECT * FROM tb_dispensarios_apertura WHERE id_estacion = '".$idEstacion."' ORDER BY fecha DESC, hora DESC, dispensario DESC";
+$sql = "SELECT * FROM tb_dispensarios_apertura WHERE id_estacion = '".$idEstacion."' ORDER BY fecha DESC, hora DESC, dispensario DESC LIMIT $start_pagina , $registro_por_pagina";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
 
@@ -86,6 +90,77 @@ $numero = mysqli_num_rows($result);
 </tbody>
 </table>
 </div>
+
+<?php
+function TotalConte($idEstacion,$con){
+	$sql_rs = "SELECT id FROM tb_dispensarios_apertura WHERE id_estacion = '".$idEstacion."'";
+	$result_rs = mysqli_query($con, $sql_rs);
+	$numero = mysqli_num_rows($result_rs);
+	return $numero;
+	}
+
+$TotalConte = TotalConte($idEstacion,$con);
+$TotalPaginas = ceil($TotalConte/$registro_por_pagina);
+$adjacents  = 1;
+
+echo paginate($pagina, $TotalPaginas, $adjacents,$idEstacion);
+
+function paginate($page, $tpages, $adjacents,$idEstacion) {
+	$prevlabel = "Anterior";
+	$nextlabel = "Siguiente";
+	$out = '<ul class="pagination justify-content-end pagination-sm rounded-0 mt-2">';
+
+	// previous label
+
+	if($page==1) {
+	$out.= "<li class='page-item disabled rounded-0'><a class='page-link rounded-0'>$prevlabel</a></li>";
+	} else if($page==2) {
+	$out.= "<li class='page-item rounded-0'><a class='page-link rounded-0' href='javascript:void(0);' onclick='Estacion($idEstacion,1)'>$prevlabel</a></li>";
+	}else {
+	$out.= "<li><a class='page-link rounded-0' href='javascript:void(0);' onclick='Estacion($idEstacion,".($page-1).")'>$prevlabel</a></li>";
+	}
+
+	// first label
+	if($page>($adjacents+1)) {
+	$out.= "<li class='page-item rounded-0'><a class='page-link rounded-0' href='javascript:void(0);' onclick='Estacion($idEstacion,1)'>1</a></li>";
+	}
+	// interval
+	if($page>($adjacents+2)) {
+	$out.= "<li class='page-item rounded-0'><a class='page-link rounded-0'>...</a></li>";
+	}
+
+	// pages
+
+	$pmin = ($page>$adjacents) ? ($page-$adjacents) : 1;
+	$pmax = ($page<($tpages-$adjacents)) ? ($page+$adjacents) : $tpages;
+	for($i=$pmin; $i<=$pmax; $i++) {
+	if($i==$page) {
+	$out.= "<li class='page-item rounded-0 active'><a class='page-link rounded-0'>$i</a></li>";
+	}else if($i==1) {
+	$out.= "<li class='page-item rounded-0'><a class='page-link rounded-0' href='javascript:void(0);' onclick='Estacion($idEstacion,1)'>$i</a></li>";
+	}else {
+	$out.= "<li class='page-item rounded-0'><a class='page-link rounded-0' href='javascript:void(0);' onclick='Estacion($idEstacion,".$i.")'>$i</a></li>";
+	}
+	}
+	// interval
+	if($page<($tpages-$adjacents-1)) {
+	$out.= "<li class='page-item rounded-0'><a class='page-link rounded-0'>...</a></li>";
+	}
+	// last
+	if($page<($tpages-$adjacents)) {
+	$out.= "<li class='page-item rounded-0'><a class='page-link rounded-0' href='javascript:void(0);' onclick='Estacion($idEstacion,$tpages)'>$tpages</a></li>";
+	}
+	// next
+	if($page<$tpages) {
+	$out.= "<li class='page-item rounded-0'><a class='page-link rounded-0' href='javascript:void(0);' onclick='Estacion($idEstacion,".($page+1).")'>$nextlabel</a></li>";
+	}else {
+	$out.= "<li class='page-item rounded-0 disabled'><a class='page-link rounded-0'>$nextlabel</a></li>";
+	}
+
+	$out.= "</ul>";
+	return $out;
+}
+?>
 
 </div>
 

@@ -42,10 +42,10 @@ require('app/help.php');
 
   });
 
-  function Estacion(idEstacion){
+  function Estacion(idEstacion,page){
   sizeWindow(); 
   $(".LoaderPage").show();
-  $('#ContenidoPrincipal').load('public/administrador/vistas/lista-apertura-dispensario.php?idEstacion=' + idEstacion);
+  $('#ContenidoPrincipal').load('public/administrador/vistas/lista-apertura-dispensario.php?idEstacion=' + idEstacion + '&page=' + page);
   }
  
   function Modal(idEstacion){
@@ -83,7 +83,7 @@ require('app/help.php');
     }).done(function(data){
 
     $('#Modal').modal('hide');
-    Estacion(idEstacion);
+    Estacion(idEstacion,1);
 
     });
 
@@ -131,7 +131,7 @@ require('app/help.php');
     $estacion = $row_listaestacion['nombre'];
 
     echo '<li>
-    <a class="pointer" onclick="Estacion('.$id.')">
+    <a class="pointer" onclick="Estacion('.$id.',1)">
     <i class="fa-solid fa-gas-pump" aria-hidden="true" style="padding-right: 10px;"></i>
     '.$estacion.'
     </a>
