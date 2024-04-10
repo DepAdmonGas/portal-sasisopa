@@ -288,12 +288,12 @@ return $resultado;
 function ResultadoIncidentes($Session_IDEstacion,$Year,$Semestre,$con){
 
 if($Semestre == 1){
-$Rango = 'AND (MONTH(fecha) >= 1 AND MONTH(fecha) <= 6)';
+$Rango = 'AND (MONTH(fechacreacion) >= 1 AND MONTH(fechacreacion) <= 6)';
 }else if($Semestre == 2){
-$Rango = 'AND (MONTH(fecha) >= 7 AND MONTH(fecha) <= 12)';  
+$Rango = 'AND (MONTH(fechacreacion) >= 7 AND MONTH(fechacreacion) <= 12)';  
 }
 
-  $sql_inv = "SELECT * FROM tb_investigacion_incidente_accidente WHERE id_estacion= '".$Session_IDEstacion."' AND YEAR(fechacreacion) = '".$Year."' $Rango ORDER BY id desc ";
+$sql_inv = "SELECT * FROM tb_investigacion_incidente_accidente WHERE id_estacion= '".$Session_IDEstacion."' AND YEAR(fechacreacion) = '".$Year."' $Rango ORDER BY id desc ";
 $result_inv = mysqli_query($con, $sql_inv);
 $numero_inv = mysqli_num_rows($result_inv);
 
@@ -538,21 +538,28 @@ window.location = "descargar-programa-implementacion-s-a";
      <?php 
 
       function TC($a,$b){
-      $Resul = ($a - $b) / $b * 100;
-      $TC = 100 + ($Resul);
-      $Porcentaje = number_format($TC,2);
 
-      if( $Porcentaje >= 80  ){
-      $Return = "<b class='text-success'>".$Porcentaje."% Excelente</b>";                 
-      }else if($Porcentaje >= 0 && $Porcentaje <= 79){
-      $Return = "<b class='text-warning'>".$Porcentaje."% Regular</b>";
-      }
+        if($a == 0 || $b == 0){
+          $Return = "<b class='text-warning'>S/I</b>";
+        }else{
+
+          $Resul = ($a - $b) / $b * 100;
+          $tece = 100 + ($Resul);
+          $Porcentaje = number_format($tece,2);
+
+          if( $Porcentaje >= 80  ){
+          $Return = "<b class='text-success'>".$Porcentaje."% Excelente</b>";                 
+          }else if($Porcentaje >= 0 && $Porcentaje <= 79){
+          $Return = "<b class='text-warning'>".$Porcentaje."% Regular</b>";
+          }
+
+        }
 
       return $Return;
       }
 
       $YearAnt = $fecha_year - 1;
-
+    
       $DicAnt = Ventas($Session_IDEstacion,12,$YearAnt,$con);
       $Ene = Ventas($Session_IDEstacion,1,$fecha_year,$con);
       $Feb = Ventas($Session_IDEstacion,2,$fecha_year,$con);

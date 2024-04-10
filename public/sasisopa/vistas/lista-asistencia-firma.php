@@ -25,7 +25,7 @@ return $Firma;
 <th class="text-center align-middle">Nombre</th>
 <th class="text-center align-middle">Puesto</th>
 <th class="text-center align-middle">Firma</th>
-<th class="text-center align-middle"></th>
+<th class="text-center align-middle"><img src='<?=RUTA_IMG_ICONOS;?>eliminar.png'></th>
 </tr>
 </thead>
 <tbody>
@@ -38,8 +38,6 @@ $usuario = $row_capacitacion['usuario'];
 $puesto = $row_capacitacion['puesto'];
 
 $Firma = BuscarFirma($usuario,$con);
-
-
 
 echo "<tr>";
 echo "<td class='text-center align-middle'>".$id."</td>";

@@ -48,7 +48,7 @@ $pdf = new FPDF('L','mm','A4');
 $pdf->AddPage();
 $pdf->title = utf8_decode($titulo);
 
-$pdf->Image('public/cursos/fondo-2024.jpg','0','0','300','210','JPG');
+$pdf->Image(SERVIDOR.'public/cursos/fondo-2024.jpg','0','0','300','210','JPG');
 
 $pdf->SetFont('Arial','',30);
 $pdf->SetY(100);

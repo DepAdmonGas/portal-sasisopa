@@ -461,7 +461,7 @@ $dompdf->setPaper("A4", "portrait");
 // Escribimos el html en el PDF
 $dompdf->render();
 // Ponemos el PDF en el browser
-$dompdf->stream('Autorizacion para realizar trabajos peligrosos.pdf',["Attachment" => true]);
+$dompdf->stream('Autorizacion para realizar trabajos peligrosos.pdf');
 //------------------
 mysqli_close($con);
 //------------------

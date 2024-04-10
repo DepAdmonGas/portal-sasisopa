@@ -28,6 +28,7 @@ $material = $row_comunicado['material'];
 }
 
 function BuscarFirma($usuario,$con){
+$Firma = "";
 $sql = "SELECT firma FROM tb_usuarios WHERE nombre = '".$usuario."' ORDER BY id DESC LIMIT 1 ";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
@@ -45,7 +46,7 @@ $numero_lista = mysqli_num_rows($result_lista);
     $DataLogo = file_get_contents($RutaLogo);
     $baseLogo = 'data:image/;base64,' . base64_encode($DataLogo);
 
-
+    $contenid0 = "";
     $contenid0 .= "<!DOCTYPE html>";
     $contenid0 .= "<html>";
     $contenid0 .= "<head>";
@@ -290,6 +291,7 @@ $contenid0 .= '<tbody>';
 $contenid0 .= '<tr>';
 $contenid0 .= '<td class="align-middle text-center"><b>Nombre</b></td> <td class="align-middle text-center"><b>Puesto</b></td> <td class="align-middle text-center"><b>Firma</b></td>';
 $contenid0 .= '</tr>';
+
 while($row_lista = mysqli_fetch_array($result_lista, MYSQLI_ASSOC)){
 
 $Firma = BuscarFirma($row_lista['usuario'],$con);
@@ -316,23 +318,19 @@ $contenid0 .= '</tr>';
 $contenid0 .= '</tbody>';
 $contenid0 .= '</table>';
 
-
-
 //-----------------------------------------------------------------
 $contenid0 .= '</div>';
-
 $contenid0 .= '</body>';
 $contenid0 .= '</html>';
 
 
 $dompdf->loadHtml($contenid0);
-// Colocamos als propiedades de la hoja
 $dompdf->setPaper("A4", "portrait");
-// Escribimos el html en el PDF
 $dompdf->render();
-$dompdf->get_canvas()->page_text(750, 570, "Pagina: {PAGE_NUM} de {PAGE_COUNT}", $font, 8, array(0,0,0));
-// Ponemos el PDF en el browser
-$dompdf->stream('Registro de la atención y el seguimiento a la comunicación interna y externa.pdf',["Attachment" => true]);
+$canvas = $dompdf->get_canvas();
+$canvas->page_text(525, 810, "Página: {PAGE_NUM} de {PAGE_COUNT}", null, 7, array(0, 0, 0));
+$dompdf->stream('Registro de la atención y el seguimiento a la comunicación interna y externa.pdf');
+
 //------------------
 mysqli_close($con);
 //------------------

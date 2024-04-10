@@ -25,9 +25,16 @@ sortField: 'text'
 <option value="">Estación</option>
 <?php
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-echo '<option value="'.$row['id'].'">'.$row['razonsocial'].'</option>';
+echo '<option value="'.$row['razonsocial'].'">'.$row['razonsocial'].'</option>';
 }
 ?>
+<option value="Martin Quinzaños García">Martin Quinzaños García</option>
+<option value="Aurelio Quinzaños Suarez">Aurelio Quinzaños Suarez</option>
+<option value="Acueducto Guadalupe S.A. de C.V.">Acueducto Guadalupe S.A. de C.V.</option>
+<option value="Wingate School S.C.">Wingate School S.C.</option>
+<option value="Sabino Aguirre S.A. de C.V.">Sabino Aguirre S.A. de C.V.</option>
+<option value="Servicio Lomas de las Palmas S.A. de C.V.">Servicio Lomas de las Palmas S.A. de C.V.</option>
+<option value="Servicio Caseta el Dorado S.A. de C.V.">Servicio Caseta el Dorado S.A. de C.V.</option>
 </select>
 
 <div class="text-right mt-3">

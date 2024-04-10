@@ -9,6 +9,7 @@ $RutaLogo = SERVIDOR."imgs/logo/Logo.png";
     $DataLogo = file_get_contents($RutaLogo);
     $baseLogo = 'data:image/;base64,' . base64_encode($DataLogo);
 
+    $contenid0  = "";
 $contenid0 .= "<!DOCTYPE html>";
 $contenid0 .= "<html>";
 $contenid0 .= "<head>";
@@ -212,11 +213,11 @@ $usuario = $row_usuarios['usuario'];
 $password = $row_usuarios['password'];
 $idpuesto = $row_usuarios['id_puesto'];
 
-$sql_puesto = "SELECT * FROM us_puesto WHERE id = '".$idpuesto."' ";
+$sql_puesto = "SELECT * FROM tb_puestos WHERE id = '".$idpuesto."' ";
 $result_puesto = mysqli_query($con, $sql_puesto);
 $numero_puesto = mysqli_num_rows($result_puesto);
 while($row_puesto = mysqli_fetch_array($result_puesto, MYSQLI_ASSOC)){
-$puesto = $row_puesto['puesto'];
+$puesto = $row_puesto['tipo_puesto'];
 }
 }
 
@@ -393,9 +394,8 @@ $dompdf->loadHtml($contenid0);
 $dompdf->setPaper("A4", "portrait");
 // Escribimos el html en el PDF
 $dompdf->render();
-$dompdf->get_canvas()->page_text(750, 570, "Pagina: {PAGE_NUM} de {PAGE_COUNT}", $font, 8, array(0,0,0));
 // Ponemos el PDF en el browser
-$dompdf->stream('Fichas de personal .pdf',["Attachment" => true]);
+$dompdf->stream('Fichas de personal .pdf');
 //------------------
 mysqli_close($con);
 //------------------

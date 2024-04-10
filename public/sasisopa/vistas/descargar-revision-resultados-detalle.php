@@ -59,6 +59,7 @@ return $ventas;
 }
 
 function ResultadoCapacitacion($Session_IDEstacion,$Year,$Semestre,$con){
+  $SumD = 0;
 if($Semestre == 1){
 $Rango = 'AND (MONTH(fecha_programada) >= 1 AND MONTH(fecha_programada) <= 6)';
 }else if($Semestre == 2){
@@ -183,9 +184,9 @@ return $resultado;
 function ResultadoIncidentes($Session_IDEstacion,$Year,$Semestre,$con){
 
 if($Semestre == 1){
-$Rango = 'AND (MONTH(fecha) >= 1 AND MONTH(fecha) <= 6)';
+$Rango = 'AND (MONTH(fechacreacion) >= 1 AND MONTH(fechacreacion) <= 6)';
 }else if($Semestre == 2){
-$Rango = 'AND (MONTH(fecha) >= 7 AND MONTH(fecha) <= 12)';  
+$Rango = 'AND (MONTH(fechacreacion) >= 7 AND MONTH(fechacreacion) <= 12)';  
 }
 
   $sql_inv = "SELECT * FROM tb_investigacion_incidente_accidente WHERE id_estacion= '".$Session_IDEstacion."' AND YEAR(fechacreacion) = '".$Year."' $Rango ORDER BY id desc ";
@@ -300,7 +301,8 @@ return $numero_inv;
 
 use Dompdf\Dompdf;
 $dompdf = new Dompdf();
-
+    
+    $contenid0 = "";
     $contenid0 .= "<!DOCTYPE html>";
     $contenid0 .= "<html>";
     $contenid0 .= "<head>";
@@ -737,7 +739,9 @@ $contenid0 .= '</html>';
 $dompdf->loadHtml($contenid0);
 $dompdf->setPaper("A4", "landscape");
 $dompdf->render();
-$dompdf->get_canvas()->page_text(775, 565, "Pagina: {PAGE_NUM} de {PAGE_COUNT}", $font, 8, array(0,0,0));
+$canvas = $dompdf->get_canvas();
+$canvas->page_text(768, 570, "Página: {PAGE_NUM} de {PAGE_COUNT}", null, 7, array(0, 0, 0));
+
 $dompdf->stream('REVISIÓN DE RESULTADOS.pdf');
 
 //------------------

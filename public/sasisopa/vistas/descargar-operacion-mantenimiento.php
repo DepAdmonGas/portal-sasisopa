@@ -199,7 +199,9 @@ $dompdf->loadHtml($contenid0);
 $dompdf->setPaper("A4", "portrait");
 // Escribimos el html en el PDF
 $dompdf->render();
-$dompdf->get_canvas()->page_text(515, 820, "Pagina: {PAGE_NUM} de {PAGE_COUNT}", $font, 8, array(0,0,0));
+$canvas = $dompdf->get_canvas();
+$canvas->page_text(525, 810, "Página: {PAGE_NUM} de {PAGE_COUNT}", null, 7, array(0, 0, 0));
+
 // Ponemos el PDF en el browser
 $dompdf->stream('Operación y Mantenimiento.pdf',["Attachment" => true]);
 

@@ -1,6 +1,6 @@
 <?php
-set_time_limit(900);
-ini_set('max_execution_time', 900);
+set_time_limit(1900);
+ini_set('max_execution_time', 1900);
 
 require_once '../../dompdf/autoload.inc.php';
 include_once "../../app/help.php";
@@ -379,19 +379,16 @@ $contenid0 .= "<tr style='font-size: .5em;'>";
         $contenid0 .= "<td class='text-center align-middle' style='background:$ColorTR;'><b>".number_format($litroscompra,2)."</b></td>";
         $contenid0 .= "<td class='text-center align-middle' style='background:$ColorTR;color:$colorP;'><b>".$producto."</b></td>";
         $contenid0 .= "</tr>";
-        //------------------------------------------------------------------------------------------
+
+        //--------------------------------------------------------------------
         $contenid0 .= "<tr>";
         $contenid0 .= "<td colspan='12' style='padding: 0px; margin: 0px;' >";
-        //----------------------------------------------------
 
         $contenid0 .= "<table width='100%'>";
         $contenid0 .= "<tr style='font-size: .5em;'>";
-
-        //--------------------------------------- td uno
+        //--------------------------------------------------------------------
 
         $contenid0 .= "<td style='vertical-align: text-top;border: 0px;'>".$DescargaTanques."</td>";
-
-        //------------------------ td dos
 
         $contenid0 .= "<td style='vertical-align: text-top;border: 0px;'>";
         $contenid0 .= "<table class='table-bordered table-sm' width='100%'>
@@ -401,8 +398,6 @@ $contenid0 .= "<tr style='font-size: .5em;'>";
         <tr><td colspan='2'><b>No. Serie:</b> ".$sellonoserie."</td></tr></table>";
         $contenid0 .= "</td>";
 
-        //----------------------- td tres
-
         $contenid0 .= "<td style='vertical-align: text-top;border: 0px;'>";
         $contenid0 .= "<table class='table-bordered table-sm' width='100%'>
         <tr><td colspan='2' style='background:#F5F5F5;text-align: center;'><b>NICE</b></td></tr>
@@ -411,9 +406,7 @@ $contenid0 .= "<tr style='font-size: .5em;'>";
         <tr><td>Temperatura</td><td><b>".$temperatura."</b></td></tr></table>";
         $contenid0 .= "</td>";
 
-        $contenid0 .= "<td style='vertical-align: text-top;border: 0px;'><div colspan='2' style='background:#F5F5F5;text-align: center;'><b>Observaciones</b></div><div class='mt-1'>".$observaciones."</td></td>";
-
-        //--------------------------------------
+        $contenid0 .= "<td style='vertical-align: text-top;border: 0px;'><div colspan='2' style='background:#F5F5F5;text-align: center;'><b>Observaciones</b></div><div class='mt-1'>".$observaciones."</td>";
 
         $contenid0 .= "<td style='vertical-align: text-top;border: 0px;'>
         <div colspan='2' style='background:#F5F5F5;text-align: center;'><b>Persona que recibe</b></div>
@@ -426,13 +419,14 @@ $contenid0 .= "<tr style='font-size: .5em;'>";
         <div class='mt-1 text-center'>".$NPS."</div>
         </td>";
 
+        //--------------------------------------------------------------------
         $contenid0 .= "</tr>";
         $contenid0 .= "</table>";
 
-        //----------------------------------------------------
         $contenid0 .= "</td>";
         $contenid0 .= "</tr>";
-        //------------------------------------------------------------------------------------------
+        //--------------------------------------------------------------------
+        
 
     $contenid0 .= '</tbody>';
     $contenid0 .= "</table>";
@@ -453,9 +447,9 @@ $dompdf->loadHtml($contenid0);
 $dompdf->setPaper("A4", "landscape");
 // Escribimos el html en el PDF
 $dompdf->render();
-//$dompdf->get_canvas()->page_text(785, 570, "Pagina: {PAGE_NUM} de {PAGE_COUNT}", $font, 6, array(0,0,0));
-// Ponemos el PDF en el browser
-$dompdf->stream('ReporteRecepcionDescargaProducto.pdf',array("Attachment" => true));
+$canvas = $dompdf->get_canvas();
+$canvas->page_text(768, 570, "Página: {PAGE_NUM} de {PAGE_COUNT}", null, 7, array(0, 0, 0));
+$dompdf->stream('ReporteRecepcionDescargaProducto.pdf');
 exit(0);
 //------------------
 mysqli_close($con);

@@ -219,11 +219,11 @@ $usuario = $row_usuarios['usuario'];
 $password = $row_usuarios['password'];
 $idpuesto = $row_usuarios['id_puesto'];
 
-$sql_puesto = "SELECT * FROM us_puesto WHERE id = '".$idpuesto."' ";
+$sql_puesto = "SELECT * FROM tb_puestos WHERE id = '".$idpuesto."' ";
 $result_puesto = mysqli_query($con, $sql_puesto);
 $numero_puesto = mysqli_num_rows($result_puesto);
 while($row_puesto = mysqli_fetch_array($result_puesto, MYSQLI_ASSOC)){
-$puesto = $row_puesto['puesto'];
+$puesto = $row_puesto['tipo_puesto'];
 }
 
 
@@ -404,7 +404,8 @@ $dompdf->loadHtml($contenid0);
 $dompdf->setPaper("A4", "portrait");
 // Escribimos el html en el PDF
 $dompdf->render();
-$dompdf->get_canvas()->page_text(750, 570, "Pagina: {PAGE_NUM} de {PAGE_COUNT}", $font, 8, array(0,0,0));
+$canvas = $dompdf->get_canvas();
+$canvas->page_text(525, 810, "Página: {PAGE_NUM} de {PAGE_COUNT}", null, 7, array(0, 0, 0));
 // Ponemos el PDF en el browser
 $dompdf->stream('Reporte completo de Fichas de personal.pdf',["Attachment" => true]);
 //------------------

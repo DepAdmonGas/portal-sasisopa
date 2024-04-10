@@ -370,7 +370,6 @@ $dompdf->loadHtml($contenid0);
 $dompdf->setPaper("A4", "portrait");
 // Escribimos el html en el PDF
 $dompdf->render();
-$dompdf->get_canvas()->page_text(750, 570, "Pagina: {PAGE_NUM} de {PAGE_COUNT}", $font, 8, array(0,0,0));
 // Ponemos el PDF en el browser
 $dompdf->stream('Reporte Estadistico Diario.pdf',["Attachment" => true]);
 //------------------

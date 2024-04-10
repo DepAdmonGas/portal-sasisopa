@@ -292,7 +292,7 @@ $dompdf->setPaper("A4", "landscape");
 // Escribimos el html en el PDF
 $dompdf->render();
 // Ponemos el PDF en el browser
-$dompdf->stream('Formato Programa de auditorias (Internas y externas).pdf',["Attachment" => true]);
+$dompdf->stream('Formato Programa de auditorias (Internas y externas).pdf');
 //------------------
 mysqli_close($con);
 //------------------

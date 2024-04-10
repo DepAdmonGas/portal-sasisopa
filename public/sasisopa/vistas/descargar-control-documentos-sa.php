@@ -358,7 +358,9 @@ $dompdf->loadHtml($contenid0);
 $dompdf->setPaper("A4", "landscape");
 // Escribimos el html en el PDF
 $dompdf->render();
-$dompdf->get_canvas()->page_text(750, 570, "Pagina: {PAGE_NUM} de {PAGE_COUNT}", $font, 8, array(0,0,0));
+$canvas = $dompdf->get_canvas();
+$canvas->page_text(768, 570, "Página: {PAGE_NUM} de {PAGE_COUNT}", null, 7, array(0, 0, 0));
+
 // Ponemos el PDF en el browser
 $dompdf->stream('Control y documentos del Sistema de Administración.pdf',["Attachment" => true]);
 //------------------

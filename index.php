@@ -1,4 +1,8 @@
 <?php
+
+include_once "app/controlador/IndexControlador.php";
+$index_controlador = new IndexControlador();
+
 $componentes_url = parse_url($_SERVER["REQUEST_URI"]);
 $rura = $componentes_url['path'];
 
@@ -15,8 +19,26 @@ if (count($partes_ruta) == 1)
 $ruta_elegida = 'public/home/index.php';
 }else if(count($partes_ruta) == 2)
 {
-switch ($partes_ruta[1]) 
+switch ($partes_ruta[1])
 {
+
+    //-------- ELEMENTOS SASISOPA INICIO -----------------
+    //----------------------------------------------------
+    case '1-politica':
+      $ruta_elegida = $index_controlador->politicaRuta();
+    break;
+    case '2-analisis-riesgo-evaluacion-impactos-ambientales':
+      $ruta_elegida = $index_controlador->analisisRiesgoEvaluacionImpactosAmbientales();
+    break;
+    case 'descargar-formato-2':
+      $ruta_elegida = $index_controlador->descargarFormato2();
+    break;
+    case 'descargar-formato-3':
+      $ruta_elegida = $index_controlador->descargarFormato3();
+    break;
+    //-------- ELEMENTOS SASISOPA FIN -------------------
+    //---------------------------------------------------
+
 case 'perfil':
 $ruta_elegida = 'public/perfil/perfil-index.php';
 break;	 
@@ -58,18 +80,7 @@ case 'comunicados':
 $ruta_elegida = 'public/gerente/comunicados-index.php';
 break;
 //--------------------Puntos Sasisopa ----------
-case '1-politica':
-$ruta_elegida = 'public/sasisopa/politica-index.php';
-break;
-case '2-analisis-riesgo-evaluacion-impactos-ambientales':
-$ruta_elegida = 'public/sasisopa/analisis-riesgo-evaluacion-impactos-ambientales-index.php';
-break;
-case 'descargar-formato-2':
-$ruta_elegida = 'public/sasisopa/vistas/descargar-formato-2.php';
-break;
-case 'descargar-formato-3':
-$ruta_elegida = 'public/sasisopa/vistas/descargar-formato-3.php';
-break;
+
 
 case '3-requisitos-legales':
 $ruta_elegida = 'public/sasisopa/requisitos-legales-index.php';
@@ -309,24 +320,40 @@ break;
 
 }
 }else if(count($partes_ruta) == 3){
-
+  
+    //--------------------------------------------
+    //--------- SASISOPA POLITICA-----------------
     if ($partes_ruta[1] == 'descargar-politica') {
     $GET_idEstacion = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/vistas/descargar-politica.php';
-    }else if ($partes_ruta[1] == '1-politica-asistencia') {
+    $ruta_elegida = $index_controlador->descargarPolitica();
+    }
+    else if ($partes_ruta[1] == 'descargar-lista-comprobacion') {
+    $GET_idRegistro = $partes_ruta[2];
+    $ruta_elegida = $index_controlador->descargarListaComprobacion();
+    }
+    //---------------------------------------------
+    //---------------------------------------------
+    //------------ LISTA ASISTENCIA ---------------
+    //---------------------------------------------
+    else if ($partes_ruta[1] == 'descargar-lista-asistencia') {
+    $GET_idRegistro = $partes_ruta[2];
+    $ruta_elegida = $index_controlador->descargarListaAsistencia();
+    }
+    else if ($partes_ruta[1] == 'lista-asistencia') {
+    $GET_idRegistro = $partes_ruta[2];
+    $ruta_elegida = $index_controlador->listaAsistencia();
+    }
+    //-------------------------------------------------
+    //-------------------------------------------------
+    
+
+
+
+    
+    else if ($partes_ruta[1] == '1-politica-asistencia') {
     $GET_idRegistro = $partes_ruta[2];
     $ruta_elegida = 'public/sasisopa/politica-asistencia-index.php';
     }
-
-    else if ($partes_ruta[1] == 'descargar-lista-comprobacion') {
-    $GET_idRegistro = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/vistas/descargar-lista-comprobacion.php';
-    }
-    else if ($partes_ruta[1] == 'descargar-lista-asistencia') {
-    $GET_idRegistro = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/vistas/descargar-lista-asistencia.php';
-    }
-    
 
     else if ($partes_ruta[1] == 'ficha-personal') {
     $GET_idUsuario = $partes_ruta[2];
@@ -439,10 +466,7 @@ break;
 
     //-----------------------------------------------------------------
 
-    else if ($partes_ruta[1] == 'lista-asistencia') {
-    $GET_idRegistro = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/lista-asistencia-index.php';
-    }
+    
 
     else if ($partes_ruta[1] == 'editar-calendario') {
     $idEstacion = $partes_ruta[2];
@@ -692,5 +716,5 @@ break;
 
 }
 
-include_once $ruta_elegida;
+require_once $ruta_elegida;
 ?>

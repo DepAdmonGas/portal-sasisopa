@@ -617,7 +617,7 @@ $url = $row_evidencia['url'];
 
 $Evidencia = file_get_contents($url);
 $baseEvidencia = 'data:image/' . $type . ';base64,' . base64_encode($Evidencia);
-$resultado .= "<img style='width: 335px;height: 335px;padding: 5px;' src='".$baseEvidencia."' />";
+$resultado .= "<img style='width: 300px;height: 300px;padding: 5px;' src='".$baseEvidencia."' />";
 
 }
 $resultado .= "</div>";
@@ -944,9 +944,9 @@ img {
     $contenid0 .= "</head>";
     $contenid0 .= "<body>";
 
-    $RutaLogo = "http://portal.admongas.com.mx/portal-sasisopa/imgs/logo/Logo.png";
-    $DataLogo = file_get_contents($RutaLogo);
-    $baseLogo = 'data:image/png;base64,' . base64_encode($DataLogo);
+    $RutaLogo = RUTA_IMG_LOGOS."Logo.png";
+$DataLogo = file_get_contents($RutaLogo);
+$baseLogo = 'data:image/png;base64,' . base64_encode($DataLogo);
 
     $contenid0 .= "<div class='text-center'><img src='".$baseLogo."' style='width: 300px;'></div>";    
     $contenid0 .= "<div class='text-center'><b>Mantenimiento Preventivo</b></div>";
@@ -1043,7 +1043,8 @@ $dompdf->setPaper("LEGAL", "landscape");
 // Escribimos el html en el PDF
 $dompdf->render();
 
-$dompdf->get_canvas()->page_text(930, 580, "Pagina: {PAGE_NUM} de {PAGE_COUNT}", $font, 6, array(0,0,0));
+$canvas = $dompdf->get_canvas();
+$canvas->page_text(930, 570, "Página: {PAGE_NUM} de {PAGE_COUNT}", null, 7, array(0, 0, 0));
 
 // Ponemos el PDF en el browser
 $dompdf->stream('ReporteMantenimiento Preventivo.pdf');

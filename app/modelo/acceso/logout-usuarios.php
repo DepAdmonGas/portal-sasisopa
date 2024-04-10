@@ -14,7 +14,7 @@ session_destroy();
 
 //Cerramos la conexión con la base de datos
 mysqli_close($con);
-
+setcookie('COOKIEADMONGAS', '', time() - 1, '/');
 //Redireccionamos a el index
 header("Location:".PORTAL);
 die();

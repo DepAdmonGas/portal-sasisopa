@@ -338,7 +338,7 @@ $dompdf->setPaper("A4", "landscape");
 // Escribimos el html en el PDF
 $dompdf->render();
 // Ponemos el PDF en el browser
-$dompdf->stream('Atención de Hallazgos.pdf',["Attachment" => true]);
+$dompdf->stream('Atención de Hallazgos.pdf');
 //------------------
 mysqli_close($con);
 //------------------

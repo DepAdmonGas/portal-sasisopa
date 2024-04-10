@@ -756,7 +756,9 @@ $contenid0 .= "</html>";
 $dompdf->loadHtml($contenid0);
 $dompdf->setPaper("A4", "landscape");
 $dompdf->render();
-$dompdf->get_canvas()->page_text(750, 570, "Pagina: {PAGE_NUM} de {PAGE_COUNT}", $font, 8, array(0,0,0));
+$canvas = $dompdf->get_canvas();
+$canvas->page_text(768, 570, "Página: {PAGE_NUM} de {PAGE_COUNT}", null, 7, array(0, 0, 0));
+
 $dompdf->stream('Programa de implementación del Sistema de Administración.pdf');
 
 //------------------

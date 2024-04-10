@@ -87,7 +87,6 @@ return $tanque;
 
 
        $RutaLogo = RUTA_IMG_LOGOS."Logo.png";
-
         $DataLogo = file_get_contents($RutaLogo);
         $baseLogo = 'data:image/' . $type . ';base64,' . base64_encode($DataLogo);
 
@@ -370,10 +369,12 @@ if ($idtanque4 != "" && $inventarioinicial4 != "" && $inventariofinal4 != "") {
         $contenid0 .= "<td colspan='3' style='padding: 5px;text-align: right;'>Merma: <b>".number_format($Merma,2)."</b></td>";
         $contenid0 .= "</tr>";
 
-
         $contenid0 .= "</table>";
         $contenid0 .= "</td>";
+        
     }
+
+       
 
         //------------------------ td dos
 
@@ -434,7 +435,6 @@ $dompdf->setPaper("A4", "landscape");
 // Escribimos el html en el PDF
 $dompdf->render();
 
-$dompdf->get_canvas()->page_text(710, 570, "Pagina: {PAGE_NUM} de {PAGE_COUNT}", $font, 8, array(0,0,0));
 
 
 // Ponemos el PDF en el browser

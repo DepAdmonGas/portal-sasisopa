@@ -1,10 +1,15 @@
 <?php
 session_start();
 include_once "../config/inc.configuracion.php";
-include_once "../bd/inc.conexion.php";
+include_once "../bd/ConexionBD.php";
+
+$ClassConexionBD = new ConexionBD();
+$con = $ClassConexionBD->conectarBD();
+
 unset($_SESSION);
 session_destroy();
-mysqli_close($con);
+$ClassConexionBD->desconectarBD($con);
+setcookie('COOKIEADMONGAS', '', time() - 1, '/');
 header("Location:".PORTAL."");
 die();
 ?>

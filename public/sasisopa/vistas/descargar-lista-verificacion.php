@@ -382,7 +382,7 @@ $dompdf->setPaper("A4", "portrait");
 // Escribimos el html en el PDF
 $dompdf->render();
 // Ponemos el PDF en el browser
-$dompdf->stream('Listas de verificación.pdf',["Attachment" => true]);
+$dompdf->stream('Listas de verificación.pdf');
 //------------------
 mysqli_close($con);
 //------------------

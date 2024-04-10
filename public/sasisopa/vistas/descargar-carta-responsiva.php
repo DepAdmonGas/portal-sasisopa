@@ -240,7 +240,7 @@ $dompdf->setPaper("A4", "portrait");
 // Escribimos el html en el PDF
 $dompdf->render();
 // Ponemos el PDF en el browser
-$dompdf->stream('Carta responsiva.pdf',["Attachment" => true]);
+$dompdf->stream('Carta responsiva.pdf');
 //------------------
 mysqli_close($con);
 //------------------

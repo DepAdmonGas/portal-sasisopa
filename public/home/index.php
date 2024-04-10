@@ -38,6 +38,7 @@ return $array;
 }
 
 function Cursos($idEstacion,$CalenDate,$con){
+  $Resultado = 0;
   $Pendientes = 0;
   $Finalizadas = 0;
 

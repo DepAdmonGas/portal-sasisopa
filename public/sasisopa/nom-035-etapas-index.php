@@ -54,7 +54,6 @@ $estacion = $row_estaciones['nombre'];
   $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
   $(".LoaderPage").fadeOut("slow");
- <?php if ($numero_sasisopa_ayuda == 1) {echo "btnAyuda();";} ?>
   });
   function regresarP(){
    window.history.back();
