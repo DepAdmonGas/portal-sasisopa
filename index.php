@@ -36,6 +36,15 @@ switch ($partes_ruta[1])
     case 'descargar-formato-3':
       $ruta_elegida = $index_controlador->descargarFormato3();
     break;
+    case '3-requisitos-legales':
+      $ruta_elegida = $index_controlador->requisitosLegales();
+    break;
+    case '3-requisitos-legales-configuracion':
+      $ruta_elegida = $index_controlador->requisitosLegalesConfiguracion();
+    break;
+    case 'descargar-requisitos-legales':
+      $ruta_elegida = $index_controlador->descargarRequisitosLegales();
+      break;
     //-------- ELEMENTOS SASISOPA FIN -------------------
     //---------------------------------------------------
 
@@ -82,15 +91,7 @@ break;
 //--------------------Puntos Sasisopa ----------
 
 
-case '3-requisitos-legales':
-$ruta_elegida = 'public/sasisopa/requisitos-legales-index.php';
-break;
-case '3-requisitos-legales-configuracion':
-$ruta_elegida = 'public/sasisopa/requisitos-legales-configuracion-index.php';
-break;
-case 'descargar-requisitos-legales':
-$ruta_elegida = 'public/sasisopa/vistas/descargar-requisitos-legales.php';
-break;
+
 case '4-objetivos-metas-indicadores':
 $ruta_elegida = 'public/sasisopa/objetivos-metas-indicadores.php';
 break;
@@ -331,6 +332,10 @@ break;
     $GET_idRegistro = $partes_ruta[2];
     $ruta_elegida = $index_controlador->descargarListaComprobacion();
     }
+    else if ($partes_ruta[1] == '3-requisitos-legales') {
+    $NGobierno = $partes_ruta[2];
+    $ruta_elegida = $index_controlador->detalleRequisitosLegales();
+    }
     //---------------------------------------------
     //---------------------------------------------
     //------------ LISTA ASISTENCIA ---------------
@@ -370,9 +375,6 @@ break;
     }else if ($partes_ruta[1] == 'gestoria-requisitos-legales') {
     $idEstacion = $partes_ruta[2];
     $ruta_elegida = 'public/administrador/requisitos-legales-index.php';
-    }else if ($partes_ruta[1] == '3-requisitos-legales') {
-    $NGobierno = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/detalle-requisitos-legales-index.php';
     }else if ($partes_ruta[2] == 'indicador-ventas'){
     $ruta_elegida = 'public/sasisopa/indicador-ventas-index.php';
     }else if ($partes_ruta[1] == 'gestoria-reporte-estadistico-cre') {

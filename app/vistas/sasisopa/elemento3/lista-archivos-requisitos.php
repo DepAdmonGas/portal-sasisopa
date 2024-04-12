@@ -1,9 +1,11 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
+include_once "../../../../app/modelo/RequisitoLegal.php";
+$class_requisito_legal = new RequisitoLegal();
 
 $NGobierno = $_GET['NGobierno'];
 $Dependencia = $_GET['Dependencia'];
-
+$title = "";
 if ($NGobierno == "municipal") {
     $title = "Municipal";
     }else if ($NGobierno == "estatal") {
@@ -13,83 +15,6 @@ if ($NGobierno == "municipal") {
     }else if ($NGobierno == "varios") {
     $title = "Varios";
     }
-
-function UltimaAct($idre,$con){
-
-$sql_matriz = "SELECT * FROM rl_requisitos_legales_matriz WHERE idcalendario = '".$idre."' ORDER BY id desc LIMIT 1";
-$result_matriz = mysqli_query($con, $sql_matriz);
-$numero_matriz = mysqli_num_rows($result_matriz);
-if($numero_matriz > 0){
-while($row_matriz = mysqli_fetch_array($result_matriz, MYSQLI_ASSOC)){
-
-
-if($row_matriz['fecha_emision'] == "0000-00-00"){
-$fechaemision = "S/I"; 
-}else{
-$fechaemision = $row_matriz['fecha_emision'];
-}
-
-if($row_matriz['fecha_vencimiento'] == "0000-00-00"){
-$fechavencimiento = "S/I"; 
-}else{
-$fechavencimiento = $row_matriz['fecha_vencimiento'];
-}
-
-$acusepdf = $row_matriz['acusepdf'];
-$requisitolegalpdf = $row_matriz['requisitolegalpdf'];
-}
-}else{
-$fechaemision = "S/I";
-$fechavencimiento = "S/I"; 
-$acusepdf = "";
-$requisitolegalpdf = "";
-}
-
-if ($acusepdf == "" && $requisitolegalpdf == "") {
-  $cumplimiento = "0 %";
-  $toCumpli = 0;
-  }else if ($acusepdf!= "" && $requisitolegalpdf == "") {
-  $cumplimiento = "50 %";
-  $toCumpli = 50;
-  }else if($acusepdf == "" && $requisitolegalpdf != ""){
-  $cumplimiento = "100 %";
-  $toCumpli = 100;
-  }else if($acusepdf != "" && $requisitolegalpdf != ""){
-  $cumplimiento = "100 %";
-  $toCumpli = 100;
-  }
-
-$array = array('fechaemision' => $fechaemision,
-'fechavencimiento' => $fechavencimiento,
-'acusepdf' => $acusepdf,
-'requisitolegalpdf' => $requisitolegalpdf,
-'cumplimiento' => $cumplimiento,
-'toCumpli' => $toCumpli);
-
-return $array;
-}
-
-function DetalleRL($idrequisitol,$con){
-
-$sql = "SELECT * FROM rl_requisitos_legales_lista WHERE id = '".$idrequisitol."' LIMIT 1 ";
-$result = mysqli_query($con, $sql);
-$numero = mysqli_num_rows($result);
- while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-$dependencia = $row['dependencia'];
-$permiso = $row['permiso']; 
- }
-
-$array = array(
-"dependencia" => $dependencia,
-"permiso" => $permiso,
-);
-
-return $array;
-}
-
-/*$sql_programa_c = "SELECT * FROM rl_requisitos_legales_calendario WHERE id_estacion = '".$Session_IDEstacion."' AND nivel_gobierno = '".$NGobierno."' AND estado = 1 ORDER BY id_requisito_legal ASC";
-$result_programa_c = mysqli_query($con, $sql_programa_c);
-$numero_programa_c = mysqli_num_rows($result_programa_c);*/
 
 if($Dependencia == "Todas"){
 $SQLDep = '';
@@ -149,6 +74,7 @@ if ($numero_programa_c != 0) {
   </thead>
   <tbody>
   <?php
+  $TotalCmp = 0;
   while($row_programa_c = mysqli_fetch_array($result_programa_c, MYSQLI_ASSOC)){
 
 $idrequisitol = $row_programa_c['id_requisito_legal'];
@@ -171,7 +97,7 @@ if($row_programa_c['id_requisito_legal'] == 0){
 $dependencia = 'S/I';
 $requisitol = $row_programa_c['requisito_legal'];
 }else{
-$DetalleRL = DetalleRL($idrequisitol,$con);
+$DetalleRL = $class_requisito_legal->DetalleRL($idrequisitol,$con);
 $dependencia = $DetalleRL['dependencia'];
 $requisitol = $DetalleRL['permiso'];
 }
@@ -248,7 +174,7 @@ $Coldiciembre = "Diciembre,";
 $Coldiciembre = ""; 
 }
 
-$UltimaA = UltimaAct($idre,$con);
+$UltimaA = $class_requisito_legal->UltimaAct($idre,$con);
 
 $ArrayRenovacion = $Colenero.$Colfebrero.$Colmarzo.$Colabril.$Colmayo.$Coljunio.$Coljulio.$Colagosto.$Colseptiembre.$Coloctubre.$Colnoviembre.$Coldiciembre;
 
@@ -330,9 +256,9 @@ $Renovacion = trim($ArrayRenovacion, ',');
   echo "<td class='text-center align-middle'><b>".$UltimaA['cumplimiento']."</b></td>";
   echo "<td class='text-center align-middle'><small>".$Renovacion."</small></td>";
   echo "<td class='text-center align-middle'width='20px' style='cursor: pointer;'><img src='".RUTA_IMG_ICONOS."ojo-black-16.png' onclick='Detalle(".$idre.")'></td>";
-  echo '<td class="text-center align-middle" width="20px" style="cursor: pointer;"><img src="'.RUTA_IMG_ICONOS.'edit-black-16.png" onclick="editar('.$idre.',\''.$NGobierno.'\',\''.$Dependencia.'\')"></td>';
+  echo '<td class="text-center align-middle" width="20px" style="cursor: pointer;"><img src="'.RUTA_IMG_ICONOS.'edit-black-16.png" onclick="editar('.$idre.',\''.$title.'\',\''.$Dependencia.'\')"></td>';
   echo "<td class='text-center align-middle'width='20px' style='cursor: pointer;'><img src='".RUTA_IMG_ICONOS."lista.png' onclick='listaReq(".$idre.")'></td>";
-  echo '<td class="text-center align-middle" width="20px" style="cursor: pointer;"><img src="'.RUTA_IMG_ICONOS.'img-no.png" onclick="EliminarRL('.$idre.',\''.$NGobierno.'\')"></td>';
+  echo '<td class="text-center align-middle" width="20px" style="cursor: pointer;"><img src="'.RUTA_IMG_ICONOS.'img-no.png" onclick="EliminarRL('.$idre.',\''.$title.'\')"></td>';
   echo "</tr>";
 
   $TotalCmp = $TotalCmp + $UltimaA['toCumpli'];

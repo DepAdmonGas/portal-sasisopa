@@ -1,5 +1,5 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 if($_GET['NG'] == "Municipal"){
 $NG = ' AND mun_alc_est = "'.$Session_DiMunicipio.'" ';
@@ -43,9 +43,6 @@ sortField: 'text'
 
   ?>
 </select>
-
-
-
 
 <hr>
 

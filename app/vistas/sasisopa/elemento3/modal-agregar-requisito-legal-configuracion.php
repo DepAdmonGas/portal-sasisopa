@@ -1,5 +1,5 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 $NG = $_GET['NG'];
 
@@ -13,7 +13,7 @@ $MA = 'NA';
 $MA = 'NA';
 }
 
-$sql_dep = "SELECT * FROM rl_requisitos_legales_dependencias WHERE (id_estacion = '".$Session_IDEstacion."' OR id_estacion = 0) AND estado = 1 ORDER BY dependencia ASC ";
+$sql_dep = "SELECT dependencia FROM rl_requisitos_legales_dependencias WHERE (id_estacion = '".$Session_IDEstacion."' OR id_estacion = 0) AND estado = 1 ORDER BY dependencia ASC ";
 $result_dep = mysqli_query($con, $sql_dep);
 $numero_dep = mysqli_num_rows($result_dep);
 

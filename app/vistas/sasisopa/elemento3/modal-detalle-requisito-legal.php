@@ -1,5 +1,7 @@
 <?php 
-require('../../../app/help.php');
+require('../../../../app/help.php');
+include_once "../../../../app/modelo/RequisitoLegal.php";
+$class_requisito_legal = new RequisitoLegal();
 $idre = $_GET['id'];
 
 $sql_programa_m = "SELECT * FROM rl_requisitos_legales_calendario WHERE id = '".$idre."' ";
@@ -38,7 +40,7 @@ $detalle = '
 ';
 
 }else{
-$DetalleRL = DetalleRL($idrequisitolegal,$con);
+$DetalleRL = $class_requisito_legal->DetalleRL($idrequisitolegal);
 $detalle = '
 
 <div class="row">
@@ -90,31 +92,6 @@ $detalle = '
 }
 
 }
-
-
-function DetalleRL($idrequisitol,$con){
-
-$sql = "SELECT * FROM rl_requisitos_legales_lista WHERE id = '".$idrequisitol."' LIMIT 1 ";
-$result = mysqli_query($con, $sql);
-$numero = mysqli_num_rows($result);
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-$nivelgobierno = $row['nivel_gobierno'];
-$munalcest = $row['mun_alc_est'];
-$dependencia = $row['dependencia']; 
-$permiso = $row['permiso']; 
-$fundamento = $row['fundamento']; 
-}
-
-$result = array(
-'nivelgobierno' => $nivelgobierno,
-'munalcest' => $munalcest,
-'dependencia' => $dependencia,
-'permiso' => $permiso,
-'fundamento' => $fundamento,);
-
-return $result;
-}
-
 
 
 ?>

@@ -1,5 +1,8 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
+include_once "../../../../app/modelo/RequisitoLegal.php";
+$class_requisito_legal = new RequisitoLegal();
+$NG = "";
 
 if($_GET['NG'] == "Municipal"){
 $NG = ' AND mun_alc_est = "'.$Session_DiMunicipio.'" ';
@@ -11,19 +14,10 @@ $NG = '';
 $NG = '';
 }
 
-
 $sql = "SELECT * FROM rl_requisitos_legales_lista WHERE nivel_gobierno = '".$_GET['NG']."' $NG AND (id_estacion = '".$Session_IDEstacion."' OR id_estacion = 0) AND estado = 1 ORDER BY permiso ASC ";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
 
-
-function valRequisito($idEstacion,$id,$con){
-$sql = "SELECT id_requisito_legal FROM rl_requisitos_legales_calendario WHERE id_estacion = '".$idEstacion."' AND id_requisito_legal = '".$id."' LIMIT 1";
-$result = mysqli_query($con, $sql);
-$numero = mysqli_num_rows($result);
-
-return $numero;
-}
 ?>
 <script type="text/javascript">
 $('.selectize').selectize({
@@ -49,7 +43,7 @@ if($row['mun_alc_est'] == ""){$mae = "";}else{$mae = ", ".$row['mun_alc_est'];}
 if($row['dependencia'] == ""){$de = "";}else{$de = ", ".$row['dependencia'];}
 if($row['permiso'] == ""){$per = "";}else{$per = ", ".$row['permiso'];}
 
-  $valRequisito = valRequisito($Session_IDEstacion,$row['id'],$con);
+  $valRequisito = $class_requisito_legal->valRequisito($Session_IDEstacion,$row['id']);
   if($valRequisito == 0){
   $requisito = $ng;
   echo '<option value="'.$row['id'].'">'.$requisito.$mae.$de.$per.'</option>';

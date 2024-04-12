@@ -69,15 +69,13 @@ if ($NGobierno == "municipal") {
   }
 
   function ListaRequisitos(NGobierno,Dependencia){
-
   var parametros = {
   'NGobierno': NGobierno,
   'Dependencia' : Dependencia
   };
-
   $.ajax({
    data:  parametros,
-   url:   '../public/sasisopa/vistas/lista-archivos-requisitos.php',
+   url:   '../app/vistas/sasisopa/elemento3/lista-archivos-requisitos.php',
    type:  'get',
    beforeSend: function() {
    },
@@ -89,12 +87,12 @@ if ($NGobierno == "municipal") {
 
     }
     });
-    //$('#DivContenido').load('../public/sasisopa/vistas/lista-archivos-requisitos.php?NGobierno=');   
+   
   }
 
 function ModalNuevo(NG){
 $('#ModalConfiguracion').modal('show');
-$('#DivConfiguracion').load('../public/sasisopa/vistas/modal-agregar-requisito-legal.php?NG=' + NG);
+$('#DivConfiguracion').load('../app/vistas/sasisopa/elemento3/modal-agregar-requisito-legal.php?NG=' + NG);
 }
 
 function AgregarRL(NGobierno){
@@ -107,7 +105,7 @@ var fechaemision      = $('#fechaemision').val();
 var vencimiento = $('#vencimiento').val(); 
 
 var data = new FormData();
-var url = '../public/sasisopa/agregar/agregar-detalle-requisito-legal.php';
+var url = '../app/controlador/RequisitoLegalControlador.php';
 
 acusePDF = document.getElementById("acusePDF");
 acusePDF_file = acusePDF.files[0];
@@ -209,6 +207,8 @@ requisitoPDF_filePath = requisitoPDF.value;
   if (fechaemision != "") {
   $('#fechaemision').css('border','');
 
+
+  data.append('accion', 'agregar-detalle-requisito-legal');
   data.append('requisitolegal', requisitolegal);
   data.append('vigencia', vigencia);
   data.append('fechaemision', fechaemision);
@@ -238,7 +238,7 @@ requisitoPDF_filePath = requisitoPDF.value;
     cache: false
     }).done(function(data){
 
-    if(data == 1){
+    if(data){
     ListaRequisitos(NGobierno,'Todas');
     $('#ModalConfiguracion').modal('hide');
     }else{
@@ -261,7 +261,7 @@ requisitoPDF_filePath = requisitoPDF.value;
 
 function editar(id,NGobierno){
 $('#ModalConfiguracion').modal('show');
-$('#DivConfiguracion').load('../public/sasisopa/vistas/modal-editar-requisito-legal.php?id=' + id + '&idestacion=<?=$Session_IDEstacion;?>&NG=' + NGobierno);
+$('#DivConfiguracion').load('../app/vistas/sasisopa/elemento3/modal-editar-requisito-legal.php?id=' + id + '&idestacion=<?=$Session_IDEstacion;?>&NG=' + NGobierno);
 }
 
 function EditarRL(id){
@@ -362,6 +362,7 @@ var vigencia       = $('#vigencia').val();
 Dependencia = sessionStorage.getItem('Dependencia');
 
   var parametros = {
+  'accion' : "editar-detalle-requisito-legal",
   'id': id,
   'requisitolegal': requisitolegal,
   'vigencia' : vigencia,
@@ -381,7 +382,7 @@ Dependencia = sessionStorage.getItem('Dependencia');
 
   $.ajax({
    data:  parametros,
-   url:   '../public/sasisopa/actualizar/editar-detalle-requisito-legal.php',
+   url:   '../app/controlador/RequisitoLegalControlador.php',
    type:  'post',
    beforeSend: function() {
    },
@@ -411,16 +412,16 @@ Dependencia = sessionStorage.getItem('Dependencia');
 //-----------------------------------------------
 function listaReq(id){
 $('#ModalConfiguracion').modal('show');
-$('#DivConfiguracion').load('../public/sasisopa/vistas/modal-historial-requisito-legal.php?id=' + id ); 
+$('#DivConfiguracion').load('../app/vistas/sasisopa/elemento3/modal-historial-requisito-legal.php?id=' + id ); 
 }
 
 
 function NuevoRequisito(id){
-$('#DivConfiguracion').load('../public/sasisopa/vistas/modal-historial-requisito-legal-nuevo.php?id=' + id ); 
+$('#DivConfiguracion').load('../app/vistas/sasisopa/elemento3/modal-historial-requisito-legal-nuevo.php?id=' + id ); 
 }
 
 function CancelarAgregar(id){
-$('#DivConfiguracion').load('../public/sasisopa/vistas/modal-historial-requisito-legal.php?id=' + id )
+$('#DivConfiguracion').load('../app/vistas/sasisopa/elemento3/modal-historial-requisito-legal.php?id=' + id )
 }
 
 function AgregarRequisito(id){
@@ -436,15 +437,15 @@ var requisitoPDFEEFile = requisitoPDFE.files[0];
 var requisitoPDFEEFilePath = requisitoPDFE.value;
 
 var data = new FormData();
-var url = '../public/sasisopa/agregar/agrgar-requisito-legal-historial.php';
+var url = '../app/controlador/RequisitoLegalControlador.php';
 
 Dependencia = sessionStorage.getItem('Dependencia');
 
 if (FechaEmision != "") {
-$('#FechaEmision').css('border',''); 
+$('#fechaemision').css('border',''); 
 
+  data.append('accion', "agregar-requisito-legal-historial");
   data.append('idre', id);
-  data.append('idEstacion', <?=$Session_IDEstacion;?>);
   data.append('FechaEmision', FechaEmision);
   data.append('acusepdf', acusePDFEFile);
   data.append('requisitopdf', requisitoPDFEEFile);
@@ -456,34 +457,28 @@ $('#FechaEmision').css('border','');
   contentType: false,
   data: data,
   processData: false,
-  cache: false,
-  dataType: 'JSON',
+  cache: false
   }).done(function(data){
 
-    var fechaemision = data[0].FechaEmision;
-    var fechavencimiento = data[0].FechaVencimiento;
-    var acusepdf = data[0].acusepdf;
-    var requisitolegalpdf = data[0].requisitolegalpdf;
-
-  $('#td4-' + id).html(fechaemision);  
-  $('#td5-' + id).html(fechavencimiento); 
-  $('#td6-' + id).html(acusepdf);  
-  $('#td7-' + id).html(requisitolegalpdf);
-
-  listaReq(id);
-  ListaRequisitos('<?=$NGobierno;?>',Dependencia);
+    if(data){
+        ListaRequisitos('<?=$NGobierno;?>',Dependencia);
+        listaReq(id);
+    }else{
+        alertify.error('Error al agregar el requisito legal');  
+    }
+  
 
   });
 
 
 }else{
-$('#FechaEmision').css('border','2px solid #A52525');  
+$('#fechaemision').css('border','2px solid #A52525');  
 }
 
 }
 
 function editararchivo(id, idmatriz){
-$('#DivConfiguracion').load('../public/sasisopa/vistas/modal-editar-requisito-legal-historial.php?id=' + id + '&idmatriz=' + idmatriz ); 
+$('#DivConfiguracion').load('../app/vistas/sasisopa/elemento3/modal-editar-requisito-legal-historial.php?id=' + id + '&idmatriz=' + idmatriz ); 
 }
 
 function EditarRequisito(id, idmatriz){
@@ -500,8 +495,9 @@ var fechavencimiento = $('#fechavencimiento').val();
 Dependencia = sessionStorage.getItem('Dependencia');
 
 var data = new FormData();
-var url = '../public/sasisopa/actualizar/editar-requisito-legal-historial.php';
-
+var url = '../app/controlador/RequisitoLegalControlador.php';
+  
+  data.append('accion', "editar-requisito-legal-historial");
   data.append('idmatriz', idmatriz);
   data.append('acusepdf', acusePDFEFile);
   data.append('requisitopdf', requisitoPDFEEFile);
@@ -514,33 +510,17 @@ var url = '../public/sasisopa/actualizar/editar-requisito-legal-historial.php';
   contentType: false,
   data: data,
   processData: false,
-  cache: false,
-  dataType: 'JSON',
+  cache: false
   }).done(function(data){
 
-    var resultado = data[0].resultado;
-    var acusepdf = data[0].acusepdf;
-    var requisitolegalpdf = data[0].requisitolegalpdf;
-
-
-    if (acusepdf != "") {
-    $('#td6-' + id).html(acusepdf); 
-    }
-
-    if (requisitolegalpdf != "") {
-    $('#td7-' + id).html(requisitolegalpdf);
-    }
-
-if (resultado == 1) {
+if (data) {
 listaReq(id);
 ListaRequisitos('<?=$NGobierno;?>',Dependencia);
 }else{
 $('#respuesta').html('<div class="text-center"><small class="text-danger">Adjunte el acuse o requisito legal en formato PDF.</small></div>');  
 }
   
-
 });
-
 
 }
 
@@ -549,7 +529,7 @@ $('#respuesta').html('<div class="text-center"><small class="text-danger">Adjunt
 function Detalle(id){
 
 $('#ModalConfiguracion').modal('show');
-$('#DivConfiguracion').load('../public/sasisopa/vistas/modal-detalle-requisito-legal.php?id=' + id );
+$('#DivConfiguracion').load('../app/vistas/sasisopa/elemento3/modal-detalle-requisito-legal.php?id=' + id );
 
 }
 
@@ -559,13 +539,14 @@ alertify.confirm('',
 function(){
 
  var parametros = {
+  'accion': "eliminar-detalle-requisito-legal",
   'idre': idre,
   'idmatriz': idmatriz
 };
 
   $.ajax({
    data:  parametros,
-   url:   '../public/sasisopa/eliminar/eliminar-detalle-requisito-legal.php',
+   url:   '../app/controlador/RequisitoLegalControlador.php',
    type:  'post',
    beforeSend: function() {
    },
@@ -573,7 +554,7 @@ function(){
    },
    success:  function (response) {
 
-    if(response == 1){
+    if(response){
       Dependencia = sessionStorage.getItem('Dependencia');
       ListaRequisitos('<?=$NGobierno;?>',Dependencia);
       listaReq(idre)
@@ -598,12 +579,13 @@ function(){
 Dependencia = sessionStorage.getItem('Dependencia');
 
  var parametros = {
+    'accion' : "eliminar-requisito-legal",
   'idre': idre
 };
 
   $.ajax({
    data:  parametros,
-   url:   '../public/sasisopa/eliminar/eliminar-requisito-legal.php',
+   url:   '../app/controlador/RequisitoLegalControlador.php',
    type:  'post',
    beforeSend: function() {
    },
@@ -611,7 +593,7 @@ Dependencia = sessionStorage.getItem('Dependencia');
    },
    success:  function (response) {
 
-    if(response == 1){
+    if(response){
       ListaRequisitos(NGobierno,Dependencia);
     }else{
     alertify.error('Error al eliminar el requisito legal'); 
@@ -642,7 +624,7 @@ var parametros = {
 
   $.ajax({
    data:  parametros,
-   url:   '../public/sasisopa/vistas/calcular-fecha-vencimiento.php',
+   url:   '../app/vistas/sasisopa/elemento3/calcular-fecha-vencimiento.php',
    type:  'post',
    beforeSend: function() {
    },
@@ -667,7 +649,7 @@ $('#fechaemision').val('');
 
 function ModalBuscar(NG){
 $('#ModalConfiguracion').modal('show');
-$('#DivConfiguracion').load('../public/sasisopa/vistas/modal-buscar-requisito-legal.php?NG=' + NG);
+$('#DivConfiguracion').load('../app/vistas/sasisopa/elemento3/modal-buscar-requisito-legal.php?NG=' + NG);
 }
 
 function BuscarRL(NG){

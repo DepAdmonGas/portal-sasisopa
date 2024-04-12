@@ -1,114 +1,16 @@
 <?php
 require('app/help.php');
+include_once "app/modelo/Ayuda.php";
+include_once "app/modelo/RequisitoLegal.php";
 
-function ToRequisitos($id,$NGobierno,$con){
-    $sql_programa_c = "SELECT * FROM rl_requisitos_legales_calendario
-    WHERE id_estacion = '".$id."' AND nivel_gobierno = '".$NGobierno."' ";
-    $result_programa_c = mysqli_query($con, $sql_programa_c);
-    $numero_programa_c = mysqli_num_rows($result_programa_c);
-    while($row_programa_c = mysqli_fetch_array($result_programa_c, MYSQLI_ASSOC)){
-    $idCa = $row_programa_c['id'];  
-    
-    $sql_programa_m = "SELECT * FROM rl_requisitos_legales_matriz
-    WHERE idcalendario = '".$idCa."' ORDER BY fecha_emision asc LIMIT 1 ";
-    $result_programa_m = mysqli_query($con, $sql_programa_m);
-    $numero_programa_m = mysqli_num_rows($result_programa_m);
-    while($row_programa_m = mysqli_fetch_array($result_programa_m, MYSQLI_ASSOC)){
-    
-    if ($row_programa_m['acusepdf'] == "" && $row_programa_m['requisitolegalpdf'] == "") {
-      $Refin = 0;
-      $toCumpli = 0;
-      }else if ($row_programa_m['acusepdf'] != "" && $row_programa_m['requisitolegalpdf'] == "") {
-      $Refin = 0;
-      $toCumpli = 50;
-      }else if($row_programa_m['acusepdf'] == "" && $row_programa_m['requisitolegalpdf'] != ""){
-      $Refin = 1;
-      $toCumpli = 100;
-      }else if($row_programa_m['acusepdf'] != "" && $row_programa_m['requisitolegalpdf'] != ""){
-      $Refin = 1;
-      $toCumpli = 100;
-      }
-    
-      $ToReFin = $ToReFin + $Refin;
-      $TotalCmp = $TotalCmp + $toCumpli;
-    }
-    }
-    
-    if ($ToReFin == "") {
-    $ToReFin = 0;
-    }else{
-    $ToReFin = $ToReFin; 
-    }
+$class_ayuda = new Ayuda();
+$class_requisito_legal = new RequisitoLegal();
 
-    $array = array("ToReFin" => $ToReFin, "ToRe" => $numero_programa_c);
-    
-    return $array;
-    }
-
-function ToPorcentaje($id,$NGobierno,$con){
-    
-    $sql_programa_c = "SELECT * FROM rl_requisitos_legales_calendario
-    WHERE id_estacion = '".$id."' AND nivel_gobierno = '".$NGobierno."' ";
-    $result_programa_c = mysqli_query($con, $sql_programa_c);
-    $numero_programa_c = mysqli_num_rows($result_programa_c);
-    while($row_programa_c = mysqli_fetch_array($result_programa_c, MYSQLI_ASSOC)){
-    $idCa = $row_programa_c['id'];  
-    
-    $sql_programa_m = "SELECT * FROM rl_requisitos_legales_matriz
-    WHERE idcalendario = '".$idCa."' ORDER BY fecha_emision asc LIMIT 1 ";
-    $result_programa_m = mysqli_query($con, $sql_programa_m);
-    $numero_programa_m = mysqli_num_rows($result_programa_m);
-    while($row_programa_m = mysqli_fetch_array($result_programa_m, MYSQLI_ASSOC)){
-    
-    if ($row_programa_m['acusepdf'] == "" && $row_programa_m['requisitolegalpdf'] == "") {
-      $Refin = 0;
-      $toCumpli = 0;
-      }else if ($row_programa_m['acusepdf'] != "" && $row_programa_m['requisitolegalpdf'] == "") {
-      $Refin = 0;
-      $toCumpli = 50;
-      }else if($row_programa_m['acusepdf'] == "" && $row_programa_m['requisitolegalpdf'] != ""){
-      $Refin = 1;
-      $toCumpli = 100;
-      }else if($row_programa_m['acusepdf'] != "" && $row_programa_m['requisitolegalpdf'] != ""){
-      $Refin = 1;
-      $toCumpli = 100;
-      }
-    
-      $ToReFin = $ToReFin + $Refin;
-      $TotalCmp = $TotalCmp + $toCumpli;
-    }
-    }
-    
-    if ($TotalCmp == "") {
-    $TotalCmp = 0;
-    }else{
-    $TotalCmp = $TotalCmp; 
-    }
-    
-    if ($TotalCmp == 0) {
-    $Sicumple = 0;
-    }else{
-    $Sicumple = $TotalCmp / $numero_programa_c;
-    }
-    
-    return $Sicumple;  
-    }
-
-
-$sql_sasisopa_ayuda = "SELECT * FROM pu_sasisopa_ayuda WHERE id_usuario = '".$Session_IDUsuarioBD."' and detalle = '3-requisitos-legales' and estado = 0 LIMIT 1";
-$result_sasisopa_ayuda = mysqli_query($con, $sql_sasisopa_ayuda);
-$numero_sasisopa_ayuda = mysqli_num_rows($result_sasisopa_ayuda);
-
-if ($numero_sasisopa_ayuda == 1) {
-while($row_ayuda = mysqli_fetch_array($result_sasisopa_ayuda, MYSQLI_ASSOC)){
-$idAyuda = $row_ayuda['id'];
-}
-}else{
-$idAyuda = 0;
-}
+$array_ayuda = $class_ayuda->sasisopaAyuda($Session_IDUsuarioBD,'3-requisitos-legales');
+$id_ayuda = $array_ayuda['id'];
+$estado = $array_ayuda['estado'];
 
 ?>
-
 <html lang="es">
   <head>
   <meta charset="utf-8">
@@ -129,7 +31,7 @@ $idAyuda = 0;
   <script type="text/javascript" src="<?php echo RUTA_JS ?>alertify.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-      <style media="screen">
+  <style media="screen">
   .LoaderPage {
   position: fixed;
   left: 0px;
@@ -138,11 +40,10 @@ $idAyuda = 0;
   height: 100%;
   z-index: 9999;
   background: url('imgs/iconos/load-img.gif') 50% 50% no-repeat rgb(249,249,249);
-}
+  }
   .car-admin{
     border: 1px solid #eeeeee;box-shadow: 1px 1px 5px #EDEDED;border-bottom: 3px solid #3399cc;border-radius: 0;
   }
-
   .card-hover:hover{
     background: rgba(239, 239, 239, .3);
   }
@@ -151,7 +52,7 @@ $idAyuda = 0;
   $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
   $(".LoaderPage").fadeOut("slow");
-  <?php if ($numero_sasisopa_ayuda == 1) {echo "btnAyuda();";} ?>
+  <?php if ($id_ayuda != 0) {echo "btnAyuda();";} ?>
   ListaAsistencia(3);
   });
 
@@ -159,116 +60,119 @@ $idAyuda = 0;
    window.history.back();
   }
 
-function ListaAsistencia(idSasisopa){
-$('#DivListaAsistencia').load('public/sasisopa/vistas/lista-asistencia.php?idSasisopa=' + idSasisopa); 
-}
-
- function BTNRequisito(NGobierno){
- window.location.href = '3-requisitos-legales/' + NGobierno; 
- }
-
+  //-------------------------------------
   function btnAyuda(){
   $('#myModalRequisitos').modal('show');
   }
 
-function btnFinAyuda(){
-
-var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
-
- var parametros = {
-        "idAyuda" : <?=$idAyuda; ?>
+  function btnFinAyuda(idayuda, estado){
+    var parametros = {
+        "accion" : "actualizar-ayuda",
+        "idayuda" : idayuda
       };
 
-  if (puntosSasisopa != 0) {
+    if (idayuda != 0 && estado == 0) {
 
-   $.ajax({
-   data:  parametros,
-   url:   'public/sasisopa/actualizar/actualizar-ayuda.php',
-   type:  'post',
-   beforeSend: function() {
-   },
-   complete: function(){
-   },
-   success:  function (response) {
-   $('#myModalRequisitos').modal('hide');
-   }
-   });
+        $.ajax({
+        data:  parametros,
+        url:   'app/controlador/AyudaControlador.php',
+        type:  'post',
+        beforeSend: function() {
+        },
+        complete: function(){
+        },
+        success:  function (response) {
+        $('#myModalRequisitos').modal('hide');
+        }
+        });
 
-  }else{
-  $('#myModalRequisitos').modal('hide');
-  }
-
-}
- 
- function DescargarRequisitos(){
-window.location = "descargar-requisitos-legales";   
-}
-
-function RequisitosL(){
-window.location = "3-requisitos-legales-configuracion";    
-}
-
-  function btnAsistencia(){
-
-  var parametros = {
-   "PuntoSasisopa" : 3
-   };
-
-   $.ajax({
-   data:  parametros,
-   url:   'public/sasisopa/agregar/agregar-lista-asistencia.php',
-   type:  'post',
-   beforeSend: function() {
-   },
-   complete: function(){
-   },
-   success:  function (response) {
-
-    if(response != 0){
-      window.location = "lista-asistencia/" + response; 
     }else{
-     alertify.error('Error al crear registro'); 
+    $('#myModalRequisitos').modal('hide');
     }
 
-  
-   
-   }
-   });
-  
-   }
+    }
+  //------------------------------------
 
-function EditarAsistencia(id){
+  function RequisitosL(){
+  window.location = "3-requisitos-legales-configuracion";    
+  }
+
+  function BTNRequisito(NGobierno){
+  window.location.href = '3-requisitos-legales/' + NGobierno; 
+  }
+
+ function DescargarRequisitos(){
+ window.location = "descargar-requisitos-legales";   
+ }
+
+//----------------------- LISTA ASISTENCIA------------------------------------
+//----------------------------------------------------------------------------
+function ListaAsistencia(idSasisopa){
+$('#DivListaAsistencia').load('app/vistas/sasisopa/asistencia/lista-asistencia.php?idSasisopa=' + idSasisopa); 
+}
+
+function btnAsistencia(){
+
+  var parametros = {
+  "accion" : "agregar-lista-asistencia",
+ "PuntoSasisopa" : 3
+ };
+
+ $.ajax({
+ data:  parametros,
+ url:   'app/controlador/AsistenciaControlador.php',
+ type:  'post',
+ beforeSend: function() {
+ },
+ complete: function(){
+ },
+ success:  function (response) {
+
+  if(response != 0){
+    window.location = "lista-asistencia/" + response; 
+  }else{
+   alertify.error('Error al crear registro'); 
+  }
+
+
+ }
+ });
+
+ }
+
+ function EditarAsistencia(id){
 window.location = "lista-asistencia/" + id; 
 }
 
 function EliminarAsistencia(id){
 
-  var parametros = {
-    "id" : id
-    };
+var parametros = {
+  "accion" : "eliminar-lista-asistencia",
+  "id" : id
+  };
 
 alertify.confirm('',
 function(){
 
-  $.ajax({
-     data:  parametros,
-     url:   'public/sasisopa/eliminar/eliminar-lista-asistencia.php',
-     type:  'post',
-     beforeSend: function() {
-     },
-     complete: function(){
-    
-     },
-     success:  function (response) {
+$.ajax({
+   data:  parametros,
+   url:   'app/controlador/AsistenciaControlador.php',
+   type:  'post',
+   beforeSend: function() {
+   },
+   complete: function(){
+  
+   },
+   success:  function (response) {
 
-    if (response == 1) {
-    ListaAsistencia(3)
-    }else{
-    alertify.error('Error al eliminar')
-    }
+  if (response == 1) {
+  ListaAsistencia(3)
+  }else{
+  alertify.error('Error al eliminar')
+  }
 
-     }
-     });
+   }
+   });
 
 },
 function(){
@@ -278,7 +182,10 @@ function(){
 function DescargarAsistencia(id){
 window.location = "descargar-lista-asistencia/" + id;   
 }
-  </script>
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+
+</script>
   </head>
   <body>
 
@@ -329,8 +236,8 @@ window.location = "descargar-lista-asistencia/" + id;
 <div class="card-body" style="margin-top: 20px;">
 <div class="text-center text-secondary" style="font-size: 1.3em;">Municipal</div>
 <?php
-$ToPorMunicipal = ToPorcentaje($Session_IDEstacion,'Municipal',$con);
-$ToReqMunicipal = ToRequisitos($Session_IDEstacion,'Municipal',$con);
+$ToPorMunicipal = $class_requisito_legal->ToPorcentaje($Session_IDEstacion,'Municipal');
+$ToReqMunicipal = $class_requisito_legal->ToRequisitos($Session_IDEstacion,'Municipal');
 
 
 echo "<div class='text-center text-primary font-weight-bold' style='font-size: 1.4em;margin-top: 20px;'>".round($ToPorMunicipal)." % </div>";
@@ -350,8 +257,8 @@ echo "<div class='text-right text-secondary' style='font-size: .8em;'>".$ToReqMu
 <div class="card-body" style="margin-top: 20px;">
 <div class="text-center text-secondary" style="font-size: 1.3em;">Estatal</div>
 <?php
-$ToPorEstatal = ToPorcentaje($Session_IDEstacion,'Estatal',$con);
-$ToReqEstatal = ToRequisitos($Session_IDEstacion,'Estatal',$con);
+$ToPorEstatal = $class_requisito_legal->ToPorcentaje($Session_IDEstacion,'Estatal');
+$ToReqEstatal = $class_requisito_legal->ToRequisitos($Session_IDEstacion,'Estatal');
 echo "<div class='text-center text-primary font-weight-bold' style='font-size: 1.4em;margin-top: 20px;'>".round($ToPorEstatal)." % </div>";
 
 echo "<div class='text-right text-secondary' style='font-size: .8em;'>".$ToReqEstatal['ToReFin']." de ".$ToReqEstatal['ToRe']." Requisitos</div>";
@@ -369,8 +276,8 @@ echo "<div class='text-right text-secondary' style='font-size: .8em;'>".$ToReqEs
 <div class="card-body" style="margin-top: 20px;">
 <div class="text-center text-secondary" style="font-size: 1.3em;">Federal</div>
 <?php
-$ToPorFederal = ToPorcentaje($Session_IDEstacion,'Federal',$con);
-$ToReqFederal = ToRequisitos($Session_IDEstacion,'Federal',$con);
+$ToPorFederal = $class_requisito_legal->ToPorcentaje($Session_IDEstacion,'Federal');
+$ToReqFederal = $class_requisito_legal->ToRequisitos($Session_IDEstacion,'Federal');
 echo "<div class='text-center text-primary font-weight-bold' style='font-size: 1.4em;margin-top: 20px;'>".round($ToPorFederal)." % </div>";
 
 echo "<div class='text-right text-secondary' style='font-size: .8em;'>".$ToReqFederal['ToReFin']." de ".$ToReqFederal['ToRe']." Requisitos</div>";
@@ -388,8 +295,8 @@ echo "<div class='text-right text-secondary' style='font-size: .8em;'>".$ToReqFe
 <div class="card-body" style="margin-top: 20px;">
 <div class="text-center text-secondary" style="font-size: 1.3em;">Varios</div>
 <?php
-$ToPorVarios = ToPorcentaje($Session_IDEstacion,'Varios',$con);
-$ToReqVarios = ToRequisitos($Session_IDEstacion,'Varios',$con);
+$ToPorVarios = $class_requisito_legal->ToPorcentaje($Session_IDEstacion,'Varios');
+$ToReqVarios = $class_requisito_legal->ToRequisitos($Session_IDEstacion,'Varios');
 echo "<div class='text-center text-primary font-weight-bold' style='font-size: 1.4em;margin-top: 20px;'>".round($ToPorVarios)." % </div>";
 
 echo "<div class='text-right text-secondary' style='font-size: .8em;'>".$ToReqVarios['ToReFin']." de ".$ToReqVarios['ToRe']." Requisitos</div>";
@@ -530,7 +437,7 @@ $NoCumple = 100 - $Sicumple;
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda()">Aceptar</button>
+          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda(<?=$id_ayuda;?>,<?=$estado;?>)">Aceptar</button>
         </div>
       </div>
     </div>

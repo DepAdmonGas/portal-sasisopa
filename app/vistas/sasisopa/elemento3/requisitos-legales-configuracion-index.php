@@ -55,18 +55,15 @@ require('app/help.php');
   }
 
   function RequisitosConfiguracion(){
-    $('#RequisitosConfiguracion').load('public/sasisopa/vistas/requisitos-legales-configuracion.php');
+  $('#RequisitosConfiguracion').load('app/vistas/sasisopa/elemento3/requisitos-legales-configuracion.php');
   } 
 
   function ModalPermiso(NG){
-
   $('#ModalConfiguracion').modal('show');
-  $('#DivConfiguracion').load('public/sasisopa/vistas/modal-agregar-requisito-legal-configuracion.php?NG=' + NG);
-
+  $('#DivConfiguracion').load('app/vistas/sasisopa/elemento3/modal-agregar-requisito-legal-configuracion.php?NG=' + NG);
   }
 
   function AgregarRL(NG,MA){
-
   var Dependencia = $('#Dependencia').val();
   var Permiso = $('#Permiso').val();
   var Fundamento = $('#Fundamento').val();
@@ -80,6 +77,7 @@ alertify.confirm('',
 function(){
 
  var parametros = {
+  'accion' : 'agregar-requisito-legal-configuracion',
   'NG': NG,
   'MA': MA,
   'Dependencia': Dependencia,
@@ -89,7 +87,7 @@ function(){
 
   $.ajax({
    data:  parametros,
-   url:   'public/sasisopa/agregar/agregar-requisito-legal-configuracion.php',
+   url:   'app/controlador/RequisitoLegalControlador.php',
    type:  'post',
    beforeSend: function() {
    },
@@ -97,7 +95,7 @@ function(){
    },
    success:  function (response) {
 
-    if(response == 1){
+    if(response){
     RequisitosConfiguracion();
     $('#ModalConfiguracion').modal('hide');
     }else{
@@ -121,18 +119,19 @@ function(){
   }
 
 
-    function EliminarRL(id){
+  function EliminarRL(id){
 
 alertify.confirm('',
 function(){
 
    var parametros = {
-  "id" : id
+    "accion" : "eliminar-requisito-legal-configuracion",
+    "id" : id
   };
 
   $.ajax({
   data:  parametros,
-  url:   'public/sasisopa/eliminar/eliminar-requisito-legal-configuracion.php',
+  url:   'app/controlador/RequisitoLegalControlador.php',
   type:  'post',
   beforeSend: function() {
   },
@@ -140,7 +139,7 @@ function(){
   },
   success:  function (response) {
 
-  if (response == 1){
+  if (response){
   RequisitosConfiguracion(); 
   }else{
   alertify.error('Error al eliminar');  

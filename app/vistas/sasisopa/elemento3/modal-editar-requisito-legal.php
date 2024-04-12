@@ -1,8 +1,11 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
+include_once "../../../../app/modelo/RequisitoLegal.php";
+$class_requisito_legal = new RequisitoLegal();
 
 $idestacion = $_GET['idestacion'];
 $ID = $_GET['id'];
+$NG = "";
 
 if($_GET['NG'] == "Municipal"){
 $NG = ' AND mun_alc_est = "'.$Session_DiMunicipio.'" ';
@@ -12,27 +15,6 @@ $NG = ' AND mun_alc_est = "'.$Session_DiEstado.'" ';
 $NG = '';
 }else if($_GET['NG'] == "Varios"){
 $NG = '';
-}
-
-function DetalleRL($idrequisitol,$con){
-
-$sql = "SELECT * FROM rl_requisitos_legales_lista WHERE id = '".$idrequisitol."' LIMIT 1 ";
-$result = mysqli_query($con, $sql);
-$numero = mysqli_num_rows($result);
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-$nivelgobierno = $row['nivel_gobierno'];
-$munalcest = $row['mun_alc_est'];
-$dependencia = $row['dependencia']; 
-$permiso = $row['permiso']; 
-}
-
-$result = array(
-'nivelgobierno' => $nivelgobierno,
-'munalcest' => $munalcest,
-'dependencia' => $dependencia,
-'permiso' => $permiso,);
-
-return $result;
 }
 
 $sql = "SELECT * FROM rl_requisitos_legales_lista WHERE nivel_gobierno = '".$_GET['NG']."' $NG AND (id_estacion = '".$idestacion."' OR id_estacion = 0) AND estado = 1 ORDER BY permiso ASC ";
@@ -67,7 +49,7 @@ if($idrequisitolegal == 0){
 $nivelGobierno = $row_programa_m['nivel_gobierno'];
 $detalle_rl = "Requisito legal";
 }else{
-$DetalleRL = DetalleRL($idrequisitolegal,$con); 
+$DetalleRL = $class_requisito_legal->DetalleRL($idrequisitolegal); 
 $nivelGobierno = $DetalleRL['nivelgobierno'];
 
 if($DetalleRL['nivelgobierno'] == ""){$d_ng = "";}else{$d_ng = $DetalleRL['nivelgobierno'];}
@@ -78,7 +60,6 @@ if($DetalleRL['permiso'] == ""){$d_per = "";}else{$d_per = ", ".$DetalleRL['perm
 $detalle_rl = $d_ng.$d_mae.$d_de.$d_per;
 
 }
-
 
 if ($enero == 0) {
 $Cenero = "";
@@ -188,9 +169,7 @@ if($row['permiso'] == ""){$per = "";}else{$per = ", ".$row['permiso'];}
   ?>
 </select>
 
-
 <div class="row" style="margin-top: 10px;">
-
 
 <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mt-2 mb-2 "> 
   <h5 class="">Vigencia</h5>
@@ -250,11 +229,9 @@ if($row['permiso'] == ""){$per = "";}else{$per = ", ".$row['permiso'];}
 </table>
 </div>
 
-
 </div>
 <div class="modal-footer">
 <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-radius: 0px;">Cancelar</button>
 <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="EditarRL(<?=$ID;?>)">Editar</button>
 </div>
-
-  </div>
+</div>

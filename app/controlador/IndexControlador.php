@@ -33,6 +33,21 @@ class IndexControlador{
         return 'app/vistas/sasisopa/elemento2/descargar-formato-3.php';
     }
 
+    public function requisitosLegales(){
+        return 'app/vistas/sasisopa/elemento3/requisitos-legales-index.php';
+    }
+
+    public function requisitosLegalesConfiguracion(){
+        return 'app/vistas/sasisopa/elemento3/requisitos-legales-configuracion-index.php';
+    }
+
+    public function descargarRequisitosLegales(){
+        return 'app/vistas/sasisopa/elemento3/descargar-requisitos-legales.php';
+    }
+    
+    public function detalleRequisitosLegales(){
+        return 'app/vistas/sasisopa/elemento3/detalle-requisitos-legales-index.php';
+    }
     
 
     
