@@ -1,18 +1,17 @@
 <?php
 require('app/help.php');
 
+$IdReporte = $idReporte;
 $sql_encuesta = "SELECT * FROM tb_encuentas_estacion WHERE id = '".$idReporte."' ";
 $result_encuesta = mysqli_query($con, $sql_encuesta);
 $numero_encuesta = mysqli_num_rows($result_encuesta);
-while($row_encuesta = mysqli_fetch_array($result_encuesta, MYSQLI_ASSOC)){
+$row_encuesta = mysqli_fetch_array($result_encuesta, MYSQLI_ASSOC);
 
-  $IdReporte = $row_encuesta['id'];
   $date = $row_encuesta['fechacreacion'];
   $explode = explode(" ", $date);
   $fecha = $explode[0];
   $hora = $explode[1];
 
-}
 
 ?>
 <html lang="es">
@@ -43,7 +42,7 @@ while($row_encuesta = mysqli_fetch_array($result_encuesta, MYSQLI_ASSOC)){
   width: 100%;
   height: 100%;
   z-index: 9999;
-  background: url('imgs/iconos/load-img.gif') 50% 50% no-repeat rgb(249,249,249);
+  background: url('../../imgs/iconos/load-img.gif') 50% 50% no-repeat rgb(249,249,249);
 }
 
 .card-hover:hover{
@@ -70,7 +69,7 @@ while($row_encuesta = mysqli_fetch_array($result_encuesta, MYSQLI_ASSOC)){
   
    $.ajax({
      data:  parametros,
-     url:   '../../public/sasisopa/buscar/lista-cliente-encuentas.php',
+     url:   '../../app/vistas/sasisopa/elemento4/lista-cliente-encuentas.php',
      type:  'post',
      beforeSend: function() {
      },
@@ -83,6 +82,30 @@ while($row_encuesta = mysqli_fetch_array($result_encuesta, MYSQLI_ASSOC)){
 
   
 }
+
+function Detalle(id){
+  $('#ModalDetalle').modal('show');
+  DetalleEncuestado(id);
+  }
+
+  function DetalleEncuestado(id){
+   var parametros = {
+      "IdCliente" : id
+      };  
+   $.ajax({
+    data:  parametros,
+     url:   '../../app/vistas/sasisopa/elemento4/detalle-cliente-encuentas.php',
+     type:  'post',
+     beforeSend: function() {
+     },
+     complete: function(){
+     },
+     success:  function (response) {
+     $('#DivContenidoModal').html(response);
+     }
+     });
+ 
+  }
  
 google.charts.load("current", {packages:["corechart"]});
 google.charts.setOnLoadCallback(drawChart2);
@@ -90,7 +113,7 @@ google.charts.setOnLoadCallback(drawChart2);
       function drawChart2() {
 
          var jsonData = $.ajax({
-          url: "../../public/sasisopa/buscar/buscar-reporte-experiencia-principal.php?id=<?=$idReporte;?>",
+          url: "../../app/vistas/sasisopa/elemento4/buscar-reporte-experiencia-principal.php?id=<?=$idReporte;?>",
           dataType:"json",
           async: false
           }).responseText;
@@ -161,7 +184,7 @@ google.charts.setOnLoadCallback(drawChart2);
               while($row_encuesta = mysqli_fetch_array($result_encuesta, MYSQLI_ASSOC)){
               $Id = $row_encuesta['id'];
 
-              $sql_cuestionario = "SELECT * FROM tb_encuentas_cuestionario ORDER BY num_pregunta";
+              $sql_cuestionario = "SELECT id,num_pregunta,pregunta FROM tb_encuentas_cuestionario ORDER BY num_pregunta";
               $result_cuestionario = mysqli_query($con, $sql_cuestionario);
               $numero_cuestionario = mysqli_num_rows($result_cuestionario);
               while($row_cuestionario = mysqli_fetch_array($result_cuestionario, MYSQLI_ASSOC)){
@@ -183,7 +206,7 @@ google.charts.setOnLoadCallback(drawChart2);
             function drawChartP() {
 
           var jsonData = $.ajax({
-          url: "../../public/sasisopa/buscar/buscar-reporte-experiencia-preguntas.php?id=<?=$idReporte;?>&pre=<?=$IdCuestionario;?>",
+          url: "../../app/vistas/sasisopa/elemento4/buscar-reporte-experiencia-preguntas.php?id=<?=$idReporte;?>&pre=<?=$IdCuestionario;?>",
           dataType:"json",
           async: false
           }).responseText;
@@ -194,7 +217,6 @@ google.charts.setOnLoadCallback(drawChart2);
          
             colors: ['#0099F0', '#1EAD4E', '#F3C000', '#E70606']
         };
-
 
             var chart = new google.visualization.PieChart(document.getElementById('charReporteP<?=$IdCuestionario;?>'));
             chart.draw(data, options);

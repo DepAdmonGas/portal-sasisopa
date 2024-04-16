@@ -44,7 +44,10 @@ switch ($partes_ruta[1])
     break;
     case 'descargar-requisitos-legales':
       $ruta_elegida = $index_controlador->descargarRequisitosLegales();
-      break;
+    break;
+    case '4-objetivos-metas-indicadores':
+      $ruta_elegida = $index_controlador->objetivosMetasIndicadores();
+    break;
     //-------- ELEMENTOS SASISOPA FIN -------------------
     //---------------------------------------------------
 
@@ -90,11 +93,6 @@ $ruta_elegida = 'public/gerente/comunicados-index.php';
 break;
 //--------------------Puntos Sasisopa ----------
 
-
-
-case '4-objetivos-metas-indicadores':
-$ruta_elegida = 'public/sasisopa/objetivos-metas-indicadores.php';
-break;
 case '5-funciones-responsabilidades-autoridad':
 $ruta_elegida = 'public/sasisopa/funciones-responsabilidades-autoridad.php';
 break;
@@ -325,16 +323,28 @@ break;
     //--------------------------------------------
     //--------- SASISOPA POLITICA-----------------
     if ($partes_ruta[1] == 'descargar-politica') {
-    $GET_idEstacion = $partes_ruta[2];
-    $ruta_elegida = $index_controlador->descargarPolitica();
+      $GET_idEstacion = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->descargarPolitica();
     }
     else if ($partes_ruta[1] == 'descargar-lista-comprobacion') {
-    $GET_idRegistro = $partes_ruta[2];
-    $ruta_elegida = $index_controlador->descargarListaComprobacion();
+      $GET_idRegistro = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->descargarListaComprobacion();
     }
     else if ($partes_ruta[1] == '3-requisitos-legales') {
-    $NGobierno = $partes_ruta[2];
-    $ruta_elegida = $index_controlador->detalleRequisitosLegales();
+      $NGobierno = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->detalleRequisitosLegales();
+    }
+    else if ($partes_ruta[2] == 'capacitacion-personal'){
+      $ruta_elegida = $index_controlador->capacitacionPersonal();
+    }
+    else if ($partes_ruta[2] == 'experiencia-cliente'){
+      $ruta_elegida = $index_controlador->experienciaCliente();
+    }
+    else if ($partes_ruta[2] == 'agregar-experiencia-cliente'){
+      $ruta_elegida = $index_controlador->agregarExperienciaCliente();
+    }
+    else if ($partes_ruta[2] == 'indicador-ventas'){
+      $ruta_elegida = $index_controlador->indicadorVentas();
     }
     //---------------------------------------------
     //---------------------------------------------
@@ -375,20 +385,12 @@ break;
     }else if ($partes_ruta[1] == 'gestoria-requisitos-legales') {
     $idEstacion = $partes_ruta[2];
     $ruta_elegida = 'public/administrador/requisitos-legales-index.php';
-    }else if ($partes_ruta[2] == 'indicador-ventas'){
-    $ruta_elegida = 'public/sasisopa/indicador-ventas-index.php';
     }else if ($partes_ruta[1] == 'gestoria-reporte-estadistico-cre') {
     $idEstacion = $partes_ruta[2];
     $ruta_elegida = 'public/administrador/reporte-estadistico-index.php';
-    }else if ($partes_ruta[2] == 'experiencia-cliente'){
-    $ruta_elegida = 'public/sasisopa/experiencia-cliente-index.php';
     }
-    else if ($partes_ruta[2] == 'capacitacion-personal'){
-    $ruta_elegida = 'public/sasisopa/capacitacion-personal-index.php';
-    }
-    else if ($partes_ruta[2] == 'agregar-experiencia-cliente'){
-    $ruta_elegida = 'public/sasisopa/agregar-experiencia-cliente-index.php';
-    }else if ($partes_ruta[1] == 'programa-anual-mantenimiento'){
+    
+    else if ($partes_ruta[1] == 'programa-anual-mantenimiento'){
     $idReporte = $partes_ruta[2];
     $ruta_elegida = 'public/sasisopa/agregar-programa-anual-index.php';
     }
@@ -599,7 +601,24 @@ break;
 
   }else if(count($partes_ruta) == 4){
 
-    if ($partes_ruta[1] == 'detalle-reporte-diario'){
+    //---------------------------- SASISOPA --------------------------------
+    //----------------------------------------------------------------------
+    if ($partes_ruta[2] == 'detalle-experiencia-cliente'){
+      $idReporte = $partes_ruta[3];
+      $ruta_elegida = $index_controlador->detalleExperienciaCliente();
+    }
+    else if ($partes_ruta[2] == 'editar-experiencia-cliente'){
+      $idReporte = $partes_ruta[3];
+      $ruta_elegida = $index_controlador->editarExperienciaCliente();
+    }
+    else if ($partes_ruta[2] == 'indicador-ventas'){
+      $selyear = $partes_ruta[3];
+      $ruta_elegida = $index_controlador->indicadorVentasReporte();
+      }
+    //-----------------------------------------------------------------------
+    //-----------------------------------------------------------------------
+
+    else if ($partes_ruta[1] == 'detalle-reporte-diario'){
     $idReporte = $partes_ruta[2];
     $idFecha = $partes_ruta[3];
     $ruta_elegida = 'public/gerente/detalle-reporte-diario-index.php';
@@ -611,13 +630,6 @@ break;
     $idMes = $partes_ruta[2];
     $idYear = $partes_ruta[3];
     $ruta_elegida = 'public/gerente/lista-dias-cre-index.php';
-    }else if ($partes_ruta[2] == 'detalle-experiencia-cliente'){
-    $idReporte = $partes_ruta[3];
-    $ruta_elegida = 'public/sasisopa/detalle-experiencia-cliente-index.php';
-    }
-    else if ($partes_ruta[2] == 'editar-experiencia-cliente'){
-    $idReporte = $partes_ruta[3];
-    $ruta_elegida = 'public/sasisopa/editar-experiencia-cliente-index.php';
     }
     else if ($partes_ruta[1] == 'iniciar-presentacion') {
               $idTema = $partes_ruta[2];
@@ -643,9 +655,6 @@ break;
     $NGobierno = $partes_ruta[2];
     $idEstacion = $partes_ruta[3];
     $ruta_elegida = 'public/administrador/detalle-requisitos-legales-index.php';
-    }else if ($partes_ruta[2] == 'indicador-ventas'){
-    $selyear = $partes_ruta[3];
-    $ruta_elegida = 'public/sasisopa/indicador-ventas-reporte-index.php';
     }
     else if ($partes_ruta[1] == 'descargar-programa-auditorias-internas-externas') {
     $FechaInicio = $partes_ruta[2];

@@ -1,58 +1,18 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
+include_once "../../../../app/modelo/ObjetivosMetasIndicadores.php";
 
-$IdEstacion = $_POST['IdEstacion'];
+$class_objetivos_metas_indicadores = new ObjetivosMetasIndicadores();
 
-$sql_encuesta = "SELECT * FROM tb_encuentas_estacion WHERE id_estacion = '".$IdEstacion."' and estado = 1 ORDER BY id asc";
+$sql_encuesta = "SELECT * FROM tb_encuentas_estacion WHERE id_estacion = '".$Session_IDEstacion."' and estado = 1 ORDER BY id asc";
 $result_encuesta = mysqli_query($con, $sql_encuesta);
 $numero_encuesta = mysqli_num_rows($result_encuesta);
 
-function Encuestados($IdReporte, $con){
-
-$sql_encuesta = "SELECT * FROM tb_encuentas_estacion_cliente WHERE id_cuentas_estacion = '".$IdReporte."'";
-$result_encuesta = mysqli_query($con, $sql_encuesta);
-$numero_encuesta = mysqli_num_rows($result_encuesta);
-
-return $numero_encuesta;
-}
-
-function Total($IdReporte, $con){
-
-$sql_encuesta = "SELECT id FROM tb_encuentas_estacion_cliente WHERE id_cuentas_estacion = '".$IdReporte."' ";
-$result_encuesta = mysqli_query($con, $sql_encuesta);
-$numero_encuesta = mysqli_num_rows($result_encuesta);
-while($row_encuesta = mysqli_fetch_array($result_encuesta, MYSQLI_ASSOC)){
-
-$IdCliente = $row_encuesta['id'];
-
-$sql_encuestaP = "SELECT resultado FROM tb_encuentas_estacion_cliente_preguntas WHERE id_cliente = '".$IdCliente."' ORDER BY resultado desc";
-$result_encuestaP = mysqli_query($con, $sql_encuestaP);
-$numero_encuestaP = mysqli_num_rows($result_encuestaP);
-while($row_encuestaP = mysqli_fetch_array($result_encuestaP, MYSQLI_ASSOC)){
-
-if($row_encuestaP['resultado'] == 4){
-$resultado4 = $resultado4 + 1;
-}else if($row_encuestaP['resultado'] == 3){
-$resultado3 = $resultado3 + 1;
-}else if($row_encuestaP['resultado'] == 2){
-$resultado2 = $resultado2 + 1;
-}else if($row_encuestaP['resultado'] == 1){
-$resultado1 = $resultado1 + 1;
-}
-
-} 
-}
-
-$ResultArray = array(
-"resultado1" => $resultado1,
-"resultado2" => $resultado2,
-"resultado3" => $resultado3,
-"resultado4" => $resultado4,
-);
-
-return $ResultArray;
-
-}
+$porcentaje4 = 0;
+$porcentaje3 = 0;
+$porcentaje2 = 0;
+$porcentaje1 = 0;
+$totalResultado = 0;
 ?>
 
 <div class="mb-2" style="overflow-y: hidden;">
@@ -95,15 +55,34 @@ while($row_encuesta = mysqli_fetch_array($result_encuesta, MYSQLI_ASSOC)){
 	$fecha = $explode[0];
 	$hora = $explode[1];
 
-$Encuestados = Encuestados($IdReporte, $con);
-$Total = Total($IdReporte,$con);
+$Encuestados = $class_objetivos_metas_indicadores->Encuestados($IdReporte, $con);
+$Total = $class_objetivos_metas_indicadores->Total($IdReporte,$con);
 
 $totalResultado = $Total['resultado4'] + $Total['resultado3'] + $Total['resultado2'] + $Total['resultado1'];
 
-$porcentaje4 = ($Total['resultado4'] / $totalResultado) * 100;
-$porcentaje3 = ($Total['resultado3'] / $totalResultado) * 100;
-$porcentaje2 = ($Total['resultado2'] / $totalResultado) * 100;
-$porcentaje1 = ($Total['resultado1'] / $totalResultado) * 100;
+	if($Total['resultado4'] != 0 && $totalResultado != 0){
+		$porcentaje4 = ($Total['resultado4'] / $totalResultado) * 100;
+	}else{
+		$porcentaje4 = 0;
+	}
+
+	if($Total['resultado3'] != 0 && $totalResultado != 0){
+		$porcentaje3 = ($Total['resultado3'] / $totalResultado) * 100;
+	}else{
+		$porcentaje3 = 0;
+	}
+
+	if($Total['resultado2'] != 0 && $totalResultado != 0){
+		$porcentaje2 = ($Total['resultado2'] / $totalResultado) * 100;
+	}else{
+		$porcentaje2 = 0;
+	}
+
+	if($Total['resultado1'] != 0 && $totalResultado != 0){
+		$porcentaje1 = ($Total['resultado1'] / $totalResultado) * 100;
+	}else{
+		$porcentaje1 = 0;
+	}
 
 echo '<tr>';
 echo '<td class="text-center align-middle" onclick="BtnReporte('.$IdReporte.')">'.$num.'</td>';

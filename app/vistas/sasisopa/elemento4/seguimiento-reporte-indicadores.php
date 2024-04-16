@@ -1,5 +1,5 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 $sql_capacitacion = "SELECT * FROM tb_seguimiento_reporte_indicador WHERE id_estacion = '".$Session_IDEstacion."' ORDER BY fecha DESC ";
 $result_capacitacion = mysqli_query($con, $sql_capacitacion);
@@ -11,9 +11,9 @@ $numero_capacitacion = mysqli_num_rows($result_capacitacion);
 <tr>
 <th class="text-center align-middle">#</th>
 <th class="text-center align-middle">Fecha</th>
-<th class="text-center align-middle"></th>
-<th class="text-center align-middle"></th>
-<th class="text-center align-middle"></th>
+<th class="text-center align-middle"><img src="<?=RUTA_IMG_ICONOS;?>ojo.png"></th>
+<th class="text-center align-middle"><img src="<?=RUTA_IMG_ICONOS;?>editar.png"></th>
+<th class="text-center align-middle"><img src="<?=RUTA_IMG_ICONOS;?>eliminar.png"></th>
 </tr>
 </thead>
 <tbody>

@@ -1,8 +1,12 @@
 <?php 
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 $idReporte = $_GET['id'];
 $idPregunta = $_GET['pre'];
+$resultado4 = 0;
+$resultado3 = 0;
+$resultado2 = 0;
+$resultado1 = 0;
 
 $sql_encuesta = "SELECT id FROM tb_encuentas_estacion_cliente WHERE id_cuentas_estacion = '".$idReporte."' ";
 $result_encuesta = mysqli_query($con, $sql_encuesta);
@@ -30,8 +34,6 @@ $resultado1 = $resultado1 + 1;
 
 } 
 }
-
-
 
 $cols[] = array('id' => '1','label' => 'Titulo', 'type' => 'string');
 $cols[] = array('id' => '2','label' => 'Resultado', 'type' => 'string');

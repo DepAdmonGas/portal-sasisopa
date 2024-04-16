@@ -1,6 +1,14 @@
 <?php
 require('app/help.php');
+include_once "app/modelo/Ayuda.php";
+include_once "app/modelo/ObjetivosMetasIndicadores.php";
 
+$class_ayuda = new Ayuda();
+$class_objetivos_metas_indicadores = new ObjetivosMetasIndicadores();
+
+$array_ayuda = $class_ayuda->sasisopaAyuda($Session_IDUsuarioBD,'indicadores-ventas');
+$id_ayuda = $array_ayuda['id'];
+$estado = $array_ayuda['estado'];
 
 ?>
 <html lang="es">
@@ -44,6 +52,7 @@ require('app/help.php');
   $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
   $(".LoaderPage").fadeOut("slow");
+  <?php if ($id_ayuda != 0) {echo "btnAyuda();";} ?>
 
   });
   function regresarP(){
@@ -54,13 +63,39 @@ require('app/help.php');
   $('#ModalAyuda').modal('show');
   }
 
-  
+  function btnFinAyuda(idayuda, estado){
+
+var parametros = {
+      "accion" : "actualizar-ayuda",
+      "idayuda" : idayuda
+    };
+
+    if (idayuda != 0 && estado == 0) {
+   $.ajax({
+   data:  parametros,
+   url:   '../app/controlador/AyudaControlador.php',
+   type:  'post',
+   beforeSend: function() {
+   },
+   complete: function(){
+   },
+   success:  function (response) {
+   $('#ModalAyuda').modal('hide');
+   }
+   });
+
+  }else{
+  $('#ModalAyuda').modal('hide');
+  }
+}
+
 google.charts.load('current', {'packages':['bar']});
 google.charts.setOnLoadCallback(drawChart);
        
     function drawChart() {
+
       var jsonData = $.ajax({
-          url: "../../public/sasisopa/buscar/buscar-ventas-reporte.php?Year=<?=$selyear;?>",
+          url: "../app/vistas/sasisopa/elemento4/busca-ventas.php",
           dataType:"json",
           async: false
           }).responseText;
@@ -77,26 +112,25 @@ google.charts.setOnLoadCallback(drawChart);
         };
 
         var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-
         chart.draw(data, google.charts.Bar.convertOptions(options));
     }
-  
 
-function btnBuscar(){
-$('#ModalBuscar').modal('show');
+    function btnBuscar(){
+    $('#ModalBuscar').modal('show');
+    }
+
+    function btnBuscarReporte(){
+
+var BuscarYear = $('#BuscarYear').val();
+
+if(BuscarYear != ""){
+ window.location.href = "indicador-ventas/" + BuscarYear;
+}else{
+$('#BuscarYear').css('border','2px solid #A52525');
+}
+ 
 }
 
-function btnBuscarReporte(){
-
-  var BuscarYear = $('#BuscarYear').val();
-
-  if(BuscarYear != ""){
-   window.location.href = "../indicador-ventas/" + BuscarYear;
-  }else{
-  $('#BuscarYear').css('border','2px solid #A52525');
-  }
-   
-}
   </script>
   </head>
   <body>
@@ -115,11 +149,15 @@ function btnBuscarReporte(){
       <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
       <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
       </div>
-    <div class="float-left"><h4>REPORTE DE VENTAS <?=$selyear;?></h4></div>
+    <div class="float-left"><h4>INDICADORES DE VENTAS <?=date("Y");?></h4></div>
     <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
 
     <a class="mr-2" onclick="btnBuscar()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Buscar" >
     <img src="<?php echo RUTA_IMG_ICONOS."lupa.png"; ?>">
+    </a>
+
+    <a onclick="btnAyuda()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Ayuda" >
+    <img src="<?php echo RUTA_IMG_ICONOS."info.png"; ?>">
     </a>
 
     </div>
@@ -128,18 +166,19 @@ function btnBuscarReporte(){
 
     <div id="columnchart_material" ></div>
 
-
     <div class="row mt-3">
     <?php
     $fecha_mes = 12;
-    $fecha_year = $selyear;
+    $fecha_year = date("Y");
+    $TotalP1 = 0;
+    $TotalP2 = 0;
+    $TotalP3 = 0;
 
     for ($mes=1; $mes <= $fecha_mes; $mes++) {
 
-    $BuscaVentas = BuscaVentas($mes,$fecha_year,$Session_ProductoUno,$Session_ProductoDos,$Session_ProductoTres,$Session_IDEstacion,$con);
+    $BuscaVentas = $class_objetivos_metas_indicadores->BuscaVentas($mes,$fecha_year,$Session_ProductoUno,$Session_ProductoDos,$Session_ProductoTres,$Session_IDEstacion); 
 
-    echo '<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mt-2 mb-2"> 
-
+    echo '      <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mt-2 mb-2"> 
     <div class="m-1">
     <div class="border">
     <div class="bg-secondary p-2 text-white"><h5 class="text-center">'.nombremes($mes).'</h5></div>
@@ -178,22 +217,25 @@ function btnBuscarReporte(){
     $TotalP2 = $TotalP2 + $BuscaVentas['Producto2'];
     $TotalP3 = $TotalP3 + $BuscaVentas['Producto3'];
 
+
     }
     ?>
+       
     </div>
 
     <div class="row">
-    
-    <div class="col-4"></div>
-    <div class="col-4"></div>
+      
+      <div class="col-4"></div>
+      <div class="col-4"></div>
 
-    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mt-2 mb-2"> 
+      <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mt-2 mb-2"> 
 
-    <div class="m-1">
-    <div class="border">
-
+      <div class="m-1">
+      <div class="border">
       <div class="bg-secondary p-2 text-white"><h5 class="text-center">Total Neto</h5></div>
 
+
+      <div style="overflow-y: hidden;">
         <table class="table table-bordered table-striped table-sm table-hover text-center pb-0 mb-0">
         <thead>
         <tr>
@@ -223,6 +265,7 @@ function btnBuscarReporte(){
         </tr>
         </tbody>
         </table>
+      </div>
 
       </div>
       </div>
@@ -236,47 +279,36 @@ function btnBuscarReporte(){
     </div>
     </div>
 
-  
-<?php
 
-function BuscaVentas($i,$fecha_year,$Session_ProductoUno,$Session_ProductoDos,$Session_ProductoTres,$Session_IDEstacion,$con){
-  $sql_reportecre = "SELECT id FROM re_reporte_cre_mes WHERE id_estacion = '".$Session_IDEstacion."' AND mes = '".$i."' AND year = '".$fecha_year."' ORDER BY mes asc ";
-$result_reportecre = mysqli_query($con, $sql_reportecre);
-while($row_reportecre = mysqli_fetch_array($result_reportecre, MYSQLI_ASSOC)){
-$idReporte = $row_reportecre['id'];
+<div class="modal fade bd-example-modal-lg" id="ModalAyuda" data-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content" style="border-radius: 0px;border: 0px;">
+        <div class="modal-header">
+          <h4 class="modal-title">INDICADORES DE VENTAS</h4>
+        </div>
+        <div class="modal-body">
 
-$sql_producto1 = "SELECT sum(volumen_venta) AS totalProducto FROM re_reporte_cre_producto WHERE id_re_mes = '".$idReporte."' AND producto = '".$Session_ProductoUno."' LIMIT 1 ";
-$result_producto1 = mysqli_query($con, $sql_producto1);
-while($row_producto1 = mysqli_fetch_array($result_producto1, MYSQLI_ASSOC)){
-$total1 = $row_producto1['totalProducto'];
-}
+          <p class="text-justify" style="font-size: 1.1em">
+            En este apartado puedes consultar tus ventas de cada uno de tus productos ya sea por mes o por año. Identifica los meses de mayor y menor venta. Esto nos ayudara a crear estrategias para aumentar los indicadores más bajos.
+          </p>
+          <p class="text-justify" style="font-size: 1.1em">
+            Las gráficas que veras a continuación son el resultado del reporte estadístico diario que ingresas ante este portal.
+          </p>
+          
+          <hr>
 
-$sql_producto2 = "SELECT sum(volumen_venta) AS totalProducto FROM re_reporte_cre_producto WHERE id_re_mes = '".$idReporte."' AND producto = '".$Session_ProductoDos."' LIMIT 1 ";
-$result_producto2 = mysqli_query($con, $sql_producto2);
-while($row_producto2 = mysqli_fetch_array($result_producto2, MYSQLI_ASSOC)){
-$total2 = $row_producto2['totalProducto'];
-}
-
-$sql_producto3 = "SELECT sum(volumen_venta) AS totalProducto FROM re_reporte_cre_producto WHERE id_re_mes = '".$idReporte."' AND producto = '".$Session_ProductoTres."' LIMIT 1 ";
-$result_producto3 = mysqli_query($con, $sql_producto3);
-while($row_producto3 = mysqli_fetch_array($result_producto3, MYSQLI_ASSOC)){
-$total3 = $row_producto3['totalProducto'];
-} 
-
-}
-
-$array = array(
-'Producto1' => $total1,
-'Producto2' => $total2,
-'Producto3' => $total3
-);
-
-return $array;
-
-}
-?>
+          
+          <small class="font-weight-bold">Recuerda que los datos aquí reflejados son el resultado de lo que reportas diariamente, con la finalidad de obtener datos estadísticos verídicos es importante no omitir el reporte estadístico diario. </small>
 
 
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda(<?=$id_ayuda;?>,<?=$estado;?>)">Aceptar</button>
+        </div>
+      </div>
+    </div>
+    </div>
 
     <div class="modal fade bd-example-modal-lg" id="ModalBuscar" >
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -296,7 +328,6 @@ return $array;
           }
           ?>
         </select>
-
 
         </div>
         <div class="modal-footer">

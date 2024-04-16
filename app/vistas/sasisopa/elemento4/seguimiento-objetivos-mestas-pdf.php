@@ -1,14 +1,15 @@
 <?php
-require_once '../../../dompdf/autoload.inc.php';
-include_once "../../../app/help.php";
+include_once "../../../../app/help.php";
+require_once '../../../../dompdf/autoload.inc.php';
 
 use Dompdf\Dompdf;
 $dompdf = new Dompdf();
 
+$contenid0 = "";
 $contenid0 .= "<!DOCTYPE html>";
 $contenid0 .= "<html>";
 $contenid0 .= "<head>";
-$contenid0 .= "<title>Reporte Estadistico Diario</title>";
+$contenid0 .= "<title>Seguimiento de objetivos y metas</title>";
 $contenid0 .= '<style type="text/css">
 @page {margin: 0.5cm 1cm; font-family: Arial, Helvetica, sans-serif;}
 *,
@@ -165,10 +166,10 @@ $contenid0 .= '<td class="align-middle text-center">';
 $contenid0 .= "<img src='".$baseLogo."' style='width: 130px;'>";
 $contenid0 .= '</td>';
 $contenid0 .= '<td colspan="2" class="align-middle text-center">';
-$contenid0 .= '<b>Seguimiento y reporte de indicadores</b>';
+$contenid0 .= '<b>Seguimiento de objetivos y metas</b>';
 $contenid0 .= '</td>';
 $contenid0 .= '<td class="align-middle text-center">';
-$contenid0 .= '<b>Fo.ADMONGAS.007</b>';
+$contenid0 .= '<b>Fo.ADMONGAS.006</b>';
 $contenid0 .= '</td>';
 
 $contenid0 .= '</tr>';
@@ -193,41 +194,43 @@ $contenid0 .= '</table>';
 
 //--------------------------------------------------------------------
 
-$contenid0 .= '<table class="table table-bordered" style="font-size: .9em">';
-$contenid0 .= '<thead>';
-$contenid0 .= '<tr>
-<th class="align-middle">Fecha</th>
-<th class="align-middle">Capacitación</th>
-<th class="align-middle">Experiencia del cliente</th>
-<th class="align-middle">Ventas</th>
-<th class="align-middle">Medidas correctivas</th>
-<th class="align-middle">Fecha de aplicación</th>
-</tr>';
+$contenid0 .= '<table class="table table-bordered table-sm table-hover" style="font-size: .9em">';
+$contenid0 .= '<thead>'; 
+$contenid0 .= '<tr>';
+$contenid0 .= '<th class="text-center align-middle">Fecha</th>';
+$contenid0 .= '<th class="text-center align-middle">Objetivo o meta</th>';
+$contenid0 .= '<th class="text-center align-middle">Nivel de cumplimiento</th>';
+$contenid0 .= '<th class="text-center align-middle">Medidas de acción para dar cumplimiento</th>';
+$contenid0 .= '<th class="text-center align-middle">fecha de aplicación</th>';
+$contenid0 .= '</tr>';
 $contenid0 .= '</thead>';
 $contenid0 .= '<tbody>';
 
-$sql = "SELECT * FROM tb_seguimiento_reporte_indicador WHERE id_estacion = '".$Session_IDEstacion."' ";
-$result = mysqli_query($con, $sql);
-$numero = mysqli_num_rows($result);
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+$sql_capacitacion = "SELECT * FROM tb_seguimiento_objetivos_metas WHERE id_estacion = '".$Session_IDEstacion."' ORDER BY id DESC ";
+$result_capacitacion = mysqli_query($con, $sql_capacitacion);
+$numero_capacitacion = mysqli_num_rows($result_capacitacion);
 
-$fecha = $row['fecha'];
-$capacitacion = $row['capacitacion'];
-$expcliente = $row['exp_cliente'];
-$ventas = $row['ventas'];
-$medidascorrectivas = $row['medidas_correctivas'];
-$fechaaplicacion = $row['fecha_aplicacion'];
+while($row_capacitacion = mysqli_fetch_array($result_capacitacion, MYSQLI_ASSOC)){
+$id = $row_capacitacion['id'];
 
-$contenid0 .= '<tr>
-<td class="align-middle">'.FormatoFecha($fecha).'</td>
-<td class="align-middle">'.$capacitacion.'</td>
-<td class="align-middle">'.$expcliente.'</td>
-<td class="align-middle">'.$ventas.'</td>
-<td class="align-middle">'.$medidascorrectivas.'</td>
-<td class="align-middle">'.FormatoFecha($fechaaplicacion).'</td>
-</tr>';
+$sql = "SELECT * FROM tb_seguimiento_objetivos_metas_detalle WHERE id_seguimiento = '".$id."' ";
+      $result = mysqli_query($con, $sql);
+      $numero = mysqli_num_rows($result);
+      while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 
+    $contenid0 .= '<tr>';
+    $contenid0 .= '<td class="text-center align-middle" >'.FormatoFecha($row['fecha']).'</td>';
+    $contenid0 .= '<td class="text-center align-middle" >'.$row['objetivo_meta'].'</td>';
+    $contenid0 .= '<td class="text-center align-middle" >'.$row['nivel_cumplimiento'].'</td>';
+    $contenid0 .= '<td class="text-center align-middle" >'.$row['medidas'].'</td>';
+    $contenid0 .= '<td class="text-center align-middle" >'.FormatoFecha($row['fecha_aplicacion']).'</td>';
+    $contenid0 .= '</tr>';
+
+      }
+
+$contenid0 .= '<tr><td style="background-color: #6A6A6A;" colspan="5"></td></tr>';
 }
+
 
 $contenid0 .= '</tbody>';
 $contenid0 .= '</table>';
@@ -237,13 +240,8 @@ $contenid0 .= '</body>';
 $contenid0 .= '</html>';
 
 $dompdf->loadHtml($contenid0);
-// Colocamos als propiedades de la hoja
 $dompdf->setPaper("A4", "portrait");
-// Escribimos el html en el PDF
 $dompdf->render();
-$dompdf->get_canvas()->page_text(750, 570, "Pagina: {PAGE_NUM} de {PAGE_COUNT}", $font, 8, array(0,0,0));
-// Ponemos el PDF en el browser
-$dompdf->stream('Reporte Estadistico Diario.pdf',["Attachment" => true]);
-//------------------
-mysqli_close($con);
-//------------------
+$canvas = $dompdf->get_canvas();
+$canvas->page_text(525, 810, "Página: {PAGE_NUM} de {PAGE_COUNT}", null, 7, array(0, 0, 0));
+$dompdf->stream('Seguimiento de objetivos y metas.pdf');

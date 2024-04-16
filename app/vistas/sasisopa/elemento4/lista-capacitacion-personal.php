@@ -1,52 +1,17 @@
 <?php 
-require('../../../app/help.php');
+require('../../../../app/help.php');
+include_once "../../../../app/modelo/ObjetivosMetasIndicadores.php";
+
+$class_objetivos_metas_indicadores = new ObjetivosMetasIndicadores();
 
 $Year = $_GET['Year'];
 $Porcentaje = 0;
 $TotalCapacitacionPersonal = 0;
-
-function TotalPersonal($IDEstacion,$con){
-$sql = "SELECT * FROM tb_usuarios WHERE id_gas = '".$IDEstacion."' AND (id_puesto = 6 OR id_puesto = 7 OR id_puesto = 9 OR id_puesto = 10 OR id_puesto = 11) AND estatus = 0 ";
-$result = mysqli_query($con, $sql);
-$numero = mysqli_num_rows($result);
-return $numero;
-}
-
-function TotalCapacitacion($IDEstacion,$Year,$con){
-$sql = "SELECT * FROM tb_capacitacion_externa WHERE id_estacion = '".$IDEstacion."' AND YEAR(fechacreacion) = '".$Year."' ";
-$result = mysqli_query($con, $sql);
-$numero = mysqli_num_rows($result);
-return $numero;
-}
-
-function TotalCapacitacionPersonal($IDEstacion,$Year,$con){
-
-$sql = "SELECT id FROM tb_capacitacion_externa WHERE id_estacion = '".$IDEstacion."' AND YEAR(fechacreacion) = '".$Year."' ";
-$result = mysqli_query($con, $sql);
-$numero = mysqli_num_rows($result);
-
-if($numero == 0){
-$Resultado = 0;
-}else{
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-
-$sqlCP = "SELECT id FROM tb_capacitacion_externa_personal WHERE id_capacitacion = '".$row['id']."' ";
-$resultCP = mysqli_query($con, $sqlCP);
-$numeroCP = mysqli_num_rows($resultCP);
-
-$Total = $Total + $numeroCP;
-}	
-
-$Resultado = ceil($Total / $numero);
-
-}
-
-return $Resultado;
-}
-
-$TotalPersonal = TotalPersonal($Session_IDEstacion,$con);
-$TotalCapacitacionPersonal = TotalCapacitacionPersonal($Session_IDEstacion,$Year,$con);
-
+$TotalPersonal = $class_objetivos_metas_indicadores->TotalPersonal($Session_IDEstacion);
+$TotalCapacitacionPersonal = $class_objetivos_metas_indicadores->TotalCapacitacionPersonal($Session_IDEstacion,$Year);
+$TotalCursos = 0;
+$NetoAcreditado = 0;
+$NetoNoAcreditado = 0;
 ?>
 
 <h5>Año <?=$Year;?></h5>
@@ -60,8 +25,6 @@ $TotalCapacitacionPersonal = TotalCapacitacionPersonal($Session_IDEstacion,$Year
         <hr>
 
         <?php 
-
-
 
         $sql = "SELECT * FROM tb_cursos_modulos ";
         $result = mysqli_query($con, $sql);
@@ -240,7 +203,7 @@ $TotalCapacitacionPersonal = TotalCapacitacionPersonal($Session_IDEstacion,$Year
               <div class="bg-light p-2">
               <div class="text-center text-secondary"><small>Total capacitaciones</small></div>
               <div class="text-center text-primary" style="font-size: 3.5em;">
-              <b><?=TotalCapacitacion($Session_IDEstacion,$Year,$con);?></b>
+              <b><?=$class_objetivos_metas_indicadores->TotalCapacitacion($Session_IDEstacion,$Year);?></b>
               </div>          
               </div>
 

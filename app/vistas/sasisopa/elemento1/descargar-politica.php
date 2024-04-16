@@ -89,7 +89,3 @@ $dompdf->render();
 $canvas = $dompdf->get_canvas();
 $canvas->page_text(525, 810, "Página: {PAGE_NUM} de {PAGE_COUNT}", null, 7, array(0, 0, 0));
 $dompdf->stream('POLÍTICA.pdf');
-
-//------------------
-mysqli_close($con);
-//------------------

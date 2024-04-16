@@ -1,10 +1,10 @@
 <?php 
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 $IdReporte = $_POST['IdReporte'];
 $i = 1;
 
-$sql_encuesta = "SELECT * FROM tb_encuentas_estacion_cliente WHERE id_cuentas_estacion = '".$IdReporte."'";
+$sql_encuesta = "SELECT id, nombre FROM tb_encuentas_estacion_cliente WHERE id_cuentas_estacion = '".$IdReporte."'";
 $result_encuesta = mysqli_query($con, $sql_encuesta);
 $numero_encuesta = mysqli_num_rows($result_encuesta);
 
@@ -31,34 +31,6 @@ echo "</div>";
 echo "<div class='text-center p-4'><small class='text-secondary'>No se encontraro información</small></div>";
 }
 ?>
-<script type="text/javascript">
-
-function Detalle(id){
-$('#ModalDetalle').modal('show');
-DetalleEncuestado(id);
-} 	
-
- function DetalleEncuestado(id){
-   var parametros = {
-      "IdCliente" : id
-      };  
-   $.ajax({
-    data:  parametros,
-     url:   '<?=SERVIDOR;?>public/sasisopa/buscar/detalle-cliente-encuentas.php',
-     type:  'post',
-     beforeSend: function() {
-     },
-     complete: function(){
-     },
-     success:  function (response) {
-     $('#DivContenidoModal').html(response);
-     }
-     });
-
-  
-}
-</script>
-
 <div class="modal fade bd-example-modal-lg" id="ModalDetalle" data-backdrop="static">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content" style="border-radius: 0px;border: 0px;">

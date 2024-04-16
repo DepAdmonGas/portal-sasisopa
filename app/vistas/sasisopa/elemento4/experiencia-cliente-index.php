@@ -1,17 +1,11 @@
 <?php
 require('app/help.php');
+include_once "app/modelo/Ayuda.php";
 
-$sql_sasisopa_ayuda = "SELECT * FROM pu_sasisopa_ayuda WHERE id_usuario = '".$Session_IDUsuarioBD."' and detalle = 'experiencia-del-cliente' and estado = 0 LIMIT 1";
-$result_sasisopa_ayuda = mysqli_query($con, $sql_sasisopa_ayuda);
-$numero_sasisopa_ayuda = mysqli_num_rows($result_sasisopa_ayuda);
-
-if ($numero_sasisopa_ayuda == 1) {
-while($row_ayuda = mysqli_fetch_array($result_sasisopa_ayuda, MYSQLI_ASSOC)){
-$idAyuda = $row_ayuda['id'];
-}
-}else{
-$idAyuda = 0;
-}
+$class_ayuda = new Ayuda();
+$array_ayuda = $class_ayuda->sasisopaAyuda($Session_IDUsuarioBD,'experiencia-del-cliente');
+$id_ayuda = $array_ayuda['id'];
+$estado = $array_ayuda['estado'];
 
 ?>
 <html lang="es">
@@ -44,9 +38,8 @@ $idAyuda = 0;
   width: 100%;
   height: 100%;
   z-index: 9999;
-  background: url('imgs/iconos/load-img.gif') 50% 50% no-repeat rgb(249,249,249);
+  background: url('../imgs/iconos/load-img.gif') 50% 50% no-repeat rgb(249,249,249);
 }
-
 
 .chart_wrap{
   position: relative;
@@ -54,7 +47,6 @@ $idAyuda = 0;
   height: 0;
   overflow: hidden;
 }
-
 
 .piechart{
   position: absolute;
@@ -75,7 +67,7 @@ $idAyuda = 0;
   $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
   $(".LoaderPage").fadeOut("slow");
-  <?php if ($numero_sasisopa_ayuda == 1) {echo "btnAyuda();";} ?>
+  <?php if ($id_ayuda != 0) {echo "btnAyuda();";} ?>
   BuscarReportes();
   });
   function regresarP(){
@@ -86,78 +78,100 @@ $idAyuda = 0;
   $('#ModalAyuda').modal('show');
   }
 
+  function btnFinAyuda(idayuda, estado){
+    var parametros = {
+        "accion" : "actualizar-ayuda",
+        "idayuda" : idayuda
+      };
 
-  function btnNuEncuesta(){
+      if (idayuda != 0 && estado == 0) {
+    $.ajax({
+    data:  parametros,
+    url:   '../app/controlador/AyudaControlador.php',
+    type:  'post',
+    beforeSend: function() {
+    },
+    complete: function(){
+    },
+    success:  function (response) {
+    $('#ModalAyuda').modal('hide');
+    }
+    });
 
+    }else{
+    $('#ModalAyuda').modal('hide');
+    }
+}
+
+    function BuscarReportes(){
+    $.ajax({
+    url:   '../app/vistas/sasisopa/elemento4/lista-reportes-encuentas.php',
+    type:  'post',
+    beforeSend: function() {
+    },
+    complete: function(){
+    },
+    success:  function (response) {
+    $('#DivContenido').html(response);
+    }
+    });
+    }
+
+    function btnNuEncuesta(){
    alertify.confirm('',
     function(){
-
   window.location.href = 'agregar-experiencia-cliente';
-
    },
     function(){
     }).setHeader('Mensaje').set({transition:'zoom',message: 'Desea crear un reporte de encuestas',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
-
-  }
-
-  function BuscarReportes(){
-
-    var parametros = {
-      "IdEstacion" : <?=$Session_IDEstacion;?>
-      };
-
-   $.ajax({
-     data:  parametros,
-     url:   '../public/sasisopa/buscar/lista-reportes-encuentas.php',
-     type:  'post',
-     beforeSend: function() {
-     },
-     complete: function(){
-     },
-     success:  function (response) {
-     $('#DivContenido').html(response);
-     }
-     });
-
   }
 
   function BtnReporte(reporte){
-
- window.location.href = 'detalle-experiencia-cliente/' + reporte;
-
+    window.location.href = 'detalle-experiencia-cliente/' + reporte;
   }
 
-  function btnFinAyuda(){
-var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
- var parametros = {
-        "idAyuda" : <?=$idAyuda; ?>
-      };
-  if (puntosSasisopa != 0) {
-   $.ajax({
-   data:  parametros,
-   url:   '../public/sasisopa/actualizar/actualizar-ayuda.php',
-   type:  'post',
-   beforeSend: function() {
-   },
-   complete: function(){
-   },
-   success:  function (response) {
-   $('#ModalAyuda').modal('hide');
-   }
-   });
-
-  }else{
-  $('#ModalAyuda').modal('hide');
+  function BtnEditar(IdReporte){
+    window.location.href = 'editar-experiencia-cliente/' + IdReporte;
   }
-}
 
-google.charts.load("current", {packages:["corechart"]});
-google.charts.setOnLoadCallback(drawChart2);
+  function Eliminar(IdReporte){
+
+    alertify.confirm('',
+    function(){
+
+    var parametros = {
+    "accion" : "eliminar-encuesta-estacion",
+    "IdReporte" : IdReporte
+    };
+
+    $.ajax({
+    data:  parametros,
+    url:   '../app/controlador/ObjetivosMetasIndicadoresControlador.php',
+    type:  'post',
+    beforeSend: function() {
+    },
+    complete: function(){
+    },
+    success:  function (response) {
+
+    BuscarReportes();
+    drawChart2();
+    }
+    });
+
+    },
+    function(){
+    }).setHeader('Mensaje').set({transition:'zoom',message: 'Desea eliminar el reporte ',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+
+    }
+
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart2);
 
       function drawChart2() {
 
          var jsonData = $.ajax({
-          url: "../public/sasisopa/buscar/buscar-reporte-experiencia-cliente.php",
+          url: "../app/vistas/sasisopa/elemento4/buscar-reporte-experiencia-cliente.php",
           dataType:"json",
           async: false
           }).responseText;
@@ -171,47 +185,14 @@ google.charts.setOnLoadCallback(drawChart2);
         colors: ['#0099F0', '#1EAD4E', '#F3C000', '#E70606'],
         };
 
-
         var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
 
         chart.draw(data, options);
       }
 
-      function BtnEditar(IdReporte){
+//----------------------------------------------------------
+//----------------------------------------------------------
 
-      window.location.href = 'editar-experiencia-cliente/' + IdReporte;
-
-      }
-
-        function Eliminar(IdReporte){
-
-     alertify.confirm('',
-    function(){
-
-     var parametros = {
-      "IdReporte" : IdReporte
-      };
-
-   $.ajax({
-     data:  parametros,
-     url:   '../public/sasisopa/eliminar/eliminar-encuesta-estacion.php',
-     type:  'post',
-     beforeSend: function() {
-     },
-     complete: function(){
-     },
-     success:  function (response) {
-
-    BuscarReportes();
-    drawChart2();
-     }
-     });
-  
-   },
-    function(){
-    }).setHeader('Mensaje').set({transition:'zoom',message: 'Desea eliminar el reporte ',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
-
-  }
   </script>
   </head>
   <body>
@@ -307,7 +288,7 @@ google.charts.setOnLoadCallback(drawChart2);
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda()">Aceptar</button>
+          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda(<?=$id_ayuda;?>,<?=$estado;?>)">Aceptar</button>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 <?php 
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 ?>
         <div class="modal-header">
@@ -24,7 +24,11 @@ require('../../../app/help.php');
 
       <?php 
 
-      $sql = "SELECT * FROM tb_seguimiento_objetivos_metas_detalle WHERE id_seguimiento = '".$_GET['idSeguimiento']."' ";
+      $sql = "SELECT fecha,
+      objetivo_meta,
+      nivel_cumplimiento,
+      medidas,
+      fecha_aplicacion FROM tb_seguimiento_objetivos_metas_detalle WHERE id_seguimiento = '".$_GET['idSeguimiento']."' ";
       $result = mysqli_query($con, $sql);
       $numero = mysqli_num_rows($result);
       while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){

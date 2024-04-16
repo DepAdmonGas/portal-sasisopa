@@ -48,6 +48,38 @@ class IndexControlador{
     public function detalleRequisitosLegales(){
         return 'app/vistas/sasisopa/elemento3/detalle-requisitos-legales-index.php';
     }
+
+    public function objetivosMetasIndicadores(){
+        return 'app/vistas/sasisopa/elemento4/objetivos-metas-indicadores.php';
+    }
+
+    public function capacitacionPersonal(){
+        return 'app/vistas/sasisopa/elemento4/capacitacion-personal-index.php';
+    }
+
+    public function experienciaCliente(){
+        return 'app/vistas/sasisopa/elemento4/experiencia-cliente-index.php';
+    }
+
+    public function agregarExperienciaCliente(){
+        return 'app/vistas/sasisopa/elemento4/agregar-experiencia-cliente-index.php';
+    }
+
+    public function detalleExperienciaCliente(){
+        return 'app/vistas/sasisopa/elemento4/detalle-experiencia-cliente-index.php';
+    }
+
+    public function editarExperienciaCliente(){
+        return 'app/vistas/sasisopa/elemento4/editar-experiencia-cliente-index.php';
+    }
+
+    public function indicadorVentas(){
+        return 'app/vistas/sasisopa/elemento4/indicador-ventas-index.php';
+    }
+
+    public function indicadorVentasReporte(){
+        return 'app/vistas/sasisopa/elemento4/indicador-ventas-reporte-index.php';
+    }
     
 
     

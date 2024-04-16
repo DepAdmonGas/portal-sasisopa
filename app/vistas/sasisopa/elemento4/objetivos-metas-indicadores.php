@@ -1,17 +1,11 @@
 <?php
 require('app/help.php');
+include_once "app/modelo/Ayuda.php";
 
-$sql_sasisopa_ayuda = "SELECT * FROM pu_sasisopa_ayuda WHERE id_usuario = '".$Session_IDUsuarioBD."' and detalle = '4-objetivos-metas-indicadores' and estado = 0 LIMIT 1";
-$result_sasisopa_ayuda = mysqli_query($con, $sql_sasisopa_ayuda);
-$numero_sasisopa_ayuda = mysqli_num_rows($result_sasisopa_ayuda);
-
-if ($numero_sasisopa_ayuda == 1) {
-while($row_ayuda = mysqli_fetch_array($result_sasisopa_ayuda, MYSQLI_ASSOC)){
-$idAyuda = $row_ayuda['id'];
-}
-}else{
-$idAyuda = 0;
-}
+$class_ayuda = new Ayuda();
+$array_ayuda = $class_ayuda->sasisopaAyuda($Session_IDUsuarioBD,'4-objetivos-metas-indicadores');
+$id_ayuda = $array_ayuda['id'];
+$estado = $array_ayuda['estado'];
  
 ?> 
 <html lang="es">
@@ -34,7 +28,6 @@ $idAyuda = 0;
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
-
    <style media="screen">
   .LoaderPage {
   position: fixed;
@@ -55,7 +48,7 @@ $idAyuda = 0;
   $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
   $(".LoaderPage").fadeOut("slow");
-  <?php if ($numero_sasisopa_ayuda == 1) {echo "btnAyuda();";} ?>
+  <?php if ($id_ayuda != 0) {echo "btnAyuda();";} ?>
 
   SeguimientoObjetivosMetas();
   SeguimientoReporteIndicador();
@@ -64,31 +57,22 @@ $idAyuda = 0;
   function regresarP(){
     window.history.back();
   }
- 
-  function BtnCapacitacionPersonal(){
-  window.location.href = '4-objetivos-metas-indicadores/capacitacion-personal'; 
-  }
-  function BtnVentas(){
-  window.location.href = '4-objetivos-metas-indicadores/indicador-ventas';
-  }
- 
-  function BtnExpCliente(){
-  window.location.href = '4-objetivos-metas-indicadores/experiencia-cliente';
-  }
-
+  //------------------------------
   function btnAyuda(){
   $('#ModalAyuda').modal('show');
   }
 
-function btnFinAyuda(){
-var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
- var parametros = {
-        "idAyuda" : <?=$idAyuda; ?>
+function btnFinAyuda(idayuda, estado){
+
+    var parametros = {
+        "accion" : "actualizar-ayuda",
+        "idayuda" : idayuda
       };
-  if (puntosSasisopa != 0) {
+
+  if (idayuda != 0 && estado == 0) {
    $.ajax({
    data:  parametros,
-   url:   'public/sasisopa/actualizar/actualizar-ayuda.php',
+   url:   'app/controlador/AyudaControlador.php',
    type:  'post',
    beforeSend: function() {
    },
@@ -103,67 +87,182 @@ var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
   $('#ModalAyuda').modal('hide');
   }
   }
+  //-------------------------------
+ 
+  function BtnCapacitacionPersonal(){
+  window.location.href = '4-objetivos-metas-indicadores/capacitacion-personal'; 
+  }
+
+  function BtnExpCliente(){
+  window.location.href = '4-objetivos-metas-indicadores/experiencia-cliente';
+  }
+
+  function BtnVentas(){
+  window.location.href = '4-objetivos-metas-indicadores/indicador-ventas';
+  }
+  //------------------------------------------------------------------------
+  function SeguimientoObjetivosMetas(){
+   $('#ContenidoSOM').load('app/vistas/sasisopa/elemento4/seguimiento-objetivos-metas.php');  
+  }
 
   function ModalSOM(){
     $('#ModalSOM').modal('show'); 
   }
 
-  function ModalSRI(){
-  $('#ModalSRI').modal('show'); 
-  }
-
   function btnCrearSOM(){
 
-  var Dato1 = $('#Dato1').val();
-  var Dato2 = $('#Dato2').val();
-  var Dato3 = $('#Dato3').val();
-  var Dato4 = $('#Dato4').val();
-  var Dato5 = $('#Dato5').val();
-  var Dato6 = $('#Dato6').val();
-  var Dato7 = $('#Dato7').val();
-  var Dato8 = $('#Dato8').val();
-  var Dato9 = $('#Dato9').val();
-  var Dato10 = $('#Dato10').val();
-  var Dato11 = $('#Dato11').val();
-  var Dato12 = $('#Dato12').val();
-  var Dato13 = $('#Dato13').val();
-  var Dato14 = $('#Dato14').val();
-  var Dato15 = $('#Dato15').val();
-  var Dato16 = $('#Dato16').val();
-  var Dato17 = $('#Dato17').val();
-  var Dato18 = $('#Dato18').val();
-  var Dato19 = $('#Dato19').val();
-  var Dato20 = $('#Dato20').val();
+var Dato1 = $('#Dato1').val();
+var Dato2 = $('#Dato2').val();
+var Dato3 = $('#Dato3').val();
+var Dato4 = $('#Dato4').val();
+var Dato5 = $('#Dato5').val();
+var Dato6 = $('#Dato6').val();
+var Dato7 = $('#Dato7').val();
+var Dato8 = $('#Dato8').val();
+var Dato9 = $('#Dato9').val();
+var Dato10 = $('#Dato10').val();
+var Dato11 = $('#Dato11').val();
+var Dato12 = $('#Dato12').val();
+var Dato13 = $('#Dato13').val();
+var Dato14 = $('#Dato14').val();
+var Dato15 = $('#Dato15').val();
+var Dato16 = $('#Dato16').val();
+var Dato17 = $('#Dato17').val();
+var Dato18 = $('#Dato18').val();
+var Dato19 = $('#Dato19').val();
+var Dato20 = $('#Dato20').val();
 
-  var parametros = {
-  "Dato1" : Dato1,
-  "Dato2" : Dato2,
-  "Dato3" : Dato3,
-  "Dato4" : Dato4,
-  "Dato5" : Dato5,
-  "Dato6" : Dato6,
-  "Dato7" : Dato7,
-  "Dato8" : Dato8,
-  "Dato9" : Dato9,
-  "Dato10" : Dato10,
-  "Dato11" : Dato11,
-  "Dato12" : Dato12,
-  "Dato13" : Dato13,
-  "Dato14" : Dato14,
-  "Dato15" : Dato15,
-  "Dato16" : Dato16,
-  "Dato17" : Dato17,
-  "Dato18" : Dato18,
-  "Dato19" : Dato19,
-  "Dato20" : Dato20
-  };
+var parametros = {
+"accion" : "agregar-seguimiento-objetivos-metas",
+"Dato1" : Dato1,
+"Dato2" : Dato2,
+"Dato3" : Dato3,
+"Dato4" : Dato4,
+"Dato5" : Dato5,
+"Dato6" : Dato6,
+"Dato7" : Dato7,
+"Dato8" : Dato8,
+"Dato9" : Dato9,
+"Dato10" : Dato10,
+"Dato11" : Dato11,
+"Dato12" : Dato12,
+"Dato13" : Dato13,
+"Dato14" : Dato14,
+"Dato15" : Dato15,
+"Dato16" : Dato16,
+"Dato17" : Dato17,
+"Dato18" : Dato18,
+"Dato19" : Dato19,
+"Dato20" : Dato20
+};
 
 alertify.confirm('',
 function(){
 
 $.ajax({
+data:  parametros,
+url:   'app/controlador/ObjetivosMetasIndicadoresControlador.php',
+type:  'post',
+beforeSend: function() {
+},
+complete: function(){
+},
+success:  function (response) {
+
+if(response){
+
+$('#ModalSOM').modal('hide'); 
+$('#Dato1').val('');
+$('#Dato2').val('');
+$('#Dato3').val('');
+$('#Dato4').val('');
+$('#Dato5').val('');
+$('#Dato6').val('');
+$('#Dato7').val('');
+$('#Dato8').val('');
+$('#Dato9').val('');
+$('#Dato10').val('');
+$('#Dato11').val('');
+$('#Dato12').val('');
+$('#Dato13').val('');
+$('#Dato14').val('');
+$('#Dato15').val('');
+$('#Dato16').val('');
+$('#Dato17').val('');
+$('#Dato18').val('');
+$('#Dato19').val('');
+$('#Dato20').val('');
+
+SeguimientoObjetivosMetas();
+
+}else{
+alertify.error('Error al crear el registro'); 
+}
+
+
+}
+});
+
+},
+function(){
+}).setHeader('Seguimiento de objetivos y metas').set({transition:'zoom',message: 'Desea agregar la siguiente información',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+
+}
+
+function ModalDSOM(id){
+  $('#ModalDetalle').modal('show'); 
+  $('#DivDetalle').load('app/vistas/sasisopa/elemento4/detalle-seguimiento-objetivos-metas.php?idSeguimiento=' + id);  
+  }
+
+  function EditarDSOM(id){
+$('#DivDetalle').load('app/vistas/sasisopa/elemento4/modal-seguimiento-objetivos-metas.php?idSeguimiento=' + id); 
+}
+
+function BtnEditSOM(val,opcion,id){
+  
+let detalle = val.value;
+
+let parametros = {
+  "accion" : "editar-seguimiento-objetivo-metas",
+  "idSeguimiento" : id,
+  "opcion" : opcion,
+  "detalle" : detalle
+  };
+
+  $.ajax({
+  data:  parametros,
+  url:   'app/controlador/ObjetivosMetasIndicadoresControlador.php',
+  type:  'post',
+  beforeSend: function() {
+  },
+  complete: function(){
+  },
+  success:  function (response) {
+
+  }
+  });
+
+}
+
+function btnReturnSOM(id){
+SeguimientoObjetivosMetas()
+$('#DivDetalle').load('app/vistas/sasisopa/elemento4/detalle-seguimiento-objetivos-metas.php?idSeguimiento=' + id); 
+}
+
+function EliminarObjetivo(seccion,id){
+
+var parametros = {
+"accion" : "eliminar-objetivos-metas-indicadores",
+"seccion" : seccion,
+"id" : id
+};
+
+alertify.confirm('',
+function(){
+
+  $.ajax({
  data:  parametros,
- url:   'public/sasisopa/agregar/agregar-seguimiento-objetivos-metas.php',
+ url:   'app/controlador/ObjetivosMetasIndicadoresControlador.php',
  type:  'post',
  beforeSend: function() {
  },
@@ -173,61 +272,34 @@ $.ajax({
 
 if(response == 1){
 
-$('#ModalSOM').modal('hide'); 
-  $('#Dato1').val('');
-  $('#Dato2').val('');
-  $('#Dato3').val('');
-  $('#Dato4').val('');
-  $('#Dato5').val('');
-  $('#Dato6').val('');
-  $('#Dato7').val('');
-  $('#Dato8').val('');
-  $('#Dato9').val('');
-  $('#Dato10').val('');
-  $('#Dato11').val('');
-  $('#Dato12').val('');
-  $('#Dato13').val('');
-  $('#Dato14').val('');
-  $('#Dato15').val('');
-  $('#Dato16').val('');
-  $('#Dato17').val('');
-  $('#Dato18').val('');
-  $('#Dato19').val('');
-  $('#Dato20').val('');
+SeguimientoObjetivosMetas()
+SeguimientoReporteIndicador()
 
-  SeguimientoObjetivosMetas();
+$('#ModalDetalle').modal('hide');
 
 }else{
- alertify.error('Error al crear el registro'); 
+ alertify.error('Error al eliminar el registro'); 
 }
-
 
  }
  });
 
 },
 function(){
-}).setHeader('Seguimiento de objetivos y metas').set({transition:'zoom',message: 'Desea agregar la siguiente información',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+}).setHeader('Mensaje').set({transition:'zoom',message: 'Desea eliminar la información',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+}
+//--------------------------------------------------------
+//-----------------------------------------------------
 
+ function SeguimientoReporteIndicador(){    
+  $('#ContenidoSRI').load('app/vistas/sasisopa/elemento4/seguimiento-reporte-indicadores.php');  
   }
 
-  function SeguimientoObjetivosMetas(){
-   $('#ContenidoSOM').load('public/sasisopa/vistas/seguimiento-objetivos-metas.php');  
-  }
-
-  function ModalDSOM(id){
-  $('#ModalDetalle').modal('show'); 
-  $('#DivDetalle').load('public/sasisopa/vistas/detalle-seguimiento-objetivos-metas.php?idSeguimiento=' + id);  
-  }
-
-  //----------------------------------------------
-
-  function SeguimientoReporteIndicador(){    
-  $('#ContenidoSRI').load('public/sasisopa/vistas/seguimiento-reporte-indicadores.php');  
+  function ModalSRI(){
+  $('#ModalSRI').modal('show'); 
   }
 
   function btnCrearSRI(){
-
   var Fecha = $('#Fecha').val();
   var Capacitacion = $('#Capacitacion').val();
   var ExperienciaC = $('#ExperienciaC').val();
@@ -249,6 +321,7 @@ if(FechaAplicacion != ""){
 $('#FechaAplicacion').css('border','');
 
 var parametros = {
+"accion" : "agregar-seguimiento-reporte-indicador",
 "Fecha" : Fecha,
 "Capacitacion" : Capacitacion,
 "ExperienciaC" : ExperienciaC,
@@ -262,7 +335,7 @@ function(){
 
 $.ajax({
  data:  parametros,
- url:   'public/sasisopa/agregar/agregar-seguimiento-reporte-indicador.php',
+ url:   'app/controlador/ObjetivosMetasIndicadoresControlador.php',
  type:  'post',
  beforeSend: function() {
  },
@@ -316,52 +389,17 @@ $('#Fecha').css('border','2px solid #A52525');
 
   }
 
-function EliminarObjetivo(seccion,id){
 
-var parametros = {
-"seccion" : seccion,
-"id" : id
-};
-
-alertify.confirm('',
-function(){
-
-  $.ajax({
- data:  parametros,
- url:   'public/sasisopa/eliminar/eliminar-objetivos-metas-indicadores.php',
- type:  'post',
- beforeSend: function() {
- },
- complete: function(){
- },
- success:  function (response) {
-
-if(response == 1){
-
-SeguimientoObjetivosMetas()
-SeguimientoReporteIndicador()
-
-}else{
- alertify.error('Error al eliminar el registro'); 
-}
-
- }
- });
-
-},
-function(){
-}).setHeader('Mensaje').set({transition:'zoom',message: 'Desea eliminar la información',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
-}
 
 function ModalDSRI(id){
 $('#ModalDetalle').modal('show'); 
-$('#DivDetalle').load('public/sasisopa/vistas/detalle-seguimiento-reporte-indicadores.php?idSeguimiento=' + id);  
+$('#DivDetalle').load('app/vistas/sasisopa/elemento4/detalle-seguimiento-reporte-indicadores.php?idSeguimiento=' + id);  
 }
 //------------------------------------------------------------
 
 function ModalEditSRI(id){
   $('#ModalDetalle').modal('show'); 
-  $('#DivDetalle').load('public/sasisopa/vistas/modal-seguimiento-reporte-indicadores.php?idSeguimiento=' + id);  
+  $('#DivDetalle').load('app/vistas/sasisopa/elemento4/modal-seguimiento-reporte-indicadores.php?idSeguimiento=' + id);  
 }
 
 function btnEditSRI(idSeguimiento){
@@ -386,6 +424,7 @@ function btnEditSRI(idSeguimiento){
   $('#EditFechaAplicacion').css('border','');
 
   var parametros = {
+  "accion" : "editar-seguimiento-reporte-indicador",
   "idSeguimiento" : idSeguimiento,
   "EditFecha" : EditFecha,
   "EditCapacitacion" : EditCapacitacion,
@@ -400,7 +439,7 @@ function btnEditSRI(idSeguimiento){
 
   $.ajax({
   data:  parametros,
-  url:   'public/sasisopa/actualizar/editar-seguimiento-reporte-indicador.php',
+  url:   'app/controlador/ObjetivosMetasIndicadoresControlador.php',
   type:  'post',
   beforeSend: function() {
   },
@@ -452,45 +491,6 @@ function btnEditSRI(idSeguimiento){
   }
 
 }
-//-------------------------------------------------
-
-function EditarDSOM(id){
-$('#DivDetalle').load('public/sasisopa/vistas/modal-seguimiento-objetivos-metas.php?idSeguimiento=' + id); 
-}
-
-function BtnEditSOM(val,opcion,id){
-  
-let detalle = val.value;
-
-let parametros = {
-  "idSeguimiento" : id,
-  "opcion" : opcion,
-  "detalle" : detalle
-  };
-
-  $.ajax({
-  data:  parametros,
-  url:   'public/sasisopa/actualizar/editar-seguimiento-objetivo-metas.php',
-  type:  'post',
-  beforeSend: function() {
-  },
-  complete: function(){
-  },
-  success:  function (response) {
-
-
-  }
-  });
-
-}
-
-function btnReturnSOM(id){
-
-SeguimientoObjetivosMetas()
-$('#DivDetalle').load('public/sasisopa/vistas/detalle-seguimiento-objetivos-metas.php?idSeguimiento=' + id); 
-
-}
-
   </script>
   </head>
   <body>
@@ -641,7 +641,7 @@ $('#DivDetalle').load('public/sasisopa/vistas/detalle-seguimiento-objetivos-meta
         </div>
 
         <div class="col-4">
-        <a class="float-right" href="public/sasisopa/vistas/seguimiento-objetivos-mestas-pdf.php" data-toggle="tooltip" data-placement="left" title="Descargar" >
+        <a class="float-right" href="app/vistas/sasisopa/elemento4/seguimiento-objetivos-mestas-pdf.php" data-toggle="tooltip" data-placement="left" title="Descargar" >
         <img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>">
         </a>
 
@@ -659,13 +659,9 @@ $('#DivDetalle').load('public/sasisopa/vistas/detalle-seguimiento-objetivos-meta
 
     </div>
 
-
-
-
       <!-- TABLA SEGUIMIENTO DE OBJETIVOS Y METAS -->
       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2 mb-3"> 
         
-
       <div class="border">
       <div class="p-3">
       <div class="row">
@@ -674,9 +670,8 @@ $('#DivDetalle').load('public/sasisopa/vistas/detalle-seguimiento-objetivos-meta
         <h5>Seguimiento y reporte de indicadores</h5>
         </div>
           
-
         <div class="col-4">
-          <a class="float-right" href="public/sasisopa/vistas/seguimiento-reporte-indicadores-pdf.php" data-toggle="tooltip" data-placement="left" title="Descargar" >
+          <a class="float-right" href="app/vistas/sasisopa/elemento4/seguimiento-reporte-indicadores-pdf.php" data-toggle="tooltip" data-placement="left" title="Descargar" >
           <img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>">
           </a>
 
@@ -690,16 +685,11 @@ $('#DivDetalle').load('public/sasisopa/vistas/detalle-seguimiento-objetivos-meta
 
           <div id="ContenidoSRI"></div>
 
-
         </div>
         </div>
       
       </div>
-
-    
     </div>
-
-    
     </div>
 
     </div>
@@ -736,7 +726,7 @@ $('#DivDetalle').load('public/sasisopa/vistas/detalle-seguimiento-objetivos-meta
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda()">Aceptar</button>
+          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda(<?=$id_ayuda;?>,<?=$estado;?>)">Aceptar</button>
         </div>
       </div>
     </div>

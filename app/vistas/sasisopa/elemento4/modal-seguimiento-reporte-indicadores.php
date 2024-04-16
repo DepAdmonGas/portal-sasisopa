@@ -1,9 +1,14 @@
 <?php 
-require('../../../app/help.php');
+require('../../../../app/help.php');
  
 $idSeguimiento = $_GET['idSeguimiento'];
 
-$sql = "SELECT * FROM tb_seguimiento_reporte_indicador WHERE id = '".$_GET['idSeguimiento']."' ";
+$sql = "SELECT fecha,
+capacitacion,
+exp_cliente,
+ventas,
+medidas_correctivas,
+fecha_aplicacion FROM tb_seguimiento_reporte_indicador WHERE id = '".$_GET['idSeguimiento']."' ";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){

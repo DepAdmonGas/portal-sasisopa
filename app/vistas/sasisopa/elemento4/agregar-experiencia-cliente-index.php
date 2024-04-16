@@ -1,64 +1,17 @@
 <?php
 require('app/help.php');
+include_once "app/modelo/Ayuda.php";
+include_once "app/modelo/ObjetivosMetasIndicadores.php";
 
-$sql_sasisopa_ayuda = "SELECT * FROM pu_sasisopa_ayuda WHERE id_usuario = '".$Session_IDUsuarioBD."' and detalle = 'agregar-experiencia-cliente' and estado = 0 LIMIT 1";
-$result_sasisopa_ayuda = mysqli_query($con, $sql_sasisopa_ayuda);
-$numero_sasisopa_ayuda = mysqli_num_rows($result_sasisopa_ayuda);
+$class_ayuda = new Ayuda();
+$class_objetivos_metas_indicadores = new ObjetivosMetasIndicadores();
 
-if ($numero_sasisopa_ayuda == 1) {
-while($row_ayuda = mysqli_fetch_array($result_sasisopa_ayuda, MYSQLI_ASSOC)){
-$idAyuda = $row_ayuda['id'];
-}
-}else{
-$idAyuda = 0;
-}
+$array_ayuda = $class_ayuda->sasisopaAyuda($Session_IDUsuarioBD,'agregar-experiencia-cliente');
+$id_ayuda = $array_ayuda['id'];
+$estado = $array_ayuda['estado'];
 
-function IDEncuesta($Session_IDEstacion,$Session_IDUsuarioBD,$con){
-$sql_encuesta = "SELECT id FROM tb_encuentas_estacion WHERE id_estacion = '".$Session_IDEstacion."' AND estado = 0 ORDER BY id DESC LIMIT 1";
-$result_encuesta = mysqli_query($con, $sql_encuesta);
-$numero_encuesta = mysqli_num_rows($result_encuesta);
-if ($numero_encuesta == 0) {
-$result = CrearEscuesta($Session_IDEstacion,$Session_IDUsuarioBD,$con);
-}else{
-while($row_encuesta = mysqli_fetch_array($result_encuesta, MYSQLI_ASSOC)){
-$result = $row_encuesta['id'];
-}
-}
-return $result;
-}
-function CrearEscuesta($Session_IDEstacion,$Session_IDUsuarioBD,$con){
-$sql_encuesta = "SELECT id, estado FROM tb_encuestas WHERE estado = 1 ";
-$result_encuesta = mysqli_query($con, $sql_encuesta);
-while($row_encuesta = mysqli_fetch_array($result_encuesta, MYSQLI_ASSOC)){
-$idencuesta = $row_encuesta['id'];
-}
-$sql_insert = "INSERT INTO tb_encuentas_estacion (id_estacion,id_usuario,id_encuesta,estado)
-VALUES (
-'".$Session_IDEstacion."',
-'".$Session_IDUsuarioBD."',
-'".$idencuesta."',
-0)";
-mysqli_query($con, $sql_insert);
-$sql_encuestaID = "SELECT id FROM tb_encuentas_estacion WHERE id_estacion = '".$Session_IDEstacion."' AND estado = 0 ORDER BY id DESC LIMIT 1";
-$result_encuestaID = mysqli_query($con, $sql_encuestaID);
-$numero_encuestaID = mysqli_num_rows($result_encuestaID);
-while($row_encuestaID = mysqli_fetch_array($result_encuestaID, MYSQLI_ASSOC)){
-$result = $row_encuestaID['id'];
-}
-return $result;
-}
+$IdReporte = $class_objetivos_metas_indicadores->idEncuestas($Session_IDEstacion,$Session_IDUsuarioBD);
 
-$IdReporte = IDEncuesta($Session_IDEstacion,$Session_IDUsuarioBD,$con);
-
-$sql_encuesta = "SELECT * FROM tb_encuentas_estacion_cliente WHERE id_cuentas_estacion = '".$IdReporte."'";
-$result_encuesta = mysqli_query($con, $sql_encuesta);
-$numero_encuesta = mysqli_num_rows($result_encuesta);
-
-if ($numero_encuesta != 0) {
-$disabled = "";
-}else{
-$disabled = "disabled";
-}
 ?>
 <html lang="es">
   <head>
@@ -80,7 +33,6 @@ $disabled = "disabled";
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
-
    <style media="screen">
   .LoaderPage {
   position: fixed;
@@ -101,8 +53,8 @@ $disabled = "disabled";
   $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
   $(".LoaderPage").fadeOut("slow");
-  <?php if ($numero_sasisopa_ayuda == 1) {echo "btnAyuda();";} ?>
-  BuscarEncuestados();
+  <?php if ($id_ayuda != 0) {echo "btnAyuda();";} ?>
+  BuscarEncuestados(<?=$IdReporte;?>);
   });
   function regresarP(){
   window.history.back();
@@ -112,233 +64,258 @@ $disabled = "disabled";
   $('#ModalAyuda').modal('show');
   }
 
-  function BuscarEncuestados(){
-
-   var parametros = {
-      "IdReporte" : <?=$IdReporte;?>
+    function btnFinAyuda(idayuda, estado){
+      var parametros = {
+        "accion" : "actualizar-ayuda",
+        "idayuda" : idayuda
       };
 
-   $.ajax({
-     data:  parametros,
-     url:   '../public/sasisopa/buscar/lista-cliente-encuentas.php',
-     type:  'post',
-     beforeSend: function() {
-     },
-     complete: function(){
-     },
-     success:  function (response) {
+    if (idayuda != 0 && estado == 0) {
+    $.ajax({
+    data:  parametros,
+    url:   '../app/controlador/AyudaControlador.php',
+    type:  'post',
+    beforeSend: function() {
+    },
+    complete: function(){
+    },
+    success:  function (response) {
+    $('#ModalAyuda').modal('hide');
+    }
+    });
 
-     $('#DivResultado').html(response);
-     }
-     });
+    }else{
+    $('#ModalAyuda').modal('hide');
+    }
+  }
+
+  function BuscarEncuestados(IdReporte){
+
+var parametros = {
+   "IdReporte" : IdReporte
+   };
+
+$.ajax({
+  data:  parametros,
+  url:   '../app/vistas/sasisopa/elemento4/lista-cliente-encuentas.php',
+  type:  'post',
+  beforeSend: function() {
+  },
+  complete: function(){
+  },
+  success:  function (response) {
+
+  $('#DivResultado').html(response);
+  }
+  });
 
 
 }
 
-  function btnNuEncuesta(){
-  window.location.href = 'agregar-experiencia-cliente';
+  function Detalle(id){
+  $('#ModalDetalle').modal('show');
+  DetalleEncuestado(id);
   }
 
-  function BtnAgregar(numCuestionario){
-
-    var Nombre = $('#Nombre').val();
-    var ToRespuestas = 0;
-
-    if (Nombre != "") {
-
-    $('#Nombre').css('border','');
-
-      for (var i = 1; i <= numCuestionario; i++) {
-      var respuesta = "sel-" + i;
-      var respuesta = $('#sel-' + i).val();
-
-
-      if (respuesta != 0) {
-      $('#sel-' + i).css('border','');
-      ToRespuestas = ToRespuestas + 1;
-      }else{
-      $('#sel-' + i).css('border','2px solid #A52525');
-      }
-
-      }
-
-      if (numCuestionario == ToRespuestas) {
-
-     var parametrosUsuario = {
-      "IdReporte" : <?=$IdReporte;?>,
-      "Nombre" : Nombre
-      };
-
-     $.ajax({
-     data:  parametrosUsuario,
-     url:   '../public/sasisopa/agregar/agregar-usuario-encuentas.php',
+  function DetalleEncuestado(id){
+   var parametros = {
+      "IdCliente" : id
+      };  
+   $.ajax({
+    data:  parametros,
+     url:   '../app/vistas/sasisopa/elemento4/detalle-cliente-encuentas.php',
      type:  'post',
      beforeSend: function() {
      },
      complete: function(){
      },
      success:  function (response) {
-     enviarRespuestas(numCuestionario,response);
+     $('#DivContenidoModal').html(response);
      }
      });
-
-    }
-
-
-    }else{
-    $('#Nombre').css('border','2px solid #A52525');
-    }
-
-
+ 
   }
 
-  function enviarRespuestas(numCuestionario,response){
+  function BtnAgregar(numCuestionario,IdReporte){
+
+var Nombre = $('#Nombre').val();
+var ToRespuestas = 0;
+
+if (Nombre != "") {
+
+$('#Nombre').css('border','');
 
   for (var i = 1; i <= numCuestionario; i++) {
-  var idpregunta = "pre-" + i;
-  var idpregunta = $('#pre-' + i).text();
-
   var respuesta = "sel-" + i;
   var respuesta = $('#sel-' + i).val();
 
-    var parametros = {
-    "idusuario" : response,
-    "idpregunta" : idpregunta,
-    "respuesta" : respuesta
-    };
 
-    $.ajax({
-     data:  parametros,
-     url:   '../public/sasisopa/agregar/agregar-usuario-encuentas-resultados.php',
-     type:  'post',
-     beforeSend: function() {
-     },
-     complete: function(){
-     },
-     success:  function (response) {
-     }
-     });
-
-
-  $('#sel-' + i).val('0')
+  if (respuesta != 0) {
+  $('#sel-' + i).css('border','');
+  ToRespuestas = ToRespuestas + 1;
+  }else{
+  $('#sel-' + i).css('border','2px solid #A52525');
   }
-
-  var Comentario = $('#Comentario').val();
-
-  if (Comentario != "") {
-
-    var parametrosComentario = {
-      "idusuario" : response,
-      "comentario" : Comentario
-    };
-
-    $.ajax({
-     data:  parametrosComentario,
-     url:   '../public/sasisopa/agregar/agregar-usuario-encuentas-comentario.php',
-     type:  'post',
-     beforeSend: function() {
-     },
-     complete: function(){
-     },
-     success:  function (response) {
-
-      }
-     });
 
   }
 
+  if (numCuestionario == ToRespuestas) {
 
-  $('#Nombre').val('');
-  $('#Comentario').val('');
-  alertify.success('Se agrego correctamente el cuestionario');
-  window.location.href = ''; 
+ var parametrosUsuario = {
+  "accion" : "agregar-usuario-encuestas",
+  "IdReporte" : IdReporte,
+  "Nombre" : Nombre
+  };
 
-    }
+ $.ajax({
+ data:  parametrosUsuario,
+ url:   '../app/controlador/ObjetivosMetasIndicadoresControlador.php',
+ type:  'post',
+ beforeSend: function() {
+ },
+ complete: function(){
+ },
+ success:  function (response) {
+ enviarRespuestas(numCuestionario,response);
+ }
+ });
 
-  function BtnFinalizar(){
+}
 
-    var Fecha = $('#Fecha').val();
+}else{
+$('#Nombre').css('border','2px solid #A52525');
+}
 
-    alertify.confirm('',
-    function(){
+}
 
-     var parametros = {
-      "IdReporte" : <?=$IdReporte;?>,
-      "Fecha" : Fecha
-      };
+function enviarRespuestas(numCuestionario,response){
 
-   $.ajax({
-     data:  parametros,
-     url:   '../public/sasisopa/actualizar/actualizar-encuesta-estacion.php',
-     type:  'post',
-     beforeSend: function() {
-     },
-     complete: function(){
-     },
-     success:  function (response) {
+for (var i = 1; i <= numCuestionario; i++) {
+var idpregunta = "pre-" + i;
+var idpregunta = $('#pre-' + i).text();
 
-     }
-     });
-   regresarP();
+var respuesta = "sel-" + i;
+var respuesta = $('#sel-' + i).val();
 
-   },
-    function(){
-    }).setHeader('Mensaje').set({transition:'zoom',message: 'Desea finalizar con el agregado de las encuestas ',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+  var parametros = {
+  "accion" : "agregar-usuario-encuestas-resultados",
+  "idusuario" : response,
+  "idpregunta" : idpregunta,
+  "respuesta" : respuesta
+  };
 
-  }
-
-  function btnEliminar(){
-
-     alertify.confirm('',
-    function(){
-
-     var parametros = {
-      "IdReporte" : <?=$IdReporte;?>
-      };
-
-   $.ajax({
-     data:  parametros,
-     url:   '../public/sasisopa/eliminar/eliminar-encuesta-estacion.php',
-     type:  'post',
-     beforeSend: function() {
-     },
-     complete: function(){
-     },
-     success:  function (response) {
-
-     }
-     });
-   window.location.href = 'experiencia-cliente';
-
-   },
-    function(){
-    }).setHeader('Mensaje').set({transition:'zoom',message: 'Desea eliminar el reporte ',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
-
-  }
-
-  function btnFinAyuda(){
-var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
- var parametros = {
-        "idAyuda" : <?=$idAyuda; ?>
-      };
-  if (puntosSasisopa != 0) {
-   $.ajax({
+  $.ajax({
    data:  parametros,
-   url:   '../public/sasisopa/actualizar/actualizar-ayuda.php',
+   url:   '../app/controlador/ObjetivosMetasIndicadoresControlador.php',
    type:  'post',
    beforeSend: function() {
    },
    complete: function(){
    },
    success:  function (response) {
-   $('#ModalAyuda').modal('hide');
    }
    });
 
-  }else{
-  $('#ModalAyuda').modal('hide');
-  }
+
+$('#sel-' + i).val('0')
 }
+
+var Comentario = $('#Comentario').val();
+
+if (Comentario != "") {
+
+  var parametrosComentario = {
+    "accion" : "agregar-usuario-encuestas-comentario",
+    "idusuario" : response,
+    "comentario" : Comentario
+  };
+
+  $.ajax({
+   data:  parametrosComentario,
+   url:   '../app/controlador/ObjetivosMetasIndicadoresControlador.php',
+   type:  'post',
+   beforeSend: function() {
+   },
+   complete: function(){
+   },
+   success:  function (response) {
+
+    }
+   });
+
+}
+
+
+$('#Nombre').val('');
+$('#Comentario').val('');
+alertify.success('Se agrego correctamente el cuestionario');
+window.location.href = ''; 
+
+  }
+
+  function BtnFinalizar(IdReporte){
+
+var Fecha = $('#Fecha').val();
+
+alertify.confirm('',
+function(){
+
+ var parametros = {
+  "accion" : "actualizar-encuesta-estacion",
+  "IdReporte" : IdReporte,
+  "Fecha" : Fecha
+  };
+
+$.ajax({
+ data:  parametros,
+ url:   '../app/controlador/ObjetivosMetasIndicadoresControlador.php',
+ type:  'post',
+ beforeSend: function() {
+ },
+ complete: function(){
+ },
+ success:  function (response) {
+
+ }
+ });
+regresarP();
+
+},
+function(){
+}).setHeader('Mensaje').set({transition:'zoom',message: 'Desea finalizar con el agregado de las encuestas ',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+
+}
+
+function btnEliminar(IdReporte){
+
+alertify.confirm('',
+function(){
+
+var parametros = {
+ "accion" : "eliminar-encuesta-estacion",
+ "IdReporte" : IdReporte
+ };
+
+$.ajax({
+data:  parametros,
+url:   '../app/controlador/ObjetivosMetasIndicadoresControlador.php',
+type:  'post',
+beforeSend: function() {
+},
+complete: function(){
+},
+success:  function (response) {
+
+}
+});
+window.location.href = 'experiencia-cliente';
+
+},
+function(){
+}).setHeader('Mensaje').set({transition:'zoom',message: 'Desea eliminar el reporte ',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+
+}
+
   </script>
   </head>
   <body>
@@ -371,7 +348,7 @@ var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
     <img src="<?php echo RUTA_IMG_ICONOS."info.png"; ?>">
     </a>
 
-    <a onclick="btnEliminar()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Eliminar Reporte" >
+    <a onclick="btnEliminar(<?=$IdReporte;?>)" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Eliminar Reporte" >
     <img src="<?php echo RUTA_IMG_ICONOS."eliminar.png"; ?>">
     </a>
     </div>
@@ -430,7 +407,7 @@ var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
               while($row_encuesta = mysqli_fetch_array($result_encuesta, MYSQLI_ASSOC)){
               $Id = $row_encuesta['id'];
 
-              $sql_cuestionario = "SELECT * FROM tb_encuentas_cuestionario ORDER BY num_pregunta";
+              $sql_cuestionario = "SELECT id, num_pregunta, pregunta FROM tb_encuentas_cuestionario ORDER BY num_pregunta";
               $result_cuestionario = mysqli_query($con, $sql_cuestionario);
               $numero_cuestionario = mysqli_num_rows($result_cuestionario);
               while($row_cuestionario = mysqli_fetch_array($result_cuestionario, MYSQLI_ASSOC)){
@@ -459,7 +436,7 @@ var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
 
           <textarea class="form-control rounded-0" id="Comentario" rows="3" placeholder="Comentario"></textarea>
 
-          <button type="button" class="btn btn-info rounded-0 p-2 mt-2 mb-3" style="width: 100%;margin-top: 5px;" onclick="BtnAgregar(<?=$numero_cuestionario;?>)">Agregar encuesta</button>
+          <button type="button" class="btn btn-info rounded-0 p-2 mt-2 mb-3" style="width: 100%;margin-top: 5px;" onclick="BtnAgregar(<?=$numero_cuestionario;?>,<?=$IdReporte;?>)">Agregar encuesta</button>
 
         </div>
         
@@ -472,7 +449,7 @@ var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
           <div id="DivResultado"></div>
           </div>
 
-          <button type="button" id="btnfin" class="btn btn-success rounded-0 mt-2 p-2" style="width: 100%;margin-top: 5px;" <?=$disabled;?> onclick="BtnFinalizar()">Finalizar encuestas</button>
+          <button type="button" id="btnfin" class="btn btn-success rounded-0 mt-2 p-2" style="width: 100%;margin-top: 5px;" onclick="BtnFinalizar(<?=$IdReporte;?>)">Finalizar encuestas</button>
 
         </div>
        </div>
@@ -496,7 +473,7 @@ var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
       </p>
 
       <div class="modal-footer">
-      <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda()">Aceptar</button>
+      <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda(<?=$id_ayuda;?>,<?=$estado;?>)">Aceptar</button>
       </div>
       </div>
     </div>

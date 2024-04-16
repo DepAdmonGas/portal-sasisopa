@@ -1,5 +1,5 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 $sql_capacitacion = "SELECT * FROM tb_seguimiento_objetivos_metas WHERE id_estacion = '".$Session_IDEstacion."' ORDER BY id DESC ";
 $result_capacitacion = mysqli_query($con, $sql_capacitacion);

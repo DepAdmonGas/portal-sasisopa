@@ -1,22 +1,23 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 $IdCliente = $_POST['IdCliente'];
+$nombre = "";
+$comentario = "";
 
-$sql_cliente = "SELECT * FROM tb_encuentas_estacion_cliente WHERE id = '".$IdCliente."'";
+$sql_cliente = "SELECT nombre FROM tb_encuentas_estacion_cliente WHERE id = '".$IdCliente."'";
 $result_cliente = mysqli_query($con, $sql_cliente);
 $numero_cliente = mysqli_num_rows($result_cliente);
 while($row_cliente = mysqli_fetch_array($result_cliente, MYSQLI_ASSOC)){
 $nombre = $row_cliente['nombre'];
 }
 
-$sql_comentario = "SELECT * FROM tb_encuentas_estacion_cliente_comentarios WHERE id_cliente = '".$IdCliente."'";
+$sql_comentario = "SELECT comentario FROM tb_encuentas_estacion_cliente_comentarios WHERE id_cliente = '".$IdCliente."'";
 $result_comentario = mysqli_query($con, $sql_comentario);
 $numero_comentario = mysqli_num_rows($result_comentario);
 while($row_comentario = mysqli_fetch_array($result_comentario, MYSQLI_ASSOC)){
 $comentario = $row_comentario['comentario'];
 }
-
 
 $sql_encuesta = "SELECT tb_encuentas_estacion_cliente_preguntas.id_cliente, tb_encuentas_estacion_cliente_preguntas.id_pregunta, tb_encuentas_estacion_cliente_preguntas.resultado,
 tb_encuentas_cuestionario.num_pregunta, tb_encuentas_cuestionario.pregunta

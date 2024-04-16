@@ -1,17 +1,7 @@
 <?php
 require('app/help.php');
-
-$sql_sasisopa_ayuda = "SELECT * FROM pu_sasisopa_ayuda WHERE id_usuario = '".$Session_IDUsuarioBD."' and detalle = 'indicadores-ventas' and estado = 0 LIMIT 1";
-$result_sasisopa_ayuda = mysqli_query($con, $sql_sasisopa_ayuda);
-$numero_sasisopa_ayuda = mysqli_num_rows($result_sasisopa_ayuda);
-
-if ($numero_sasisopa_ayuda == 1) {
-while($row_ayuda = mysqli_fetch_array($result_sasisopa_ayuda, MYSQLI_ASSOC)){
-$idAyuda = $row_ayuda['id'];
-}
-}else{
-$idAyuda = 0;
-}
+include_once "app/modelo/ObjetivosMetasIndicadores.php";
+$class_objetivos_metas_indicadores = new ObjetivosMetasIndicadores();
 
 ?>
 <html lang="es">
@@ -43,7 +33,7 @@ $idAyuda = 0;
   width: 100%;
   height: 100%;
   z-index: 9999;
-  background: url('../imgs/iconos/load-img.gif') 50% 50% no-repeat rgb(249,249,249);
+  background: url('../../imgs/iconos/load-img.gif') 50% 50% no-repeat rgb(249,249,249);
 }
 
 .card-hover:hover{
@@ -55,15 +45,10 @@ $idAyuda = 0;
   $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
   $(".LoaderPage").fadeOut("slow");
-  <?php if ($numero_sasisopa_ayuda == 1) {echo "btnAyuda();";} ?>
 
   });
   function regresarP(){
    window.history.back();
-  }
-
-  function btnAyuda(){
-  $('#ModalAyuda').modal('show');
   }
 
   
@@ -71,9 +56,8 @@ google.charts.load('current', {'packages':['bar']});
 google.charts.setOnLoadCallback(drawChart);
        
     function drawChart() {
-
       var jsonData = $.ajax({
-          url: "../public/sasisopa/buscar/busca-ventas.php",
+          url: "../../app/vistas/sasisopa/elemento4/buscar-ventas-reporte.php?Year=<?=$selyear;?>",
           dataType:"json",
           async: false
           }).responseText;
@@ -90,32 +74,10 @@ google.charts.setOnLoadCallback(drawChart);
         };
 
         var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
         chart.draw(data, google.charts.Bar.convertOptions(options));
     }
   
-  function btnFinAyuda(){
-var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
- var parametros = {
-        "idAyuda" : <?=$idAyuda; ?>
-      };
-  if (puntosSasisopa != 0) {
-   $.ajax({
-   data:  parametros,
-   url:   '../public/sasisopa/actualizar/actualizar-ayuda.php',
-   type:  'post',
-   beforeSend: function() {
-   },
-   complete: function(){
-   },
-   success:  function (response) {
-   $('#ModalAyuda').modal('hide');
-   }
-   });
-
-  }else{
-  $('#ModalAyuda').modal('hide');
-  }
-}
 
 function btnBuscar(){
 $('#ModalBuscar').modal('show');
@@ -126,7 +88,7 @@ function btnBuscarReporte(){
   var BuscarYear = $('#BuscarYear').val();
 
   if(BuscarYear != ""){
-   window.location.href = "indicador-ventas/" + BuscarYear;
+   window.location.href = "../indicador-ventas/" + BuscarYear;
   }else{
   $('#BuscarYear').css('border','2px solid #A52525');
   }
@@ -150,15 +112,11 @@ function btnBuscarReporte(){
       <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
       <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
       </div>
-    <div class="float-left"><h4>INDICADORES DE VENTAS <?=date("Y");?></h4></div>
+    <div class="float-left"><h4>REPORTE DE VENTAS <?=$selyear;?></h4></div>
     <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
 
     <a class="mr-2" onclick="btnBuscar()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Buscar" >
     <img src="<?php echo RUTA_IMG_ICONOS."lupa.png"; ?>">
-    </a>
-
-    <a onclick="btnAyuda()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Ayuda" >
-    <img src="<?php echo RUTA_IMG_ICONOS."info.png"; ?>">
     </a>
 
     </div>
@@ -167,16 +125,21 @@ function btnBuscarReporte(){
 
     <div id="columnchart_material" ></div>
 
+
     <div class="row mt-3">
     <?php
     $fecha_mes = 12;
-    $fecha_year = date("Y");
+    $fecha_year = $selyear;
+    $TotalP1 = 0;
+    $TotalP2 = 0;
+    $TotalP3 = 0;
 
     for ($mes=1; $mes <= $fecha_mes; $mes++) {
 
-    $BuscaVentas = BuscaVentas($mes,$fecha_year,$Session_ProductoUno,$Session_ProductoDos,$Session_ProductoTres,$Session_IDEstacion,$con); 
+    $BuscaVentas = $class_objetivos_metas_indicadores->BuscaVentas($mes,$fecha_year,$Session_ProductoUno,$Session_ProductoDos,$Session_ProductoTres,$Session_IDEstacion);
 
-    echo '      <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mt-2 mb-2"> 
+    echo '<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mt-2 mb-2"> 
+
     <div class="m-1">
     <div class="border">
     <div class="bg-secondary p-2 text-white"><h5 class="text-center">'.nombremes($mes).'</h5></div>
@@ -215,25 +178,22 @@ function btnBuscarReporte(){
     $TotalP2 = $TotalP2 + $BuscaVentas['Producto2'];
     $TotalP3 = $TotalP3 + $BuscaVentas['Producto3'];
 
-
     }
     ?>
-       
     </div>
 
     <div class="row">
-      
-      <div class="col-4"></div>
-      <div class="col-4"></div>
+    
+    <div class="col-4"></div>
+    <div class="col-4"></div>
 
-      <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mt-2 mb-2"> 
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mt-2 mb-2"> 
 
-      <div class="m-1">
-      <div class="border">
+    <div class="m-1">
+    <div class="border">
+
       <div class="bg-secondary p-2 text-white"><h5 class="text-center">Total Neto</h5></div>
 
-
-      <div style="overflow-y: hidden;">
         <table class="table table-bordered table-striped table-sm table-hover text-center pb-0 mb-0">
         <thead>
         <tr>
@@ -263,7 +223,6 @@ function btnBuscarReporte(){
         </tr>
         </tbody>
         </table>
-      </div>
 
       </div>
       </div>
@@ -313,39 +272,11 @@ $array = array(
 );
 
 return $array;
+
 }
 ?>
 
 
-<div class="modal fade bd-example-modal-lg" id="ModalAyuda" data-backdrop="static">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-      <div class="modal-content" style="border-radius: 0px;border: 0px;">
-        <div class="modal-header">
-          <h4 class="modal-title">INDICADORES DE VENTAS</h4>
-        </div>
-        <div class="modal-body">
-
-          <p class="text-justify" style="font-size: 1.1em">
-            En este apartado puedes consultar tus ventas de cada uno de tus productos ya sea por mes o por año. Identifica los meses de mayor y menor venta. Esto nos ayudara a crear estrategias para aumentar los indicadores más bajos.
-          </p>
-          <p class="text-justify" style="font-size: 1.1em">
-            Las gráficas que veras a continuación son el resultado del reporte estadístico diario que ingresas ante este portal.
-          </p>
-          
-          <hr>
-
-          
-          <small class="font-weight-bold">Recuerda que los datos aquí reflejados son el resultado de lo que reportas diariamente, con la finalidad de obtener datos estadísticos verídicos es importante no omitir el reporte estadístico diario. </small>
-
-
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda()">Aceptar</button>
-        </div>
-      </div>
-    </div>
-    </div>
 
     <div class="modal fade bd-example-modal-lg" id="ModalBuscar" >
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -365,6 +296,7 @@ return $array;
           }
           ?>
         </select>
+
 
         </div>
         <div class="modal-footer">

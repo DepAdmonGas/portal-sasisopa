@@ -53,7 +53,7 @@ require('app/help.php');
   }
 
   function CapacitacionPersonal(BuscarYear){
-  $('#DivListaCapacitacion').load('../public/sasisopa/vistas/lista-capacitacion-personal.php?Year=' + BuscarYear);  
+  $('#DivListaCapacitacion').load('../app/vistas/sasisopa/elemento4/lista-capacitacion-personal.php?Year=' + BuscarYear);  
   }
 
   function ModalBuscar(){
@@ -126,14 +126,12 @@ $('#BuscarYear').css('border','2px solid #A52525');
         </div>
         <div class="modal-body">
 
-
         <div class="form-group">
          <label class="text-secondary" >Agregar Año: </label>
          <input type="text" class="form-control" name="" id="BuscarYear" style="border-radius: 0px;">
          </div>
-
-
         </div>
+
         <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-radius: 0px;">Cancelar</button>
         <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnBuscar()">Buscar</button>
