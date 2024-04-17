@@ -1,17 +1,12 @@
 <?php
 require('app/help.php');
+include_once "app/modelo/Ayuda.php";
 
-$sql_sasisopa_ayuda = "SELECT * FROM pu_sasisopa_ayuda WHERE id_usuario = '".$Session_IDUsuarioBD."' and detalle = '5-funciones-responsabilidades-autoridad' and estado = 0 LIMIT 1";
-$result_sasisopa_ayuda = mysqli_query($con, $sql_sasisopa_ayuda);
-$numero_sasisopa_ayuda = mysqli_num_rows($result_sasisopa_ayuda);
+$class_ayuda = new Ayuda();
+$array_ayuda = $class_ayuda->sasisopaAyuda($Session_IDUsuarioBD,'5-funciones-responsabilidades-autoridad');
+$id_ayuda = $array_ayuda['id'];
+$estado = $array_ayuda['estado'];
 
-if ($numero_sasisopa_ayuda == 1) {
-while($row_ayuda = mysqli_fetch_array($result_sasisopa_ayuda, MYSQLI_ASSOC)){
-$idAyuda = $row_ayuda['id'];
-}
-}else{
-$idAyuda = 0;
-}
 ?> 
 <html lang="es">
   <head>
@@ -27,9 +22,9 @@ $idAyuda = 0;
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
   <script type="text/javascript" src="<?php echo RUTA_JS ?>alertify.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
@@ -48,162 +43,158 @@ $idAyuda = 0;
   $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
   $(".LoaderPage").fadeOut("slow");
-  <?php if ($numero_sasisopa_ayuda == 1) {echo "btnAyuda();";} ?>
+  <?php if ($id_ayuda != 0) {echo "btnAyuda();";} ?>
 
   ListaAsistencia(5);
   ListaRepresentanteT();
 
   });
+
   function regresarP(){
   window.history.back();
   }
 
-  function ListaRepresentanteT(){  
-  $('#DivListaRT').load('public/sasisopa/vistas/lista-representante-tecnico.php');
-  }
 
   function btnAyuda(){
-  $('#ModalFunciones').modal('show');
+  $('#ModalAyuda').modal('show');
   }
 
-  function btnFinAyuda(){
+  function btnFinAyuda(idayuda, estado){
 
-var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
+var parametros = {
+      "accion" : "actualizar-ayuda",
+      "idayuda" : idayuda
+    };
 
- var parametros = {
- "idAyuda" : <?=$idAyuda; ?>
- };
-
-  if (puntosSasisopa != 0) {
+    if (idayuda != 0 && estado == 0) {
 
    $.ajax({
    data:  parametros,
-   url:   'public/sasisopa/actualizar/actualizar-ayuda.php',
+   url:   'app/controlador/AyudaControlador.php',
    type:  'post',
    beforeSend: function() {
    },
    complete: function(){
    },
    success:  function (response) {
-   $('#ModalFunciones').modal('hide');
+
+    if(response){
+   $('#ModalAyuda').modal('hide');
+    }
+
    }
    });
 
   }else{
-  $('#ModalFunciones').modal('hide');
+  $('#ModalAyuda').modal('hide');
   }
   }
 
-  function Rete(){
-$('#ModalReTe').modal('show');
-}
-function Gerente(){
-$('#ModalGerente').modal('show');  
-}
-function JefePiso(){
-$('#ModalJefePiso').modal('show'); 
-}
-function Facturista(){
-$('#ModalFacturista').modal('show');  
-}
-function Despachador(){
- $('#ModalDespachador').modal('show');   
-}
-function AuxiliarAdmi(){
- $('#ModalAuxiliar').modal('show');   
-}
-function Mantenimiento(){
-$('#ModalMantenimiento').modal('show');
- }
+    function Rete(){
+    $('#ModalReTe').modal('show');
+    }
+    function Gerente(){
+    $('#ModalGerente').modal('show');  
+    }
+    function JefePiso(){
+    $('#ModalJefePiso').modal('show'); 
+    }
+    function Facturista(){
+    $('#ModalFacturista').modal('show');  
+    }
+    function Despachador(){
+    $('#ModalDespachador').modal('show');   
+    }
+    function AuxiliarAdmi(){
+    $('#ModalAuxiliar').modal('show');   
+    }
+    function Mantenimiento(){
+    $('#ModalMantenimiento').modal('show');
+    }
 
-//----------------------------------------------------------------------------------------------------------------
+  function ListaAsistencia(idSasisopa){
+    $('#DivListaAsistencia').load('app/vistas/sasisopa/asistencia/lista-asistencia.php?idSasisopa=' + idSasisopa); 
+    }
+
+    function EditarAsistencia(id){
+window.location = "lista-asistencia/" + id; 
+}
+
 function btnAsistencia(){
-
- var parametros = {
+var parametros = {
+  "accion" : "agregar-lista-asistencia",
  "PuntoSasisopa" : 5
  };
 
-   $.ajax({
+ $.ajax({
+ data:  parametros,
+ url:   'app/controlador/AsistenciaControlador.php',
+ type:  'post',
+ beforeSend: function() {
+ },
+ complete: function(){
+ },
+ success:  function (response) {
+
+  if(response != 0){
+    window.location = "lista-asistencia/" + response; 
+  }else{
+   alertify.error('Error al crear registro'); 
+  }
+ }
+ });
+ }
+
+ function EliminarAsistencia(id){
+
+var parametros = {
+  "accion" : "eliminar-lista-asistencia",
+  "id" : id
+  };
+
+$.ajax({
    data:  parametros,
-   url:   'public/sasisopa/agregar/agregar-lista-asistencia.php',
+   url:   'app/controlador/AsistenciaControlador.php',
    type:  'post',
    beforeSend: function() {
    },
    complete: function(){
+  
    },
    success:  function (response) {
 
-    if(response != 0){
-      window.location = "lista-asistencia/" + response; 
-    }else{
-     alertify.error('Error al crear registro'); 
-    }
-   
+  if (response) {
+  ListaAsistencia(1)
+  }else{
+  alertify.error('Error al eliminar')
+  }
+
    }
    });
- 
-   }
-
-function ListaAsistencia(idSasisopa){
-$('#DivListaAsistencia').load('public/sasisopa/vistas/lista-asistencia.php?idSasisopa=' + idSasisopa); 
-}
-function EditarAsistencia(id){
-window.location = "lista-asistencia/" + id; 
 }
 
-function EliminarAsistencia(id){
+    function DescargarAsistencia(id){
+  window.location = "descargar-lista-asistencia/" + id;   
+  }
 
-  var parametros = {
-    "id" : id
-    };
+  function ListaRepresentanteT(){  
+  $('#DivListaRT').load('app/vistas/sasisopa/elemento5/lista-representante-tecnico.php');
+  }
 
-    alertify.confirm('',
-function(){
-  $.ajax({
-     data:  parametros,
-     url:   'public/sasisopa/eliminar/eliminar-lista-asistencia.php',
-     type:  'post',
-     beforeSend: function() {
-     },
-     complete: function(){
-    
-     },
-     success:  function (response) {
-
-    if (response == 1) {
-    ListaAsistencia(5)
-    }else{
-    alertify.error('Error al eliminar')
+  function btnRepresentanteT(){
+    $('#ModalRT').modal('show');
     }
 
-     }
-     });
-},
-function(){
-}).setHeader('Lista de asistencia').set({transition:'zoom',message: '¿Desea eliminar la comunicación interna de la estación?',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
-
-}
-
-function DescargarAsistencia(id){
-window.location = "descargar-lista-asistencia/" + id;   
-}
-
-function btnRepresentanteT(){
-$('#ModalRT').modal('show');
-}
-
-function btnGuardar(){
+    function btnGuardar(){
 
 var NombreRT = $('#NombreRT').val();
 var FechaAsignacion = $('#FechaAsignacion').val();
-
-
 var PDF = document.getElementById("PDF");
 var PDF_file = PDF.files[0];
 var PDF_filePath = PDF.value;
 
 var data = new FormData();
-var url = 'public/sasisopa/agregar/agregar-representante-tecnico.php';
+var url = 'app/controlador/FuncionesResponsabilidadAutoridadControlador.php';
 var ext = $("#PDF").val().split('.').pop();
 
 if (NombreRT != "") {
@@ -214,6 +205,7 @@ if (ext == "PDF" || ext == "pdf") {
 $('#Resultado').html('');
 $('#ManualPDF').css('border','');  
 
+  data.append('accion', 'agregar-representante-tecnico');
   data.append('NombreRT', NombreRT);
   data.append('FechaAsignacion', FechaAsignacion);
   data.append('PDF_file', PDF_file);
@@ -227,11 +219,13 @@ $.ajax({
   cache: false
   }).done(function(data){
 
-$('#NombreRT').val('');
-$('#FechaAsignacion').val('');
-$('#PDF').val('');
-ListaRepresentanteT();
-$('#ModalRT').modal('hide');
+    if(data){
+    $('#NombreRT').val('');
+    $('#FechaAsignacion').val('');
+    $('#PDF').val('');
+    ListaRepresentanteT();
+    $('#ModalRT').modal('hide');
+    }
 
   });
 
@@ -247,37 +241,38 @@ $('#NombreRT').css('border','2px solid #A52525');
 }
 
 }
-
+ 
 function EliminarRT(id){
 
-  var parametros = {
+    var parametros = {
+    "accion" : "eliminar-representante-tecnico",
     "id" : id
     };
 
     alertify.confirm('',
-function(){
-  $.ajax({
-     data:  parametros,
-     url:   'public/sasisopa/eliminar/eliminar-representante-tecnico.php',
-     type:  'post',
-     beforeSend: function() {
-     },
-     complete: function(){
-    
-     },
-     success:  function (response) {
+    function(){
+    $.ajax({
+   data:  parametros,
+   url:   'app/controlador/FuncionesResponsabilidadAutoridadControlador.php',
+   type:  'post',
+   beforeSend: function() {
+   },
+   complete: function(){
+  
+   },
+   success:  function (response) {
 
-    if (response == 1) {
-    ListaRepresentanteT();
-    }else{
-    alertify.error('Error al eliminar')
-    }
+  if (response == 1) {
+  ListaRepresentanteT();
+  }else{
+  alertify.error('Error al eliminar')
+  }
 
-     }
-     });
-},
-function(){
-}).setHeader('Representante técnico').set({transition:'zoom',message: '¿Desea eliminar el formato de asignación de representante técnico?',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+   }
+   });
+    },
+    function(){
+    }).setHeader('Representante técnico').set({transition:'zoom',message: '¿Desea eliminar el formato de asignación de representante técnico?',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
 
 }
   </script>
@@ -445,26 +440,17 @@ function(){
                 SA</td>
               </tr>
               <tr>
-                <td class="text-center">Informar a la alta dirección del Regulado
-acerca del desempeño del SA.</td>
+                <td class="text-center">Informar a la alta dirección del Regulado acerca del desempeño del SA.</td>
               </tr>
               <tr>
-                <td class="text-center">Proponer la adopción de medidas para
-aplicar las mejores prácticas nacionales e
-internacionales en la implementación del
-SA.</td>
+                <td class="text-center">Proponer la adopción de medidas para aplicar las mejores prácticas nacionales e internacionales en la implementación del SA.</td>
               </tr>
               <tr>
-                <td class="text-center">Coordinar y apoyar al resto de las áreas en
-la definición e implementación de las
-acciones necesarias para subsanar los
-incumplimientos de los requisitos del SA.
-</td>
+                <td class="text-center">Coordinar y apoyar al resto de las áreas en la definición e implementación de las acciones necesarias para subsanar los incumplimientos de los requisitos del SA.
+                </td>
               </tr>
               <tr>
-                <td class="text-center">Informar a la Agencia de cualquier
-situación crítica relativa al proyecto que
-pudiera poner en riesgo la SISOPA.</td>
+                <td class="text-center">Informar a la Agencia de cualquier situación crítica relativa al proyecto que pudiera poner en riesgo la SISOPA.</td>
               </tr>
             </tbody>
           </table>
@@ -731,7 +717,7 @@ al SA</td>
     </div>
     </div>
 
-    <div class="modal fade bd-example-modal-lg" id="ModalFunciones" data-backdrop="static">
+    <div class="modal fade bd-example-modal-lg" id="ModalAyuda" data-backdrop="static">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content" style="border-radius: 0px;border: 0px;">
         <div class="modal-header">
@@ -758,7 +744,7 @@ al SA</td>
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda()">Aceptar</button>
+          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda(<?=$id_ayuda;?>,<?=$estado;?>)">Aceptar</button>
         </div>
       </div>
     </div>
@@ -790,7 +776,6 @@ al SA</td>
          <div class="mb-2 mt-2"><small class="text-secondary">* PDF:</small></div>
          <input type="file" id="PDF">
          <div id="Resultado"></div>
-
 
         </div>
         <div class="modal-footer">

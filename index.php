@@ -48,6 +48,9 @@ switch ($partes_ruta[1])
     case '4-objetivos-metas-indicadores':
       $ruta_elegida = $index_controlador->objetivosMetasIndicadores();
     break;
+    case '5-funciones-responsabilidades-autoridad':
+      $ruta_elegida = $index_controlador->funcionesResponsabilidadesAutoridad();
+    break;
     //-------- ELEMENTOS SASISOPA FIN -------------------
     //---------------------------------------------------
 
@@ -93,9 +96,7 @@ $ruta_elegida = 'public/gerente/comunicados-index.php';
 break;
 //--------------------Puntos Sasisopa ----------
 
-case '5-funciones-responsabilidades-autoridad':
-$ruta_elegida = 'public/sasisopa/funciones-responsabilidades-autoridad.php';
-break;
+
 case '6-competencia-personal-capacitacion-entrenamiento':
 $ruta_elegida = 'public/sasisopa/competencia-personal-capacitacion-entrenamiento.php';
 break;

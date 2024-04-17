@@ -6,6 +6,7 @@ $class_ayuda = new Ayuda();
 $array_ayuda = $class_ayuda->sasisopaAyuda($Session_IDUsuarioBD,'1-politica');
 $id_ayuda = $array_ayuda['id'];
 $estado = $array_ayuda['estado'];
+
 ?>
 <html lang="es">
   <head>

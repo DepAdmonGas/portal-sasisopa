@@ -1,7 +1,5 @@
 <?php
-require('../../../app/help.php');
-
-$idSasisopa = $_GET['idSasisopa'];
+require('../../../../app/help.php');
 
 $sql_capacitacion = "SELECT * FROM tb_representante_tecnico WHERE id_estacion = '".$Session_IDEstacion."' ";
 $result_capacitacion = mysqli_query($con, $sql_capacitacion);
@@ -15,8 +13,8 @@ $numero_capacitacion = mysqli_num_rows($result_capacitacion);
 <th class="text-center align-middle">No</th>
 <th class="text-center align-middle">Nombre del representante técnico </th>
 <th class="text-center align-middle">Fecha de asignación</th>
-<th class="text-center align-middle"></th>
-<th class="text-center align-middle"></th>
+<th class="text-center align-middle"><img src="<?=RUTA_IMG_ICONOS;?>pdf.png"></th>
+<th class="text-center align-middle"><img src="<?=RUTA_IMG_ICONOS;?>eliminar.png"></th>
 
 </tr>
 </thead>
@@ -27,16 +25,12 @@ if ($numero_capacitacion > 0) {
 while($row_capacitacion = mysqli_fetch_array($result_capacitacion, MYSQLI_ASSOC)){
 $id = $row_capacitacion['id'];
 
-
-
 echo "<tr>";
 echo "<td class='text-center'>".$num."</td>";
 echo "<td class='text-center'>".$row_capacitacion['nom_representante']."</td>";
 echo "<td class='text-center'>".FormatoFecha($row_capacitacion['fecha'])."</td>";
-
 echo "<td class='text-center align-middle' width='30'><a href='".$row_capacitacion['archivo']."' download><img src='".RUTA_IMG_ICONOS."pdf.png' style='cursor: pointer;'></a></td>";
 echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."eliminar.png' style='cursor: pointer;' onclick='EliminarRT(".$id.")'></td>";
-
 echo "</tr>";
 
 $num = $num + 1;

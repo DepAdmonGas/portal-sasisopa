@@ -80,8 +80,13 @@ class IndexControlador{
     public function indicadorVentasReporte(){
         return 'app/vistas/sasisopa/elemento4/indicador-ventas-reporte-index.php';
     }
+
+    public function funcionesResponsabilidadesAutoridad(){
+        return 'app/vistas/sasisopa/elemento5/funciones-responsabilidades-autoridad.php';
+    }
     
 
+    
     
 
 }
