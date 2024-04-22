@@ -1,11 +1,25 @@
 <?php
-
-/**
- *
- */
 class Cursos
 {
-  function ValidaTemasUsuario($idUsuario, $con){
+
+  private $class_base_datos;
+	private $con;
+
+    function __construct()
+	{
+        $this->class_base_datos = new ConexionBD();
+		$this->con = $this->class_base_datos->conectarBD();
+    }
+
+    private function sqlQuery($sql){
+        if(mysqli_query($this->con, $sql)){
+        return true;
+        }else{
+        return false;
+        }
+        }   
+
+  /*function ValidaTemasUsuario($idUsuario, $con){
 
 
   $sql_temas = "SELECT * FROM cu_temas WHERE estado = 1 ";
@@ -146,14 +160,6 @@ function TotalCursos($con){
 }
 
 
-/*------------------------------------------------------------------------------------------------------------------*/
-/*------------------------------------------------------------------------------------------------------------------*/
-/*------------------------------------------------------------------------------------------------------------------*/
-/*------------------------------------------------------------------------------------------------------------------*/
-
-
-/*------------------------------------------------------------------------------------------------------------------*/
-/*----------------------------Total de modulos y total de modulos finalizados---------------------------------------*/
   function TotalModulos($idtema, $con){
 
   $sql_modulos = "SELECT * FROM cu_evaluacion_modulos WHERE id_evaluacion_tema = '".$idtema."' ";
@@ -166,8 +172,7 @@ function TotalCursos($con){
   $result_modulos = mysqli_query($con, $sql_modulos);
   return $result_modulos;
 }
-/*------------------------------------------------------------------------------------------------------------------*/
-/*------------------------------------------------------------------------------------------------------------------*/
+
 
 function NombreTemaEvaluacion($idTema,$con){
 
@@ -226,8 +231,6 @@ INNER JOIN cu_submodulos ON cu_evaluacion_submodulos.id_submodulo = cu_submodulo
 
 }
 
-/*------------------------------------------------------------------------------------------------------------------*/
-/*------------------------------------------------------------------------------------------------------------------*/
 
 
   function ModuloDiapositivas($idmodulo, $con){
@@ -330,7 +333,116 @@ $estado = 0;
   return $array;
 
 }
-  
+*/
+
+//-------------------------------------------------------------------------------
+        public function numTemasModulo($idModulo){
+        $sql = "SELECT num_tema FROM tb_cursos_temas WHERE id_modulo = '".$idModulo."' "; 
+        $result = mysqli_query($this->con, $sql);
+        return $numero  = mysqli_num_rows($result);
+        $this->class_base_datos->desconectarBD($this->con);
+        }
+
+        public function cursosModulos(){
+          $sql = "SELECT * FROM tb_cursos_modulos ORDER BY num_modulo ASC"; 
+          return $result = mysqli_query($this->con, $sql);
+          $this->class_base_datos->desconectarBD($this->con);
+        }
+
+        public function cursosTemas($id_modulo){
+          $sql = "SELECT * FROM tb_cursos_temas  WHERE id_modulo = '".$id_modulo."' ";
+          return $result = mysqli_query($this->con, $sql);
+          $this->class_base_datos->desconectarBD($this->con);
+        }
+
+        public function tituloTema($id_tema){
+          $sql = "SELECT titulo FROM tb_cursos_temas  WHERE id = '".$id_tema."' ";
+          $query = mysqli_query($this->con, $sql);
+          $row = mysqli_fetch_array($query, MYSQLI_ASSOC);
+          return $row['titulo'];      
+          $this->class_base_datos->desconectarBD($this->con);    
+        }
+
+        public function FechaProgramada($idusuario,$idTema,$year){
+
+          $sql_modulo = "SELECT * FROM tb_cursos_calendario WHERE id_personal = '".$idusuario."' AND id_tema = '".$idTema."' AND YEAR(fecha_programada) = '".$year."' ORDER BY fecha_programada ASC";
+          $query_modulo = mysqli_query($this->con, $sql_modulo);
+          $numero_modulos = mysqli_num_rows($query_modulo);
+
+          if($numero_modulos != 0){
+          $row_modulo = mysqli_fetch_array($query_modulo, MYSQLI_ASSOC);
+          $id = $row_modulo['id'];
+          $fechaprogramada = $row_modulo['fecha_programada'];
+          $fechareal = $row_modulo['fecha_real'];
+          $resultado = $row_modulo['resultado'];
+          $estado = $row_modulo['estado'];
+
+          
+          if ($numero_modulos != 0) {
+          if ($fechareal != "0000-00-00") {
+          $fechap = FormatoFecha($fechareal);
+          }else{
+          $fechap = FormatoFecha($fechaprogramada);
+          }
+          }else{
+          $fechap = "S/I";	
+          }
+          
+            $array = array(
+              "idCalendario" => $id, 
+              "fechaprogramada" => $fechap,   
+              "resultado" => $resultado,
+              "estado" => $estado
+            );
+
+          }else{
+
+            $array = array(
+              "idCalendario" => "0", 
+              "fechaprogramada" => "S/I",   
+              "resultado" => "",
+              "estado" => ""
+            );
+
+          }
+          
+            return $array;
+            $this->class_base_datos->desconectarBD($this->con);
+          }
+
+          public function agregarCapacitacionInterna($id_estacion,$id_tema,$id_usuario,$fecha_curso){
+
+            $sql = "INSERT INTO tb_cursos_calendario (
+              fecha_programada,
+              fecha_real,
+              id_estacion,
+              id_personal,
+              id_tema,
+              resultado,
+              estado
+              )
+              VALUES (
+              '".$fecha_curso."',
+              '',
+              '".$id_estacion."',
+              '".$id_usuario."',
+              '".$id_tema."',
+              0,
+              0
+              )";
+
+              return $this->sqlQuery($sql);                            
+              $this->class_base_datos->desconectarBD($this->con);
+
+          }
+
+          public function eliminarCapacitacionInterna($id){
+
+            $sql = "DELETE FROM tb_cursos_calendario WHERE id = '".$id."' ";
+            return $this->sqlQuery($sql);                            
+            $this->class_base_datos->desconectarBD($this->con);
+
+          }
 
 }
 

@@ -9,8 +9,6 @@ include_once "modelo/Estacion.php";
 session_start();
 
 $ClassConexionBD = new ConexionBD();
-//Validar la Case de Cursos y su usabilidad ya que se modifico la manera de trabajar en cursos
-$ClassCursos = new Cursos();
 //--------------------------------------------------------------------------------------------
 $ClassMantenimiento = new Mantenimiento();
 $con = $ClassConexionBD->conectarBD();

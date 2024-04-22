@@ -84,6 +84,46 @@ class IndexControlador{
     public function funcionesResponsabilidadesAutoridad(){
         return 'app/vistas/sasisopa/elemento5/funciones-responsabilidades-autoridad.php';
     }
+
+    public function competenciaPersonalCapacitacionEntrenamiento(){
+        return 'app/vistas/sasisopa/elemento6/competencia-personal-capacitacion-entrenamiento.php';
+    }
+
+    public function perfilesPuestoTrabajo(){
+        return 'app/vistas/sasisopa/elemento6/perfiles-puesto-index.php';
+    }
+
+    public function perfilesPersonal(){
+        return 'app/vistas/sasisopa/elemento6/perfiles-personal-index.php';
+    }
+
+    public function descargarFichaPersonal(){
+        return 'app/vistas/sasisopa/elemento6/descargar-ficha-personal.php';
+    }
+
+    public function descargarFichaPersonalReporte(){
+        return 'app/vistas/sasisopa/elemento6/descargar-ficha-personal-reporte.php';
+    }
+
+    public function fichaPersonal(){
+        return 'app/vistas/sasisopa/elemento6/ficha-personal-index.php';
+    }
+
+    public function capacitacionInterna(){
+        return 'app/vistas/sasisopa/elemento6/capacitacion-interna-index.php';
+    }
+
+    public function capacitacionInternaModulos(){
+        return 'app/vistas/sasisopa/elemento6/capacitacion-interna-modulos-index.php';
+    }
+
+    public function capacitacionExterna(){
+        return 'app/vistas/sasisopa/elemento6/capacitacion-externa-index.php';
+    }
+
+    public function descargarCapacitacionExterna(){
+        return 'app/vistas/sasisopa/elemento6/descargar-capacitacion-externa.php';
+    }
     
 
     

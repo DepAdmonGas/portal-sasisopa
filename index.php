@@ -51,6 +51,24 @@ switch ($partes_ruta[1])
     case '5-funciones-responsabilidades-autoridad':
       $ruta_elegida = $index_controlador->funcionesResponsabilidadesAutoridad();
     break;
+    case '6-competencia-personal-capacitacion-entrenamiento':
+      $ruta_elegida = $index_controlador->competenciaPersonalCapacitacionEntrenamiento();
+    break;
+    case 'perfiles-puestos-trabajo':
+      $ruta_elegida = $index_controlador->perfilesPuestoTrabajo();
+    break;
+    case 'perfiles-personal':
+      $ruta_elegida = $index_controlador->perfilesPersonal();
+    break;
+    case 'descargar-ficha-personal-reporte':
+      $ruta_elegida = $index_controlador->descargarFichaPersonalReporte();
+    break;
+    case 'capacitacion-interna':
+      $ruta_elegida = $index_controlador->capacitacionInterna();
+    break;
+    case 'capacitacion-externa':
+      $ruta_elegida = $index_controlador->capacitacionExterna();
+    break;
     //-------- ELEMENTOS SASISOPA FIN -------------------
     //---------------------------------------------------
 
@@ -97,26 +115,7 @@ break;
 //--------------------Puntos Sasisopa ----------
 
 
-case '6-competencia-personal-capacitacion-entrenamiento':
-$ruta_elegida = 'public/sasisopa/competencia-personal-capacitacion-entrenamiento.php';
-break;
-case 'perfiles-puestos-trabajo':
-$ruta_elegida = 'public/sasisopa/perfiles-puesto-index.php';
-break;
-case 'perfiles-personal':
-$ruta_elegida = 'public/sasisopa/perfiles-personal-index.php';
-break;
 
-case 'descargar-ficha-personal-reporte':
-$ruta_elegida = 'public/sasisopa/vistas/descargar-ficha-personal-reporte.php';
-break;
-
-case 'capacitacion-interna':
-$ruta_elegida = 'public/sasisopa/capacitacion-interna-index.php';
-break;
-case 'capacitacion-externa':
-$ruta_elegida = 'public/sasisopa/capacitacion-externa-index.php';
-break;
 case '7-comunicacion-participacion-consulta':
 $ruta_elegida = 'public/sasisopa/comunicacion-participacion-consulta-index.php';
 break;
@@ -347,6 +346,22 @@ break;
     else if ($partes_ruta[2] == 'indicador-ventas'){
       $ruta_elegida = $index_controlador->indicadorVentas();
     }
+    else if ($partes_ruta[1] == 'descargar-ficha-personal') {
+      $GET_idUsuario = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->descargarFichaPersonal();
+    }
+    else if ($partes_ruta[1] == 'ficha-personal') {
+      $GET_idUsuario = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->fichaPersonal();
+    }
+    else  if ($partes_ruta[1] == 'capacitacion-interna-modulos') {
+      $idModulo = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->capacitacionInternaModulos();
+    }
+    else if ($partes_ruta[1] == 'descargar-capacitacion-externa') {
+      $GET_idRegistro = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->descargarCapacitacionExterna();
+      }
     //---------------------------------------------
     //---------------------------------------------
     //------------ LISTA ASISTENCIA ---------------
@@ -371,14 +386,8 @@ break;
     $ruta_elegida = 'public/sasisopa/politica-asistencia-index.php';
     }
 
-    else if ($partes_ruta[1] == 'ficha-personal') {
-    $GET_idUsuario = $partes_ruta[2];
-    $ruta_elegida = 'public/gerente/ficha-personal-index.php';
-    }
-    else if ($partes_ruta[1] == 'descargar-ficha-personal') {
-    $GET_idUsuario = $partes_ruta[2];
-    $ruta_elegida = 'public/gerente/vistas/descargar-ficha-personal.php';
-    }
+    
+    
 
     else if($partes_ruta[1] == 'nuevo-reporte-diario'){
     $GET_idReporte = $partes_ruta[2];
@@ -404,10 +413,6 @@ break;
     }
     else  if ($partes_ruta[2] == 'ventas-mes') {
     $ruta_elegida = 'public/sasisopa/ventas-mes-index.php';
-    }
-    else  if ($partes_ruta[1] == 'capacitacion-interna-modulos') {
-    $idModulo = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/capacitacion-interna-modulos-index.php';
     }
     else if ($partes_ruta[1] == 'reporte-diario'){
     $idYear = $partes_ruta[2];
@@ -478,10 +483,7 @@ break;
     $ruta_elegida = 'public/gerente/calendario-editar.php';
     }
 
-    else if ($partes_ruta[1] == 'descargar-capacitacion-externa') {
-    $GET_idRegistro = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/vistas/descargar-capacitacion-externa.php';
-    }
+    
 
     else if ($partes_ruta[1] == 'descargar-quejas-sugerencias') {
     $GET_idRegistro = $partes_ruta[2];
