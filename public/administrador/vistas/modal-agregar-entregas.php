@@ -38,6 +38,7 @@ echo '<option value="'.$row['razonsocial'].'">'.$row['razonsocial'].'</option>';
 <option value="Sabino Aguirre S.A. de C.V.">Sabino Aguirre S.A. de C.V.</option>
 <option value="Servicio Lomas de las Palmas S.A. de C.V.">Servicio Lomas de las Palmas S.A. de C.V.</option>
 <option value="Servicio Caseta el Dorado S.A. de C.V.">Servicio Caseta el Dorado S.A. de C.V.</option>
+<option value="Servicio Ventura Puente S.A. de C.V.">Servicio Ventura Puente S.A. de C.V.</option>
 </select>
 
 <div class="text-right mt-3">

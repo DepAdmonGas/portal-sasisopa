@@ -40,7 +40,7 @@ switch($_POST['accion']){
     case 'editar-comunicacion':
 
         if(isset($_POST['Editdirigidoa'])){
-            $dirigido_a = $_POST['edit_dirigido_a'];
+            $dirigido_a = $_POST['Editdirigidoa'];
         }else{
             $dirigido_a = "";
         }

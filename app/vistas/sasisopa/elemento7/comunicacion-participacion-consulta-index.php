@@ -630,7 +630,7 @@ var parametros = {
 
  $.ajax({
      data:  parametros,
-     url:   'public/sasisopa/eliminar/eliminar-quejas-sugerencias.php',
+     url:   'app/controlador/ComunicacionParticipacionConsultaControlador.php',
      type:  'post',
      beforeSend: function() {
      },
