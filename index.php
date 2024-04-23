@@ -69,6 +69,9 @@ switch ($partes_ruta[1])
     case 'capacitacion-externa':
       $ruta_elegida = $index_controlador->capacitacionExterna();
     break;
+    case '7-comunicacion-participacion-consulta':
+    $ruta_elegida = $index_controlador->comunicacionParticipacionConsulta();
+    break;
     //-------- ELEMENTOS SASISOPA FIN -------------------
     //---------------------------------------------------
 
@@ -116,9 +119,7 @@ break;
 
 
 
-case '7-comunicacion-participacion-consulta':
-$ruta_elegida = 'public/sasisopa/comunicacion-participacion-consulta-index.php';
-break;
+
 case '8-control-documentos-registros':
 $ruta_elegida = 'public/sasisopa/control-documentos-registros-index.php';
 break;
@@ -361,7 +362,11 @@ break;
     else if ($partes_ruta[1] == 'descargar-capacitacion-externa') {
       $GET_idRegistro = $partes_ruta[2];
       $ruta_elegida = $index_controlador->descargarCapacitacionExterna();
-      }
+    }
+    else if ($partes_ruta[1] == 'descargar-quejas-sugerencias') {
+    $GET_idRegistro = $partes_ruta[2];
+    $ruta_elegida = $index_controlador->descargarQuejaSugerencia();
+    }
     //---------------------------------------------
     //---------------------------------------------
     //------------ LISTA ASISTENCIA ---------------
@@ -484,11 +489,6 @@ break;
     }
 
     
-
-    else if ($partes_ruta[1] == 'descargar-quejas-sugerencias') {
-    $GET_idRegistro = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/vistas/descargar-quejas-sugerencias.php';
-    }
 
     else if ($partes_ruta[1] == 'descargar-programa-anual-mantenimiento') {
     $GET_idRegistro = $partes_ruta[2];
@@ -685,7 +685,22 @@ break;
 
   }else if(count($partes_ruta) == 5){
 
-    if ($partes_ruta[1] == 'reconocimiento-pdf') {
+    if ($partes_ruta[1] == 'descargar-comunicacion-participacion-consulta') {
+      $GET_idYear = $partes_ruta[2];
+      $GET_idEstacion = $partes_ruta[3];
+      $GET_idRegistro = $partes_ruta[4];
+      $ruta_elegida = $index_controlador->descargarComunicacionParticipacionConsulta();
+      }
+      else if ($partes_ruta[1] == 'descargar-comunicacion-participacion-consulta-reporte') {
+      $GET_idYear = $partes_ruta[2];
+      $GET_idEstacion = $partes_ruta[3];
+      $GET_idRegistro = $partes_ruta[4];
+      $ruta_elegida = $index_controlador->descargarComunicacionParticipacionConsultaReporte();
+      }
+    //-------------------------------------------------------------------
+    //-------------------------------------------------------------------
+
+    else if ($partes_ruta[1] == 'reconocimiento-pdf') {
               $idTema = $partes_ruta[2];
               $idModulo = $partes_ruta[3];
               $idUsuario = $partes_ruta[4];
@@ -702,18 +717,8 @@ break;
               $ruta_elegida = 'public/administrador/vistas/descargar-facturas.php';
             }
 
-    else if ($partes_ruta[1] == 'descargar-comunicacion-participacion-consulta') {
-    $GET_idYear = $partes_ruta[2];
-    $GET_idEstacion = $partes_ruta[3];
-    $GET_idRegistro = $partes_ruta[4];
-    $ruta_elegida = 'public/sasisopa/vistas/descargar-comunicacion-participacion-consulta.php';
-    }
-    else if ($partes_ruta[1] == 'descargar-comunicacion-participacion-consulta-reporte') {
-      $GET_idYear = $partes_ruta[2];
-      $GET_idEstacion = $partes_ruta[3];
-      $GET_idRegistro = $partes_ruta[4];
-      $ruta_elegida = 'public/sasisopa/vistas/descargar-comunicacion-participacion-consulta-reporte.php';
-      }
+    
+    
 
   }else if(count($partes_ruta) == 6){
 

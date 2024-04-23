@@ -1,9 +1,7 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
-$idSasisopa = $_GET['idSasisopa'];
-
-$sql_capacitacion = "SELECT * FROM se_quejas_sugerencias WHERE id_estacion = '".$Session_IDEstacion."' ";
+$sql_capacitacion = "SELECT id, fecha FROM se_quejas_sugerencias WHERE id_estacion = '".$Session_IDEstacion."' ";
 $result_capacitacion = mysqli_query($con, $sql_capacitacion);
 $numero_capacitacion = mysqli_num_rows($result_capacitacion);
 
@@ -14,8 +12,8 @@ $numero_capacitacion = mysqli_num_rows($result_capacitacion);
 <tr>
 <th class="text-center align-middle">#</th>
 <th class="text-center align-middle">Fecha</th>
-<th class="text-center align-middle"></th>
-<th class="text-center align-middle"></th>
+<th class="text-center align-middle" width="30"><img src="<?=RUTA_IMG_ICONOS;?>pdf.png"></th>
+<th class="text-center align-middle" width="30"><img src="<?=RUTA_IMG_ICONOS;?>eliminar.png"></th>
 </tr>
 </thead>
 <tbody>

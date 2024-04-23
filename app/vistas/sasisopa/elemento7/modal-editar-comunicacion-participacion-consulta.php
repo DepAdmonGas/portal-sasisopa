@@ -1,20 +1,31 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 $idReporte = $_GET['idReporte'];
 $array = array();
 
-$sql_comunicado = "SELECT * FROM se_comunicacion_i_e WHERE id = '".$idReporte."' ";
+$sql_comunicado = "SELECT 
+se_comunicacion_i_e.id,
+se_comunicacion_i_e.no_comunicacion,
+se_comunicacion_i_e.fecha,
+se_comunicacion_i_e.tema,
+se_comunicacion_i_e.tipo_comunicacion,
+se_comunicacion_i_e.material,
+se_comunicacion_i_e.seguimiento,
+se_comunicacion_i_e.asistencia,
+se_comunicacion_i_e.detalle,
+se_comunicacion_i_e.dirigidoa,
+tb_usuarios.nombre
+FROM se_comunicacion_i_e 
+INNER JOIN tb_usuarios 
+ON se_comunicacion_i_e.encargado_comunicacion = tb_usuarios.id
+WHERE se_comunicacion_i_e.id = '".$idReporte."' ";
 $result_comunicado = mysqli_query($con, $sql_comunicado);
 $numero_comunicado = mysqli_num_rows($result_comunicado);
 
-while($row_comunicado = mysqli_fetch_array($result_comunicado, MYSQLI_ASSOC)){
+$row_comunicado = mysqli_fetch_array($result_comunicado, MYSQLI_ASSOC);
 
-$sql_usuario = "SELECT nombre FROM tb_usuarios WHERE id = '".$row_comunicado['encargado_comunicacion']."' ";
-$result_usuario = mysqli_query($con, $sql_usuario);
-while($row_usuario = mysqli_fetch_array($result_usuario, MYSQLI_ASSOC)){
-$nomencargado = $row_usuario['nombre'];
-}
+$nomencargado = $row_comunicado['nombre'];
 
 $Fecha = $row_comunicado['fecha'];
 $Tema = $row_comunicado['tema'];
@@ -30,7 +41,6 @@ for ($i=0; $i < count($Explode); $i++) {
 array_push($array, $Explode[$i]);
 }
 
-}
 
 ?>
 <script type="text/javascript">
@@ -88,7 +98,7 @@ array_push($array, $Explode[$i]);
       <div id="borderdirigidoa" style="border: 1px solid #DFDFDF;">
       <select class="selectpicker" id="Editdirigidoa" multiple title="Selecciona" data-width="100%">
       <?php
-          $sql_puesto = "SELECT * FROM tb_puestos WHERE estatus = 0";
+          $sql_puesto = "SELECT id, tipo_puesto FROM tb_puestos WHERE estatus = 0";
           $result_puesto = mysqli_query($con, $sql_puesto);
           $numero_puesto = mysqli_num_rows($result_puesto);
           while($row_puesto = mysqli_fetch_array($result_puesto, MYSQLI_ASSOC)){

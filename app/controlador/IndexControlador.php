@@ -124,6 +124,22 @@ class IndexControlador{
     public function descargarCapacitacionExterna(){
         return 'app/vistas/sasisopa/elemento6/descargar-capacitacion-externa.php';
     }
+
+    public function comunicacionParticipacionConsulta(){
+        return 'app/vistas/sasisopa/elemento7/comunicacion-participacion-consulta-index.php';
+    }
+
+    public function descargarComunicacionParticipacionConsulta(){
+        return 'app/vistas/sasisopa/elemento7/descargar-comunicacion-participacion-consulta.php';
+    }
+
+    public function descargarComunicacionParticipacionConsultaReporte(){
+        return 'app/vistas/sasisopa/elemento7/descargar-comunicacion-participacion-consulta-reporte.php';
+    }
+
+    public function descargarQuejaSugerencia(){
+        return 'app/vistas/sasisopa/elemento7/descargar-quejas-sugerencias.php';
+    }
     
 
     

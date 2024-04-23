@@ -19,7 +19,7 @@ return $Firma;
     $DataLogo = file_get_contents($RutaLogo);
     $baseLogo = 'data:image/;base64,' . base64_encode($DataLogo);
 
-
+    $contenid0 = "";
     $contenid0 .= "<!DOCTYPE html>";
     $contenid0 .= "<html>";
     $contenid0 .= "<head>";
@@ -225,7 +225,20 @@ if($GET_idYear == 'X' && $GET_idEstacion == 'X'){
     }
 
 
-$sql_comunicado = "SELECT * FROM se_comunicacion_i_e WHERE $Query ";
+$sql_comunicado = "SELECT 
+se_comunicacion_i_e.id,
+se_comunicacion_i_e.no_comunicacion,
+se_comunicacion_i_e.fecha,
+se_comunicacion_i_e.tema,
+se_comunicacion_i_e.tipo_comunicacion,
+se_comunicacion_i_e.material,
+se_comunicacion_i_e.seguimiento,
+se_comunicacion_i_e.asistencia,
+tb_usuarios.nombre
+FROM se_comunicacion_i_e 
+INNER JOIN tb_usuarios 
+ON se_comunicacion_i_e.encargado_comunicacion = tb_usuarios.id
+WHERE $Query ";
 $result_comunicado = mysqli_query($con, $sql_comunicado);
 $numero_comunicado = mysqli_num_rows($result_comunicado);
 if($numero_comunicado  > 0){
@@ -239,14 +252,10 @@ $No = $row_comunicado['no_comunicacion'];
 $fecha = $row_comunicado['fecha'];
 $tema = $row_comunicado['tema'];
 
-$sql_usuario = "SELECT nombre FROM tb_usuarios WHERE id = '".$row_comunicado['encargado_comunicacion']."' ";
-$result_usuario = mysqli_query($con, $sql_usuario);
-while($row_usuario = mysqli_fetch_array($result_usuario, MYSQLI_ASSOC)){
-$nomencargado = $row_usuario['nombre'];
-}
+$nomencargado = $row_comunicado['nombre'];
 
 if($asistencia != 0){
-$sql = "SELECT * FROM tb_lista_asistencia WHERE id = '".$asistencia."' ";
+$sql = "SELECT hora, lugar, finalidad FROM tb_lista_asistencia WHERE id = '".$asistencia."' ";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){

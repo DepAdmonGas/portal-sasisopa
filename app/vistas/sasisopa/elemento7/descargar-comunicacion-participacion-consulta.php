@@ -16,6 +16,7 @@ function Nombre($id, $con){
 use Dompdf\Dompdf;
 $dompdf = new Dompdf();
 
+    $contenid0 = "";
     $contenid0 .= "<!DOCTYPE html>";
     $contenid0 .= "<html>";
     $contenid0 .= "<head>";
@@ -229,25 +230,33 @@ $contenid0 .= '
 </tr>';
 
 if($GET_idYear == 'X' && $GET_idEstacion == 'X'){
-$Query = "id = '".$GET_idRegistro."' ";
+$Query = " se_comunicacion_i_e.id = '".$GET_idRegistro."' ";
 }else if($GET_idYear == 'X' && $GET_idRegistro == 'X'){
-$Query = "id_estacion = '".$GET_idEstacion."' ORDER BY no_comunicacion desc ";
+$Query = " se_comunicacion_i_e.id_estacion = '".$GET_idEstacion."' ORDER BY se_comunicacion_i_e.no_comunicacion desc ";
 }else if($GET_idYear != 'X' && $GET_idEstacion != 'X'){
-$Query = " id_estacion = '".$GET_idEstacion."' AND YEAR(fecha) = '".$GET_idYear."' ORDER BY no_comunicacion desc "; 
+$Query = " se_comunicacion_i_e.id_estacion = '".$GET_idEstacion."' AND YEAR(se_comunicacion_i_e.fecha) = '".$GET_idYear."' ORDER BY se_comunicacion_i_e.no_comunicacion desc "; 
 }else if($GET_idYear != 'X' && $GET_idRegistro != 'X'){
-$Query = "id = '".$GET_idRegistro."' ";
+$Query = "se_comunicacion_i_e.id = '".$GET_idRegistro."' ";
 }
 
-$sql_comunicado = "SELECT * FROM se_comunicacion_i_e WHERE $Query";
+$sql_comunicado = "SELECT 
+se_comunicacion_i_e.id,
+se_comunicacion_i_e.no_comunicacion,
+se_comunicacion_i_e.fecha,
+se_comunicacion_i_e.tema,
+se_comunicacion_i_e.tipo_comunicacion,
+se_comunicacion_i_e.material,
+se_comunicacion_i_e.seguimiento,
+se_comunicacion_i_e.asistencia,
+tb_usuarios.nombre
+FROM se_comunicacion_i_e 
+INNER JOIN tb_usuarios 
+ON se_comunicacion_i_e.encargado_comunicacion = tb_usuarios.id WHERE $Query";
 $result_comunicado = mysqli_query($con, $sql_comunicado);
 $numero_comunicado = mysqli_num_rows($result_comunicado);
 while($row_comunicado = mysqli_fetch_array($result_comunicado, MYSQLI_ASSOC)){
 
-$sql_usuario = "SELECT nombre FROM tb_usuarios WHERE id = '".$row_comunicado['encargado_comunicacion']."' ";
-$result_usuario = mysqli_query($con, $sql_usuario);
-while($row_usuario = mysqli_fetch_array($result_usuario, MYSQLI_ASSOC)){
-$nomencargado = $row_usuario['nombre'];
-}
+$nomencargado = $row_comunicado['nombre'];
 
 $contenid0 .= '<tr>
 <td class="text-center align-middle">'.$row_comunicado['no_comunicacion'].'</td>

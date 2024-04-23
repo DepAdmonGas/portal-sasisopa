@@ -1,16 +1,12 @@
 <?php
 require('app/help.php');
-$sql_sasisopa_ayuda = "SELECT * FROM pu_sasisopa_ayuda WHERE id_usuario = '".$Session_IDUsuarioBD."' and detalle = '7-comunicacion-participacion-consulta' and estado = 0 LIMIT 1";
-$result_sasisopa_ayuda = mysqli_query($con, $sql_sasisopa_ayuda);
-$numero_sasisopa_ayuda = mysqli_num_rows($result_sasisopa_ayuda);
+include_once "app/modelo/Ayuda.php";
 
-if ($numero_sasisopa_ayuda == 1) {
-while($row_ayuda = mysqli_fetch_array($result_sasisopa_ayuda, MYSQLI_ASSOC)){
-$idAyuda = $row_ayuda['id'];
-}
-}else{
-$idAyuda = 0; 
-}
+$class_ayuda = new Ayuda();
+$array_ayuda = $class_ayuda->sasisopaAyuda($Session_IDUsuarioBD,'7-comunicacion-participacion-consulta');
+$id_ayuda = $array_ayuda['id'];
+$estado = $array_ayuda['estado'];
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -48,45 +44,31 @@ $idAyuda = 0;
   $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
   $(".LoaderPage").fadeOut("slow");
-  <?php if ($numero_sasisopa_ayuda == 1) {echo "btnAyuda();";} ?>
+  <?php if ($id_ayuda != 0) {echo "btnAyuda();";} ?>
   ListaRegistroComunicacion();
   ListaQuejasS();
   
   });
-  function regresarP(){
-   window.history.back();
-  }
- function ListaRegistroComunicacion(){
-   $('#DivListaComunicacion').html("<img src='<?php echo RUTA_IMG_ICONOS; ?>load-img.gif' style='width: 40px;display:block;margin:auto;' />");
-   $('#DivListaComunicacion').load('public/sasisopa/vistas/lista-comunicacion.php?Year=0');
-   }
-
-   function ListaQuejasS(){    
-    $('#DivListaQuejasS').load('public/sasisopa/vistas/lista-quejas-sugerencias.php');
-   }
-
 
   function regresarP(){
-   window.history.back();
+  window.history.back();
   }
 
   function btnAyuda(){
   $('#myModalComunicacion').modal('show');
   }
 
-function btnFinAyuda(){
+  function btnFinAyuda(idayuda, estado){
 
-var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
-  
- var parametros = {
-        "idAyuda" : <?=$idAyuda; ?>
-      }; 
+   var parametros = {
+   "accion" : "actualizar-ayuda",
+   "idayuda" : idayuda
+   };
 
-  if (puntosSasisopa != 0) {
-
+   if (idayuda != 0 && estado == 0) {
    $.ajax({
    data:  parametros,
-   url:   'public/sasisopa/actualizar/actualizar-ayuda.php',
+   url:   'app/controlador/AyudaControlador.php',
    type:  'post',
    beforeSend: function() {
    },
@@ -100,182 +82,211 @@ var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
   }else{
   $('#myModalComunicacion').modal('hide'); 
   }
-}
+  }
 
-function btnNuevo(){
-$('#myModalNuevo').modal('show');
-}
-
-function tipoCom(valor){
-
-  var select = valor.value;
-
- if (select == "") {
-  $('#dirigidoa').prop('disabled', true);  
-  $('#dirigidoa').selectpicker('refresh');
-
-  $('#seguimientocomunicacion').prop('disabled', true); 
-  $('#seguimientocomunicacion').css('background','#FAFAFA');
-  $('#seguimientocomunicacion').css('color','#C7C7C7'); 
- }else if (select == "Interna") {
-
-  $('#dirigidoa').prop('disabled', false);  
-  $('#dirigidoa').selectpicker('refresh');
-  $('#borderdirigidoa').css('background','white');
-  
- }else if(select == "Externa"){
-   $('#dirigidoa').prop('disabled', true);  
-  $('#dirigidoa').selectpicker('refresh');
-
-  $('#seguimientocomunicacion').prop('disabled', false); 
-  $('#seguimientocomunicacion').css('background','white');
-  $('#seguimientocomunicacion').css('color','black');
- }
- 
-}
-
-function btnAgregar(){
-var temacomunicar = $("#temacomunicar").val();
-var detalle = $("#detalle").val();
-var tipocomunicacion = $("#tipocomunicacion").val();
-var materialcomunicar = $("#materialcomunicar").val();
-var dirigidoa = $("#dirigidoa").val();
-var seguimientocomunicacion = $("#seguimientocomunicacion").val();
-var siguinete = 0;
-
-
-      var parametros = {
-        "temacomunicar" : temacomunicar,
-        "detalle" : detalle,
-        "tipocomunicacion" : tipocomunicacion,
-        "materialcomunicar" : materialcomunicar,
-         "dirigidoa" : dirigidoa,
-         "seguimientocomunicacion" : seguimientocomunicacion
-        };
-
-if (temacomunicar != "") {
-$('#temacomunicar').css('border','');
-if (tipocomunicacion != "") {
-$('#tipocomunicacion').css('border','');
-if (materialcomunicar != "") {
-$('#materialcomunicar').css('border','');
-
-if (tipocomunicacion == "Interna") {
-
-if (dirigidoa != "") {
-$('#borderdirigidoa').css('border',''); 
-
-var siguinete = 1;
-
-}else{
-$('#borderdirigidoa').css('border','2px solid #A52525');
-}
-
-}else if (tipocomunicacion == "Externa") {
-
-if (seguimientocomunicacion != "Selecciona") {
-$('#seguimientocomunicacion').css('border',''); 
-
-var siguinete = 1;
-
-}else{
-$('#seguimientocomunicacion').css('border','2px solid #A52525');
-}
-
-}
-
-if (siguinete == 1) {
-
-alertify.confirm('',
-function(){
-
- $.ajax({
-   data:  parametros,
-   url:   'public/sasisopa/agregar/agregar-comunicacion.php',
-   type:  'post',
-   beforeSend: function() {
-  },
-   complete: function(){
-   },
-   success:  function (response) {
-
-  $("#temacomunicar").val('');
-  $("#detalle").val('');
-  $("#tipocomunicacion").val('');
-  $("#materialcomunicar").val('');
-  $("#dirigidoa").val('');
-  $("#seguimientocomunicacion").val('');
-  $('#myModalNuevo').modal('hide');
-
-   ListaRegistroComunicacion();
-   alertify.message('El registro de la atención fue creado correctamente');
-
+   function ListaRegistroComunicacion(){
+   $('#DivListaComunicacion').html("<img src='<?php echo RUTA_IMG_ICONOS; ?>load-img.gif' style='width: 40px;display:block;margin:auto;' />");
+   $('#DivListaComunicacion').load('app/vistas/sasisopa/elemento7/lista-comunicacion.php?Year=0');
    }
-   });
 
- },
-    function(){
-    }).setHeader('Agregar seguimiento').set({transition:'zoom',message: 'Desea agregar el siguiente a la comunicación interna y externa.',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
-
-}
-
-}else{
-$('#materialcomunicar').css('border','2px solid #A52525');
-}
-}else{
-$('#tipocomunicacion').css('border','2px solid #A52525');
-}
-}else{
-$('#temacomunicar').css('border','2px solid #A52525');
-}
-
-}
-
-function DescargarAsistencia(id){
-window.location = "descargar-lista-asistencia/" + id;   
-}
-
-
-  function btnAsistencia(){
-
-  var parametros = {
-   "PuntoSasisopa" : 7
-   };
-
-   $.ajax({
-   data:  parametros,
-   url:   'public/sasisopa/agregar/agregar-lista-asistencia.php',
-   type:  'post',
-   beforeSend: function() {
-   },
-   complete: function(){
-   },
-   success:  function (response) {
-
-    if(response != 0){
-      window.location = "lista-asistencia/" + response; 
-    }else{
-     alertify.error('Error al crear registro'); 
+    function btnNuevo(){
+    $('#myModalNuevo').modal('show');
     }
 
-   }
-   });
-  
-   }
+    function tipoCom(valor){
+        var select = valor.value;
 
-   function EditarAsistencia(id){
-window.location = "lista-asistencia/" + id; 
-}
+        if (select == "") {
+        $('#dirigidoa').prop('disabled', true);  
+        $('#dirigidoa').selectpicker('refresh');
 
-function EliminarAsistencia(id){
+        $('#seguimientocomunicacion').prop('disabled', true); 
+        $('#seguimientocomunicacion').css('background','#FAFAFA');
+        $('#seguimientocomunicacion').css('color','#C7C7C7'); 
+        }else if (select == "Interna") {
 
-  var parametros = {
-    "id" : id
+        $('#dirigidoa').prop('disabled', false);  
+        $('#dirigidoa').selectpicker('refresh');
+        $('#borderdirigidoa').css('background','white');
+
+        }else if(select == "Externa"){
+        $('#dirigidoa').prop('disabled', true);  
+        $('#dirigidoa').selectpicker('refresh');
+
+        $('#seguimientocomunicacion').prop('disabled', false); 
+        $('#seguimientocomunicacion').css('background','white');
+        $('#seguimientocomunicacion').css('color','black');
+        }
+    }
+
+    function btnAgregar(){
+    
+    var temacomunicar = $("#temacomunicar").val();
+    var detalle = $("#detalle").val();
+    var tipocomunicacion = $("#tipocomunicacion").val();
+    var materialcomunicar = $("#materialcomunicar").val();
+    var dirigidoa = $("#dirigidoa").val();
+    var seguimientocomunicacion = $("#seguimientocomunicacion").val();
+    var siguinete = 0;
+
+
+    var parametros = {
+    "accion" : "agregar-comunicacion",
+    "temacomunicar" : temacomunicar,
+    "detalle" : detalle,
+    "tipocomunicacion" : tipocomunicacion,
+    "materialcomunicar" : materialcomunicar,
+    "dirigidoa" : dirigidoa,
+    "seguimientocomunicacion" : seguimientocomunicacion
     };
 
- $.ajax({
+    if (temacomunicar != "") {
+    $('#temacomunicar').css('border','');
+    if (tipocomunicacion != "") {
+    $('#tipocomunicacion').css('border','');
+    if (materialcomunicar != "") {
+    $('#materialcomunicar').css('border','');
+
+    if (tipocomunicacion == "Interna") {
+
+    if (dirigidoa != "") {
+    $('#borderdirigidoa').css('border',''); 
+
+    var siguinete = 1;
+
+    }else{
+    $('#borderdirigidoa').css('border','2px solid #A52525');
+    }
+
+    }else if (tipocomunicacion == "Externa") {
+
+    if (seguimientocomunicacion != "Selecciona") {
+    $('#seguimientocomunicacion').css('border',''); 
+
+    var siguinete = 1;
+
+    }else{
+    $('#seguimientocomunicacion').css('border','2px solid #A52525');
+    }
+
+    }
+
+    if (siguinete == 1) {
+
+    alertify.confirm('',
+    function(){
+
+    $.ajax({
+    data:  parametros,
+    url:   'app/controlador/ComunicacionParticipacionConsultaControlador.php',
+    type:  'post',
+    beforeSend: function() {
+    },
+    complete: function(){
+    },
+    success:  function (response) {
+
+    $("#temacomunicar").val('');
+    $("#detalle").val('');
+    $("#tipocomunicacion").val('');
+    $("#materialcomunicar").val('');
+    $("#dirigidoa").val('');
+    $("#seguimientocomunicacion").val('');
+    $('#myModalNuevo').modal('hide');
+
+    ListaRegistroComunicacion();
+    alertify.message('El registro de la atención fue creado correctamente');
+
+    }
+    });
+
+    },
+        function(){
+        }).setHeader('Agregar seguimiento').set({transition:'zoom',message: 'Desea agregar el siguiente a la comunicación interna y externa.',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+
+    }
+
+    }else{
+    $('#materialcomunicar').css('border','2px solid #A52525');
+    }
+    }else{
+    $('#tipocomunicacion').css('border','2px solid #A52525');
+    }
+    }else{
+    $('#temacomunicar').css('border','2px solid #A52525');
+    }
+
+}
+
+function BtnDetalle(id){
+$('#myModalDetalle').modal('show');
+$('#DivDetalle').load('app/vistas/sasisopa/elemento7/detalle-comunicacion.php?idcomunicado='+id);  
+}
+
+    function ModalEvidencia(id){
+    $('#myModalDetalle').modal('show');
+    $('#DivDetalle').load('app/vistas/sasisopa/elemento7/evidencia-comunicacion.php?idcomunicado='+id);  
+    }
+
+    function AgregarEvidencia(id){
+
+    var EvidenciasM = document.getElementById("FileEvidencia");
+    var FileEvidencia = EvidenciasM.files[0];
+    var PathProtocolo = EvidenciasM.value;
+    var ext = $("#FileEvidencia").val().split('.').pop();
+
+    var data = new FormData();
+    var url = 'app/controlador/ComunicacionParticipacionConsultaControlador.php';
+
+    if (PathProtocolo != "") {
+    $('#FileEvidencia').css('border','');
+    if (ext == "JPG" || ext == "jpg" || ext == "jpeg" || ext == "PNG" || ext == "png") {
+
+    $('#result').html('');
+
+    data.append('accion', 'agregar-evidencia-comunicacion');
+    data.append('id', id);
+    data.append('FileEvidencia', FileEvidencia);
+
+    $(".LoaderPage").show();
+
+    $.ajax({
+    url: url,
+    type: 'POST',
+    contentType: false,
+    data: data,
+    processData: false,
+    cache: false,
+    }).done(function(data){
+
+    $(".LoaderPage").hide();
+    alertify.message('Evidencia agregada');
+    ModalEvidencia(id)
+
+    });
+
+    }else{
+    $('#result').html('<small class="text-danger">Solo se aceptan formato JPG y PNG</small>');
+    }
+    }else{
+    $('#FileEvidencia').css('border','2px solid #A52525');
+    }
+
+    }
+
+    function EliminarE(idcomunicado,idevidencia){
+
+    alertify.confirm('',
+    function(){
+
+    var parametros = {
+    "accion" : "eliminar-evidencia-comunicacion",
+    "id" : idevidencia
+    };
+
+    $.ajax({
      data:  parametros,
-     url:   'public/sasisopa/eliminar/eliminar-lista-asistencia.php',
+     url:   'app/controlador/ComunicacionParticipacionConsultaControlador.php',
      type:  'post',
      beforeSend: function() {
      },
@@ -284,32 +295,160 @@ function EliminarAsistencia(id){
      },
      success:  function (response) {
 
-    if (response == 1) {
-    ListaAsistencia(7)
+    if (response) {
+     ModalEvidencia(idcomunicado)
     }else{
     alertify.error('Error al eliminar')
     }
 
      }
      });
-}
 
-function DescargarAsistencia(id){
-window.location = "descargar-lista-asistencia/" + id;   
-}
+    },
+    function(){
+    }).setHeader('Eliminar').set({transition:'zoom',message: '¿Desea eliminar la siguiente información?',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+    }
 
-function Eliminar(id){
+    function DescargarAsistencia(id){
+    window.location = "descargar-lista-asistencia/" + id;   
+    }
+
+    function Descargar(Year,idEstacion,id){
+
+    if(Year == 0){
+    var ResultYear = "X";
+    }else{
+    var ResultYear = Year;
+    }
+
+    if(idEstacion == 0){
+    var ResultidEstacion = "X";
+    }else{
+    var ResultidEstacion = idEstacion;
+    }
+
+    if(id == 0){
+    var Resultid = "X";
+    }else{
+    var Resultid = id + "";
+    }
+
+    window.location = "descargar-comunicacion-participacion-consulta/" + ResultYear + "/" + ResultidEstacion + "/" + Resultid;
+    }
+
+    function Editar(id){
+    $('#ModalEditar').modal('show');
+    $('#DivContenido').load('app/vistas/sasisopa/elemento7/modal-editar-comunicacion-participacion-consulta.php?idReporte=' + id);
+    }
+
+    function btnEditar(id){
+
+    let Editfecha = $("#Editfecha").val();
+    let Edittemacomunicar = $("#Edittemacomunicar").val();
+    let Editdetalle = $("#Editdetalle").val();
+    let Edittipocomunicacion = $("#Edittipocomunicacion").val();
+    let Editmaterialcomunicar = $("#Editmaterialcomunicar").val();
+    let Editdirigidoa = $("#Editdirigidoa").val();
+    let Editseguimientocomunicacion = $("#Editseguimientocomunicacion").val();
+    var siguinete = 0;
+
+
+      var parametros = {
+        "accion" : "editar-comunicacion",
+        "id" : id,
+        "Editfecha" : Editfecha,
+        "Edittemacomunicar" : Edittemacomunicar,
+        "Editdetalle" : Editdetalle,
+        "Edittipocomunicacion" : Edittipocomunicacion,
+        "Editmaterialcomunicar" : Editmaterialcomunicar,
+        "Editdirigidoa" : Editdirigidoa,
+        "Editseguimientocomunicacion" : Editseguimientocomunicacion
+        };
+
+    if (Edittemacomunicar != "") {
+    $('#Edittemacomunicar').css('border','');
+    if (Edittipocomunicacion != "") {
+    $('#Edittipocomunicacion').css('border','');
+    if (Editmaterialcomunicar != "") {
+    $('#Editmaterialcomunicar').css('border','');
+
+    if (Edittipocomunicacion == "Interna") {
+
+    if (dirigidoa != "") {
+    $('#borderdirigidoa').css('border',''); 
+
+    var siguinete = 1;
+
+    }else{
+    $('#borderdirigidoa').css('border','2px solid #A52525');
+    }
+
+    }else if (Edittipocomunicacion == "Externa") {
+
+    if (seguimientocomunicacion != "Selecciona") {
+    $('#seguimientocomunicacion').css('border',''); 
+
+    var siguinete = 1;
+
+    }else{
+    $('#seguimientocomunicacion').css('border','2px solid #A52525');
+    }
+
+    }
+
+    if (siguinete == 1) {
+
+    alertify.confirm('',
+    function(){
+
+    $.ajax({
+    data:  parametros,
+    url:   'app/controlador/ComunicacionParticipacionConsultaControlador.php',
+    type:  'post',
+    beforeSend: function() {
+    },
+    complete: function(){
+    },
+    success:  function (response) {
+
+    ListaRegistroComunicacion();
+    alertify.message('El registro de la atención fue editado correctamente');
+    $('#ModalEditar').modal('hide');
+
+    }
+    });
+
+    },
+        function(){
+        }).setHeader('Editar seguimiento').set({transition:'zoom',message: 'Desea editar el siguiente a la comunicación interna y externa.',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+
+    }
+
+    }else{
+    $('#Editmaterialcomunicar').css('border','2px solid #A52525');
+    }
+    }else{
+    $('#Edittipocomunicacion').css('border','2px solid #A52525');
+    }
+    }else{
+    $('#Edittemacomunicar').css('border','2px solid #A52525');
+    }
+
+    } 
+
+    function Eliminar(id){
 
 alertify.confirm('',
 function(){
 
 var parametros = {
+    "accion" : "eliminar-comunicacion",
     "id" : id
     };
 
  $.ajax({
      data:  parametros,
-     url:   'public/sasisopa/eliminar/eliminar-comunicacion-participacion-consulta.php',
+     url:   'app/controlador/ComunicacionParticipacionConsultaControlador.php',
      type:  'post',
      beforeSend: function() {
      },
@@ -333,91 +472,7 @@ var parametros = {
 
 }
 
-function ModalEvidencia(id){
-$('#myModalDetalle').modal('show');
-$('#DivDetalle').load('public/sasisopa/vistas/evidencia-comunicacion.php?idcomunicado='+id);  
-}
-
-function AgregarEvidencia(id){
-
-  var EvidenciasM = document.getElementById("FileEvidencia");
-  var FileEvidencia = EvidenciasM.files[0];
-  var PathProtocolo = EvidenciasM.value;
-  var ext = $("#FileEvidencia").val().split('.').pop();
-
-  var data = new FormData();
-  var url = 'public/sasisopa/agregar/agregar-evidencia-comunicacion.php';
-
-  if (PathProtocolo != "") {
-  $('#FileEvidencia').css('border','');
-  if (ext == "JPG" || ext == "jpg" || ext == "jpeg" || ext == "PNG" || ext == "png") {
-
-$('#result').html('');
-
-data.append('id', id);
-data.append('FileEvidencia', FileEvidencia);
-
-$(".LoaderPage").show();
-
-  $.ajax({
-  url: url,
-  type: 'POST',
-  contentType: false,
-  data: data,
-  processData: false,
-  cache: false,
-  }).done(function(data){
-
-  $(".LoaderPage").hide();
-  alertify.message('Evidencia agregada');
-  ModalEvidencia(id)
-
-  });
-
-  }else{
-  $('#result').html('<small class="text-danger">Solo se aceptan formato JPG y PNG</small>');
-  }
-  }else{
-  $('#FileEvidencia').css('border','2px solid #A52525');
-  }
-
-}
-
-function EliminarE(idcomunicado,idevidencia){
-
-alertify.confirm('',
-function(){
-
-var parametros = {
-    "id" : idevidencia
-    };
-
- $.ajax({
-     data:  parametros,
-     url:   'public/sasisopa/eliminar/eliminar-evidencia-comunicacion-participacion-consulta.php',
-     type:  'post',
-     beforeSend: function() {
-     },
-     complete: function(){
-    
-     },
-     success:  function (response) {
-
-    if (response == 1) {
-     ModalEvidencia(idcomunicado)
-    }else{
-    alertify.error('Error al eliminar')
-    }
-
-     }
-     });
-
-},
-    function(){
-    }).setHeader('Eliminar').set({transition:'zoom',message: '¿Desea eliminar la siguiente información?',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
-}
-
-function Descargar(Year,idEstacion,id){
+function DescargarCompleto(Year,idEstacion,id){
 
 if(Year == 0){
 var ResultYear = "X";
@@ -437,32 +492,32 @@ var Resultid = "X";
 var Resultid = id + "";
 }
 
-
-window.location = "descargar-comunicacion-participacion-consulta/" + ResultYear + "/" + ResultidEstacion + "/" + Resultid;
-}
-
-function DescargarCompleto(Year,idEstacion,id){
-
-  if(Year == 0){
-var ResultYear = "X";
-}else{
-var ResultYear = Year;
-}
-
-if(idEstacion == 0){
-var ResultidEstacion = "X";
-}else{
-var ResultidEstacion = idEstacion;
-}
-
-if(id == 0){
-var Resultid = "X";
-}else{
-var Resultid = id + "";
-}
-
 window.location = "descargar-comunicacion-participacion-consulta-reporte/" + ResultYear + "/" + ResultidEstacion + "/" + Resultid;
 
+}
+
+function ModalBuscar(){
+$('#ModalBuscar').modal('show');
+}
+
+function btnBuscar(idEstacion){
+
+let BuscarYear = $('#BuscarYear').val();
+
+if (BuscarYear != "") {
+$('#BuscarYear').css('border','');
+
+$('#DivListaComunicacion').load('app/vistas/sasisopa/elemento7/lista-comunicacion.php?Year=' + BuscarYear);
+$('#ModalBuscar').modal('hide');
+
+}else{
+$('#BuscarYear').css('border','2px solid #A52525');
+}
+
+}
+
+function ListaQuejasS(){    
+  $('#DivListaQuejasS').load('app/vistas/sasisopa/elemento7/lista-quejas-sugerencias.php');
 }
 
 function btnQuejasS(){
@@ -494,6 +549,7 @@ if (QSContacto != "") {
 $('#QSContacto').css('border','');
 
      var parametros = {
+      "accion" : "agregar-queja-sugerencia",
         "QSFecha" : QSFecha,
         "QSNombre" : QSNombre,
         "QSMotivosCausas" : QSMotivosCausas,
@@ -511,7 +567,7 @@ function(){
 
  $.ajax({
    data:  parametros,
-   url:   'public/sasisopa/agregar/agregar-queja-sugerencia.php',
+   url:   'app/controlador/ComunicacionParticipacionConsultaControlador.php',
    type:  'post',
    beforeSend: function() {
   },
@@ -558,12 +614,17 @@ $('#QSFecha').css('border','2px solid #A52525');
 
 }
 
+function DescargarQS(id){
+window.location = "descargar-quejas-sugerencias/" + id;
+}
+
 function EliminarQS(id){
 
 alertify.confirm('',
 function(){
 
 var parametros = {
+    "accion" : "eliminar-quejas-sugerencias",
     "id" : id
     };
 
@@ -578,7 +639,7 @@ var parametros = {
      },
      success:  function (response) {
 
-    if (response == 1) {
+    if (response) {
     ListaQuejasS();
     }else{
     alertify.error('Error al eliminar')
@@ -590,130 +651,6 @@ var parametros = {
 },
     function(){
     }).setHeader('Eliminar').set({transition:'zoom',message: '¿Desea eliminar la siguiente información?',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
-
-}
-
-function DescargarQS(id){
-window.location = "descargar-quejas-sugerencias/" + id;
-}
-//------------------------------------------------------
-
-function Editar(id){
-$('#ModalEditar').modal('show');
-$('#DivContenido').load('public/sasisopa/vistas/modal-editar-comunicacion-participacion-consulta.php?idReporte=' + id);
-}
-
-function btnEditar(id){
-
-let Editfecha = $("#Editfecha").val();
-let Edittemacomunicar = $("#Edittemacomunicar").val();
-let Editdetalle = $("#Editdetalle").val();
-let Edittipocomunicacion = $("#Edittipocomunicacion").val();
-let Editmaterialcomunicar = $("#Editmaterialcomunicar").val();
-let Editdirigidoa = $("#Editdirigidoa").val();
-let Editseguimientocomunicacion = $("#Editseguimientocomunicacion").val();
-var siguinete = 0;
-
-
-      var parametros = {
-        "id" : id,
-        "Editfecha" : Editfecha,
-        "Edittemacomunicar" : Edittemacomunicar,
-        "Editdetalle" : Editdetalle,
-        "Edittipocomunicacion" : Edittipocomunicacion,
-        "Editmaterialcomunicar" : Editmaterialcomunicar,
-        "Editdirigidoa" : Editdirigidoa,
-        "Editseguimientocomunicacion" : Editseguimientocomunicacion
-        };
-
-if (Edittemacomunicar != "") {
-$('#Edittemacomunicar').css('border','');
-if (Edittipocomunicacion != "") {
-$('#Edittipocomunicacion').css('border','');
-if (Editmaterialcomunicar != "") {
-$('#Editmaterialcomunicar').css('border','');
-
-if (Edittipocomunicacion == "Interna") {
-
-if (dirigidoa != "") {
-$('#borderdirigidoa').css('border',''); 
-
-var siguinete = 1;
-
-}else{
-$('#borderdirigidoa').css('border','2px solid #A52525');
-}
-
-}else if (Edittipocomunicacion == "Externa") {
-
-if (seguimientocomunicacion != "Selecciona") {
-$('#seguimientocomunicacion').css('border',''); 
-
-var siguinete = 1;
-
-}else{
-$('#seguimientocomunicacion').css('border','2px solid #A52525');
-}
-
-}
-
-if (siguinete == 1) {
-
-alertify.confirm('',
-function(){
-
- $.ajax({
-   data:  parametros,
-   url:   'public/sasisopa/actualizar/editar-comunicacion.php',
-   type:  'post',
-   beforeSend: function() {
-  },
-   complete: function(){
-   },
-   success:  function (response) {
-
-   ListaRegistroComunicacion();
-   alertify.message('El registro de la atención fue editado correctamente');
-   $('#ModalEditar').modal('hide');
-
-   }
-   });
-
- },
-    function(){
-    }).setHeader('Editar seguimiento').set({transition:'zoom',message: 'Desea editar el siguiente a la comunicación interna y externa.',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
-
-}
-
-}else{
-$('#Editmaterialcomunicar').css('border','2px solid #A52525');
-}
-}else{
-$('#Edittipocomunicacion').css('border','2px solid #A52525');
-}
-}else{
-$('#Edittemacomunicar').css('border','2px solid #A52525');
-}
-
-}
-
-function ModalBuscar(){
-$('#ModalBuscar').modal('show');
-}
-
-function btnBuscar(idEstacion){
-
-let BuscarYear = $('#BuscarYear').val();
-
-if (BuscarYear != "") {
-$('#BuscarYear').css('border','');
-
-$('#DivListaComunicacion').load('public/sasisopa/vistas/lista-comunicacion.php?Year=' + BuscarYear);
-$('#ModalBuscar').modal('hide');
-
-}else{
-$('#BuscarYear').css('border','2px solid #A52525');
-}
 
 }
   </script>
@@ -822,7 +759,7 @@ $('#BuscarYear').css('border','2px solid #A52525');
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda()">Aceptar</button>
+          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda(<?=$id_ayuda;?>,<?=$estado;?>)">Aceptar</button>
         </div>
       </div>
     </div>
@@ -1026,6 +963,14 @@ $('#BuscarYear').css('border','2px solid #A52525');
     </div>
     </div>
     </div>
+
+    <div class="modal fade bd-example-modal-lg" id="myModalDetalle" data-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content" style="border-radius: 0px;border: 0px;">
+    <div id="DivDetalle"></div> 
+    </div>
+    </div>
+    </div> 
 
   <script src="<?php echo RUTA_JS ?>bootstrap.min.js"></script>
   <script src="<?php echo RUTA_JS ?>bootstrap-select.js"></script>

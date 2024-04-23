@@ -1,14 +1,11 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
+include_once "../../../../app/modelo/ComunicacionParticipacionConsulta.php";
 
-$sql_comunicado = "SELECT * FROM se_comunicacion_i_e WHERE id = '".$_GET['idcomunicado']."' ";
-$result_comunicado = mysqli_query($con, $sql_comunicado);
-$numero_comunicado = mysqli_num_rows($result_comunicado);
-while($row_comunicado = mysqli_fetch_array($result_comunicado, MYSQLI_ASSOC)){
-$temac = $row_comunicado['tema'];
-} 
+$class_comunicacion = new ComunicacionParticipacionConsulta();
+$temac = $class_comunicacion->temaComunicacion($_GET['idcomunicado']);
 
-$sql = "SELECT * FROM se_comunicacion_evidencia WHERE id_comunicacion = '".$_GET['idcomunicado']."' ";
+$sql = "SELECT id,archivo FROM se_comunicacion_evidencia WHERE id_comunicacion = '".$_GET['idcomunicado']."' ";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
 ?>
@@ -36,7 +33,6 @@ $(document).ready(function(){
 </div>
 <div id="result"></div>
 <hr>
-
 
 <?php
 if ($numero > 0) {

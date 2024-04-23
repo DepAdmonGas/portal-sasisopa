@@ -1,8 +1,24 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 
-$sql_comunicado = "SELECT * FROM se_comunicacion_i_e WHERE id = '".$_GET['idcomunicado']."' ";
+$sql_comunicado = "SELECT 
+se_comunicacion_i_e.id,
+se_comunicacion_i_e.no_comunicacion,
+se_comunicacion_i_e.fecha,
+se_comunicacion_i_e.tema,
+se_comunicacion_i_e.tipo_comunicacion,
+se_comunicacion_i_e.material,
+se_comunicacion_i_e.seguimiento,
+se_comunicacion_i_e.asistencia,
+se_comunicacion_i_e.detalle,
+se_comunicacion_i_e.dirigidoa,
+se_comunicacion_i_e.url,
+tb_usuarios.nombre
+FROM se_comunicacion_i_e 
+INNER JOIN tb_usuarios 
+ON se_comunicacion_i_e.encargado_comunicacion = tb_usuarios.id
+WHERE se_comunicacion_i_e.id = '".$_GET['idcomunicado']."' ";
 $result_comunicado = mysqli_query($con, $sql_comunicado);
 $numero_comunicado = mysqli_num_rows($result_comunicado);
 while($row_comunicado = mysqli_fetch_array($result_comunicado, MYSQLI_ASSOC)){
@@ -12,18 +28,7 @@ $detalleComu = $row_comunicado['detalle'];
 $fecha = $row_comunicado['fecha'];
 $dirigidoa = $row_comunicado['dirigidoa'];
 
-if ($row_comunicado['archivo'] != "") {
-$img_archivo = "<a href='".$archivo."' download style='cursor:pointer;' data-toggle='tooltip' data-placement='right' title='Descargar archivo'><img src='".RUTA_IMG_ICONOS."documento.png'></a>";
-}else{
-$img_archivo = "";
-}
-
-$sql_usuario = "SELECT nombre FROM tb_usuarios WHERE id = '".$row_comunicado['encargado_comunicacion']."' ";
-$result_usuario = mysqli_query($con, $sql_usuario);
-while($row_usuario = mysqli_fetch_array($result_usuario, MYSQLI_ASSOC)){
-$nomencargado = $row_usuario['nombre']." ".$row_usuario['apellido_p']." ".$row_usuario['apellido_m'];
-}
-
+$nomencargado = $row_comunicado['nombre'];
 $tipocomunicacion = $row_comunicado['tipo_comunicacion'];
 $material = $row_comunicado['material'];
 $seguimiento = $row_comunicado['seguimiento'];
@@ -117,6 +122,7 @@ $puesto = $row_puestos['tipo_puesto'];
 </div>
 
 <?php
+$img_archivo = "";
 if ($url != "") {
 
 $separaCadena = explode("-", $url);
@@ -124,7 +130,7 @@ $separaCadena = explode("-", $url);
 $idestacion = $separaCadena[1];
 $idcomunicado = $separaCadena[2];
 
-$sql_comunicado_D = "SELECT * FROM co_comunicados WHERE id_estacion = '".$idestacion."' and id_comunicado = '".$idcomunicado."' ";
+$sql_comunicado_D = "SELECT detalle,archivo FROM co_comunicados WHERE id_estacion = '".$idestacion."' and id_comunicado = '".$idcomunicado."' ";
 $result_comunicado_D = mysqli_query($con, $sql_comunicado_D);
 $numero_comunicado_D = mysqli_num_rows($result_comunicado_D);
 
@@ -162,7 +168,7 @@ if ($detalleComu != "") {
 if($asistencia != 0){
 
 echo '<hr>';
-echo '<div><label class="text-secondary" style="font-size: .9em;">Fo.ADMONGAS.009 (Comunicación interna)</label></div>';
+echo '<div><label class="text-secondary" style="font-size: .9em;">Fo.ADMONGAS.010 (Comunicación interna)</label></div>';
 echo $img_archivo = "<a onclick='DescargarAsistencia(".$asistencia.")' style='cursor:pointer;' data-toggle='tooltip' data-placement='right' title='Descargar archivo'><img src='".RUTA_IMG_ICONOS."documento.png'></a>";
 
 }
