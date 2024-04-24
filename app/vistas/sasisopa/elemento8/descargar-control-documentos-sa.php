@@ -5,7 +5,7 @@ include_once "app/help.php";
 use Dompdf\Dompdf;
 $dompdf = new Dompdf();
 
-
+    $contenid0 = "";
     $contenid0 .= "<!DOCTYPE html>";
     $contenid0 .= "<html>";
     $contenid0 .= "<head>";
@@ -363,6 +363,3 @@ $canvas->page_text(768, 570, "Página: {PAGE_NUM} de {PAGE_COUNT}", null, 7, arr
 
 // Ponemos el PDF en el browser
 $dompdf->stream('Control y documentos del Sistema de Administración.pdf',["Attachment" => true]);
-//------------------
-mysqli_close($con);
-//------------------

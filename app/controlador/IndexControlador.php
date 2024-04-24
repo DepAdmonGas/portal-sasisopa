@@ -140,6 +140,28 @@ class IndexControlador{
     public function descargarQuejaSugerencia(){
         return 'app/vistas/sasisopa/elemento7/descargar-quejas-sugerencias.php';
     }
+
+    public function controlDocumentosRegistros(){
+        return 'app/vistas/sasisopa/elemento8/control-documentos-registros-index.php';
+    }
+
+    public function controlDocumentosRL(){
+        return 'app/vistas/sasisopa/elemento8/control-documentos-rl-index.php';
+    }
+
+    public function descargarControlDocumentosRL(){
+        return 'app/vistas/sasisopa/elemento8/descargar-control-documentos-rl.php';
+    }
+
+    public function controlDocumentosSA(){
+        return 'app/vistas/sasisopa/elemento8/control-documentos-sa-index.php';
+    }
+
+    public function descargarControlDocumentosSA(){
+        return 'app/vistas/sasisopa/elemento8/descargar-control-documentos-sa.php';
+    }
+
+    
     
 
     

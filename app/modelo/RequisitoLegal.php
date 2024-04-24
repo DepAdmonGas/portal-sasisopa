@@ -122,7 +122,7 @@ class RequisitoLegal
         $this->class_base_datos->desconectarBD($this->con);
         }
 
-        function ToPorcentaje($id,$NGobierno){
+        public function ToPorcentaje($id,$NGobierno){
             $TotalCmp = 0;
             $sql_programa_c = "SELECT id FROM rl_requisitos_legales_calendario
             WHERE id_estacion = '".$id."' AND nivel_gobierno = '".$NGobierno."' ";
@@ -144,7 +144,7 @@ class RequisitoLegal
             $this->class_base_datos->desconectarBD($this->con);
             }
 
-            function UltimaAct($idre){
+            public function UltimaAct($idre){
 
                 $sql_matriz = "SELECT fecha_emision, fecha_vencimiento, acusepdf, requisitolegalpdf FROM rl_requisitos_legales_matriz WHERE idcalendario = '".$idre."' ORDER BY id desc LIMIT 1";
                 $result_matriz = mysqli_query($this->con, $sql_matriz);
@@ -200,7 +200,7 @@ class RequisitoLegal
                 $this->class_base_datos->desconectarBD($this->con);
                 }
 
-                function NivelGobierno($NGobierno,$IDEstacion){
+                public function NivelGobierno($NGobierno,$IDEstacion){
 
                     $sql_programa_c = "SELECT * FROM rl_requisitos_legales_calendario WHERE id_estacion = '".$IDEstacion."' AND nivel_gobierno = '".$NGobierno."' AND estado = 1";
                     $result_programa_c = mysqli_query($this->con, $sql_programa_c);
@@ -328,7 +328,7 @@ class RequisitoLegal
                     $this->class_base_datos->desconectarBD($this->con);
                     }
 
-                    function DetalleRL($idrequisitol){
+                    public function DetalleRL($idrequisitol){
 
                         $sql = "SELECT dependencia, permiso, nivel_gobierno, mun_alc_est,fundamento FROM rl_requisitos_legales_lista WHERE id = '".$idrequisitol."' LIMIT 1 ";
                         $result = mysqli_query($this->con, $sql);
@@ -662,6 +662,69 @@ class RequisitoLegal
                 }
 
             }
+
+            //-------------------------------------------------------------------------------------------------------
+
+            public function RequisitosLegales($idEstacion,$NivelGobierno){
+                $contenido = "";
+                $sql = "SELECT
+                rl_requisitos_legales_calendario.id,
+                rl_requisitos_legales_calendario.nivel_gobierno,
+                rl_requisitos_legales_calendario.vigencia,
+                rl_requisitos_legales_calendario.id_requisito_legal,
+                rl_requisitos_legales_calendario.estado,
+                rl_requisitos_legales_lista.dependencia,
+                rl_requisitos_legales_lista.permiso,
+                rl_requisitos_legales_lista.fundamento
+                FROM rl_requisitos_legales_calendario
+                INNER JOIN 
+                rl_requisitos_legales_lista ON 
+                rl_requisitos_legales_calendario.id_requisito_legal = rl_requisitos_legales_lista.id
+                WHERE rl_requisitos_legales_calendario.id_estacion = '".$idEstacion."' AND rl_requisitos_legales_calendario.nivel_gobierno = '".$NivelGobierno."' AND rl_requisitos_legales_calendario.estado = 1 ORDER BY dependencia ASC";
+                $result = mysqli_query($this->con, $sql);
+                $numero = mysqli_num_rows($result);
+                
+                $contenido .= '<table class="table table-bordered table-sm">';
+                $contenido .= '<thead>';
+                $contenido .= '<tr class="bg-light">
+                <th class="align-middle">Dependencia</th>
+                <th class="align-middle">Permiso</th>
+                <th class="align-middle">Fundamento</th>
+                </tr>';
+                $contenido .= '</thead>';
+                $contenido .= '<tbody>';
+                while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+                
+                $idrequisitol = $row['id_requisito_legal'];
+                $idre = $row['id'];
+                $vigencia = $row['vigencia'];
+                
+                  $UltimaA = $this->UltimaAct($idre);
+                
+                  if($UltimaA['fechaemision'] == "S/I"){
+                  $fechaEmision = $UltimaA['fechaemision'];
+                  }else{
+                  $fechaEmision = FormatoFecha($UltimaA['fechaemision']);
+                  }
+                
+                  if($UltimaA['fechavencimiento'] == "S/I"){
+                  $fechaVencimiento = $UltimaA['fechavencimiento'];
+                  }else{
+                  $fechaVencimiento = FormatoFecha($UltimaA['fechavencimiento']);
+                  }
+                
+                $contenido .= '<tr>
+                <td class="align-middle"><b>'.$row['dependencia'].'</b></td>
+                <td class="align-middle"><b>'.$row['permiso'].'</b></td>
+                <td class="align-middle">'.$row['fundamento'].'</td>
+                </tr>';
+                
+                }
+                $contenido .= '</tbody>';
+                $contenido .= '</table>';
+                
+                return $contenido;
+                }
                         
 
 }

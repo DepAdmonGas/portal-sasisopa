@@ -72,6 +72,21 @@ switch ($partes_ruta[1])
     case '7-comunicacion-participacion-consulta':
     $ruta_elegida = $index_controlador->comunicacionParticipacionConsulta();
     break;
+    case '8-control-documentos-registros':
+    $ruta_elegida = $index_controlador->controlDocumentosRegistros();
+    break;
+    case 'control-documentos-rl':
+    $ruta_elegida = $index_controlador->controlDocumentosRL();
+    break;
+    case 'descargar-control-documentos-rl':
+    $ruta_elegida = $index_controlador->descargarControlDocumentosRL();
+    break;
+    case 'control-documentos-sa':
+    $ruta_elegida = $index_controlador->controlDocumentosSA();
+    break;
+    case 'descargar-control-documentos-sa':
+    $ruta_elegida = $index_controlador->descargarControlDocumentosSA();
+    break;
     //-------- ELEMENTOS SASISOPA FIN -------------------
     //---------------------------------------------------
 
@@ -117,24 +132,6 @@ $ruta_elegida = 'public/gerente/comunicados-index.php';
 break;
 //--------------------Puntos Sasisopa ----------
 
-
-
-
-case '8-control-documentos-registros':
-$ruta_elegida = 'public/sasisopa/control-documentos-registros-index.php';
-break;
-case 'descargar-control-documentos-rl':
-$ruta_elegida = 'public/sasisopa/vistas/descargar-control-documentos-rl.php';
-break;
-case 'descargar-control-documentos-sa':
-$ruta_elegida = 'public/sasisopa/vistas/descargar-control-documentos-sa.php';
-break;
-case 'control-documentos-sa':
-$ruta_elegida = 'public/sasisopa/control-documentos-sa-index.php';
-break;
-case 'control-documentos-rl':
-$ruta_elegida = 'public/sasisopa/control-documentos-rl-index.php';
-break;
 case '9-mejores-practicas-estandares':
 $ruta_elegida = 'public/sasisopa/mejores-practicas-estandares-index.php';
 break;
