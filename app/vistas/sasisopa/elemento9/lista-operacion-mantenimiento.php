@@ -1,5 +1,5 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 $sql_capacitacion = "SELECT * FROM tb_operacion_mantenimiento WHERE (estado = '".$Session_IDEstacion."' OR estado = 0) ";
 $result_capacitacion = mysqli_query($con, $sql_capacitacion);

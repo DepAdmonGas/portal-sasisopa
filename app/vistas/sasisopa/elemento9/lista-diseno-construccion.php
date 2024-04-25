@@ -1,7 +1,7 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
-$sql_capacitacion = "SELECT * FROM tb_diseno_construccion WHERE (estado = '".$Session_IDEstacion."' OR estado = 0) ";
+$sql_capacitacion = "SELECT id,valor1,valor2 FROM tb_diseno_construccion WHERE (estado = '".$Session_IDEstacion."' OR estado = 0) ";
 $result_capacitacion = mysqli_query($con, $sql_capacitacion);
 $numero_capacitacion = mysqli_num_rows($result_capacitacion);
 
@@ -33,7 +33,6 @@ echo "</tr>";
 }
 }else{
 echo "<td colspan='8' class='text-center text-secondary' style='font-size: .8em;'>No se encontró información para mostrar</td>";
-
 }
 ?>	
 </tbody>

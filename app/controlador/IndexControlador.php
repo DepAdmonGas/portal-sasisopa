@@ -161,10 +161,16 @@ class IndexControlador{
         return 'app/vistas/sasisopa/elemento8/descargar-control-documentos-sa.php';
     }
 
-    
-    
+    public function mejoresPracticasEstandares(){
+        return 'app/vistas/sasisopa/elemento9/mejores-practicas-estandares-index.php';
+    }
 
-    
-    
+    public function descargarDisenoConstruccion(){
+        return 'app/vistas/sasisopa/elemento9/descargar-diseno-construccion.php';
+    }
+
+    public function descargarOperacionMantenimiento(){
+        return 'app/vistas/sasisopa/elemento9/descargar-operacion-mantenimiento.php';
+    }
 
 }

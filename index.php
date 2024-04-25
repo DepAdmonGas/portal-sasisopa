@@ -87,6 +87,15 @@ switch ($partes_ruta[1])
     case 'descargar-control-documentos-sa':
     $ruta_elegida = $index_controlador->descargarControlDocumentosSA();
     break;
+    case '9-mejores-practicas-estandares':
+    $ruta_elegida = $index_controlador->mejoresPracticasEstandares();
+    break;
+    case 'descargar-diseno-construccion':
+    $ruta_elegida = $index_controlador->descargarDisenoConstruccion();
+    break;
+    case 'descargar-operacion-mantenimiento':
+    $ruta_elegida = $index_controlador->descargarOperacionMantenimiento();
+    break;
     //-------- ELEMENTOS SASISOPA FIN -------------------
     //---------------------------------------------------
 
@@ -132,15 +141,8 @@ $ruta_elegida = 'public/gerente/comunicados-index.php';
 break;
 //--------------------Puntos Sasisopa ----------
 
-case '9-mejores-practicas-estandares':
-$ruta_elegida = 'public/sasisopa/mejores-practicas-estandares-index.php';
-break;
-case 'descargar-diseno-construccion':
-$ruta_elegida = 'public/sasisopa/vistas/descargar-diseno-construccion.php';
-break;
-case 'descargar-operacion-mantenimiento':
-$ruta_elegida = 'public/sasisopa/vistas/descargar-operacion-mantenimiento.php';
-break;
+
+
 case '10-control-actividades-procesos':
 $ruta_elegida = 'public/sasisopa/control-actividades-procesos-index.php';
 break;

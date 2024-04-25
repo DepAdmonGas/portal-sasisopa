@@ -5,11 +5,11 @@ include_once "app/help.php";
 use Dompdf\Dompdf;
 $dompdf = new Dompdf();
 
-
+    $contenid0 = "";
     $contenid0 .= "<!DOCTYPE html>";
     $contenid0 .= "<html>";
     $contenid0 .= "<head>";
-    $contenid0 .= "<title>Diseño y construcción</title>";
+    $contenid0 .= "<title>Operación y Mantenimiento</title>";
     $contenid0 .= '<style type="text/css">
 @page {margin: 0.5cm 1cm; font-family: Arial, Helvetica, sans-serif;}
 *,
@@ -152,27 +152,37 @@ $contenid0 .= '</head>';
 $contenid0 .= '<body';
 
 $contenid0 .= '<div>';
-$contenid0 .= '<h5 class="text-center">Diseño y construcción</h5>';
+$contenid0 .= '<h5 class="text-center">Operación y Mantenimiento</h5>';
 
-$contenid0 .= '<table class="table table-sm table-bordered" style="font-size: .95rem">';
+$contenid0 .= '<table class="table table-sm table-bordered" style="font-size: .80rem">';
 $contenid0 .= '<tr>';
-$contenid0 .= '<td class="align-middle bg-light" style="padding: 15px;"><b>Código, estándar, normatividad o práctica de ingeniería.</b></td>';
-$contenid0 .= '<td class="align-middle bg-light"><b>Área, maquinaria, equipo o instalación a la que aplica.
-</b></th>';
+$contenid0 .= '<td class="align-middle bg-light text-center" style="padding: 15px;"><b>#</b></td>';
+$contenid0 .= '<td class="align-middle bg-light text-center"><b>Fecha</b></th>';
+$contenid0 .= '<td class="align-middle bg-light text-center"><b>Norma</b></th>';
+$contenid0 .= '<td class="align-middle bg-light text-center"><b>Nombre</b></th>';
+$contenid0 .= '<td class="align-middle bg-light text-center"><b>Link</b></th>';
 $contenid0 .= '</tr>';
 $contenid0 .= '<tbody>';
 
-$sql = "SELECT * FROM tb_diseno_construccion ";
+$i = 1;
+
+$sql = "SELECT * FROM tb_operacion_mantenimiento WHERE (estado = '".$Session_IDEstacion."' OR estado = 0) ";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
 
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 
-$contenid0 .=  "<tr>";
-$contenid0 .=  "<td class='text-center align-middle'>".$row['valor1']."</td>";
-$contenid0 .=  "<td class='text-center align-middle'>".$row['valor2']."</td>";
+$contenid0 .=  "<tr>"; 
+$contenid0 .=  "<td class='text-center align-middle'>".$i."</td>";
+$contenid0 .=  "<td class='text-center align-middle'>".FormatoFecha($row['fecha'])."</td>";
+$contenid0 .=  "<td class='text-center align-middle'>".$row['norma']."</td>";
+$contenid0 .=  "<td class='text-center align-middle'>".$row['nombre']."</td>";
+$contenid0 .=  "<td class='text-center align-middle'>
+<div><a style='width: 100%;height:20px;' href='".$row['link']."' target='_blank' >Link</a></div>
+</td>";
 $contenid0 .=  "</tr>";
 
+$i++;
 }
 
 $contenid0 .= '</tbody>';
@@ -191,8 +201,9 @@ $dompdf->setPaper("A4", "portrait");
 $dompdf->render();
 $canvas = $dompdf->get_canvas();
 $canvas->page_text(525, 810, "Página: {PAGE_NUM} de {PAGE_COUNT}", null, 7, array(0, 0, 0));
+
 // Ponemos el PDF en el browser
-$dompdf->stream('Diseño y construcción.pdf',["Attachment" => true]);
+$dompdf->stream('Operación y Mantenimiento.pdf',["Attachment" => true]);
 
 //------------------
 mysqli_close($con);

@@ -166,6 +166,18 @@ table {
 .mt-3 {
   margin-top: 2.5rem !important;
 }
+
+.badge {
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 0.25rem;
+}
+.badge-primary {
+  color: #fff;
+  background-color: #007bff;
+}
 </style>';
 
 $contenid0 .= '</head>';
@@ -215,20 +227,6 @@ $contenid0 .= '</table>';
 
 //---------------------------------------------------------------
 
-$contenid0 .= '<table class="table table-bordered" style="font-size: .80em;">';
-$contenid0 .= '<tbody>';
-
-$contenid0 .= '
-<tr>
-<th class="align-middle text-center">No.</th>
-<th class="align-middle text-center">Fecha</th>
-<th class="align-middle text-center">Tema a comunicar</th>
-<th class="align-middle text-center">Encargado de la comunicación</th>
-<th class="align-middle text-center">Tipo de comunicación</th>
-<th class="align-middle text-center">Material utilizado para la comunicación</th>
-<th class="align-middle text-center">Seguimiento de la comunicación</th>
-</tr>';
-
 if($GET_idYear == 'X' && $GET_idEstacion == 'X'){
 $Query = " se_comunicacion_i_e.id = '".$GET_idRegistro."' ";
 }else if($GET_idYear == 'X' && $GET_idRegistro == 'X'){
@@ -238,7 +236,7 @@ $Query = " se_comunicacion_i_e.id_estacion = '".$GET_idEstacion."' AND YEAR(se_c
 }else if($GET_idYear != 'X' && $GET_idRegistro != 'X'){
 $Query = "se_comunicacion_i_e.id = '".$GET_idRegistro."' ";
 }
-
+$dirigido = "";
 $sql_comunicado = "SELECT 
 se_comunicacion_i_e.id,
 se_comunicacion_i_e.no_comunicacion,
@@ -248,6 +246,8 @@ se_comunicacion_i_e.tipo_comunicacion,
 se_comunicacion_i_e.material,
 se_comunicacion_i_e.seguimiento,
 se_comunicacion_i_e.asistencia,
+se_comunicacion_i_e.dirigidoa,
+se_comunicacion_i_e.detalle,
 tb_usuarios.nombre
 FROM se_comunicacion_i_e 
 INNER JOIN tb_usuarios 
@@ -257,34 +257,86 @@ $numero_comunicado = mysqli_num_rows($result_comunicado);
 while($row_comunicado = mysqli_fetch_array($result_comunicado, MYSQLI_ASSOC)){
 
 $nomencargado = $row_comunicado['nombre'];
+$dirigidoa = $row_comunicado['dirigidoa'];
 
-$contenid0 .= '<tr>
-<td class="text-center align-middle">'.$row_comunicado['no_comunicacion'].'</td>
-<td class="text-center align-middle">'.FormatoFecha($row_comunicado['fecha']).'</td>
-<td class="text-center align-middle">'.$row_comunicado['tema'].'</td>
-<td class="text-center align-middle">'.$nomencargado.'</td>
-<td class="text-center align-middle">'.$row_comunicado['tipo_comunicacion'].'</td>
-<td class="text-center align-middle">'.$row_comunicado['material'].'</td>
-<td class="text-center align-middle">'.$row_comunicado['seguimiento'].'</td>
-</tr>';
+$contenid0 .= '<table class="table table-bordered" style="font-size: .80em;">
+<tr>
+<th class="align-middle text-center">No.</th>
+<th class="align-middle text-center">Tema a comunicar</th>
+</tr>
+<tr>
+<td class="align-middle text-center">'.$row_comunicado['no_comunicacion'].'</td>
+<td class="align-middle text-center">'.$row_comunicado['tema'].'</td>
+</tr>
+</table>';
 
+$contenid0 .= '<table class="table table-bordered" style="font-size: .80em;">
+<tr>
+<th class="align-middle text-center">Encargado de la comunicación:</th>
+<th class="align-middle text-center">Fecha:</th>
+</tr>
+<tr>
+<td class="align-middle text-center">'.$nomencargado.'</td>
+<td class="align-middle text-center">'.FormatoFecha($row_comunicado['fecha']).'</td>
+</tr>
+</table>';
+
+$contenid0 .= '<table class="table table-bordered" style="font-size: .80em;">
+<tr>
+<th class="align-middle text-center">Tipo de comunicación:</th>
+<th class="align-middle text-center">Material utilizado para la comunicación:</th>
+</tr>
+<tr>
+<td class="align-middle text-center">'.$row_comunicado['tipo_comunicacion'].'</td>
+<td class="align-middle text-center">'.$row_comunicado['material'].'</td>
+</tr>
+</table>';
+
+$separacadena = explode(",", $dirigidoa);
+for ($i=0; $i < count($separacadena) ; $i++) { 
+$sql_puestos = "SELECT tipo_puesto FROM tb_puestos WHERE id = '".$separacadena[$i]."' ";
+$result_puestos = mysqli_query($con, $sql_puestos);
+while($row_puestos = mysqli_fetch_array($result_puestos, MYSQLI_ASSOC)){
+$puesto = $row_puestos['tipo_puesto'];
+$dirigido .= '<span class="badge badge-primary">'.$puesto.'</span>';
+}
 }
 
-$contenid0 .= '</tbody>';
-$contenid0 .= '</table>';
+$contenid0 .= '<table class="table table-bordered" style="font-size: .80em;">
+<tr>
+<th class="align-middle text-center">Seguimiento de la comunicación:</th>
+<th class="align-middle text-center">Dirigido a:</th>
+</tr>
+<tr>
+<td class="align-middle text-center">'.$row_comunicado['seguimiento'].'</td>
+<td class="align-middle text-center">'.$dirigido.'</td>
+</tr>
+</table>';
+
+$contenid0 .= '<table class="table table-bordered" style="font-size: .80em;">
+<tr>
+<th class="align-middle text-center">Detalle:</th>
+</tr>
+<tr>
+<td class="align-middle text-center">'.$row_comunicado['detalle'].'</td>
+</tr>
+</table>';
+
+}
 
 $sql = "SELECT * FROM se_comunicacion_evidencia WHERE id_comunicacion = '".$GET_idRegistro."' ";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
 
 if ($numero > 0) {
-$contenid0 .= '<h4>Evidencias</h4>';
+$contenid0 .= '<h4 style="margin-bottom: 60px;">Evidencias</h4>';
+
 $contenid0 .= '<div class="mt-3">';
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-$RutaEvidencia.$row['id'] = SERVIDOR."archivos/evidencias/".$row['archivo'];
-$DataEvidencia.$row['id'] = file_get_contents($RutaEvidencia.$row['id']);
-$baseEvidencia.$row['id'] = 'data:image/;base64,' . base64_encode($DataEvidencia.$row['id']);
-$contenid0 .= '<img class="p-2" src="'.$baseEvidencia.$row['id'].'" style="width: 35%">
+$RutaEvidencia = SERVIDOR."archivos/evidencias/".$row['archivo'];
+$DataEvidencia = file_get_contents($RutaEvidencia);
+$baseEvidencia = 'data:image/;base64,' . base64_encode($DataEvidencia);
+$contenid0 .= '<img class="p-2" src="'.$baseEvidencia.'" style="width: 35%">
 ';
 }
 $contenid0 .= '</div>';
@@ -295,15 +347,10 @@ $contenid0 .= '</html>';
 
 $dompdf->loadHtml($contenid0);
 // Colocamos als propiedades de la hoja
-$dompdf->setPaper("A4", "landscape");
+$dompdf->setPaper("A4", "portrait");
 // Escribimos el html en el PDF
 $dompdf->render();
 $canvas = $dompdf->get_canvas();
-$canvas->page_text(768, 570, "Página: {PAGE_NUM} de {PAGE_COUNT}", null, 7, array(0, 0, 0));
-
+$canvas->page_text(525, 810, "Página: {PAGE_NUM} de {PAGE_COUNT}", null, 7, array(0, 0, 0));
 // Ponemos el PDF en el browser
 $dompdf->stream('Comunicación, participación y consulta.pdf',["Attachment" => true]);
-
-//-----------------
-mysqli_close($con);
-//-----------------

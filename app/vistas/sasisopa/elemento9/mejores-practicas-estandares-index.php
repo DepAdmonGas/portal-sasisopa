@@ -1,17 +1,12 @@
 <?php
 require('app/help.php');
+include_once "app/modelo/Ayuda.php";
 
-$sql_sasisopa_ayuda = "SELECT * FROM pu_sasisopa_ayuda WHERE id_usuario = '".$Session_IDUsuarioBD."' and detalle = '9-mejores-practicas-estandares' and estado = 0 LIMIT 1";
-$result_sasisopa_ayuda = mysqli_query($con, $sql_sasisopa_ayuda);
-$numero_sasisopa_ayuda = mysqli_num_rows($result_sasisopa_ayuda);
+$class_ayuda = new Ayuda();
+$array_ayuda = $class_ayuda->sasisopaAyuda($Session_IDUsuarioBD,'9-mejores-practicas-estandares');
+$id_ayuda = $array_ayuda['id'];
+$estado = $array_ayuda['estado'];
 
-if ($numero_sasisopa_ayuda == 1) {
-while($row_ayuda = mysqli_fetch_array($result_sasisopa_ayuda, MYSQLI_ASSOC)){
-$idAyuda = $row_ayuda['id'];
-}
-}else{
-$idAyuda = 0;
-}
 ?>
 <html lang="es">
   <head>
@@ -63,42 +58,31 @@ $idAyuda = 0;
   $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
   $(".LoaderPage").fadeOut("slow");
-  <?php if ($numero_sasisopa_ayuda == 1) {echo "btnAyuda();";} ?>
+  <?php if ($id_ayuda != 0) {echo "btnAyuda();";} ?>
 
   ListaDisenoConstruccion();
   ListaOperacionMantenimiento();
 
   });
   function regresarP(){
-   window.history.back();
+    window.history.back();
   }
-
-  function ListaDisenoConstruccion(){
-  $('#ListaDisenoConstruccion').load('public/sasisopa/vistas/lista-diseno-construccion.php');
-  }
-
-  function ListaOperacionMantenimiento(){
-  $('#ListaOperacionMantenimiento').load('public/sasisopa/vistas/lista-operacion-mantenimiento.php');
-  }
-
 
   function btnAyuda(){
   $('#ModalMejoresPracticas').modal('show');
   }
 
-function btnFinAyuda(){
+  function btnFinAyuda(idayuda, estado){
 
-var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
+    var parametros = {
+      "accion" : "actualizar-ayuda",
+      "idayuda" : idayuda
+    };
 
- var parametros = {
-        "idAyuda" : <?=$idAyuda; ?>
-      };
-
-  if (puntosSasisopa != 0) {
-
+    if (idayuda != 0 && estado == 0) {
    $.ajax({
    data:  parametros,
-   url:   'public/sasisopa/actualizar/actualizar-ayuda.php',
+   url:   'app/controlador/AyudaControlador.php',
    type:  'post',
    beforeSend: function() {
    },
@@ -114,120 +98,9 @@ var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
   }
   }
 
-  function DescargarDC(){
-  window.location = "descargar-diseno-construccion";   
+  function ListaDisenoConstruccion(){
+  $('#ListaDisenoConstruccion').load('app/vistas/sasisopa/elemento9/lista-diseno-construccion.php');
   }
-
-  function DescargarOM(){
-  window.location = "descargar-operacion-mantenimiento";  
-  }
-
-  function btnOperacionMantenimiento(){
-  $('#myModal').modal('show');  
-  }
-
-  function btnGuardarOM(){
-
-  var Fecha = $('#Fecha').val();
-  var Norma = $('#Norma').val();
-  var Nombre  = $('#Nombre').val();
-  var Link = $('#Link').val();
-
-  if(Fecha != ""){
-  $('#Fecha').css('border','');
-  if(Norma != ""){
-  $('#Norma').css('border','');
-  if(Nombre != ""){
-  $('#Nombre').css('border','');
-
-  var parametros = {
-  "Fecha" : Fecha,
-  "Norma" : Norma,
-  "Nombre" : Nombre,
-  "Link" : Link
-  };
-
-  alertify.confirm('',
-function(){
-
-$.ajax({
- data:  parametros,
- url:   'public/sasisopa/agregar/agregar-operacion-mantenimiento.php',
- type:  'post',
- beforeSend: function() {
- },
- complete: function(){
- },
- success:  function (response) {
-
-if(response == 1){
-
-ListaOperacionMantenimiento();
-$('#Fecha').val("");
-$('#Norma').val("");
-$('#Nombre').val("");
-$('#Link').val("");
-$('#myModal').modal('hide'); 
-
-}else{
- alertify.error('Error al crear el registro'); 
-}
-
-
- }
- });
-
-},
-function(){
-}).setHeader('Mensaje').set({transition:'zoom',message: '¿Desea agregar la siguiente información?',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
-
-
-  }else{
-  $('#Nombre').css('border','2px solid #A52525');
-  }
-  }else{
-  $('#Norma').css('border','2px solid #A52525');
-  }
-  }else{
-  $('#Fecha').css('border','2px solid #A52525');
-  }
-
-  }
-
-  function eliminar(id){
-
-    alertify.confirm('',
-    function(){
-
-  var parametros = {
-  "id" : id
-  };
-
-    $.ajax({
-     data:  parametros,
-     url:   'public/sasisopa/eliminar/eliminar-operacion-mantenimiento.php',
-     type:  'post',
-     beforeSend: function() {
-     },
-     complete: function(){
-     },
-     success:  function (response) {
-
-    if(response == 1){
-    ListaOperacionMantenimiento();
-    }else{
-     alertify.error('Error al eliminar el registro'); 
-    }
-
-     }
-     });
-
-    },
-    function(){
-    }).setHeader('Mensaje').set({transition:'zoom',message: '¿Desea eliminar la siguiente información?',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
-
-  }
-  /////--------------------------------------------------------
 
   function btnDisenoConstruccion(){
     $('#ModalDC').modal('show');
@@ -245,40 +118,41 @@ function(){
  
 
   var parametros = {
+  "accion" : "agregar-diseno-construccion",
   "Codigo" : Codigo,
   "Area" : Area
   };
 
   alertify.confirm('',
-function(){
+    function(){
 
-$.ajax({
- data:  parametros,
- url:   'public/sasisopa/agregar/agregar-diseno-construccion.php',
- type:  'post',
- beforeSend: function() {
- },
- complete: function(){
- },
- success:  function (response) {
+    $.ajax({
+    data:  parametros,
+    url:   'app/controlador/MejoresPracticasEstandaresControlador.php',
+    type:  'post',
+    beforeSend: function() {
+    },
+    complete: function(){
+    },
+    success:  function (response) {
 
-if(response == 1){
+    if(response){
 
-ListaDisenoConstruccion();
-$('#Codigo').val("");
-$('#Area').val("");
-$('#ModalDC').modal('hide'); 
+    ListaDisenoConstruccion();
+    $('#Codigo').val("");
+    $('#Area').val("");
+    $('#ModalDC').modal('hide'); 
 
-}else{
-alertify.error('Error al crear el registro'); 
-}
+    }else{
+    alertify.error('Error al crear el registro'); 
+    }
 
- }
- });
+    }
+    });
 
-},
-function(){
-}).setHeader('Mensaje').set({transition:'zoom',message: '¿Desea agregar la siguiente información?',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+    },
+    function(){
+    }).setHeader('Mensaje').set({transition:'zoom',message: '¿Desea agregar la siguiente información?',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
 
 
   }else{
@@ -289,39 +163,159 @@ function(){
   }
   }
 
-   function eliminarDC(id){
+  function eliminarDC(id){
 
     alertify.confirm('',
     function(){
 
-  var parametros = {
-  "id" : id
-  };
+    var parametros = {
+    "accion" : "eliminar-diseno-construccion",
+    "id" : id
+    };
 
     $.ajax({
-     data:  parametros,
-     url:   'public/sasisopa/eliminar/eliminar-diseno-construccion.php',
-     type:  'post',
-     beforeSend: function() {
-     },
-     complete: function(){
-     },
-     success:  function (response) {
+    data:  parametros,
+    url:   'app/controlador/MejoresPracticasEstandaresControlador.php',
+    type:  'post',
+    beforeSend: function() {
+    },
+    complete: function(){
+    },
+    success:  function (response) {
 
-    if(response == 1){
+    if(response){
     ListaDisenoConstruccion();
     }else{
-     alertify.error('Error al eliminar el registro'); 
+    alertify.error('Error al eliminar el registro'); 
     }
 
-     }
-     });
+    }
+    });
 
     },
     function(){
     }).setHeader('Mensaje').set({transition:'zoom',message: '¿Desea eliminar la siguiente información?',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
 
+}
+
+function DescargarDC(){
+  window.location = "descargar-diseno-construccion";   
   }
+
+  function ListaOperacionMantenimiento(){
+  $('#ListaOperacionMantenimiento').load('app/vistas/sasisopa/elemento9/lista-operacion-mantenimiento.php');
+  }
+
+  function btnOperacionMantenimiento(){
+  $('#myModal').modal('show');  
+  }
+
+  function btnGuardarOM(){
+
+var Fecha = $('#Fecha').val();
+var Norma = $('#Norma').val();
+var Nombre  = $('#Nombre').val();
+var Link = $('#Link').val();
+
+if(Fecha != ""){
+$('#Fecha').css('border','');
+if(Norma != ""){
+$('#Norma').css('border','');
+if(Nombre != ""){
+$('#Nombre').css('border','');
+
+var parametros = {
+"accion" : "agregar-operacion-mantenimiento",
+"Fecha" : Fecha,
+"Norma" : Norma,
+"Nombre" : Nombre,
+"Link" : Link
+};
+
+alertify.confirm('',
+function(){
+
+$.ajax({
+data:  parametros,
+url:   'app/controlador/MejoresPracticasEstandaresControlador.php',
+type:  'post',
+beforeSend: function() {
+},
+complete: function(){
+},
+success:  function (response) {
+
+if(response){
+
+ListaOperacionMantenimiento();
+$('#Fecha').val("");
+$('#Norma').val("");
+$('#Nombre').val("");
+$('#Link').val("");
+$('#myModal').modal('hide'); 
+
+}else{
+alertify.error('Error al crear el registro'); 
+}
+}
+});
+
+},
+function(){
+}).setHeader('Mensaje').set({transition:'zoom',message: '¿Desea agregar la siguiente información?',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+
+
+}else{
+$('#Nombre').css('border','2px solid #A52525');
+}
+}else{
+$('#Norma').css('border','2px solid #A52525');
+}
+}else{
+$('#Fecha').css('border','2px solid #A52525');
+}
+
+}
+
+function eliminar(id){
+
+alertify.confirm('',
+function(){
+
+var parametros = {
+"accion" : "eliminar-operacion-mantenimiento",
+"id" : id
+};
+
+$.ajax({
+ data:  parametros,
+ url:   'app/controlador/MejoresPracticasEstandaresControlador.php',
+ type:  'post',
+ beforeSend: function() {
+ },
+ complete: function(){
+ },
+ success:  function (response) {
+
+if(response){
+ListaOperacionMantenimiento();
+}else{
+ alertify.error('Error al eliminar el registro'); 
+}
+
+ }
+ });
+
+},
+function(){
+}).setHeader('Mensaje').set({transition:'zoom',message: '¿Desea eliminar la siguiente información?',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+
+}
+
+  function DescargarOM(){
+  window.location = "descargar-operacion-mantenimiento";  
+  }
+
 
    </script>
   </head>
@@ -454,7 +448,7 @@ function(){
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda()">Aceptar</button>
+          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda(<?=$id_ayuda;?>,<?=$estado;?>)">Aceptar</button>
         </div>
       </div>
     </div>

@@ -259,9 +259,15 @@ $('#DivDetalle').load('app/vistas/sasisopa/elemento7/detalle-comunicacion.php?id
     cache: false,
     }).done(function(data){
 
-    $(".LoaderPage").hide();
-    alertify.message('Evidencia agregada');
-    ModalEvidencia(id)
+      if(data){
+        $(".LoaderPage").hide();
+        alertify.message('Evidencia agregada');
+        ModalEvidencia(id)
+      }else{
+        $(".LoaderPage").hide();
+        alertify.error('Evidencia no agregada');
+      }
+    
 
     });
 

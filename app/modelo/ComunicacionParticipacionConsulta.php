@@ -109,15 +109,17 @@ class ComunicacionParticipacionConsulta
         
         $ruta_protocolo = "EVIDENCIA-".$id."-".strtotime($hoy).".".$extension;
         
-        $allowTypes = array('jpg','png','jpeg','gif'); 
+        $allowTypes = array('jpg','png','jpeg','gif','PNG'); 
         
         if(in_array($extension, $allowTypes)){ 
+
+            echo 1;
         
         $compressedImage = $this->compressImage($file_tmp_name, $ruta_file, 50); 
         
         if($compressedImage){ 
                         
-        $sql = "INSERT INTO se_comunicacion_evidencia (
+        echo $sql = "INSERT INTO se_comunicacion_evidencia (
         
         id_comunicacion,
         archivo
