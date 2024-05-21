@@ -25,12 +25,12 @@ $numero_comunicado = mysqli_num_rows($result_comunicado);
 </div>
 
 <div class="text-right mb-2">
-    
+    <?php if($_GET['Year'] != 0){ ?>
     <a class="mr-2" onclick="DescargarCompleto(<?=$_GET['Year']?>,<?=$Session_IDEstacion;?>,0)" style="cursor: pointer;">
     Reporte completo
     <img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>">
     </a>
-
+    <?php } ?>
 	<a onclick="Descargar(<?=$_GET['Year']?>,<?=$Session_IDEstacion;?>,0)" style="cursor: pointer;">
     <img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>">
     </a>

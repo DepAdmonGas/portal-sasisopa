@@ -2,175 +2,74 @@
 
 class IndexControlador{
 
-    public function politicaRuta(){
-        return 'app/vistas/sasisopa/elemento1/politica-index.php';
-    }
-
-    public function descargarPolitica(){
-        return 'app/vistas/sasisopa/elemento1/descargar-politica.php';
-    }
-
-    public function descargarListaComprobacion(){
-        return 'app/vistas/sasisopa/elemento1/descargar-lista-comprobacion.php';
-    }
-
-    public function descargarListaAsistencia(){
-        return 'app/vistas/sasisopa/asistencia/descargar-lista-asistencia.php';
-    }
-
-    public function listaAsistencia(){
-        return 'app/vistas/sasisopa/asistencia/lista-asistencia-index.php';
-    }
-
-    public function analisisRiesgoEvaluacionImpactosAmbientales(){
-        return 'app/vistas/sasisopa/elemento2/analisis-riesgo-evaluacion-impactos-ambientales-index.php';
-    }
-    public function descargarFormato2(){
-        return 'app/vistas/sasisopa/elemento2/descargar-formato-2.php';
-    }
-
-    public function descargarFormato3(){
-        return 'app/vistas/sasisopa/elemento2/descargar-formato-3.php';
-    }
-
-    public function requisitosLegales(){
-        return 'app/vistas/sasisopa/elemento3/requisitos-legales-index.php';
-    }
-
-    public function requisitosLegalesConfiguracion(){
-        return 'app/vistas/sasisopa/elemento3/requisitos-legales-configuracion-index.php';
-    }
-
-    public function descargarRequisitosLegales(){
-        return 'app/vistas/sasisopa/elemento3/descargar-requisitos-legales.php';
-    }
-    
-    public function detalleRequisitosLegales(){
-        return 'app/vistas/sasisopa/elemento3/detalle-requisitos-legales-index.php';
-    }
-
-    public function objetivosMetasIndicadores(){
-        return 'app/vistas/sasisopa/elemento4/objetivos-metas-indicadores.php';
-    }
-
-    public function capacitacionPersonal(){
-        return 'app/vistas/sasisopa/elemento4/capacitacion-personal-index.php';
-    }
-
-    public function experienciaCliente(){
-        return 'app/vistas/sasisopa/elemento4/experiencia-cliente-index.php';
-    }
-
-    public function agregarExperienciaCliente(){
-        return 'app/vistas/sasisopa/elemento4/agregar-experiencia-cliente-index.php';
-    }
-
-    public function detalleExperienciaCliente(){
-        return 'app/vistas/sasisopa/elemento4/detalle-experiencia-cliente-index.php';
-    }
-
-    public function editarExperienciaCliente(){
-        return 'app/vistas/sasisopa/elemento4/editar-experiencia-cliente-index.php';
-    }
-
-    public function indicadorVentas(){
-        return 'app/vistas/sasisopa/elemento4/indicador-ventas-index.php';
-    }
-
-    public function indicadorVentasReporte(){
-        return 'app/vistas/sasisopa/elemento4/indicador-ventas-reporte-index.php';
-    }
-
-    public function funcionesResponsabilidadesAutoridad(){
-        return 'app/vistas/sasisopa/elemento5/funciones-responsabilidades-autoridad.php';
-    }
-
-    public function competenciaPersonalCapacitacionEntrenamiento(){
-        return 'app/vistas/sasisopa/elemento6/competencia-personal-capacitacion-entrenamiento.php';
-    }
-
-    public function perfilesPuestoTrabajo(){
-        return 'app/vistas/sasisopa/elemento6/perfiles-puesto-index.php';
-    }
-
-    public function perfilesPersonal(){
-        return 'app/vistas/sasisopa/elemento6/perfiles-personal-index.php';
-    }
-
-    public function descargarFichaPersonal(){
-        return 'app/vistas/sasisopa/elemento6/descargar-ficha-personal.php';
-    }
-
-    public function descargarFichaPersonalReporte(){
-        return 'app/vistas/sasisopa/elemento6/descargar-ficha-personal-reporte.php';
-    }
-
-    public function fichaPersonal(){
-        return 'app/vistas/sasisopa/elemento6/ficha-personal-index.php';
-    }
-
-    public function capacitacionInterna(){
-        return 'app/vistas/sasisopa/elemento6/capacitacion-interna-index.php';
-    }
-
-    public function capacitacionInternaModulos(){
-        return 'app/vistas/sasisopa/elemento6/capacitacion-interna-modulos-index.php';
-    }
-
-    public function capacitacionExterna(){
-        return 'app/vistas/sasisopa/elemento6/capacitacion-externa-index.php';
-    }
-
-    public function descargarCapacitacionExterna(){
-        return 'app/vistas/sasisopa/elemento6/descargar-capacitacion-externa.php';
-    }
-
-    public function comunicacionParticipacionConsulta(){
-        return 'app/vistas/sasisopa/elemento7/comunicacion-participacion-consulta-index.php';
-    }
-
-    public function descargarComunicacionParticipacionConsulta(){
-        return 'app/vistas/sasisopa/elemento7/descargar-comunicacion-participacion-consulta.php';
-    }
-
-    public function descargarComunicacionParticipacionConsultaReporte(){
-        return 'app/vistas/sasisopa/elemento7/descargar-comunicacion-participacion-consulta-reporte.php';
-    }
-
-    public function descargarQuejaSugerencia(){
-        return 'app/vistas/sasisopa/elemento7/descargar-quejas-sugerencias.php';
-    }
-
-    public function controlDocumentosRegistros(){
-        return 'app/vistas/sasisopa/elemento8/control-documentos-registros-index.php';
-    }
-
-    public function controlDocumentosRL(){
-        return 'app/vistas/sasisopa/elemento8/control-documentos-rl-index.php';
-    }
-
-    public function descargarControlDocumentosRL(){
-        return 'app/vistas/sasisopa/elemento8/descargar-control-documentos-rl.php';
-    }
-
-    public function controlDocumentosSA(){
-        return 'app/vistas/sasisopa/elemento8/control-documentos-sa-index.php';
-    }
-
-    public function descargarControlDocumentosSA(){
-        return 'app/vistas/sasisopa/elemento8/descargar-control-documentos-sa.php';
-    }
-
-    public function mejoresPracticasEstandares(){
-        return 'app/vistas/sasisopa/elemento9/mejores-practicas-estandares-index.php';
-    }
-
-    public function descargarDisenoConstruccion(){
-        return 'app/vistas/sasisopa/elemento9/descargar-diseno-construccion.php';
-    }
-
-    public function descargarOperacionMantenimiento(){
-        return 'app/vistas/sasisopa/elemento9/descargar-operacion-mantenimiento.php';
-    }
+    public function politicaRuta(){return 'app/vistas/sasisopa/elemento1/politica-index.php';}
+    public function descargarPolitica(){return 'app/vistas/sasisopa/elemento1/descargar-politica.php';}
+    public function descargarListaComprobacion(){return 'app/vistas/sasisopa/elemento1/descargar-lista-comprobacion.php';}
+    public function descargarListaAsistencia(){return 'app/vistas/sasisopa/asistencia/descargar-lista-asistencia.php';}
+    public function listaAsistencia(){return 'app/vistas/sasisopa/asistencia/lista-asistencia-index.php';}
+    public function analisisRiesgoEvaluacionImpactosAmbientales(){return 'app/vistas/sasisopa/elemento2/analisis-riesgo-evaluacion-impactos-ambientales-index.php';}
+    public function descargarFormato2(){return 'app/vistas/sasisopa/elemento2/descargar-formato-2.php';}
+    public function descargarFormato3(){return 'app/vistas/sasisopa/elemento2/descargar-formato-3.php';}
+    public function requisitosLegales(){return 'app/vistas/sasisopa/elemento3/requisitos-legales-index.php';}
+    public function requisitosLegalesConfiguracion(){return 'app/vistas/sasisopa/elemento3/requisitos-legales-configuracion-index.php';}
+    public function descargarRequisitosLegales(){return 'app/vistas/sasisopa/elemento3/descargar-requisitos-legales.php';}
+    public function detalleRequisitosLegales(){return 'app/vistas/sasisopa/elemento3/detalle-requisitos-legales-index.php';}
+    public function objetivosMetasIndicadores(){return 'app/vistas/sasisopa/elemento4/objetivos-metas-indicadores.php';}
+    public function capacitacionPersonal(){return 'app/vistas/sasisopa/elemento4/capacitacion-personal-index.php';}
+    public function experienciaCliente(){return 'app/vistas/sasisopa/elemento4/experiencia-cliente-index.php';}
+    public function agregarExperienciaCliente(){return 'app/vistas/sasisopa/elemento4/agregar-experiencia-cliente-index.php';}
+    public function detalleExperienciaCliente(){return 'app/vistas/sasisopa/elemento4/detalle-experiencia-cliente-index.php';}
+    public function editarExperienciaCliente(){return 'app/vistas/sasisopa/elemento4/editar-experiencia-cliente-index.php';}
+    public function indicadorVentas(){return 'app/vistas/sasisopa/elemento4/indicador-ventas-index.php';}
+    public function indicadorVentasReporte(){return 'app/vistas/sasisopa/elemento4/indicador-ventas-reporte-index.php';}
+    public function funcionesResponsabilidadesAutoridad(){return 'app/vistas/sasisopa/elemento5/funciones-responsabilidades-autoridad.php';}
+    public function competenciaPersonalCapacitacionEntrenamiento(){return 'app/vistas/sasisopa/elemento6/competencia-personal-capacitacion-entrenamiento.php';}
+    public function perfilesPuestoTrabajo(){return 'app/vistas/sasisopa/elemento6/perfiles-puesto-index.php';}
+    public function perfilesPersonal(){return 'app/vistas/sasisopa/elemento6/perfiles-personal-index.php';}
+    public function descargarFichaPersonal(){return 'app/vistas/sasisopa/elemento6/descargar-ficha-personal.php';}
+    public function descargarFichaPersonalReporte(){return 'app/vistas/sasisopa/elemento6/descargar-ficha-personal-reporte.php';}
+    public function fichaPersonal(){return 'app/vistas/sasisopa/elemento6/ficha-personal-index.php';}
+    public function capacitacionInterna(){return 'app/vistas/sasisopa/elemento6/capacitacion-interna-index.php';}
+    public function capacitacionInternaModulos(){return 'app/vistas/sasisopa/elemento6/capacitacion-interna-modulos-index.php';}
+    public function capacitacionExterna(){return 'app/vistas/sasisopa/elemento6/capacitacion-externa-index.php';}
+    public function descargarCapacitacionExterna(){return 'app/vistas/sasisopa/elemento6/descargar-capacitacion-externa.php';}
+    public function comunicacionParticipacionConsulta(){return 'app/vistas/sasisopa/elemento7/comunicacion-participacion-consulta-index.php';}
+    public function descargarComunicacionParticipacionConsulta(){return 'app/vistas/sasisopa/elemento7/descargar-comunicacion-participacion-consulta.php';}
+    public function descargarComunicacionParticipacionConsultaReporte(){return 'app/vistas/sasisopa/elemento7/descargar-comunicacion-participacion-consulta-reporte.php';}
+    public function descargarQuejaSugerencia(){return 'app/vistas/sasisopa/elemento7/descargar-quejas-sugerencias.php';}
+    public function controlDocumentosRegistros(){return 'app/vistas/sasisopa/elemento8/control-documentos-registros-index.php';}
+    public function controlDocumentosRL(){return 'app/vistas/sasisopa/elemento8/control-documentos-rl-index.php';}
+    public function descargarControlDocumentosRL(){return 'app/vistas/sasisopa/elemento8/descargar-control-documentos-rl.php';}
+    public function controlDocumentosSA(){return 'app/vistas/sasisopa/elemento8/control-documentos-sa-index.php';}
+    public function descargarControlDocumentosSA(){return 'app/vistas/sasisopa/elemento8/descargar-control-documentos-sa.php';}
+    public function mejoresPracticasEstandares(){return 'app/vistas/sasisopa/elemento9/mejores-practicas-estandares-index.php';}
+    public function descargarDisenoConstruccion(){return 'app/vistas/sasisopa/elemento9/descargar-diseno-construccion.php';}
+    public function descargarOperacionMantenimiento(){return 'app/vistas/sasisopa/elemento9/descargar-operacion-mantenimiento.php';}
+    public function controlActividadesProcesos(){return 'app/vistas/sasisopa/elemento10/control-actividades-procesos-index.php';}
+    public function programaAnualMantenimiento(){return 'app/vistas/sasisopa/elemento10/programa-anual-mantenimiento-index.php';}
+    public function agregarProgramaAnual(){return 'app/vistas/sasisopa/elemento10/agregar-programa-anual-index.php';}
+    public function descargarProgramaAnualMantenimiento(){return 'app/vistas/sasisopa/elemento10/descargar-programa-anual-mantenimiento.php';}
+    public function configuracionBitacora(){return 'app/vistas/sasisopa/elemento10/configuracion-bitacora-index.php';}
+    public function recepcionDescargarProducto(){return 'app/vistas/sasisopa/elemento10/recepcion-descargar-producto-index.php';}
+    public function mantenimientoPreventivoCorrectivo(){return 'app/vistas/sasisopa/elemento10/mantenimiento-preventivo-correctivo-index.php';}
+    public function descargarReporteMantenimientoPreventivo(){return 'app/vistas/sasisopa/elemento10/descargar-reporte-mantenimiento-preventivo.php';}
+    public function configuracionExtintores(){return 'app/vistas/sasisopa/elemento10/configuracion-extintores-index.php';}
+    public function mantenimientoCorrectivo(){return 'app/vistas/sasisopa/elemento10/mantenimiento-correctivo-index.php';}
+    public function reporteMantenimientoCorrectivo(){return 'app/vistas/sasisopa/elemento10/reporte-mantenimiento-correctivo-index.php';}
+    public function calibracionEquipos(){return 'app/vistas/sasisopa/elemento10/calibracion-equipos-index.php';}
+    public function configuracionTanques(){return 'app/vistas/sasisopa/elemento10/configuracion-tanques-index.php';}
+    public function configuracionDispensario(){return 'app/vistas/sasisopa/elemento10/configuracion-dispensario-index.php';}
+    public function configuracionSondasMedicion(){return 'app/vistas/sasisopa/elemento10/configuracion-sondas-medicion-index.php';}
+    public function configuracionJarraPatron(){return 'app/vistas/sasisopa/elemento10/configuracion-jarra-patron-index.php';}
+    public function bitacoraCalibracionEquipos(){return 'app/vistas/sasisopa/elemento10/bitacora-calibracion-equipos-index.php';}
+    public function bitacoraCalibracionEquipoJarraPatron(){return 'app/vistas/sasisopa/elemento10/bitacora-calibracion-equipos-jarra-patron.php';}
+    public function bitacoraCalibracionEquipoDispensario(){return 'app/vistas/sasisopa/elemento10/bitacora-calibracion-equipos-dispensario.php';}
+    public function bitacoraCalibracionEquipoSonda(){return 'app/vistas/sasisopa/elemento10/bitacora-calibracion-equipos-sonda.php';}
+    public function bitacoraCalibracionEquipoTanque(){return 'app/vistas/sasisopa/elemento10/bitacora-calibracion-equipos-tanques-almacenamiento.php';}
+    public function descargarBitacoraCalibracionEquipo(){return 'app/vistas/sasisopa/elemento10/descargar-bitacora-calibracion-equipos.php';}
+    public function bitacoraProfeco(){return 'app/vistas/sasisopa/elemento10/bitacora-profeco-index.php';}
+    public function bitacoraDispensario(){return 'app/vistas/sasisopa/elemento10/bitacora-dispensario-index.php';}
+    public function bitacoraMantenimiento(){return 'app/vistas/sasisopa/elemento10/bitacora-mantenimiento-index.php';}
+    public function bitacoraMantenimientoQuincenal(){return 'app/vistas/sasisopa/elemento10/bitacora-mantenimiento-quincenal-index.php';}
 
 }

@@ -167,16 +167,9 @@ table {
   margin-top: 2.5rem !important;
 }
 
-.badge {
-  padding: 0.25em 0.4em;
-  font-size: 75%;
-  font-weight: 700;
-  text-align: center;
-  border-radius: 0.25rem;
-}
 .badge-primary {
-  color: #fff;
-  background-color: #007bff;
+  color: #007bff;
+  font-weight: 700; 
 }
 </style>';
 
@@ -259,7 +252,7 @@ while($row_comunicado = mysqli_fetch_array($result_comunicado, MYSQLI_ASSOC)){
 $nomencargado = $row_comunicado['nombre'];
 $dirigidoa = $row_comunicado['dirigidoa'];
 
-$contenid0 .= '<table class="table table-bordered" style="font-size: .80em;">
+$contenid0 .= '<table class="table table-bordered">
 <tr>
 <th class="align-middle text-center">No.</th>
 <th class="align-middle text-center">Tema a comunicar</th>
@@ -270,7 +263,7 @@ $contenid0 .= '<table class="table table-bordered" style="font-size: .80em;">
 </tr>
 </table>';
 
-$contenid0 .= '<table class="table table-bordered" style="font-size: .80em;">
+$contenid0 .= '<table class="table table-bordered">
 <tr>
 <th class="align-middle text-center">Encargado de la comunicación:</th>
 <th class="align-middle text-center">Fecha:</th>
@@ -281,7 +274,7 @@ $contenid0 .= '<table class="table table-bordered" style="font-size: .80em;">
 </tr>
 </table>';
 
-$contenid0 .= '<table class="table table-bordered" style="font-size: .80em;">
+$contenid0 .= '<table class="table table-bordered" >
 <tr>
 <th class="align-middle text-center">Tipo de comunicación:</th>
 <th class="align-middle text-center">Material utilizado para la comunicación:</th>
@@ -297,12 +290,19 @@ for ($i=0; $i < count($separacadena) ; $i++) {
 $sql_puestos = "SELECT tipo_puesto FROM tb_puestos WHERE id = '".$separacadena[$i]."' ";
 $result_puestos = mysqli_query($con, $sql_puestos);
 while($row_puestos = mysqli_fetch_array($result_puestos, MYSQLI_ASSOC)){
+
+  if($i+1 < count($separacadena)){
+    $separa = ",";
+  }else{
+    $separa = ".";
+  }
+
 $puesto = $row_puestos['tipo_puesto'];
-$dirigido .= '<span class="badge badge-primary">'.$puesto.'</span>';
+$dirigido .= '<span class="badge-primary">'.$puesto.$separa.' </span>';
 }
 }
 
-$contenid0 .= '<table class="table table-bordered" style="font-size: .80em;">
+$contenid0 .= '<table class="table table-bordered" >
 <tr>
 <th class="align-middle text-center">Seguimiento de la comunicación:</th>
 <th class="align-middle text-center">Dirigido a:</th>
@@ -313,7 +313,7 @@ $contenid0 .= '<table class="table table-bordered" style="font-size: .80em;">
 </tr>
 </table>';
 
-$contenid0 .= '<table class="table table-bordered" style="font-size: .80em;">
+$contenid0 .= '<table class="table table-bordered">
 <tr>
 <th class="align-middle text-center">Detalle:</th>
 </tr>
@@ -321,6 +321,7 @@ $contenid0 .= '<table class="table table-bordered" style="font-size: .80em;">
 <td class="align-middle text-center">'.$row_comunicado['detalle'].'</td>
 </tr>
 </table>';
+
 
 }
 
@@ -352,5 +353,10 @@ $dompdf->setPaper("A4", "portrait");
 $dompdf->render();
 $canvas = $dompdf->get_canvas();
 $canvas->page_text(525, 810, "Página: {PAGE_NUM} de {PAGE_COUNT}", null, 7, array(0, 0, 0));
+
 // Ponemos el PDF en el browser
 $dompdf->stream('Comunicación, participación y consulta.pdf',["Attachment" => true]);
+
+//-----------------
+mysqli_close($con);
+//-----------------

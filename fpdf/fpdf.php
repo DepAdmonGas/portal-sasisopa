@@ -925,7 +925,7 @@ function Image($file, $x=null, $y=null, $w=0, $h=0, $type='', $link='')
 	}
 
 	if($x===null)
-		$x = $this->x;
+	$x = $this->x;
 	$this->_out(sprintf('q %.2F 0 0 %.2F %.2F %.2F cm /I%d Do Q',$w*$this->k,$h*$this->k,$x*$this->k,($this->h-($y+$h))*$this->k,$info['i']));
 	if($link)
 		$this->Link($x,$y,$w,$h,$link);

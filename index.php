@@ -96,9 +96,64 @@ switch ($partes_ruta[1])
     case 'descargar-operacion-mantenimiento':
     $ruta_elegida = $index_controlador->descargarOperacionMantenimiento();
     break;
+    case '10-control-actividades-procesos':
+    $ruta_elegida = $index_controlador->controlActividadesProcesos();
+    break;
+    case 'programa-anual-mantenimiento':
+    $ruta_elegida = $index_controlador->programaAnualMantenimiento();
+    break;
+    case 'configuracion-bitacora':
+    $ruta_elegida = $index_controlador->configuracionBitacora();
+    break;
+    case 'recepcion-descargar-producto':
+    $ruta_elegida = $index_controlador->recepcionDescargarProducto();
+    break;
+    case 'mantenimiento-preventivo-correctivo':
+      $ruta_elegida = $index_controlador->mantenimientoPreventivoCorrectivo();
+    break;
+    case 'configuracion-extintores':
+      $ruta_elegida = $index_controlador->configuracionExtintores();
+    break;
+    case 'mantenimiento-correctivo':
+      $ruta_elegida = $index_controlador->mantenimientoCorrectivo();
+    break;
+    case 'reporte-mantenimiento-correctivo':
+      $ruta_elegida = $index_controlador->reporteMantenimientoCorrectivo();
+    break;
+    case 'calibracion-equipos':
+      $ruta_elegida = $index_controlador->calibracionEquipos();
+    break;
+    case 'configuracion-tanques':
+      $ruta_elegida = $index_controlador->configuracionTanques();
+    break;
+    case 'configuracion-dispensario':
+      $ruta_elegida = $index_controlador->configuracionDispensario();
+    break;
+    case 'configuracion-sondas-medicion':
+      $ruta_elegida = $index_controlador->configuracionSondasMedicion();
+    break;
+    case 'configuracion-jarra-patron':
+      $ruta_elegida = $index_controlador->configuracionJarraPatron();
+    break;
+    case 'bitacora-calibracion-equipos':
+      $ruta_elegida = $index_controlador->bitacoraCalibracionEquipos();
+    break;
+    case 'bitacora-profeco':
+      $ruta_elegida = $index_controlador->bitacoraProfeco();
+    break;
+    case 'bitacora-dispensario':
+      $ruta_elegida = $index_controlador->bitacoraDispensario();
+    break;
+    case 'bitacora-mantenimiento':
+      $ruta_elegida = $index_controlador->bitacoraMantenimiento();
+    break;
+    case 'bitacora-mantenimiento-quincenal':
+      $ruta_elegida = $index_controlador->bitacoraMantenimientoQuincenal();
+      break;
     //-------- ELEMENTOS SASISOPA FIN -------------------
     //---------------------------------------------------
 
+      
 case 'perfil':
 $ruta_elegida = 'public/perfil/perfil-index.php';
 break;	 
@@ -140,40 +195,16 @@ case 'comunicados':
 $ruta_elegida = 'public/gerente/comunicados-index.php';
 break;
 //--------------------Puntos Sasisopa ----------
-
-
-
-case '10-control-actividades-procesos':
-$ruta_elegida = 'public/sasisopa/control-actividades-procesos-index.php';
-break;
-case 'programa-anual-mantenimiento':
-$ruta_elegida = 'public/sasisopa/programa-anual-mantenimiento-index.php';
-break;
-case 'recepcion-descargar-producto':
-$ruta_elegida = 'public/sasisopa/recepcion-descargar-producto-index.php';
-break;
 case 'reporte-bitacora-recepcion-descargar-producto':
 $ruta_elegida = 'public/sasisopa/reporte-bitacora-recepcion-descargar-producto-index.php';
 break;
-case 'mantenimiento-preventivo-correctivo':
-$ruta_elegida = 'public/sasisopa/mantenimiento-preventivo-correctivo-index.php';
-break;
 //-----------------------------------------------------------------
-case 'bitacora-mantenimiento':
-$ruta_elegida = 'public/sasisopa/bitacora-mantenimiento-index.php';
-break;
-
 case 'bitacora-mantenimiento-pendiente':
 $ruta_elegida = 'public/sasisopa/bitacora-mantenimiento-pendiente-index.php';
 break;
 case 'bitacora-mantenimiento-preventivo':
 $ruta_elegida = 'public/sasisopa/bitacora-mantenimiento-preventivo-index.php';
 break;
-
-case 'bitacora-mantenimiento-quincenal':
-$ruta_elegida = 'public/sasisopa/bitacora-mantenimiento-quincenal-index.php';
-break;
-
 case 'bitacora-mantenimiento-correctivo':
 $ruta_elegida = 'public/sasisopa/bitacora-mantenimiento-correctivo-index.php';
 break;
@@ -183,38 +214,7 @@ break;
 case 'bitacora-recepcion-descargar-producto':
 $ruta_elegida = 'public/sasisopa/bitacora-recepcion-descargar-producto-index.php';
 break;
-
-
 //-----------------------------------------------------------------
-case 'configuracion-bitacora':
-$ruta_elegida = 'public/sasisopa/configuracion-bitacora-index.php';
-break;
-case 'configuracion-extintores':
-$ruta_elegida = 'public/sasisopa/configuracion-extintores-index.php';
-break;
-case 'mantenimiento-correctivo':
-$ruta_elegida = 'public/sasisopa/mantenimiento-correctivo-index.php';
-break;
-case 'reporte-mantenimiento-correctivo':
-$ruta_elegida = 'public/sasisopa/reporte-mantenimiento-correctivo-index.php';
-break;
-case 'calibracion-equipos':
-$ruta_elegida = 'public/sasisopa/calibracion-equipos-index.php';
-break;
-
-case 'configuracion-tanques':
-$ruta_elegida = 'public/sasisopa/configuracion-tanques-index.php';
-break;
-case 'configuracion-sondas-medicion':
-$ruta_elegida = 'public/sasisopa/configuracion-sondas-medicion-index.php';
-break;
-case 'configuracion-jarra-patron':
-$ruta_elegida = 'public/sasisopa/configuracion-jarra-patron-index.php';
-break;
-case 'bitacora-calibracion-equipos':
-$ruta_elegida = 'public/sasisopa/bitacora-calibracion-equipos-index.php';
-break;
-
 case '11-integridad-mecanica-aseguramiento':
 $ruta_elegida = 'public/sasisopa/integridad-mecanica-aseguramiento-index.php';
 break;
@@ -254,7 +254,6 @@ break;
 case 'descargar-programa-implementacion-s-a':
 $ruta_elegida = 'public/sasisopa/vistas/descargar-programa-implementacion-s-a.php';
 break;
-
 case '15-auditorias':
 $ruta_elegida = 'public/sasisopa/auditorias-index.php';
 break;
@@ -279,7 +278,6 @@ break;
 case '18-informes-desempeno':
 $ruta_elegida = 'public/sasisopa/informes-desempeno-index.php';
 break;
-
 case 'nom-035-etapas':
 $ruta_elegida = 'public/sasisopa/nom-035-etapas-index.php';
 break;
@@ -292,32 +290,18 @@ break;
 case 'nom-035-factores-riesgo':
 $ruta_elegida = 'public/sasisopa/nom-035-factores-riesgo-index.php';
 break;
-
 case 'cambio-precio':
 $ruta_elegida = 'public/gerente/cambio-precio-index.php';
 break;
-
-case 'bitacora-profeco':
-$ruta_elegida = 'public/sasisopa/bitacora-profeco-index.php';
-break;
-case 'configuracion-dispensario':
-$ruta_elegida = 'public/sasisopa/configuracion-dispensario-index.php';
-break;
-case 'bitacora-dispensario':
-$ruta_elegida = 'public/sasisopa/bitacora-dispensario-index.php';
-break;
-
 case 'apertura-dispensario':
 $ruta_elegida = 'public/administrador/apertura-dispensario-index.php';
 break;
-
-
 //----- CERRAR SESION DEL USUARIO -----//
 case 'salir':
 $ruta_elegida = 'app/modelo/acceso/logout-usuarios.php';
 break;
-
 }
+
 }else if(count($partes_ruta) == 3){
   
     //--------------------------------------------
@@ -366,6 +350,34 @@ break;
     $GET_idRegistro = $partes_ruta[2];
     $ruta_elegida = $index_controlador->descargarQuejaSugerencia();
     }
+    else if ($partes_ruta[1] == 'programa-anual-mantenimiento'){
+    $idReporte = $partes_ruta[2];
+    $ruta_elegida = $index_controlador->agregarProgramaAnual();
+    }
+    else if ($partes_ruta[1] == 'descargar-programa-anual-mantenimiento') {
+    $GET_idRegistro = $partes_ruta[2];
+    $ruta_elegida = $index_controlador->descargarProgramaAnualMantenimiento();
+    }
+    else if ($partes_ruta[1] == 'bitacora-calibracion-equipos-jarra-patron') {
+      $GET_ID = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->bitacoraCalibracionEquipoJarraPatron();
+    }
+    else if ($partes_ruta[1] == 'bitacora-calibracion-equipos-dispensario') {
+      $GET_ID = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->bitacoraCalibracionEquipoDispensario();
+    }
+    else if ($partes_ruta[1] == 'bitacora-calibracion-equipos-sonda') {
+      $GET_ID = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->bitacoraCalibracionEquipoSonda();
+    }
+    else if ($partes_ruta[1] == 'bitacora-calibracion-equipos-tanques-almacenamiento') {
+      $GET_ID = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->bitacoraCalibracionEquipoTanque();
+    }
+    else if ($partes_ruta[1] == 'descargar-bitacora-calibracion-equipos') {
+      $GET_YEAR = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->descargarBitacoraCalibracionEquipo();
+    }
     //---------------------------------------------
     //---------------------------------------------
     //------------ LISTA ASISTENCIA ---------------
@@ -380,19 +392,11 @@ break;
     }
     //-------------------------------------------------
     //-------------------------------------------------
-    
-
-
-
-    
+        
     else if ($partes_ruta[1] == '1-politica-asistencia') {
     $GET_idRegistro = $partes_ruta[2];
     $ruta_elegida = 'public/sasisopa/politica-asistencia-index.php';
     }
-
-    
-    
-
     else if($partes_ruta[1] == 'nuevo-reporte-diario'){
     $GET_idReporte = $partes_ruta[2];
     $ruta_elegida = 'public/gerente/agregar-reporte-diario-index.php';
@@ -402,12 +406,7 @@ break;
     }else if ($partes_ruta[1] == 'gestoria-reporte-estadistico-cre') {
     $idEstacion = $partes_ruta[2];
     $ruta_elegida = 'public/administrador/reporte-estadistico-index.php';
-    }
-    
-    else if ($partes_ruta[1] == 'programa-anual-mantenimiento'){
-    $idReporte = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/agregar-programa-anual-index.php';
-    }
+    }    
     else  if ($partes_ruta[1] == 'modulos') {
     $idTema = $partes_ruta[2];
     $ruta_elegida = 'public/cursos/detalle-modulos.php';
@@ -443,12 +442,10 @@ break;
     $ruta_elegida = 'public/administrador/nom-035-factores-riesgo-index.php';
     }
     //--------------------------------------------------------------
-
     else if ($partes_ruta[1] == 'gestoria-calibracion-tanques') {
     $idEstacion = $partes_ruta[2];
     $ruta_elegida = 'public/administrador/gestoria-calibracion-tanques.php';
     }  
-
     //--------------------------------------------------------------
     else if ($partes_ruta[1] == 'gestoria-bitacoras-configuracion'){
     $idEstacion = $partes_ruta[2];
@@ -465,33 +462,19 @@ break;
     $Mantenimiento = $partes_ruta[2];
     $ruta_elegida = 'public/sasisopa/reporte-bitacora-mantenimiento-index.php';
     }
-
     else if ($partes_ruta[1] == 'cambio-precio') {
     $idEstacion = $partes_ruta[2];
     $ruta_elegida = 'public/administrador/cambio-precio-index.php';
     }
-
     //---------------------------------------------------------------
-
     else if ($partes_ruta[1] == 'gestoria-analisis-riesgo') {
     $idEstacion = $partes_ruta[2];
     $ruta_elegida = 'public/administrador/analisis-riesgo-index.php';
     }
-
     //-----------------------------------------------------------------
-
-    
-
     else if ($partes_ruta[1] == 'editar-calendario') {
     $idEstacion = $partes_ruta[2];
     $ruta_elegida = 'public/gerente/calendario-editar.php';
-    }
-
-    
-
-    else if ($partes_ruta[1] == 'descargar-programa-anual-mantenimiento') {
-    $GET_idRegistro = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/vistas/descargar-programa-anual-mantenimiento.php';
     }
     else if ($partes_ruta[1] == 'descargar-seguridad-contratistas') {
     $GET_idRegistro = $partes_ruta[2];
@@ -501,7 +484,6 @@ break;
     $GET_Year = $partes_ruta[2];
     $ruta_elegida = 'public/sasisopa/vistas/descargar-simulacros.php';
     }
-
     else if ($partes_ruta[1] == 'descargar-carta-responsiva') {
     $GET_ID = $partes_ruta[2];
     $ruta_elegida = 'public/sasisopa/vistas/descargar-carta-responsiva.php';
@@ -514,63 +496,30 @@ break;
     $GET_ID = $partes_ruta[2];
     $ruta_elegida = 'public/sasisopa/vistas/descargar-autorizacion-trabajos-peligrosos.php';
     }
-
     else if ($partes_ruta[1] == 'descargar-registro-atencio-seguimiento-comunicacion-interna-externa') {
     $GET_ID = $partes_ruta[2];
     $ruta_elegida = 'public/sasisopa/vistas/descargar-registro-atencio-seguimiento-comunicacion-interna-externa.php';
     }
-
     else if ($partes_ruta[1] == 'descargar-revision-resultados-detalle') {
     $GET_Year = $partes_ruta[2];
     $ruta_elegida = 'public/sasisopa/vistas/descargar-revision-resultados-detalle.php';
     }
-
     else if ($partes_ruta[1] == 'descargar-investigacion-sin-incidentes-accidentes') {
     $GET_ID = $partes_ruta[2];
     $ruta_elegida = 'public/sasisopa/vistas/descargar-investigacion-sin-incidentes-accidentes.php';
     }
-
-    else if ($partes_ruta[1] == 'bitacora-calibracion-equipos-dispensario') {
-    $GET_ID = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/bitacora-calibracion-equipos-dispensario.php';
-    }
-
-    else if ($partes_ruta[1] == 'bitacora-calibracion-equipos-jarra-patron') {
-    $GET_ID = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/bitacora-calibracion-equipos-jarra-patron.php';
-    }
-
-    else if ($partes_ruta[1] == 'bitacora-calibracion-equipos-sonda') {
-    $GET_ID = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/bitacora-calibracion-equipos-sonda.php';
-    }
-
-    else if ($partes_ruta[1] == 'bitacora-calibracion-equipos-tanques-almacenamiento') {
-    $GET_ID = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/bitacora-calibracion-equipos-tanques-almacenamiento.php';
-    }
-
-    else if ($partes_ruta[1] == 'descargar-bitacora-calibracion-equipos') {
-    $GET_YEAR = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/vistas/descargar-bitacora-calibracion-equipos.php';
-    }
-
     else if ($partes_ruta[1] == 'atencion-hallazgos') {
     $GET_ID = $partes_ruta[2];
     $ruta_elegida = 'public/sasisopa/atencion-hallazgos-editar.php';
     }
-
     else if ($partes_ruta[1] == 'descargar-atencion-hallazgos') {
     $GET_ID = $partes_ruta[2];
     $ruta_elegida = 'public/sasisopa/vistas/descargar-atencion-hallazgos.php';
     }
-
     //-------------------------------------------------------------------
     //-------------------------------------------------------------------
-
     //----------------------------------
     //---- Version nueva cursos --------
-
     else if ($partes_ruta[1] == 'cursos-temas') {
     $GET_idModulo = $partes_ruta[2];
     $ruta_elegida = 'public/cursos/cursos-temas-index.php';
@@ -587,10 +536,8 @@ break;
     $GET_idCalendario = $partes_ruta[2];
     $ruta_elegida = 'public/cursos/cursos-temas-evaluacion.php';
     }
-
     //----------------------------------
     //----------------------------------
-    
     else if ($partes_ruta[1] == 'gestoria-entregas-editar') {
     $GET_ID = $partes_ruta[2];
     $ruta_elegida = 'public/administrador/gestoria-entregas-editar.php';
@@ -599,10 +546,7 @@ break;
     $GET_ID = $partes_ruta[2];
     $ruta_elegida = 'public/administrador/gestoria-entregas-descargar.php';
     }
-
-
   }else if(count($partes_ruta) == 4){
-
     //---------------------------- SASISOPA --------------------------------
     //----------------------------------------------------------------------
     if ($partes_ruta[2] == 'detalle-experiencia-cliente'){
@@ -617,9 +561,13 @@ break;
       $selyear = $partes_ruta[3];
       $ruta_elegida = $index_controlador->indicadorVentasReporte();
       }
+      else if ($partes_ruta[1] == 'reporte-mantenimiento-correctivo') {
+        $SelYear = $partes_ruta[2];
+        $SelMes = $partes_ruta[3];
+        $ruta_elegida = $index_controlador->reporteMantenimientoCorrectivo();
+      }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-
     else if ($partes_ruta[1] == 'detalle-reporte-diario'){
     $idReporte = $partes_ruta[2];
     $idFecha = $partes_ruta[3];
@@ -634,21 +582,15 @@ break;
     $ruta_elegida = 'public/gerente/lista-dias-cre-index.php';
     }
     else if ($partes_ruta[1] == 'iniciar-presentacion') {
-              $idTema = $partes_ruta[2];
-              $idModulo = $partes_ruta[3];
-              $ruta_elegida = 'public/cursos/detalle-presentacion-modulo.php';
-            }
-    else if ($partes_ruta[1] == 'reporte-mantenimiento-correctivo') {
-              $SelYear = $partes_ruta[2];
-              $SelMes = $partes_ruta[3];
-              $ruta_elegida = 'public/sasisopa/reporte-mantenimiento-correctivo-index.php';
-            }
-    
+    $idTema = $partes_ruta[2];
+    $idModulo = $partes_ruta[3];
+    $ruta_elegida = 'public/cursos/detalle-presentacion-modulo.php';
+    }      
     else if ($partes_ruta[1] == 'reporte-bitacora-profeco') {
-              $selyear = $partes_ruta[2];
-              $selmes = $partes_ruta[3];
-              $ruta_elegida = 'public/sasisopa/vistas/reporte-bitacora-profeco-index.php';
-            }
+    $selyear = $partes_ruta[2];
+    $selmes = $partes_ruta[3];
+    $ruta_elegida = 'public/sasisopa/vistas/reporte-bitacora-profeco-index.php';
+    }
     else if ($partes_ruta[2] == 'descargar-requisitos-legales') {
     $idEstacion = $partes_ruta[3];
     $ruta_elegida = 'public/administrador/vistas/descargar-requisitos-legales.php';
@@ -663,72 +605,65 @@ break;
     $FechaFin = $partes_ruta[3];
     $ruta_elegida = 'public/sasisopa/vistas/descargar-programa-auditorias-internas-externas.php';
     }
-
     else if ($partes_ruta[1] == 'gestoria-calibracion-tanques') {
     $idEstacion = $partes_ruta[2];
     $idReporte = $partes_ruta[3];
     $ruta_elegida = 'public/administrador/gestoria-calibracion-tanques-nuevo.php';
     } 
-
     else if ($partes_ruta[1] == 'reporte-sasisopa') {
     $FechaInicio = $partes_ruta[2];
     $FechaTermino = $partes_ruta[3];
     $ruta_elegida = 'public/reporte-sasisopa/reporte-sasisopa-elementos.php';
     }
-
     else if ($partes_ruta[1] == 'descargar-reconocimiento-modulo') {
-      $GET_idYear = $partes_ruta[2];
-      $GET_idModulo = $partes_ruta[3];
-      $ruta_elegida = 'public/cursos/descargar-reconocimiento-modulo.php';
-      }
+    $GET_idYear = $partes_ruta[2];
+    $GET_idModulo = $partes_ruta[3];
+    $ruta_elegida = 'public/cursos/descargar-reconocimiento-modulo.php';
+    }
 
   }else if(count($partes_ruta) == 5){
 
     if ($partes_ruta[1] == 'descargar-comunicacion-participacion-consulta') {
-      $GET_idYear = $partes_ruta[2];
-      $GET_idEstacion = $partes_ruta[3];
-      $GET_idRegistro = $partes_ruta[4];
-      $ruta_elegida = $index_controlador->descargarComunicacionParticipacionConsulta();
-      }
-      else if ($partes_ruta[1] == 'descargar-comunicacion-participacion-consulta-reporte') {
-      $GET_idYear = $partes_ruta[2];
-      $GET_idEstacion = $partes_ruta[3];
-      $GET_idRegistro = $partes_ruta[4];
-      $ruta_elegida = $index_controlador->descargarComunicacionParticipacionConsultaReporte();
-      }
+    $GET_idYear = $partes_ruta[2];
+    $GET_idEstacion = $partes_ruta[3];
+    $GET_idRegistro = $partes_ruta[4];
+    $ruta_elegida = $index_controlador->descargarComunicacionParticipacionConsulta();
+    }
+    else if ($partes_ruta[1] == 'descargar-comunicacion-participacion-consulta-reporte') {
+    $GET_idYear = $partes_ruta[2];
+    $GET_idEstacion = $partes_ruta[3];
+    $GET_idRegistro = $partes_ruta[4];
+    $ruta_elegida = $index_controlador->descargarComunicacionParticipacionConsultaReporte();
+    }
+    else if ($partes_ruta[1] == 'reporte-mantenimiento-preventivo') {
+    $Selectequipo = $partes_ruta[2];
+    $selyear = $partes_ruta[3];
+    $selmes = $partes_ruta[4];
+    $ruta_elegida = $index_controlador->descargarReporteMantenimientoPreventivo();
+    }
     //-------------------------------------------------------------------
     //-------------------------------------------------------------------
-
     else if ($partes_ruta[1] == 'reconocimiento-pdf') {
-              $idTema = $partes_ruta[2];
-              $idModulo = $partes_ruta[3];
-              $idUsuario = $partes_ruta[4];
-              $ruta_elegida = 'public/cursos/reconocimiento.php';
-            }else  if ($partes_ruta[1] == 'reporte-mantenimiento-preventivo') {
-              $Selectequipo = $partes_ruta[2];
-              $selyear = $partes_ruta[3];
-              $selmes = $partes_ruta[4];
-              $ruta_elegida = 'public/sasisopa/descargar-reporte-mantenimiento-preventivo.php';
-            }
-            else  if ($partes_ruta[2] == 'descargar-reporte-cre') {
-              $idEstacion = $partes_ruta[3];
-              $selyear = $partes_ruta[4];
-              $ruta_elegida = 'public/administrador/vistas/descargar-facturas.php';
-            }
-
-    
-    
+    $idTema = $partes_ruta[2];
+    $idModulo = $partes_ruta[3];
+    $idUsuario = $partes_ruta[4];
+    $ruta_elegida = 'public/cursos/reconocimiento.php';
+    }
+    else if ($partes_ruta[2] == 'descargar-reporte-cre') {
+    $idEstacion = $partes_ruta[3];
+    $selyear = $partes_ruta[4];
+    $ruta_elegida = 'public/administrador/vistas/descargar-facturas.php';
+    }
 
   }else if(count($partes_ruta) == 6){
-
-    
-           if ($partes_ruta[1] == 'reporte-bitacora-producto') {
-              $selyear = $partes_ruta[2];
-              $selmes = $partes_ruta[3];
-              $inicio = $partes_ruta[4];
-              $fin = $partes_ruta[5];
-              $ruta_elegida = 'public/sasisopa/descargar-reporte-bitacora-recepcion-descarga-producto.php';
-            }
+   
+  if ($partes_ruta[1] == 'reporte-bitacora-producto') {
+  $selyear = $partes_ruta[2];
+  $selmes = $partes_ruta[3];
+  $inicio = $partes_ruta[4];
+  $fin = $partes_ruta[5];
+  $ruta_elegida = 'public/sasisopa/descargar-reporte-bitacora-recepcion-descarga-producto.php';
+  }
 
   }
 
