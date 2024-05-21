@@ -1,17 +1,12 @@
 <?php
 require('app/help.php');
+include_once "app/modelo/Ayuda.php";
 
-$sql_sasisopa_ayuda = "SELECT * FROM pu_sasisopa_ayuda WHERE id_usuario = '".$Session_IDUsuarioBD."' and detalle = '11-integridad-mecanica-aseguramiento' and estado = 0 LIMIT 1";
-$result_sasisopa_ayuda = mysqli_query($con, $sql_sasisopa_ayuda);
-$numero_sasisopa_ayuda = mysqli_num_rows($result_sasisopa_ayuda);
+$class_ayuda = new Ayuda();
+$array_ayuda = $class_ayuda->sasisopaAyuda($Session_IDUsuarioBD,'11-integridad-mecanica-aseguramiento');
+$id_ayuda = $array_ayuda['id'];
+$estado = $array_ayuda['estado'];
 
-if ($numero_sasisopa_ayuda == 1) {
-while($row_ayuda = mysqli_fetch_array($result_sasisopa_ayuda, MYSQLI_ASSOC)){
-$idAyuda = $row_ayuda['id'];
-}
-}else{
-$idAyuda = 0;
-}
 ?>
 
 <html lang="es">
@@ -48,213 +43,207 @@ $idAyuda = 0;
   $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
   $(".LoaderPage").fadeOut("slow");
-  <?php if ($numero_sasisopa_ayuda == 1) {echo "btnAyuda();";} ?>
+  <?php if ($id_ayuda != 0) {echo "btnAyuda();";} ?>
 
   CargarListaEquipo();
   });
   function regresarP(){
-   window.location.href = "<?=SERVIDOR;?>";
-  }
-  function btnBitacora(){
-    window.location.href = "bitacoras-caracteristicas";
-  }
-
- function btnProgramaAnual(){
-  window.location.href = "programa-anual-mantenimiento";  
+    window.history.back();
   }
 
   function btnAyuda(){
   $('#ModalAyuda').modal('show');
   }
 
-    function btnFinAyuda(){
+  function btnFinAyuda(idayuda, estado){
 
-var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
+    var parametros = {
+    "accion" : "actualizar-ayuda",
+    "idayuda" : idayuda
+    };
 
- var parametros = {
-        "idAyuda" : <?=$idAyuda; ?>
-      };
+    if (idayuda != 0 && estado == 0) {
+    $.ajax({
+    data:  parametros,
+    url:   'app/controlador/AyudaControlador.php',
+    type:  'post',
+    beforeSend: function() {
+    },
+    complete: function(){
+    },
+    success:  function (response) {
+    $('#ModalAyuda').modal('hide');
+    }
+    });
 
-  if (puntosSasisopa != 0) {
+    }else{
+    $('#ModalAyuda').modal('hide');
+    }
+    }
 
-   $.ajax({
-   data:  parametros,
-   url:   'public/sasisopa/actualizar/actualizar-ayuda.php',
-   type:  'post',
-   beforeSend: function() {
-   },
-   complete: function(){
-   },
-   success:  function (response) {
-   $('#ModalAyuda').modal('hide');
-   }
-   });
+    function btnProgramaAnual(){
+    window.location.href = "programa-anual-mantenimiento";  
+    }
 
-  }else{
-  $('#ModalAyuda').modal('hide');
-  }
-}
+    function btnBitacora(){
+    window.location.href = "bitacoras-caracteristicas";
+    }
 
-function CargarListaEquipo(){
+    function CargarListaEquipo(){
+    $.ajax({
+    url:   'app/vistas/sasisopa/elemento11/lista-equipo-critico.php',
+    type:  'post',
+    beforeSend: function() {
+    },
+    complete: function(){
+    },
+    success:  function (response) {
+    $('#ConteListaEquipo').html(response);
+    }
+    });
+    }
 
-  var idEstacion = <?=$Session_IDEstacion;?>;
+    function BtnEquipoCritico(){
+    $('#ModalEquipoCritico').modal('show');
+    }
 
-  var parametros = {
-  "idEstacion" : idEstacion
-  };
+    function btnGuardar(){
 
-  $.ajax({
-  data:  parametros,
-  url:   'public/sasisopa/vistas/lista-equipo-critico.php',
-  type:  'post',
-  beforeSend: function() {
-  },
-  complete: function(){
-  },
-  success:  function (response) {
-   $('#ConteListaEquipo').html(response);
+    var NombreEquipo = $('#NombreEquipo').val();
+    var MarcaModelo = $('#MarcaModelo').val();
+    var Funcion = $('#Funcion').val();
+    var FechaInstalacion = $('#FechaInstalacion').val();
+    var TiempoVida = $('#TiempoVida').val();
 
-  }
-  });
-}
+    var ManualPDF = document.getElementById("ManualPDF");
+    var ManualPDF_file = ManualPDF.files[0];
+    var ManualPDF_filePath = ManualPDF.value;
 
-function BtnEquipoCritico(){
-$('#ModalEquipoCritico').modal('show');
-}
+    var data = new FormData();
+    var url = 'app/controlador/IntegridadMecanicaAseguramientoControlador.php';
+    var ext = $("#ManualPDF").val().split('.').pop();
 
-function btnGuardar(){
-var idEstacion = <?=$Session_IDEstacion;?>;
-var NombreEquipo = $('#NombreEquipo').val();
-var MarcaModelo = $('#MarcaModelo').val();
-var Funcion = $('#Funcion').val();
-var FechaInstalacion = $('#FechaInstalacion').val();
-var TiempoVida = $('#TiempoVida').val();
+    if (NombreEquipo != "") {
+    $('#NombreEquipo').css('border',''); 
+    if (MarcaModelo != "") {
+    $('#MarcaModelo').css('border',''); 
+    if (Funcion != "") {
+    $('#Funcion').css('border',''); 
+    if (FechaInstalacion != "") {
+    $('#FechaInstalacion').css('border',''); 
+    if (TiempoVida != "") {
+    $('#TiempoVida').css('border',''); 
+    if (ext == "PDF" || ext == "pdf") {
+    $('#Resultado').html('');
+    $('#ManualPDF').css('border','');  
+    
+    data.append('accion', 'agregar-equipo-critico');
+    data.append('NombreEquipo', NombreEquipo);
+    data.append('MarcaModelo', MarcaModelo);
+    data.append('Funcion', Funcion);
+    data.append('FechaInstalacion', FechaInstalacion);
+    data.append('TiempoVida', TiempoVida);
+    data.append('ManualPDF_file', ManualPDF_file);
 
-var ManualPDF = document.getElementById("ManualPDF");
-var ManualPDF_file = ManualPDF.files[0];
-var ManualPDF_filePath = ManualPDF.value;
+    $.ajax({
+    url: url,
+    type: 'POST',
+    contentType: false,
+    data: data,
+    processData: false,
+    cache: false
+    }).done(function(data){
 
-var data = new FormData();
-var url = 'public/sasisopa/agregar/agregar-equipo-critico.php';
-var ext = $("#ManualPDF").val().split('.').pop();
+        console.log(data)
 
-if (NombreEquipo != "") {
-$('#NombreEquipo').css('border',''); 
-if (MarcaModelo != "") {
-$('#MarcaModelo').css('border',''); 
-if (Funcion != "") {
-$('#Funcion').css('border',''); 
-if (FechaInstalacion != "") {
-$('#FechaInstalacion').css('border',''); 
-if (TiempoVida != "") {
-$('#TiempoVida').css('border',''); 
-if (ext == "PDF" || ext == "pdf") {
-$('#Resultado').html('');
-$('#ManualPDF').css('border','');  
+    CargarListaEquipo();
+    alertify.success('Se agregó correctamente la información');
+    $('#ModalEquipoCritico').modal('hide');
 
-  data.append('idEstacion', idEstacion);
-  data.append('NombreEquipo', NombreEquipo);
-  data.append('MarcaModelo', MarcaModelo);
-  data.append('Funcion', Funcion);
-  data.append('FechaInstalacion', FechaInstalacion);
-  data.append('TiempoVida', TiempoVida);
-  data.append('ManualPDF_file', ManualPDF_file);
+    });
 
-$.ajax({
-  url: url,
-  type: 'POST',
-  contentType: false,
-  data: data,
-  processData: false,
-  cache: false
-  }).done(function(data){
+    }else{
+    $('#Resultado').html('<small class="text-danger">Solo se aceptan formato PDF</small>');
+    $('#ManualPDF').css('border','2px solid #A52525');    
+    }
+    }else{
+    $('#TiempoVida').css('border','2px solid #A52525');  
+    }
+    }else{
+    $('#FechaInstalacion').css('border','2px solid #A52525');  
+    }
+    }else{
+    $('#Funcion').css('border','2px solid #A52525');  
+    }
+    }else{
+    $('#MarcaModelo').css('border','2px solid #A52525');  
+    }
+    }else{
+    $('#NombreEquipo').css('border','2px solid #A52525');  
+    }
 
-  CargarListaEquipo();
-  alertify.success('Se agregó correctamente la información');
-  $('#ModalEquipoCritico').modal('hide');
+    }
 
-  });
+    function ModalEliminar(id){
+    $('#ModalEliminarBaja').modal('show');
+    $('#IdEquipoCritico').val(id);
+    }
 
-}else{
-$('#Resultado').html('<small class="text-danger">Solo se aceptan formato PDF</small>');
-$('#ManualPDF').css('border','2px solid #A52525');    
-}
-}else{
-$('#TiempoVida').css('border','2px solid #A52525');  
-}
-}else{
-$('#FechaInstalacion').css('border','2px solid #A52525');  
-}
-}else{
-$('#Funcion').css('border','2px solid #A52525');  
-}
-}else{
-$('#MarcaModelo').css('border','2px solid #A52525');  
-}
-}else{
-$('#NombreEquipo').css('border','2px solid #A52525');  
-}
+    function BTNBaja(){
+    var IdEquipo = $('#IdEquipoCritico').val();
 
-}
+    var parametros = {
+    "accion" : "actualizar-baja",
+    "IdEquipo" : IdEquipo
+    };
 
-function BTNEliminar(id){
-$('#ModalEliminarBaja').modal('show');
+    $.ajax({
+    data:  parametros,
+    url:   'app/controlador/IntegridadMecanicaAseguramientoControlador.php',
+    type:  'post',
+    beforeSend: function() {
+    },
+    complete: function(){
+    },
+    success:  function (response) {
+    CargarListaEquipo();
+    alertify.success('Se dio de baja correctamente la información');
+    $('#ModalEliminarBaja').modal('hide');
 
-$('#IdEquipoCritico').val(id);
-}
+    }
+    });
 
-function BTNBaja(){
-var IdEquipo = $('#IdEquipoCritico').val();
+    }
 
- var parametros = {
-  "IdEquipo" : IdEquipo
-  };
+    function BTNEliminar(){
+    var IdEquipo = $('#IdEquipoCritico').val();
 
-  $.ajax({
-  data:  parametros,
-  url:   'public/sasisopa/actualizar/actualizar-baja.php',
-  type:  'post',
-  beforeSend: function() {
-  },
-  complete: function(){
-  },
-  success:  function (response) {
-  CargarListaEquipo();
-  alertify.success('Se agregó correctamente la información');
-  $('#ModalEliminarBaja').modal('hide');
+    var parametros = {
+    "accion" : "eliminar-equipo-critico",
+    "IdEquipo" : IdEquipo
+    };
 
-  }
-  });
+    $.ajax({
+    data:  parametros,
+    url:   'app/controlador/IntegridadMecanicaAseguramientoControlador.php',
+    type:  'post',
+    beforeSend: function() {
+    },
+    complete: function(){
+    },
+    success:  function (response) {
+    CargarListaEquipo();
+    alertify.success('Se elimino correctamente la información');
+    $('#ModalEliminarBaja').modal('hide');
 
-}
-function BTNEliminir(){
-var IdEquipo = $('#IdEquipoCritico').val();
+    }
+    });
 
- var parametros = {
-  "IdEquipo" : IdEquipo
-  };
+    }
 
-  $.ajax({
-  data:  parametros,
-  url:   'public/sasisopa/actualizar/actualizar-eliminar.php',
-  type:  'post',
-  beforeSend: function() {
-  },
-  complete: function(){
-  },
-  success:  function (response) {
-  CargarListaEquipo();
-  alertify.success('Se agregó correctamente la información');
-  $('#ModalEliminarBaja').modal('hide');
-
-  }
-  });
-
-}
-
-function BtnDescargar(){
-window.location = "equipos-criticos";  
-}
+    function BtnDescargar(){
+    window.location = "equipos-criticos";  
+    }
    </script>
   </head>
   <body>
@@ -413,7 +402,7 @@ window.location = "equipos-criticos";
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda()">Aceptar</button>
+          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda(<?=$id_ayuda;?>,<?=$estado;?>)">Aceptar</button>
         </div>
       </div>
     </div>
@@ -484,7 +473,7 @@ window.location = "equipos-criticos";
         <input type="hidden" name="" id="IdEquipoCritico">
 
         <button type="button btn-block" class="btn btn-primary mt-2 rounded-0" style="width: 100%;" onclick="BTNBaja()">Dar de baja equipo critico</button>
-        <button type="button btn-block" class="btn btn-warning mt-2 rounded-0" style="width: 100%;" onclick="BTNEliminir()">Eliminar equipo critico</button>
+        <button type="button btn-block" class="btn btn-warning mt-2 rounded-0" style="width: 100%;" onclick="BTNEliminar()">Eliminar equipo critico</button>
         
         </div>
       </div>

@@ -40,7 +40,7 @@ require('app/help.php');
   
   });
   function regresarP(){
-   window.location.href = "11-integridad-mecanica-aseguramiento";
+    window.history.back();
   }
  
    </script>

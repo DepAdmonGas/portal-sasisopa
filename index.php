@@ -150,6 +150,15 @@ switch ($partes_ruta[1])
     case 'bitacora-mantenimiento-quincenal':
       $ruta_elegida = $index_controlador->bitacoraMantenimientoQuincenal();
       break;
+    case '11-integridad-mecanica-aseguramiento':
+      $ruta_elegida = $index_controlador->integridadMecanicaAseguramiento();
+    break;
+    case 'bitacoras-caracteristicas':
+      $ruta_elegida = $index_controlador->bitacorasCaracteristicas();
+    break;
+    case 'equipos-criticos':
+      $ruta_elegida = $index_controlador->descargarEquipoCritico();
+    break;
     //-------- ELEMENTOS SASISOPA FIN -------------------
     //---------------------------------------------------
 
@@ -215,15 +224,7 @@ case 'bitacora-recepcion-descargar-producto':
 $ruta_elegida = 'public/sasisopa/bitacora-recepcion-descargar-producto-index.php';
 break;
 //-----------------------------------------------------------------
-case '11-integridad-mecanica-aseguramiento':
-$ruta_elegida = 'public/sasisopa/integridad-mecanica-aseguramiento-index.php';
-break;
-case 'equipos-criticos':
-$ruta_elegida = 'public/sasisopa/descargar-equipos-criticos.php';
-break;
-case 'bitacoras-caracteristicas':
-$ruta_elegida = 'public/sasisopa/bitacoras-caracteristicas-index.php';
-break;
+
 case '12-seguridad-contratistas':
 $ruta_elegida = 'public/sasisopa/seguridad-contratistas-index.php';
 break;

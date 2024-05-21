@@ -6,6 +6,7 @@ use Dompdf\Dompdf;
 // Inicializamos dompdf
 $dompdf = new Dompdf();
 
+$contenid0 = '';
 $contenid0 .= '<head>';
 $contenid0 .= '<style type="text/css">
 @page {margin: 0.5cm 1cm; font-family: Arial, Helvetica, sans-serif;}
@@ -164,20 +165,19 @@ $contenid0 .= '<div class="text-center mt-1">'.$Session_Razonsocial.'</div>';
 $contenid0 .= '<div class="text-center mt-1"><small>'.$Session_Direccion.'</small></div>';
 $contenid0 .= '<div class="text-center mt-1"><small>'.$Session_ApoderadoLegal.'</small></div>';
 
-
 $sql_equipo = "SELECT * FROM tb_equipo_critico WHERE id_estacion = '".$Session_IDEstacion."' AND estado = 1 ORDER BY id_equipo desc";
 $result_equipo = mysqli_query($con, $sql_equipo);
 $numero_equipo = mysqli_num_rows($result_equipo);
 
-$contenid0 .= '<table class="table table-bordered table-striped table-hover table-sm mt-3" style="font-size:.9em;">
+$contenid0 .= '<table class="table table-bordered table-striped table-hover table-sm mt-3" style="font-size:.8em;">
 <thead>
 <tr>
-<th class="text-center">#</th>  
-<th>Nombre equipo</th>
-<th>Marca y Modelo</th>
-<th>Función</th>
-<th>Fecha de instalación</th>
-<th>Tiempo de vida</th>
+<th class="align-middle text-center">#</th>  
+<th class="align-middle">Nombre equipo</th>
+<th class="align-middle">Marca y Modelo</th>
+<th class="align-middle">Función</th>
+<th class="align-middle">Fecha de instalación</th>
+<th class="align-middle">Tiempo de vida</th>
 </tr>
 </thead>
 <tbody>';

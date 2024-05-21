@@ -52,7 +52,7 @@ $numero_lista = mysqli_num_rows($result_lista);
 <th class="text-center align-middle">Motivo</th>
 <th class="text-center align-middle">Responsable</th>
 <th class="text-center align-middle">Detalle</th>
-<th class="text-center align-middle"></th>
+<th class="text-center align-middle"><img src="<?=RUTA_IMG_ICONOS;?>eliminar.png"></th>
 </tr>
 </thead>
 <tbody>

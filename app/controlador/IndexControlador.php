@@ -71,5 +71,9 @@ class IndexControlador{
     public function bitacoraDispensario(){return 'app/vistas/sasisopa/elemento10/bitacora-dispensario-index.php';}
     public function bitacoraMantenimiento(){return 'app/vistas/sasisopa/elemento10/bitacora-mantenimiento-index.php';}
     public function bitacoraMantenimientoQuincenal(){return 'app/vistas/sasisopa/elemento10/bitacora-mantenimiento-quincenal-index.php';}
+    public function integridadMecanicaAseguramiento(){return 'app/vistas/sasisopa/elemento11/integridad-mecanica-aseguramiento-index.php';}
+    public function bitacorasCaracteristicas(){return 'app/vistas/sasisopa/elemento11/bitacoras-caracteristicas-index.php';}
+
+    public function descargarEquipoCritico(){return 'app/vistas/sasisopa/elemento11/descargar-equipos-criticos.php';}
 
 }

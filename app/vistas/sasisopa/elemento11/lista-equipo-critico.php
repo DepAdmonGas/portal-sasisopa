@@ -1,14 +1,6 @@
 <?php
-require('../../../app/help.php');
-
-$idEstacion = $_POST['idEstacion'];
-
-$sql_equipo = "SELECT * FROM tb_equipo_critico WHERE id_estacion = '".$idEstacion."' AND estado = 1 ORDER BY id_equipo desc";
-$result_equipo = mysqli_query($con, $sql_equipo);
-$numero_equipo = mysqli_num_rows($result_equipo);
-
+require('../../../../app/help.php');
 ?>
-
 <div style="overflow-y: hidden;">
 <table class="table table-bordered table-striped table-hover table-sm mt-3" style="font-size: .9em;">
 <thead>
@@ -19,10 +11,13 @@ $numero_equipo = mysqli_num_rows($result_equipo);
 <th>Fecha de instalación</th>
 <th>Tiempo de vida</th>
 <th width="16">Manual</th>
-<th width="16"></th>
+<th width="16"><img src="<?=RUTA_IMG_ICONOS;?>eliminar-red-16.png"></th>
 </thead>
 <tbody>
 <?php 
+$sql_equipo = "SELECT * FROM tb_equipo_critico WHERE id_estacion = '".$Session_IDEstacion."' AND estado = 1 ORDER BY id_equipo desc";
+$result_equipo = mysqli_query($con, $sql_equipo);
+$numero_equipo = mysqli_num_rows($result_equipo);
 if ($numero_equipo > 0) {
 while($row_equipo = mysqli_fetch_array($result_equipo, MYSQLI_ASSOC)){
 $id = $row_equipo['id'];
@@ -42,7 +37,7 @@ $manual = $row_equipo['manual'];
 <td class="align-middle"><?=FormatoFecha($fechainstalacion);?></td>
 <td class="align-middle"><?=$tiempovida;?> años</td>
 <td class="text-center align-middle"><a target="_BLANK" href="<?=$manual;?>"><img width="16px" src="<?=RUTA_IMG_ICONOS;?>pdf-16.png"></a></td>
-<td class="text-center align-middle" width="16" style="cursor: pointer" onclick="BTNEliminar(<?=$id;?>)"><a><img src="<?=RUTA_IMG_ICONOS;?>eliminar-red-16.png"></a></td>
+<td class="text-center align-middle" width="16" style="cursor: pointer" onclick="ModalEliminar(<?=$id;?>)"><a><img src="<?=RUTA_IMG_ICONOS;?>eliminar-red-16.png"></a></td>
 </tr>
 <?php
 }
