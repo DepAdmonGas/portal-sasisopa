@@ -17,6 +17,7 @@ return $nombre;
 use Dompdf\Dompdf;
 $dompdf = new Dompdf();
 
+    $contenid0 = "";
     $contenid0 .= "<!DOCTYPE html>";
     $contenid0 .= "<html>";
     $contenid0 .= "<head>";
@@ -215,15 +216,12 @@ $contenid0 .= '</table>';
 $sql_lista = "SELECT * FROM tb_requisicion_obra WHERE id = '".$GET_idRegistro."' ";
 $result_lista = mysqli_query($con, $sql_lista);
 $numero_lista = mysqli_num_rows($result_lista);
-while($row_lista = mysqli_fetch_array($result_lista, MYSQLI_ASSOC)){
-
+$row_lista = mysqli_fetch_array($result_lista, MYSQLI_ASSOC);
 $fechahora = explode(" ", $row_lista['fecha']);
 $folio = $row_lista['no_folio'];
 $nombre = NomUsuario($row_lista['id_usuario'], $con);
-
 $descripcion = $row_lista['descripcion'];
 $justificacion = $row_lista['justificacion'];
-}
 
 $contenid0 .= '<table class="table table-bordered" style="font-size: .9em;">';
 $contenid0 .= '<tbody>';

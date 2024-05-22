@@ -1,47 +1,14 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
+include_once "../../../../app/modelo/SeguridadContratistas.php";
 
+$class_seguridad_contratistas = new SeguridadContratistas();
 $id = $_GET['id'];
-
-$sql = "SELECT * FROM tb_requisicion_obra_carta_responsiva WHERE id_requisicion = '".$id."' ";
-$result = mysqli_query($con, $sql);
-$numero = mysqli_num_rows($result);
-if($numero == 0){
-
-$sql_insert = "INSERT INTO tb_requisicion_obra_carta_responsiva (
-id_requisicion,
-archivo,
-dia,
-mes,
-year,
-municipio,
-estado,
-representante_legal,
-razon_social,
-domicilio,
-apoderado_legal,
-firma
-  )
-  VALUES (
-  '".$id."',
-  '',
-  '".date("d")."',
-  '".nombremes(date("m"))."',
-  '".date("Y")."',
-  '".$Session_DiMunicipio."',
-  '".$Session_DiEstado."',
-  '".$Session_ApoderadoLegal."',
-  '".$Session_Razonsocial."',
-  '".$Session_Direccion."',
-  '".$Session_ApoderadoLegal."',
-  '".$Session_ApoderadoLegalFirma."'
-  )";
-  mysqli_query($con, $sql_insert);
-}
+$class_seguridad_contratistas->validarCartaResponsiva($id,$Session_DiMunicipio,$Session_DiEstado,$Session_ApoderadoLegal,$Session_Razonsocial,$Session_Direccion,$Session_ApoderadoLegalFirma);
 
 $sqlCR = "SELECT * FROM tb_requisicion_obra_carta_responsiva WHERE id_requisicion = '".$id."' ";
 $resultCR = mysqli_query($con, $sqlCR);
-while($rowCR = mysqli_fetch_array($resultCR, MYSQLI_ASSOC)){
+$rowCR = mysqli_fetch_array($resultCR, MYSQLI_ASSOC);
 $idCarta = $rowCR['id'];
 $dia = $rowCR['dia'];
 $mes = $rowCR['mes'];
@@ -54,7 +21,6 @@ $domicilio = $rowCR['domicilio'];
 $apoderado = $rowCR['apoderado_legal'];
 $firma = $rowCR['firma'];
 
-}
 ?>
 <div class="modal-header">
 <h4 class="modal-title">Carta responsiva

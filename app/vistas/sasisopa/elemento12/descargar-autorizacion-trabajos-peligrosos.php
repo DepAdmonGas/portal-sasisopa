@@ -3,16 +3,17 @@ require_once 'dompdf/autoload.inc.php';
 include_once "app/help.php";
 
 function Personal($idpersonal,$con){
+$nombre = "";
+$puesto = "";
+$segurosocial = "";
 
 $sql = "SELECT * FROM tb_usuarios WHERE id = '".$idpersonal."' ";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 $nombre = $row['nombre'];
 $puesto = Puesto($row['id_puesto'],$con);
 $segurosocial = $row['seguro_social'];
-}
-
 $array = array('nombre' => $nombre, 'puesto' => $puesto, 'segurosocial' => $segurosocial);
 
 return $array;
@@ -31,7 +32,7 @@ return $tipoPuesto;
 
 use Dompdf\Dompdf;
 $dompdf = new Dompdf();
-
+    $contenid0 = "";
     $contenid0 .= "<!DOCTYPE html>";
     $contenid0 .= "<html>";
     $contenid0 .= "<head>";
@@ -209,11 +210,9 @@ $contenid0 .= '</head>';
 $contenid0 .= '<body';
 
 
-
     $RutaLogo = SERVIDOR."imgs/logo/Logo.png";
     $DataLogo = file_get_contents($RutaLogo);
     $baseLogo = 'data:image/;base64,' . base64_encode($DataLogo);
-
 
     $RutaX = RUTA_IMG_ICONOS."img-no.png";
     $DataX = file_get_contents($RutaX);
@@ -258,7 +257,7 @@ $contenid0 .= '</table>';
 
 $sqlCR = "SELECT * FROM tb_requisicion_obra_formato_12 WHERE id = '".$GET_ID."' ";
 $resultCR = mysqli_query($con, $sqlCR);
-while($rowCR = mysqli_fetch_array($resultCR, MYSQLI_ASSOC)){
+$rowCR = mysqli_fetch_array($resultCR, MYSQLI_ASSOC);
 $idFormato = $rowCR['id'];
 $dia = $rowCR['dia'];
 $mes = $rowCR['mes'];
@@ -290,8 +289,6 @@ $cteppc2 = 'NO';
 
 $mombreEmpresa = $rowCR['nombre_empresa'];
 $nombreResponsable = $rowCR['nombre_responsable'];
-
-}
 
 $contenid0 .= '<div class="text-right">'.$municipio.', '.$estado.' a '.$dia.' de '.$mes.' de '.$year.'</div>';
 $contenid0 .= '<div style="margin-top: 10px;"><b>A quien corresponda</b></div>';
@@ -368,7 +365,6 @@ $contenid0 .= '<table class="mt-3" style="width: 100%;">
 
 $contenid0 .= '<div class="text-center"><small>*De no contar con capacitación, bajo ninguna circunstancia realizara los trabajos</small></div>';
 
-
 $sqlDTAS = "SELECT * FROM tb_requisicion_obra_formato_12_trabajador_encargado WHERE id_requisicion = '".$idFormato."' AND categoria = 1 ";
 $resultDTAS = mysqli_query($con, $sqlDTAS);
 $numeroDTAS = mysqli_num_rows($resultDTAS);
@@ -388,11 +384,11 @@ $contenid0 .= '<table class="table table-bordered table-sm mt-2">
 <tbody>';
 
 while($rowDTAS = mysqli_fetch_array($resultDTAS, MYSQLI_ASSOC)){
-$Personal = Personal($rowDTAS['id_personal'],$con);
+
 $contenid0 .= '<tr>
-<td>'.$Personal['nombre'].'</td>
-<td>'.$Personal['puesto'].'</td>
-<td>'.$Personal['segurosocial'].'</td>
+<td>'.$rowDTAS['nombre'].'</td>
+<td>'.$rowDTAS['puesto'].'</td>
+<td>'.$rowDTAS['no_seguro'].'</td>
 </tr>';
 }
 $contenid0 .= '
@@ -400,7 +396,6 @@ $contenid0 .= '
 </table>';
 
 }
-
 
 $sqlEESS = "SELECT * FROM tb_requisicion_obra_formato_12_trabajador_encargado WHERE id_requisicion = '".$idFormato."' AND categoria = 2 ";
 $resultEESS = mysqli_query($con, $sqlEESS);
@@ -434,21 +429,21 @@ $contenid0 .= '</tbody>
 }
 
 if($mombreEmpresa != ""){
-$contenid0 .= '<div style="margin-top: 5px;">
-<b>Nombre empresa:</b>
-<div class="mt-2 border p-2">'.$mombreEmpresa.'</div>
-</div>';
-}
-
-if($nombreResponsable != ""){
-$contenid0 .= '<div style="margin-top: 5px;">
-<b>Nombre del responsable:</b>
-<div class="mt-2 border p-2">'.$nombreResponsable.'</div>
-</div>';
-
-$contenid0 .= '<div class="mt-2 text-center"><small>Nota: Si el personal es externo deberá presentar su procedimiento para realizar la actividad</small></div>';
-
-}
+    $contenid0 .= '<div style="margin-top: 5px;">
+    <b>Nombre empresa:</b>
+    <div class="mt-2 border p-2">'.$mombreEmpresa.'</div>
+    </div>';
+    }
+    
+    if($nombreResponsable != ""){
+    $contenid0 .= '<div style="margin-top: 5px;">
+    <b>Nombre del responsable:</b>
+    <div class="mt-2 border p-2">'.$nombreResponsable.'</div>
+    </div>';
+    
+    $contenid0 .= '<div class="mt-2 text-center"><small>Nota: Si el personal es externo deberá presentar su procedimiento para realizar la actividad</small></div>';
+    
+    }
 
 $contenid0 .= '</div>';
 $contenid0 .= '</body>';

@@ -6,6 +6,7 @@ include_once "app/help.php";
 use Dompdf\Dompdf;
 $dompdf = new Dompdf();
 
+    $contenid0 = "";
     $contenid0 .= "<!DOCTYPE html>";
     $contenid0 .= "<html>";
     $contenid0 .= "<head>";
@@ -30,7 +31,6 @@ html {
 @-ms-viewport {
   width: device-width;
 }
-
 
 body {
   margin: 0;
@@ -191,8 +191,7 @@ $contenid0 .= '<div class="text-center"><img src="'.$baseLogo.'" style="width: 2
 
 $sqlCR = "SELECT * FROM tb_requisicion_obra_carta_responsiva WHERE id = '".$GET_ID."' ";
 $resultCR = mysqli_query($con, $sqlCR);
-while($rowCR = mysqli_fetch_array($resultCR, MYSQLI_ASSOC)){
-
+$rowCR = mysqli_fetch_array($resultCR, MYSQLI_ASSOC);
 $dia = $rowCR['dia'];
 $mes = $rowCR['mes'];
 $year = $rowCR['year'];
@@ -203,7 +202,6 @@ $razonsocial = $rowCR['razon_social'];
 $domicilio = $rowCR['domicilio'];
 $apoderado = $rowCR['apoderado_legal'];
 $firma = $rowCR['firma'];
-}
 
 $RutaFirma = RUTA_IMG_FIRMA_PERSONAL.$firma;
 $DataFirma = file_get_contents($RutaFirma);

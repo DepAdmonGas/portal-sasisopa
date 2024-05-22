@@ -1,19 +1,13 @@
 <?php
 require('app/help.php');
+include_once "app/modelo/Ayuda.php";
 
-$sql_sasisopa_ayuda = "SELECT * FROM pu_sasisopa_ayuda WHERE id_usuario = '".$Session_IDUsuarioBD."' and detalle = '12-seguridad-contratistas' and estado = 0 LIMIT 1";
-$result_sasisopa_ayuda = mysqli_query($con, $sql_sasisopa_ayuda);
-$numero_sasisopa_ayuda = mysqli_num_rows($result_sasisopa_ayuda);
+$class_ayuda = new Ayuda();
+$array_ayuda = $class_ayuda->sasisopaAyuda($Session_IDUsuarioBD,'12-seguridad-contratistas');
+$id_ayuda = $array_ayuda['id'];
+$estado = $array_ayuda['estado'];
 
-if ($numero_sasisopa_ayuda == 1) {
-while($row_ayuda = mysqli_fetch_array($result_sasisopa_ayuda, MYSQLI_ASSOC)){
-$idAyuda = $row_ayuda['id'];
-}
-}else{
-$idAyuda = 0;
-}
 ?>
-
 <html lang="es">
   <head>
   <meta charset="utf-8">
@@ -48,50 +42,32 @@ $idAyuda = 0;
   $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
   $(".LoaderPage").fadeOut("slow");
- <?php if ($numero_sasisopa_ayuda == 1) {echo "btnAyuda();";} ?>
+  <?php if ($id_ayuda != 0) {echo "btnAyuda();";} ?>
 
  ContenidoLista();
 
   });
 
-    function regresarP(){
+function regresarP(){
    window.history.back();
-  }
-
-  function ContenidoLista(){
-
-
-   $.ajax({
-   url:   'public/sasisopa/buscar/buscar-lista-seguridad-contratistas.php',
-   type:  'post',
-   beforeSend: function() {
-   },
-   complete: function(){
-   },
-   success:  function (response) {
-   $('#ContenidoLista').html(response);
-   }
-   });
-
   }
 
   function btnAyuda(){
   $('#ModalAyuda').modal('show');
   }
 
-function btnFinAyuda(){
+  function btnFinAyuda(idayuda, estado){
 
-var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
+    var parametros = {
+      "accion" : "actualizar-ayuda",
+      "idayuda" : idayuda
+    };
 
- var parametros = {
-        "idAyuda" : <?=$idAyuda; ?>
-      };
-
-  if (puntosSasisopa != 0) {
+    if (idayuda != 0 && estado == 0) {
 
    $.ajax({
    data:  parametros,
-   url:   'public/sasisopa/actualizar/actualizar-ayuda.php',
+   url:   'app/controlador/AyudaControlador.php',
    type:  'post',
    beforeSend: function() {
    },
@@ -105,20 +81,33 @@ var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
   }else{
   $('#ModalAyuda').modal('hide');
   }
+  }
 
-}
+   function ContenidoLista(){
+   $.ajax({
+   url:   'app/vistas/sasisopa/elemento12/buscar-lista-seguridad-contratistas.php',
+   type:  'post',
+   beforeSend: function() {
+   },
+   complete: function(){
+   },
+   success:  function (response) {
+   $('#ContenidoLista').html(response);
+   }
+   });
+   }
 
-function btnAgregar(){
-$('#ModalAgregar').modal('show');
-$('#DivCrear').load('public/sasisopa/vistas/modal-crear-requisicion.php');
-}
+   function btnAgregar(){
+    $('#ModalAgregar').modal('show');
+    $('#DivCrear').load('app/vistas/sasisopa/elemento12/modal-crear-requisicion.php');
+    }
 
-function btnAgregarServicio(){
+    function btnAgregarServicio(){
 
 var Fecha = $('#Fecha').val();
 var Descripcion = $('#Descripcion').val();
 var Justificacion = $('#Justificacion').val();
-var URL = "public/sasisopa/agregar/agregar-requisicion-obra-servicio.php";
+var URL = "app/controlador/SeguridadContratistasControlador.php";
 
 if (Descripcion != "") {
 $('#Descripcion').css('border',''); 
@@ -129,6 +118,7 @@ $('#Justificacion').css('border','');
  function(){
 
  var parametros = {
+    "accion" : "agregar-requisicion-obra-servicio",
     "Descripcion" : Descripcion,
     "Justificacion" : Justificacion,
     "Fecha" : Fecha
@@ -166,27 +156,24 @@ $('#Descripcion').css('border','2px solid #A52525');
 
 }
 
-function Descargar(id){
-window.location = "descargar-seguridad-contratistas/" + id;  
-}
-
 function ModalEditar(id){
 $('#ModalDetalle').modal('show');
-$('#DivDetalle').load('public/sasisopa/vistas/modal-editar-seguridad.php?id=' + id);
+$('#DivDetalle').load('app/vistas/sasisopa/elemento12/modal-editar-seguridad.php?id=' + id);
 }
 
 function btnEditarServicio(id){
 
-var EditFecha = $('#EditFecha').val();
-var EditDescripcion = $('#EditDescripcion').val();
-var EditJustificacion = $('#EditJustificacion').val();
-var URL = "public/sasisopa/actualizar/editar-requisicion-obra-servicio.php";
+    var EditFecha = $('#EditFecha').val();
+    var EditDescripcion = $('#EditDescripcion').val();
+    var EditJustificacion = $('#EditJustificacion').val();
+    var URL = "app/controlador/SeguridadContratistasControlador.php";
 
  alertify.confirm('',
  function(){
 
  var parametros = {
-  "id" : id,
+    "accion" : "editar-requisicion-obra-servicio",
+    "id" : id,
     "EditFecha" : EditFecha,
     "EditDescripcion" : EditDescripcion,
     "EditJustificacion" : EditJustificacion
@@ -208,59 +195,55 @@ var URL = "public/sasisopa/actualizar/editar-requisicion-obra-servicio.php";
     
     }
     });
-
-
     },
     function(){
-
     }).setHeader('Mensaje').set({transition:'zoom',message: 'Desea editar la Requisición de obra o servicio',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show(); 
 
 }
 
-
 function Eliminar(id){
 
- alertify.confirm('',
- function(){
+alertify.confirm('',
+function(){
 
-  var parametros = {
-      "id" : id
-      };
+ var parametros = {
+   "accion" : "eliminar-seguridad-contratistas",
+     "id" : id
+     };
 
-  $.ajax({
-   data:  parametros,
-   url:   'public/sasisopa/eliminar/eliminar-seguridad-contratistas.php',
-   type:  'post',
-   beforeSend: function() {
+ $.ajax({
+  data:  parametros,
+  url:   'app/controlador/SeguridadContratistasControlador.php',
+  type:  'post',
+  beforeSend: function() {
+  },
+  complete: function(){
+  },
+  success:  function (response) {
+   ContenidoLista();
+  }
+  });
+
    },
-   complete: function(){
-   },
-   success:  function (response) {
-    ContenidoLista();
-   }
-   });
+   function(){
 
-    },
-    function(){
-
-    }).setHeader('Mensaje').set({transition:'zoom',message: 'Desea eliminar la Requisición de obra o servicio',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show(); 
+   }).setHeader('Mensaje').set({transition:'zoom',message: 'Desea eliminar la Requisición de obra o servicio',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show(); 
 
 }
-//-------------------------------------------------------------------------------------
 
 function ModalFormato(id){
 $('#ModalDetalle').modal('show');
-$('#DivDetalle').load('public/sasisopa/vistas/modal-seguridad-formato.php?id=' + id);  
+$('#DivDetalle').load('app/vistas/sasisopa/elemento12/modal-seguridad-formato.php?id=' + id);  
 }
 
-function Formato14(id){
+function agregarFormato14(id){
 
 var Archivo = document.getElementById("Archivoformato14");
 var File = Archivo.files[0];
 var FilePath = Archivo.value;
 
 var data = new FormData();
-var url = 'public/sasisopa/agregar/agregar-formato14.php';
+var url = 'app/controlador/SeguridadContratistasControlador.php';
 var ext = $("#Archivoformato14").val().split('.').pop();
 
 
@@ -268,7 +251,8 @@ if (FilePath != "") {
 $('#Archivoformato14').css('border',''); 
 if (ext == "PDF" || ext == "pdf") {
 $('#result').html('');
-
+  
+  data.append('accion', 'agregar-formato-14');
   data.append('id', id);
   data.append('File', File);
 
@@ -298,13 +282,9 @@ $('#Archivoformato14').css('border','2px solid #A52525');
 
 }
 
-//-------------------------------------------------------------------------------
-
 function CartaResponsiva(id){
-
 $('#ModalDetalle').modal('show');
-$('#DivDetalle').load('public/sasisopa/vistas/modal-seguridad-carta-responsiva.php?id=' + id); 
-
+$('#DivDetalle').load('app/vistas/sasisopa/elemento12/modal-seguridad-carta-responsiva.php?id=' + id); 
 }
 
 function btnEditarCR(idCarta,id){
@@ -318,12 +298,13 @@ let RepresentanteL = $('#RepresentanteL').val();
 let RazonSocial = $('#RazonSocial').val();
 let Domicilio = $('#Domicilio').val();
 let ApoderadoL = $('#ApoderadoL').val();
-let URL = "public/sasisopa/actualizar/editar-carta-responsiva.php";
+let URL = "app/controlador/SeguridadContratistasControlador.php";
 
  alertify.confirm('',
  function(){
 
  let parametros = {
+    "accion" : "editar-carta-responsiva",
     "id" : idCarta,
     "Municipio" : Municipio,
     "Estado" : Estado,
@@ -365,20 +346,17 @@ function DescargarCR(id){
 window.location = "descargar-carta-responsiva/" + id;
 }
 
-//------------------------------------------------------------------------------
-
 function ModalFormato15(id){
 $('#ModalDetalle').modal('show');
-$('#DivDetalle').load('public/sasisopa/vistas/modal-seguridad-verificacion.php?id=' + id);
+$('#DivDetalle').load('app/vistas/sasisopa/elemento12/modal-seguridad-verificacion.php?id=' + id);
 }
-
 
 function btnGuardarLV(id){
 
 let Fecha = $('#Fecha').val();
 let Hora = $('#Hora').val();
 let idSuperviso = $('#idSuperviso').val();
-let URL = "public/sasisopa/agregar/agregar-lista-verificacion.php";
+let URL = "app/controlador/SeguridadContratistasControlador.php";
 
 if ($('#Si1').is(':checked')) {
 R1 = 1;
@@ -414,6 +392,7 @@ R5 = 0;
  function(){
 
  let parametros = {
+    "accion" : "agregar-lista-verificacion",
     "id" : id,
     "Fecha" : Fecha,
     "Hora" : Hora,
@@ -451,24 +430,21 @@ R5 = 0;
 }
 
 function DescargarLV(id){
-
 window.location = "descargar-lista-verificacion/" + id;
-
 }
-
-//----------------------------------------------------------------------
 
 function ModalAutorizacion(id){
 $('#ModalDetalle').modal('show');
-$('#DivDetalle').load('public/sasisopa/vistas/modal-seguridad-autorizacion-peligros.php?id=' + id); 
+$('#DivDetalle').load('app/vistas/sasisopa/elemento12/modal-seguridad-autorizacion-peligros.php?id=' + id); 
 }
 
 function EditARTP(e,dato,id){
 
-let URL = "public/sasisopa/actualizar/editar-formato12.php";
+let URL = "app/controlador/SeguridadContratistasControlador.php";
 let valor = e.value;
 
  let parametros = {
+    "accion" : "editar-formato-12",
     "id" : id,
     "valor" : valor,
     "dato" : dato
@@ -484,7 +460,6 @@ let valor = e.value;
     complete: function(){
     },
     success:  function (response) {
-
     
     }
     });
@@ -493,7 +468,7 @@ let valor = e.value;
 
 function TrabjoP(idProcedimientos){
 
-let URL = "public/sasisopa/actualizar/editar-formato12.php";
+let URL = "app/controlador/SeguridadContratistasControlador.php";
 
 if ($('#TRCDLSP' + idProcedimientos).is(':checked')) {
 valor = 1;
@@ -502,6 +477,7 @@ valor = 0;
 }
 
  let parametros = {
+    "accion" : "editar-formato-12",
     "id" : idProcedimientos,
     "valor" : valor,
     "dato" : 14
@@ -526,7 +502,7 @@ valor = 0;
 
 function btnGPersonal(dato,idFormato, id){
 
-let URL = "public/sasisopa/actualizar/editar-formato12.php";
+let URL = "app/controlador/SeguridadContratistasControlador.php";
 
 let NombreT = $('#NombreT').val();
 let PuestoT = $('#PuestoT').val();
@@ -539,6 +515,7 @@ idPersonal = $('#idPersonalEE').val();
 }
 
  let parametros = {
+    "accion" : "editar-formato-12",
     "id" : idFormato,
     "valor" : idPersonal,
     "categoria" : dato,
@@ -568,9 +545,10 @@ idPersonal = $('#idPersonalEE').val();
 
 function EliminarARTP(dato,id,idFormato){
 
-let URL = "public/sasisopa/actualizar/editar-formato12.php";
+let URL = "app/controlador/SeguridadContratistasControlador.php";
 
  let parametros = {
+    "accion" : "editar-formato-12",
     "id" : id,
     "valor" : 0,
     "dato" : dato
@@ -689,6 +667,12 @@ function DescargarARTP(id){
 window.location = "descargar-autorizacion-trabajos-peligrosos/" + id;
 }
 
+function Descargar(id){
+window.location = "descargar-seguridad-contratistas/" + id;  
+}
+
+
+
   </script>
   </head>
   <body>
@@ -765,11 +749,9 @@ window.location = "descargar-autorizacion-trabajos-peligrosos/" + id;
           <label class="font-weight-bold" style="font-size: 1.1em">Responsables:</label>
           <p class="text-justify" style="font-size: 1.1em">Recuerda que es responsabilidad del <label class="text-danger font-weight-bold">Representante Técnico</label> (RT), <label class="text-danger font-weight-bold">Gerente de la Estación</label> conocer y realizar los registros correspondientes de cada elemento del SA.</p>
 
-
-
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda()">Aceptar</button>
+          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda(<?=$id_ayuda;?>,<?=$estado;?>)">Aceptar</button>
         </div>
       </div>
     </div>

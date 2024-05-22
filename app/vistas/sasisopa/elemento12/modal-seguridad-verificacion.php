@@ -1,14 +1,24 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 $id = $_GET['id'];
+$R1 = '';
+$R2 = '';
+$R3 = '';
+$R4 = '';
+$R5 = '';
+$R6 = '';
+$R7 = '';
+$R8 = '';
+$R9 = '';
+$R10 = '';
+$Nombre = "";
 
 $sql = "SELECT * FROM tb_requisicion_obra_formato_15 WHERE id_requisicion = '".$id."' ";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
 if ($numero > 0) {
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-
+$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 $Fecha = $row['fecha_lv'];
 $Hora = $row['hora_lv'];
 $NomUsuario = NomUsuario($row['id_usuario'],$con);
@@ -76,21 +86,18 @@ $R10 = '';
 }
 
 }
-}
 
 function NomUsuario($id, $con){
-
-$sql_lista = "SELECT * FROM tb_usuarios WHERE id = '".$id."' ";
+$sql_lista = "SELECT id,nombre FROM tb_usuarios WHERE id = '".$id."' ";
 $result_lista = mysqli_query($con, $sql_lista);
 $numero_lista = mysqli_num_rows($result_lista);
-while($row_lista = mysqli_fetch_array($result_lista, MYSQLI_ASSOC)){
+$row_lista = mysqli_fetch_array($result_lista, MYSQLI_ASSOC);
 $id = $row_lista['id'];
 $nombre = $row_lista['nombre']; 
-}
-
 $arrayName = array('id' => $id, 'nombre'=> $nombre);
 return $arrayName;
 }
+
 ?>
 <div class="modal-header">
 <h4 class="modal-title">Listas de verificación
@@ -166,7 +173,7 @@ return $arrayName;
   <option value="<?=$idUsuario;?>"><?=$Nombre;?></option>
   <?php  
 
-$sql = "SELECT * FROM tb_usuarios WHERE id_gas = '".$Session_IDEstacion."' AND id_puesto = '6' AND  estatus = 0";
+$sql = "SELECT id, nombre FROM tb_usuarios WHERE id_gas = '".$Session_IDEstacion."' AND id_puesto = '6' AND  estatus = 0";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){

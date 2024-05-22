@@ -1,35 +1,27 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 function NomUsuario($id, $con){
-
-$sql_lista = "SELECT * FROM us_usuarios WHERE id = '".$id."' ";
+$sql_lista = "SELECT nombre FROM tb_usuarios WHERE id = '".$id."' ";
 $result_lista = mysqli_query($con, $sql_lista);
 $numero_lista = mysqli_num_rows($result_lista);
-while($row_lista = mysqli_fetch_array($result_lista, MYSQLI_ASSOC)){
-$nombre = $row_lista['nombres']." ".$row_lista['apellido_p']." ".$row_lista['apellido_m'];  
-}
+$row_lista = mysqli_fetch_array($result_lista, MYSQLI_ASSOC);
+$nombre = $row_lista['nombre'];  
 return $nombre;
 }
 
 $sql_lista = "SELECT * FROM tb_requisicion_obra WHERE id = '".$_GET['id']."' ";
 $result_lista = mysqli_query($con, $sql_lista);
 $numero_lista = mysqli_num_rows($result_lista);
-while($row_lista = mysqli_fetch_array($result_lista, MYSQLI_ASSOC)){
-
+$row_lista = mysqli_fetch_array($result_lista, MYSQLI_ASSOC);
 $NumFolio = "0".$row_lista['no_folio'];
 $fechahora = explode(" ", $row_lista['fecha']);
 $fecha = $fechahora[0];
 $NombreUsuario = NomUsuario($row_lista['id_usuario'], $con);
-
 $descripcion = $row_lista['descripcion'];
 $justificacion = $row_lista['justificacion'];
-}
- 
 
 ?>
-
-
 <div class="modal-header">
 <h4 class="modal-title">Editar requisición de obra o servicio
 </h4>
@@ -38,7 +30,6 @@ $justificacion = $row_lista['justificacion'];
 </button>
 </div>
 <div class="modal-body">
-
 
   <div class="row mt-2">
 
@@ -49,7 +40,6 @@ $justificacion = $row_lista['justificacion'];
 
   <input class="form-control input-style rounded-0 border-0" value="<?=$NumFolio;?>" type="text" id="folio" disabled>        
   </div>
-
 
   <div class="col-12 col-md-8">
   <div class="mb-2"><small class="text-secondary">Fecha:</small></div>
@@ -66,11 +56,10 @@ $justificacion = $row_lista['justificacion'];
 
   <div class="col-12 col-md-8">
   <div class="mb-2"><small class="text-secondary">Empresa solicitante:</small></div>
-  <input class="form-control input-style rounded-0 border-0" value="<?=$Session_RazonSocial;?>" type="text" disabled>        
+  <input class="form-control input-style rounded-0 border-0" value="<?=$Session_Razonsocial;?>" type="text" disabled>        
   </div>
 
   </div>
-
 
   <div class="row mt-2">
   
@@ -87,8 +76,6 @@ $justificacion = $row_lista['justificacion'];
   <textarea class="form-control rounded-0" id="EditJustificacion"><?=$justificacion;?></textarea>  
   </div>
   </div>
-
-
 
 </div>
 

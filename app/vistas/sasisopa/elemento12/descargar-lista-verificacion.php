@@ -10,7 +10,7 @@ $sql = "SELECT * FROM tb_requisicion_obra_formato_15 WHERE id = '".$GET_ID."' ";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
 if ($numero > 0) {
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
 $Fecha = $row['fecha_lv'];
 $Hora = $row['hora_lv'];
@@ -80,7 +80,6 @@ $R10 = '';
 }
 
 }
-}
 
 function NomUsuario($id, $con){
 
@@ -92,7 +91,6 @@ $id = $row_lista['id'];
 $nombre = $row_lista['nombre'];
 $firma = $row_lista['firma']; 
 }
-
 $arrayName = array('id' => $id, 'nombre'=> $nombre, 'firma'=> $firma);
 return $arrayName;
 }
@@ -100,6 +98,7 @@ return $arrayName;
 use Dompdf\Dompdf;
 $dompdf = new Dompdf();
 
+    $contenid0 = "";
     $contenid0 .= "<!DOCTYPE html>";
     $contenid0 .= "<html>";
     $contenid0 .= "<head>";

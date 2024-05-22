@@ -159,9 +159,11 @@ switch ($partes_ruta[1])
     case 'equipos-criticos':
       $ruta_elegida = $index_controlador->descargarEquipoCritico();
     break;
+    case '12-seguridad-contratistas':
+      $ruta_elegida = $index_controlador->seguridadContratistas();
+      break;
     //-------- ELEMENTOS SASISOPA FIN -------------------
     //---------------------------------------------------
-
       
 case 'perfil':
 $ruta_elegida = 'public/perfil/perfil-index.php';
@@ -225,9 +227,7 @@ $ruta_elegida = 'public/sasisopa/bitacora-recepcion-descargar-producto-index.php
 break;
 //-----------------------------------------------------------------
 
-case '12-seguridad-contratistas':
-$ruta_elegida = 'public/sasisopa/seguridad-contratistas-index.php';
-break;
+
 case '13-preparacion-emergencias':
 $ruta_elegida = 'public/sasisopa/preparacion-emergencias-index.php';
 break;
@@ -379,6 +379,22 @@ break;
       $GET_YEAR = $partes_ruta[2];
       $ruta_elegida = $index_controlador->descargarBitacoraCalibracionEquipo();
     }
+    else if ($partes_ruta[1] == 'descargar-carta-responsiva') {
+      $GET_ID = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->descargarCartaResponsiva();
+    }
+    else if ($partes_ruta[1] == 'descargar-lista-verificacion') {
+      $GET_ID = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->descargarListaVerificacion();
+    }
+    else if ($partes_ruta[1] == 'descargar-autorizacion-trabajos-peligrosos') {
+      $GET_ID = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->descargarAutorizacionTrabajosPeligrosos();
+    }
+    else if ($partes_ruta[1] == 'descargar-seguridad-contratistas') {
+      $GET_idRegistro = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->descargarSeguridadContratista();
+      }
     //---------------------------------------------
     //---------------------------------------------
     //------------ LISTA ASISTENCIA ---------------
@@ -477,25 +493,9 @@ break;
     $idEstacion = $partes_ruta[2];
     $ruta_elegida = 'public/gerente/calendario-editar.php';
     }
-    else if ($partes_ruta[1] == 'descargar-seguridad-contratistas') {
-    $GET_idRegistro = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/vistas/descargar-seguridad-contratistas.php';
-    }
     else if ($partes_ruta[1] == 'descargar-simulacros') {
     $GET_Year = $partes_ruta[2];
     $ruta_elegida = 'public/sasisopa/vistas/descargar-simulacros.php';
-    }
-    else if ($partes_ruta[1] == 'descargar-carta-responsiva') {
-    $GET_ID = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/vistas/descargar-carta-responsiva.php';
-    }
-    else if ($partes_ruta[1] == 'descargar-lista-verificacion') {
-    $GET_ID = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/vistas/descargar-lista-verificacion.php';
-    }
-    else if ($partes_ruta[1] == 'descargar-autorizacion-trabajos-peligrosos') {
-    $GET_ID = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/vistas/descargar-autorizacion-trabajos-peligrosos.php';
     }
     else if ($partes_ruta[1] == 'descargar-registro-atencio-seguimiento-comunicacion-interna-externa') {
     $GET_ID = $partes_ruta[2];

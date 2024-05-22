@@ -1,92 +1,18 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
+include_once "../../../../app/modelo/SeguridadContratistas.php";
 
 $id = $_GET['id'];
-
-$sql_folio = "SELECT id FROM tb_requisicion_obra_formato_12 ORDER BY id desc LIMIT 1 ";
-$result_folio = mysqli_query($con, $sql_folio);
-$numero_folio = mysqli_num_rows($result_folio);
-
-if ($numero_folio == 0) {
-$NumFolio = 1;
-}else{
-while($row_folio = mysqli_fetch_array($result_folio, MYSQLI_ASSOC)){
-$folio = $row_folio['id'] + 1;
-$NumFolio = $folio;
-}
-}
-
-$sql = "SELECT * FROM tb_requisicion_obra_formato_12 WHERE id_requisicion = '".$id."' ";
-$result = mysqli_query($con, $sql);
-$numero = mysqli_num_rows($result);
-if($numero == 0){
-
-
-$sql_insert = "INSERT INTO tb_requisicion_obra_formato_12 (
-id,
-id_requisicion,
-archivo,
-dia,
-mes,
-year,
-municipio,
-estado,
-trabajo_realizar,
-descripcion,
-area,
-fecha_inicio,
-fecha_termino,
-hora_inicio,
-hora_termino,
-prestador_servicio,
-cprtp,
-cteppc,
-nombre_empresa,
-nombre_responsable
-  )
-  VALUES (
-  '".$NumFolio."',
-  '".$id."',
-  '',
-  '".date("d")."',
-  '".nombremes(date("m"))."',
-  '".date("Y")."',
-
-  '".$Session_DiMunicipio."',
-  '".$Session_DiEstado."',
-  '',
-  '',
-  '',
-  '',
-  '',
-  '',
-  '',
-  '',
-  '',
-  '',
-  '',
-  ''
-  )";
-  mysqli_query($con, $sql_insert);
-
-  $sql_insert1 = "INSERT INTO tb_requisicion_obra_formato_12_procedimiento (
-  id_requisicion,
-  detalle,
-  valor
-  )
-  VALUES 
-  ('".$NumFolio."','Trabajos en alturas',0), 
-  ('".$NumFolio."','Trabajos en áreas confinadas',0),
-  ('".$NumFolio."','Trabajos que generen fuentes de ignición',0),
-  ('".$NumFolio."','Etiquetado, bloqueo y candadeo de líneas eléctricas',0),
-  ('".$NumFolio."','Etiquetado, bloqueo y candadeo de líneas de productos',0)";
-  mysqli_query($con, $sql_insert1);
-
-}
+$cprtp1 = "";
+$cprtp2 = "";
+$cteppc1 = "";
+$cteppc2 = "";
+$class_seguridad_contratistas = new SeguridadContratistas();
+$class_seguridad_contratistas->validarRequisicionObra($id,$Session_DiMunicipio,$Session_DiEstado);
 
 $sqlCR = "SELECT * FROM tb_requisicion_obra_formato_12 WHERE id_requisicion = '".$id."' ";
 $resultCR = mysqli_query($con, $sqlCR);
-while($rowCR = mysqli_fetch_array($resultCR, MYSQLI_ASSOC)){
+$rowCR = mysqli_fetch_array($resultCR, MYSQLI_ASSOC);
 $idFormato = $rowCR['id'];
 $dia = $rowCR['dia'];
 $mes = $rowCR['mes'];
@@ -119,21 +45,17 @@ $cteppc2 = 'checked';
 $mombreEmpresa = $rowCR['nombre_empresa'];
 $nombreResponsable = $rowCR['nombre_responsable'];
 
-}
 
 function Personal($idpersonal,$con){
 
 $sql = "SELECT * FROM tb_usuarios WHERE id = '".$idpersonal."' ";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 $nombre = $row['nombre'];
 $puesto = Puesto($row['id_puesto'],$con);
 $segurosocial = $row['seguro_social'];
-}
-
 $array = array('nombre' => $nombre, 'puesto' => $puesto, 'segurosocial' => $segurosocial);
-
 return $array;
 }
 
@@ -141,10 +63,8 @@ function Puesto($idpuesto,$con){
 $sql = "SELECT tipo_puesto FROM tb_puestos WHERE id = '".$idpuesto."' ";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 $tipoPuesto = $row['tipo_puesto'];
-}
-
 return $tipoPuesto;
 }
 ?>
@@ -349,9 +269,6 @@ echo '<tr>
 <div class="text-center mt-2"><small>Nota: Si el personal es externo deberá presentar su procedimiento para realizar la actividad</small></div>
 
 </div>
-
-
-
 
 </div>
 <div class="modal-footer">
