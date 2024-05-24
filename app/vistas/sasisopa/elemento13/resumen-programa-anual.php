@@ -1,13 +1,16 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 $idPrograma = $_GET['idPrograma'];
 
-$sql_resumen = "SELECT * FROM tb_programa_anual_simulacros_resumen WHERE id_programa = '".$idPrograma."' ";
+$sql_resumen = "SELECT resumen FROM tb_programa_anual_simulacros_resumen WHERE id_programa = '".$idPrograma."' ";
 $result_resumen = mysqli_query($con, $sql_resumen);
 $numero_resumen = mysqli_num_rows($result_resumen);
-while($row_resumen = mysqli_fetch_array($result_resumen, MYSQLI_ASSOC)){
+if($numero_resumen > 0){
+$row_resumen = mysqli_fetch_array($result_resumen, MYSQLI_ASSOC);
 $resumen = $row_resumen['resumen'];
+}else{
+$resumen = "";    
 }
 
 if ($resumen == "") {
@@ -15,8 +18,6 @@ $txtBtn = "Agregar";
 }else{
 $txtBtn = "Actualizar";
 }
-
-
 ?>
 <div class="modal-header">
 <h4 class="modal-title">Resumen</h4>

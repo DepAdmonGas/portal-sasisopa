@@ -1,81 +1,15 @@
 <?php
 require('app/help.php');
+include_once "app/modelo/PreparacionEmergencias.php";
+include_once "app/modelo/Ayuda.php";
 
-$sql_sasisopa_ayuda = "SELECT * FROM pu_sasisopa_ayuda WHERE id_usuario = '".$Session_IDUsuarioBD."' and detalle = '13-preparacion-emergencias' and estado = 0 LIMIT 1";
-$result_sasisopa_ayuda = mysqli_query($con, $sql_sasisopa_ayuda);
-$numero_sasisopa_ayuda = mysqli_num_rows($result_sasisopa_ayuda);
+$class_preparacion_emergencias = new PreparacionEmergencias();
+$class_ayuda = new Ayuda();
 
-if ($numero_sasisopa_ayuda == 1) {
-while($row_ayuda = mysqli_fetch_array($result_sasisopa_ayuda, MYSQLI_ASSOC)){
-$idAyuda = $row_ayuda['id'];
-}
-}else{
-$idAyuda = 0;
-}
-
-function Telefonos($Session_IDEstacion,$con){
-
-$sql_telefono1 = "SELECT * FROM tb_telefonos_emergencias WHERE id_estacion = '".$Session_IDEstacion."' AND titulo = 'Emergencias' ";
-$result_telefono1 = mysqli_query($con, $sql_telefono1);
-$numero_telefono1 = mysqli_num_rows($result_telefono1);
-if ($numero_telefono1 == 0) {
-$sql_insert1 = "INSERT INTO tb_telefonos_emergencias (
-id_estacion,
-titulo,
-telefono,
-prioridad
-)
-VALUES (
-'".$Session_IDEstacion."',
-'Emergencias',
-'',
-1  
-)";
-mysqli_query($con, $sql_insert1);
-}
-
-$sql_telefono2 = "SELECT * FROM tb_telefonos_emergencias WHERE id_estacion = '".$Session_IDEstacion."' AND titulo = 'Cruz Roja' ";
-$result_telefono2 = mysqli_query($con, $sql_telefono2);
-$numero_telefono2 = mysqli_num_rows($result_telefono2);
-if ($numero_telefono2 == 0) {
-$sql_insert2 = "INSERT INTO tb_telefonos_emergencias (
-id_estacion,
-titulo,
-telefono,
-prioridad
-)
-VALUES (
-'".$Session_IDEstacion."',
-'Cruz Roja',
-'',
-1
-)";
-mysqli_query($con, $sql_insert2);
-}
-
-$sql_telefono3 = "SELECT * FROM tb_telefonos_emergencias WHERE id_estacion = '".$Session_IDEstacion."' AND titulo = 'Denuncia Anonima' ";
-$result_telefono3 = mysqli_query($con, $sql_telefono3);
-$numero_telefono3 = mysqli_num_rows($result_telefono3);
-if ($numero_telefono3 == 0) {
-$sql_insert3 = "INSERT INTO tb_telefonos_emergencias (
-id_estacion,
-titulo,
-telefono,
-prioridad
-)
-VALUES (
-'".$Session_IDEstacion."',
-'Denuncia Anonima',
-'',
-1
-)";
-mysqli_query($con, $sql_insert3);
-}
-
-}
-
-Telefonos($Session_IDEstacion,$con);
-
+$array_ayuda = $class_ayuda->sasisopaAyuda($Session_IDUsuarioBD,'13-preparacion-emergencias');
+$class_preparacion_emergencias->validaTelefonos($Session_IDEstacion);
+$id_ayuda = $array_ayuda['id'];
+$estado = $array_ayuda['estado'];
 
 ?>
 <html lang="es">
@@ -113,10 +47,10 @@ Telefonos($Session_IDEstacion,$con);
   $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
   $(".LoaderPage").fadeOut("slow");
- <?php if ($numero_sasisopa_ayuda == 1) {echo "btnAyuda();";} ?>
-DetalleProtocolo();
-ProgramaAnual();
-});
+  <?php if ($id_ayuda != 0) {echo "btnAyuda();";} ?>
+    DetalleProtocolo();
+    ProgramaAnual();
+    });
 
 function regresarP(){
 window.history.back();
@@ -126,19 +60,18 @@ function btnAyuda(){
 $('#myModalPolitica').modal('show');
 }
 
-function btnFinAyuda(){
+function btnFinAyuda(idayuda, estado){
 
-var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
+    var parametros = {
+      "accion" : "actualizar-ayuda",
+      "idayuda" : idayuda
+    };
 
- var parametros = {
-        "idAyuda" : <?=$idAyuda; ?>
-      };
-
-  if (puntosSasisopa != 0) {
+    if (idayuda != 0 && estado == 0) {
 
    $.ajax({
    data:  parametros,
-   url:   'public/sasisopa/actualizar/actualizar-ayuda.php',
+   url:   'app/controlador/AyudaControlador.php',
    type:  'post',
    beforeSend: function() {
    },
@@ -156,12 +89,12 @@ var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
 }
 
 function DetalleProtocolo(){
-$('#DocumentoProtocolo').load('public/sasisopa/vistas/protocolo-emergencias.php');  
+$('#DocumentoProtocolo').load('app/vistas/sasisopa/elemento13/protocolo-emergencias.php');  
 }
- 
+
 function ModalAgregarProtocolo(){
 $('#ModalContenido').modal('show');
-$('#DivContenido').load('public/sasisopa/vistas/agregar-protocolo-emergencias.php'); 
+$('#DivContenido').load('app/vistas/sasisopa/elemento13/agregar-protocolo-emergencias.php'); 
 }
 
 function BTNAgregarProtocolo(){
@@ -173,14 +106,14 @@ var PathProtocolo = Protocolo.value;
 var ext = $("#FileProtocolo").val().split('.').pop();
 
 var data = new FormData();
-var url = 'public/sasisopa/agregar/agregar-protocolo-emergencias.php';
+var url = 'app/controlador/PreparacionEmergenciasControlador.php';
 
 if (FechaProtocolo != "") {
 $('#FechaProtocolo').css('border','');
 if (ext == "PDF" || ext == "pdf") {
 $('#result').html('');
 
-data.append('idEstacion', <?=$Session_IDEstacion;?>);
+data.append('accion', 'agregar-protocolo-emergencias');
 data.append('FechaProtocolo', FechaProtocolo);
 data.append('FileProtocolo', FileProtocolo);
 
@@ -193,9 +126,9 @@ data.append('FileProtocolo', FileProtocolo);
   cache: false,
   }).done(function(data){
 
-alertify.message('Protocolo de respuesta a emergencias actualizado');
-DetalleProtocolo();
-$('#ModalContenido').modal('hide');
+  alertify.message('Protocolo de respuesta a emergencias actualizado');
+  DetalleProtocolo();
+  $('#ModalContenido').modal('hide');
 
   });
 
@@ -210,7 +143,50 @@ $('#FechaProtocolo').css('border','2px solid #A52525');
 
 function editarprotocolo(id){
 $('#ModalContenido').modal('show');
-$('#DivContenido').load('public/sasisopa/vistas/editar-protocolo-emergencias.php?id=' + id); 
+$('#DivContenido').load('app/vistas/sasisopa/elemento13/editar-protocolo-emergencias.php?id=' + id); 
+}
+
+function BTNEditarProtocolo(id){
+
+var EditFechaProtocolo = $('#EditFechaProtocolo').val();
+var Protocolo = document.getElementById("EditFileProtocolo");
+var EditFileProtocolo = Protocolo.files[0];
+var PathProtocolo = Protocolo.value;
+var ext = $("#EditFileProtocolo").val().split('.').pop();
+
+var data = new FormData();
+var url = 'app/controlador/PreparacionEmergenciasControlador.php';
+
+if (EditFechaProtocolo != "") {
+$('#EditFechaProtocolo').css('border','');
+
+$('#result').html('');
+
+data.append('accion', 'editar-protocolo-emergencias');
+data.append('id', id);
+data.append('EditFechaProtocolo', EditFechaProtocolo);
+data.append('EditFileProtocolo', EditFileProtocolo);
+
+  $.ajax({
+  url: url,
+  type: 'POST',
+  contentType: false,
+  data: data,
+  processData: false,
+  cache: false,
+  }).done(function(data){
+
+  alertify.message('Protocolo de respuesta a emergencias actualizado');
+  DetalleProtocolo();
+  $('#ModalContenido').modal('hide');
+
+  });
+
+
+}else{
+$('#EditFechaProtocolo').css('border','2px solid #A52525');
+}
+
 }
 
 function anexos(id){
@@ -219,63 +195,7 @@ ListaAnexos(id);
 }
 
 function ListaAnexos(id){
-$('#DivContenido').load('public/sasisopa/vistas/modal-anexos.php?idProtocolo=' + id); 
-}
-
-function eliminarprotocolo(id){
-alertify.confirm('',
-function(){
-
-var parametros = {
-    "id" : id
-    };
-
-$.ajax({
- data:  parametros,
- url:   'public/sasisopa/eliminar/eliminar-protocolo-respuesta-emergencias.php',
- type:  'post',
- beforeSend: function() {
- },
- complete: function(){
- },
- success:  function (response) {
-
- alertify.message('El protocolo fue eliminado');
- DetalleProtocolo();
- }
- });
-
-},
-function(){
-}).setHeader('Eliminar').set({transition:'zoom',message: 'Desea eliminar el protocolo seleccionado',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
-}
-
-function eliminaranexo(idprotocolo,id){
-alertify.confirm('',
-function(){
-
-var parametros = {
-    "id" : id
-    };
-
-$.ajax({
- data:  parametros,
- url:   'public/sasisopa/eliminar/eliminar-anexo-protocolo-respuesta-emergencias.php',
- type:  'post',
- beforeSend: function() {
- },
- complete: function(){
- },
- success:  function (response) {
-
- alertify.message('El anexo fue eliminado');
- ListaAnexos(idprotocolo)
- }
- });
-
-},
-function(){
-}).setHeader('Eliminar').set({transition:'zoom',message: 'Desea eliminar el anexo seleccionado',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+$('#DivContenido').load('app/vistas/sasisopa/elemento13/modal-anexos.php?idProtocolo=' + id); 
 }
 
 function AgegarAnexo(id){
@@ -284,7 +204,7 @@ var Anexo = document.getElementById("Anexo");
 var FileAnexo = Anexo.files[0];
 var PathAnexo = Anexo.value;
 var data = new FormData();
-var url = 'public/sasisopa/agregar/agregar-anexo.php';
+var url = 'app/controlador/PreparacionEmergenciasControlador.php';
 
 var ext = $("#Anexo").val().split('.').pop();
 
@@ -292,6 +212,7 @@ if (NombreAnexo != "") {
 $('#NombreAnexo').css('border','');
 if (ext == "PDF" || ext == "pdf") {
 
+data.append('accion', 'agregar-anexo');
 data.append('idProtocolo', id);
 data.append('NombreAnexo', NombreAnexo);
 data.append('FileAnexo', FileAnexo);
@@ -318,114 +239,18 @@ $('#resultAnexo').html('<small class="text-danger">Solo se aceptan formato PDF</
  }
 }
 
-function BTNEditarProtocolo(id){
-
-var EditFechaProtocolo = $('#EditFechaProtocolo').val();
-var Protocolo = document.getElementById("EditFileProtocolo");
-var EditFileProtocolo = Protocolo.files[0];
-var PathProtocolo = Protocolo.value;
-var ext = $("#EditFileProtocolo").val().split('.').pop();
-
-var data = new FormData();
-var url = 'public/sasisopa/actualizar/editar-protocolo-emergencias.php';
-
-if (EditFechaProtocolo != "") {
-$('#EditFechaProtocolo').css('border','');
-
-$('#result').html('');
-
-data.append('id', id);
-data.append('EditFechaProtocolo', EditFechaProtocolo);
-data.append('EditFileProtocolo', EditFileProtocolo);
-
-  $.ajax({
-  url: url,
-  type: 'POST',
-  contentType: false,
-  data: data,
-  processData: false,
-  cache: false,
-  }).done(function(data){
-
-
-alertify.message('Protocolo de respuesta a emergencias actualizado');
-DetalleProtocolo();
-$('#ModalContenido').modal('hide');
-
-  });
-
-
-}else{
-$('#EditFechaProtocolo').css('border','2px solid #A52525');
-}
-
-}
-
-//------------------------------------------------------------------------------------
-function ModalTelefonos(){
-$('#ModalContenido').modal('show');
-ListaTelefonos();
-}
-function ListaTelefonos(){
-$('#DivContenido').load('public/sasisopa/vistas/lista-telefonos-emergencias.php');
-}
-function editartelefono(id){
-$('#DivContenido').load('public/sasisopa/vistas/editar-telefonos-emergencias.php?id=' + id);
-}
-function BtnCancelar(){
-ListaTelefonos();
-}
-function BtnActTelefono(id){
-
-var EditTitulo = $('#EditTitulo').val();
-var EditTelefono = $('#EditTelefono').val();
-
-if (EditTitulo != "") {
-$('#EditTitulo').css('border','');
-if (EditTelefono != "") {
-$('#EditTelefono').css('border','');
-
-var parametros = {
-    "EditTitulo" : EditTitulo,
-    "EditTelefono" : EditTelefono,
-    "idTelefono" : id
-    };
-
-        $.ajax({
-     data:  parametros,
-     url:   'public/sasisopa/actualizar/actualizar-telefono-emergencias.php',
-     type:  'post',
-     beforeSend: function() {
-     },
-     complete: function(){
-     },
-     success:  function (response) {
-alertify.message('Telefono de emergencia actualizado');
-      ListaTelefonos();
-     }
-     });
-
-}else{
-$('#EditTelefono').css('border','2px solid #A52525');
-}
-}else{
-$('#EditTitulo').css('border','2px solid #A52525');
-}
-
-}
-
-function eliminartelefono(id){
-
+function eliminaranexo(idprotocolo,id){
 alertify.confirm('',
 function(){
 
 var parametros = {
-    "idTelefono" : id
+    "accion" : "eliminar-anexo",
+    "id" : id
     };
 
 $.ajax({
  data:  parametros,
- url:   'public/sasisopa/eliminar/eliminar-telefono.php',
+ url:   'app/controlador/PreparacionEmergenciasControlador.php',
  type:  'post',
  beforeSend: function() {
  },
@@ -433,19 +258,60 @@ $.ajax({
  },
  success:  function (response) {
 
- alertify.message('El telefono fue eliminado');
- ListaTelefonos();
+ alertify.message('El anexo fue eliminado');
+ ListaAnexos(idprotocolo)
  }
  });
 
 },
 function(){
-}).setHeader('Eliminar teléfono').set({transition:'zoom',message: 'Desea eliminar el teléfono seleccionado',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+}).setHeader('Eliminar').set({transition:'zoom',message: 'Desea eliminar el anexo seleccionado',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+}
 
+function eliminarprotocolo(id){
+alertify.confirm('',
+function(){
+
+var parametros = {
+    "accion" : "eliminar-protocolo-respuesta-emergencias",
+    "id" : id
+    };
+
+$.ajax({
+ data:  parametros,
+ url:   'app/controlador/PreparacionEmergenciasControlador.php',
+ type:  'post',
+ beforeSend: function() {
+ },
+ complete: function(){
+ },
+ success:  function (response) {
+
+ alertify.message('El protocolo fue eliminado');
+ DetalleProtocolo();
+ }
+ });
+
+},
+function(){
+}).setHeader('Eliminar').set({transition:'zoom',message: 'Desea eliminar el protocolo seleccionado',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+}
+//--------------------------------------------------------------------------
+function ModalTelefonos(){
+$('#ModalContenido').modal('show');
+ListaTelefonos();
+}
+
+function BtnCancelar(){
+ListaTelefonos();
+}
+
+function ListaTelefonos(){
+$('#DivContenido').load('app/vistas/sasisopa/elemento13/lista-telefonos-emergencias.php');
 }
 
 function BtnNewTelefono(){
-$('#DivContenido').load('public/sasisopa/vistas/agregar-telefonos-emergencias.php');  
+$('#DivContenido').load('app/vistas/sasisopa/elemento13/agregar-telefonos-emergencias.php');  
 }
 
 function BtnAgregarTelefono(){
@@ -459,14 +325,14 @@ if (Telefono != "") {
 $('#Telefono').css('border','');
 
 var parametros = {
+"accion" : "agregar-telefono-emergencias",
 "Titulo" : Titulo,
-"Telefono" : Telefono,
-"idEstacion" : <?=$Session_IDEstacion;?>
+"Telefono" : Telefono
 };
 
     $.ajax({
      data:  parametros,
-     url:   'public/sasisopa/agregar/agregar-telefono-emergencias.php',
+     url:   'app/controlador/PreparacionEmergenciasControlador.php',
      type:  'post',
      beforeSend: function() {
      },
@@ -486,14 +352,90 @@ $('#Titulo').css('border','2px solid #A52525');
 }
 
 }
-//------------------------------------------------------
+
+function editartelefono(id){
+$('#DivContenido').load('app/vistas/sasisopa/elemento13/editar-telefonos-emergencias.php?id=' + id);
+}
+ 
+function BtnActTelefono(id){
+
+var EditTitulo = $('#EditTitulo').val();
+var EditTelefono = $('#EditTelefono').val();
+
+if (EditTitulo != "") {
+$('#EditTitulo').css('border','');
+if (EditTelefono != "") {
+$('#EditTelefono').css('border','');
+
+var parametros = {
+  "accion" : "editar-telefono-emergencias",
+    "EditTitulo" : EditTitulo,
+    "EditTelefono" : EditTelefono,
+    "idTelefono" : id
+    };
+
+        $.ajax({
+     data:  parametros,
+     url:   'app/controlador/PreparacionEmergenciasControlador.php',
+     type:  'post',
+     beforeSend: function() {
+     },
+     complete: function(){
+     },
+     success:  function (response) {
+    alertify.message('Telefono de emergencia actualizado');
+      ListaTelefonos();
+     }
+     });
+
+}else{
+$('#EditTelefono').css('border','2px solid #A52525');
+}
+}else{
+$('#EditTitulo').css('border','2px solid #A52525');
+}
+
+}
+
+function eliminartelefono(id){
+
+alertify.confirm('',
+function(){
+
+var parametros = {
+  "accion" : "eliminar-telefono-emergencias",
+    "idTelefono" : id
+    };
+
+$.ajax({
+ data:  parametros,
+ url:   'app/controlador/PreparacionEmergenciasControlador.php',
+ type:  'post',
+ beforeSend: function() {
+ },
+ complete: function(){
+ },
+ success:  function (response) {
+
+ alertify.message('El telefono fue eliminado');
+ ListaTelefonos();
+ }
+ });
+
+},
+function(){
+}).setHeader('Eliminar teléfono').set({transition:'zoom',message: 'Desea eliminar el teléfono seleccionado',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+
+}
+//------------------------------------------------------------------------------------
+
 function ProgramaAnual(){
-$('#ProgramaAnual').load('public/sasisopa/vistas/programa-anual.php');    
+$('#ProgramaAnual').load('app/vistas/sasisopa/elemento13/programa-anual.php');    
 }
 
 function ModalPrograma(id){
 $('#ModalContenido').modal('show');
-$('#DivContenido').load('public/sasisopa/vistas/programa-anual-simulacro.php?id=' + id);   
+$('#DivContenido').load('app/vistas/sasisopa/elemento13/programa-anual-simulacro.php?id=' + id);   
 }
 
 function BtnAgregarPrograma(id){
@@ -508,16 +450,16 @@ if (Fecha != "") {
 $('#Fecha').css('border','');
 
 var parametros = {
+  "accion" : "agregar-programa-anual-simulacro",
 "id" : id,
 "NombreSimulacro" : NombreSimulacro,
 "Periodicidad" : Periodicidad,
-"Fecha" : Fecha,
-"idEstacion" : <?=$Session_IDEstacion;?>
+"Fecha" : Fecha
 };
 
     $.ajax({
      data:  parametros,
-     url:   'public/sasisopa/agregar/agregar-programa-anual-simulacro.php',
+     url:   'app/controlador/PreparacionEmergenciasControlador.php',
      type:  'post',
      beforeSend: function() {
      },
@@ -545,7 +487,7 @@ ListaPersonal(id);
 }
 
 function ListaPersonal(id){
-$('#DivContenido').load('public/sasisopa/vistas/lista-personal-programa.php?idPrograma=' + id);
+$('#DivContenido').load('app/vistas/sasisopa/elemento13/lista-personal-programa.php?idPrograma=' + id);
 }
 
 function BtnAgregarPersonal(id){
@@ -557,13 +499,14 @@ $('#borderNombrePersonal').css('border','');
 
 
 var parametros = {
+"accion" : "agregar-personal-simulacro",
 "NombrePersonal" : NombrePersonal,
 "id_programa" : id
 };
 
     $.ajax({
      data:  parametros,
-     url:   'public/sasisopa/agregar/agregar-personal-simulacro.php',
+     url:   'app/controlador/PreparacionEmergenciasControlador.php',
      type:  'post',
      beforeSend: function() {
      },
@@ -576,11 +519,9 @@ var parametros = {
      }
      });
 
-
 }else{
 $('#borderNombrePersonal').css('border','2px solid #A52525');
 }
-
 
 }
 
@@ -589,12 +530,13 @@ alertify.confirm('',
 function(){
 
 var parametros = {
+  "accion" : "eliminar-personal-simulacro",
     "idPersonal" : idPersonal
     };
 
 $.ajax({
  data:  parametros,
- url:   'public/sasisopa/eliminar/eliminar-personal.php',
+ url:   'app/controlador/PreparacionEmergenciasControlador.php',
  type:  'post',
  beforeSend: function() {
  },
@@ -615,7 +557,7 @@ function(){
 
 function ModalResumen(id){
 $('#ModalContenido').modal('show');
-$('#DivContenido').load('public/sasisopa/vistas/resumen-programa-anual.php?idPrograma=' + id);
+$('#DivContenido').load('app/vistas/sasisopa/elemento13/resumen-programa-anual.php?idPrograma=' + id);
 }
 
 function BtnAgregarResumen(id){
@@ -627,13 +569,14 @@ $('#Resumen').css('border','');
 
 
 var parametros = {
+"accion" : "agregar-resumen-simulacro",
 "Resumen" : Resumen,
 "idPrograma" : id
 };
 
     $.ajax({
      data:  parametros,
-     url:   'public/sasisopa/agregar/agregar-resumen-simulacro.php',
+     url:   'app/controlador/PreparacionEmergenciasControlador.php',
      type:  'post',
      beforeSend: function() {
      },
@@ -654,7 +597,7 @@ $('#Resumen').css('border','2px solid #A52525');
 
 function ModalArchivo(id){
 $('#ModalContenido').modal('show');
-$('#DivContenido').load('public/sasisopa/vistas/archivo-programa-simulacro.php?idPrograma=' + id);
+$('#DivContenido').load('app/vistas/sasisopa/elemento13/archivo-programa-simulacro.php?idPrograma=' + id);
 }
 
 function BtnAgregarEvaluacion(id){
@@ -665,11 +608,12 @@ var PathEvaluacion = Archivo.value;
 var ext = $("#Evaluacion").val().split('.').pop();
 
 var data = new FormData();
-var url = 'public/sasisopa/agregar/agregar-evaluacion-simulacro.php';
+var url = 'app/controlador/PreparacionEmergenciasControlador.php';
 
 if (ext == "PDF" || ext == "pdf") {
 $('#result').html('');
 
+data.append('accion', 'agregar-evaluacion-simulacro');
 data.append('idPrograma', id);
 data.append('FileEvaluacion', FileEvaluacion);
 
@@ -699,12 +643,13 @@ alertify.confirm('',
 function(){
 
 var parametros = {
+  "accion" : "eliminar-programa-anual-simulacros",
     "id" : id
     };
 
 $.ajax({
  data:  parametros,
- url:   'public/sasisopa/eliminar/eliminar-programa-anual-simulacros.php',
+ url:   'app/controlador/PreparacionEmergenciasControlador.php',
  type:  'post',
  beforeSend: function() {
  },
@@ -722,7 +667,7 @@ function(){
 
 function BuscarReporte(){
 $('#ModalContenido').modal('show');
-$('#DivContenido').load('public/sasisopa/vistas/buscar-programa-simulacro.php');
+$('#DivContenido').load('app/vistas/sasisopa/elemento13/buscar-programa-simulacro.php');
 }
 
 function BtnBuscar(){
@@ -738,6 +683,7 @@ $('#ModalContenido').modal('hide');
 $('#BuscarYear').css('border','2px solid #A52525');
 }
 }
+
   </script>
   </head>
   <body>
@@ -851,7 +797,7 @@ $('#BuscarYear').css('border','2px solid #A52525');
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda()">Aceptar</button>
+          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda(<?=$id_ayuda;?>,<?=$estado;?>)">Aceptar</button>
         </div>
       </div>
     </div>

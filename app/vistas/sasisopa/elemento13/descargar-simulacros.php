@@ -4,7 +4,7 @@ include_once "app/help.php";
 
 function NomUsuario($id, $con){
 
-$sql_lista = "SELECT * FROM tb_usuarios WHERE id = '".$id."' ";
+$sql_lista = "SELECT nombre FROM tb_usuarios WHERE id = '".$id."' ";
 $result_lista = mysqli_query($con, $sql_lista);
 $numero_lista = mysqli_num_rows($result_lista);
 while($row_lista = mysqli_fetch_array($result_lista, MYSQLI_ASSOC)){
@@ -16,7 +16,8 @@ return $nombre;
 
 use Dompdf\Dompdf;
 $dompdf = new Dompdf();
-
+    
+$contenid0 = "";
     $contenid0 .= "<!DOCTYPE html>";
     $contenid0 .= "<html>";
     $contenid0 .= "<head>";
@@ -270,9 +271,6 @@ $contenid0 .= '<hr>';
 }
 
 $contenid0 .= '</div>';
-
-
-
 $contenid0 .= '</body>';
 $contenid0 .= '</html>';
 

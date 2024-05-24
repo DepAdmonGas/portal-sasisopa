@@ -1,5 +1,5 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 $idPrograma = $_GET['idPrograma'];
 ?>
 <div class="modal-header">

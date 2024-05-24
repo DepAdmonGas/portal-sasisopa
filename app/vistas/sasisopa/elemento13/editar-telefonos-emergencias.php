@@ -1,15 +1,14 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 $idTelefono = $_GET['id'];
 
 $sql_telefono = "SELECT * FROM tb_telefonos_emergencias WHERE id = '".$idTelefono."' ";
 $result_telefono = mysqli_query($con, $sql_telefono);
 $numero_telefono = mysqli_num_rows($result_telefono);
-while($row_telefono = mysqli_fetch_array($result_telefono, MYSQLI_ASSOC)){
+$row_telefono = mysqli_fetch_array($result_telefono, MYSQLI_ASSOC);
 $titulo = $row_telefono['titulo'];
 $telefono = $row_telefono['telefono'];
-}
 
 ?>
 <div class="modal-header">

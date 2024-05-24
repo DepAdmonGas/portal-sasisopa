@@ -1,14 +1,13 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 $idProtocolo = $_GET['id'];
 
-$sql_protocolo = "SELECT * FROM tb_protocolo_emergencias WHERE id = '".$idProtocolo."'";
+$sql_protocolo = "SELECT fechacreacion, archivo FROM tb_protocolo_emergencias WHERE id = '".$idProtocolo."'";
 $result_protocolo = mysqli_query($con, $sql_protocolo);
 $numero_protocolo = mysqli_num_rows($result_protocolo);
-while($row_protocolo = mysqli_fetch_array($result_protocolo, MYSQLI_ASSOC)){
+$row_protocolo = mysqli_fetch_array($result_protocolo, MYSQLI_ASSOC);
 $fechacreacion = $row_protocolo['fechacreacion'];
 $imgPDF = "<a target='_blank' href='".$row_protocolo['archivo']."' ><img src='".RUTA_IMG_ICONOS."pdf-16.png'></a>";
-}
 ?>
 <div class="modal-header">
 <h4 class="modal-title">Agregar protocolo de respuesta a emergencias</h4>

@@ -1,16 +1,19 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 $id = $_GET['id'];
 
 $sql_programa = "SELECT * FROM tb_programa_anual_simulacros WHERE id = '".$id."' ";
 $result_programa = mysqli_query($con, $sql_programa);
 $numero_programa = mysqli_num_rows($result_programa);
-while($row_programa = mysqli_fetch_array($result_programa, MYSQLI_ASSOC)){
-$Simulacro = $row_programa['nombre_simulacro'];
-$Fecha = $row_programa['fecha'];
+if($numero_programa > 0){
+    $row_programa = mysqli_fetch_array($result_programa, MYSQLI_ASSOC);
+    $Simulacro = $row_programa['nombre_simulacro'];
+    $Fecha = $row_programa['fecha'];
+}else{
+    $Simulacro = "";
+    $Fecha = "";
 }
-
 ?>
 <div class="modal-header">
 <h4 class="modal-title">Crear programa anual de simulacros</h4>

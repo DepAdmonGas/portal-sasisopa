@@ -1,5 +1,8 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
+include_once "../../../../app/modelo/PreparacionEmergencias.php";
+
+$class_preparacion_emergencias = new PreparacionEmergencias();
 
 $idPrograma = $_GET['idPrograma'];
 
@@ -7,15 +10,6 @@ $sql_programa = "SELECT * FROM tb_programa_anual_simulacros_personal WHERE id_pr
 $result_programa = mysqli_query($con, $sql_programa);
 $numero_programa = mysqli_num_rows($result_programa);
 
-
-function Valida($idPrograma,$nombre,$con){
-
-$sql_programa = "SELECT * FROM tb_programa_anual_simulacros_personal WHERE id_programa = '".$idPrograma."' AND nombre = '".$nombre."' ";
-$result_programa = mysqli_query($con, $sql_programa);
-$numero_programa = mysqli_num_rows($result_programa);
-
-return $numero_programa;
-}
 ?>
 <script type="text/javascript">
  $(document).ready(function(){
@@ -41,7 +35,7 @@ $('#NombrePersonal').selectpicker('refresh');
 		$result_usuarios = mysqli_query($con, $sql_usuarios);
 		$numero_usuarios = mysqli_num_rows($result_usuarios);
 		while($row_usuarios = mysqli_fetch_array($result_usuarios, MYSQLI_ASSOC)){
-		$Valida = Valida($idPrograma,$row_usuarios['nombre'],$con);
+		$Valida = $class_preparacion_emergencias->validaPersonalAsiste($idPrograma,$row_usuarios['nombre']);
 		if($Valida == 0){
 		echo '<option value="'.$row_usuarios['nombre'].'">'.$row_usuarios['nombre'].'</option>';
 		}

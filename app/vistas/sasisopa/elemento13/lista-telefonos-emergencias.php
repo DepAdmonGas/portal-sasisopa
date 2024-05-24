@@ -1,5 +1,5 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 $sql_telefono = "SELECT * FROM tb_telefonos_emergencias WHERE id_estacion = '".$Session_IDEstacion."' AND prioridad = 0";
 $result_telefono = mysqli_query($con, $sql_telefono);
@@ -50,7 +50,8 @@ echo "<div class='col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3'>
 <thead>
 <th>Servicio de emergencia</th>
 <th class="text-center">Teléfono</th>
-<th colspan="2"></th>
+<th width="20px"><img src="<?=RUTA_IMG_ICONOS;?>edit-black-16.png"></th>
+<th width="20px"><img src="<?=RUTA_IMG_ICONOS;?>eliminar-red-16.png"></th>
 </thead>	
 <tbody>
 <?php

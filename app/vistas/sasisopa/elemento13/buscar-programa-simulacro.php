@@ -1,5 +1,5 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 ?>
 <div class="modal-header">
 <h4 class="modal-title">Descargar simulacros</h4>

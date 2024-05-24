@@ -1,37 +1,10 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
+include_once "../../../../app/modelo/PreparacionEmergencias.php";
 
-$sql_programa = "SELECT * FROM tb_programa_anual_simulacros WHERE id_estacion = '".$Session_IDEstacion."' ";
-$result_programa = mysqli_query($con, $sql_programa);
-$numero_programa = mysqli_num_rows($result_programa);
-
-function PersonalA($id, $con){
-$sql_personal = "SELECT * FROM tb_programa_anual_simulacros_personal WHERE id_programa = '".$id."' ";
-$result_personal = mysqli_query($con, $sql_personal);
-$numero_personal = mysqli_num_rows($result_personal);
-return $numero_personal;
-}
-
-function Resumen($id, $con){
-$sql_resumen = "SELECT * FROM tb_programa_anual_simulacros_resumen WHERE id_programa = '".$id."' ";
-$result_resumen = mysqli_query($con, $sql_resumen);
-$numero_resumen = mysqli_num_rows($result_resumen);
-return $numero_resumen;
-}
-
-function Evaluacion($id, $con){
-$sql_evaluacion = "SELECT * FROM tb_programa_anual_simulacros_evaluacion WHERE id_programa = '".$id."' order by fechacreacion desc LIMIT 1";
-$result_evaluacion = mysqli_query($con, $sql_evaluacion);
-$numero_evaluacion = mysqli_num_rows($result_evaluacion);
-while($row_evaluacion = mysqli_fetch_array($result_evaluacion, MYSQLI_ASSOC)){
-$img_evaluacion = $row_evaluacion['archivo'];
-}
-return $img_evaluacion;
-}
+$class_preparacion_emergencias = new PreparacionEmergencias();
 
 ?>
-
-
 
 <div style="overflow-y: hidden;">
 <table class="table table-bordered table-sm mt-2 mb-2">
@@ -49,11 +22,8 @@ return $img_evaluacion;
 </table>
 </div>
 
-
-
 <div class="border mt-3 mb-3">
 <div class="p-3">
-
 
 <div class="text-right mt-2 mb-2">
 <img class="mr-2" src="<?=RUTA_IMG_ICONOS;?>lupa.png" onclick="BuscarReporte()">
@@ -61,7 +31,6 @@ return $img_evaluacion;
 </div>
 
 <hr>
-
 
 <div class="" style="overflow-y: hidden;">
 <table class="table table-bordered table-striped table-hover table-sm mt-3">
@@ -77,11 +46,16 @@ return $img_evaluacion;
 </thead>	
 <tbody>
 <?php
+$sql_programa = "SELECT * FROM tb_programa_anual_simulacros WHERE id_estacion = '".$Session_IDEstacion."' ";
+$result_programa = mysqli_query($con, $sql_programa);
+$numero_programa = mysqli_num_rows($result_programa);
 if ($numero_programa > 0) {
 while($row_programa = mysqli_fetch_array($result_programa, MYSQLI_ASSOC)){
 $id = $row_programa['id'];
 
-$personal = PersonalA($id, $con);
+$personal = $class_preparacion_emergencias->PersonalA($id);
+$Resumen = $class_preparacion_emergencias->Resumen($id);
+$Evaluacion = $class_preparacion_emergencias->Evaluacion($id);
 
 if ($personal == 0) {
 $PersonalA = "No se encontró personal";
@@ -89,23 +63,17 @@ $PersonalA = "No se encontró personal";
 $PersonalA = $personal." personas";
 }
 
-$Resumen = Resumen($id, $con);
-
 if ($Resumen == 0) {
 $ImgResumen = "<img width='18px' src='".RUTA_IMG_ICONOS."img-no.png'>";
 }else{
 $ImgResumen = "<img width='18px' src='".RUTA_IMG_ICONOS."correcto-16.png'>";
 }
 
-$Evaluacion = Evaluacion($id, $con);
-
 if ($Evaluacion == "") {
 $imgPDF = "<img src='".RUTA_IMG_ICONOS."sin-archivo.png'>";
 }else{
 $imgPDF = "<a target='_blank' href='".$Evaluacion."' ><img src='".RUTA_IMG_ICONOS."archivo.png'></a>";
 }
-
- 
 
 echo "<tr>";
 echo "<td class='align-middle text-center'>".$row_programa['nombre_simulacro']."</td>";
@@ -133,7 +101,6 @@ echo "<tr><td colspan='12' class='text-center'><small>No se encontró informaci�
 </div>
 </div>
 </div>
-
 
 <?php  
 if ($numero_programa == 0) {

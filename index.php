@@ -162,6 +162,9 @@ switch ($partes_ruta[1])
     case '12-seguridad-contratistas':
       $ruta_elegida = $index_controlador->seguridadContratistas();
       break;
+      case '13-preparacion-emergencias':
+      $ruta_elegida = $index_controlador->preparacionEmergencias();
+      break;
     //-------- ELEMENTOS SASISOPA FIN -------------------
     //---------------------------------------------------
       
@@ -228,9 +231,7 @@ break;
 //-----------------------------------------------------------------
 
 
-case '13-preparacion-emergencias':
-$ruta_elegida = 'public/sasisopa/preparacion-emergencias-index.php';
-break;
+
 case '14-monitoreo-verificacion-evaluacion':
 $ruta_elegida = 'public/sasisopa/monitoreo-verificacion-evaluacion-index.php';
 break;
@@ -394,7 +395,11 @@ break;
     else if ($partes_ruta[1] == 'descargar-seguridad-contratistas') {
       $GET_idRegistro = $partes_ruta[2];
       $ruta_elegida = $index_controlador->descargarSeguridadContratista();
-      }
+    }
+    else if ($partes_ruta[1] == 'descargar-simulacros') {
+      $GET_Year = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->descargarSimulacros();
+    }
     //---------------------------------------------
     //---------------------------------------------
     //------------ LISTA ASISTENCIA ---------------
@@ -493,10 +498,7 @@ break;
     $idEstacion = $partes_ruta[2];
     $ruta_elegida = 'public/gerente/calendario-editar.php';
     }
-    else if ($partes_ruta[1] == 'descargar-simulacros') {
-    $GET_Year = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/vistas/descargar-simulacros.php';
-    }
+    
     else if ($partes_ruta[1] == 'descargar-registro-atencio-seguimiento-comunicacion-interna-externa') {
     $GET_ID = $partes_ruta[2];
     $ruta_elegida = 'public/sasisopa/vistas/descargar-registro-atencio-seguimiento-comunicacion-interna-externa.php';

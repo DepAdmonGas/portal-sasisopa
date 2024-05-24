@@ -1,5 +1,5 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 $sql_protocolo = "SELECT * FROM tb_protocolo_emergencias WHERE id_estacion = '".$Session_IDEstacion."' ORDER BY fechacreacion desc";
 $result_protocolo = mysqli_query($con, $sql_protocolo);

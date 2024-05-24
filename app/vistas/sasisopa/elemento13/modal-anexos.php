@@ -1,5 +1,5 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 $idProtocolo = $_GET['idProtocolo'];
 ?>
 <div class="modal-header">

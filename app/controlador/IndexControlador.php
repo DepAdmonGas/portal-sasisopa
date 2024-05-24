@@ -79,5 +79,7 @@ class IndexControlador{
     public function descargarListaVerificacion(){return 'app/vistas/sasisopa/elemento12/descargar-lista-verificacion.php';}
     public function descargarAutorizacionTrabajosPeligrosos(){return 'app/vistas/sasisopa/elemento12/descargar-autorizacion-trabajos-peligrosos.php';}
     public function descargarSeguridadContratista(){return 'app/vistas/sasisopa/elemento12/descargar-seguridad-contratistas.php';}
+    public function preparacionEmergencias(){return 'app/vistas/sasisopa/elemento13/preparacion-emergencias-index.php';}
+    public function descargarSimulacros(){return 'app/vistas/sasisopa/elemento13/descargar-simulacros.php';}
 
 }
