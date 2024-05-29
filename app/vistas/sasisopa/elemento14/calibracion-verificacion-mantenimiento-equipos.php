@@ -1,78 +1,7 @@
 <?php
 require('app/help.php');
-
-function TanquesAlmacenamiento($IDEstacion,$con){
-$sql = "SELECT * FROM tb_tanque_almacenamiento WHERE id_estacion = '".$IDEstacion."' ";
-$result = mysqli_query($con, $sql);
-$numero = mysqli_num_rows($result);
-if ($numero > 0) {
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-$Contenido .= "<tr>";
-$Contenido .= "<td class='text-center align-middle'>".$row['no_tanque']."</td>";
-$Contenido .= "<td class='text-center align-middle'>".$row['capacidad'].", ".$row['producto']."</td>";
-$Contenido .= "<td class='text-center align-middle'>Tanques de almacenamiento</td>";
-$Contenido .= "<td class='text-center align-middle'>10 años</td>";
-$Contenido .= "</tr>";
-}
-}
-return $Contenido;
-}
-
-function SondasMedicion($IDEstacion,$con){
-$sql = "SELECT * FROM tb_sondas_medicion WHERE id_estacion = '".$IDEstacion."' ";
-$result = mysqli_query($con, $sql);
-$numero = mysqli_num_rows($result);
-if ($numero > 0) {
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-$Contenido .= "<tr>";
-$Contenido .= "<td class='text-center align-middle'>".$row['no_sonda']."</td>";
-$Contenido .= "<td class='text-center align-middle'>".$row['marca'].", ".$row['modelo']."</td>";
-$Contenido .= "<td class='text-center align-middle'>Sondas de medición</td>";
-$Contenido .= "<td class='text-center align-middle'>2 años</td>";
-$Contenido .= "</tr>";
-}
-}
-return $Contenido;
-}
-
-function Dispensario($IDEstacion,$con){
-$sql = "SELECT * FROM tb_dispensarios WHERE id_estacion = '".$IDEstacion."' ";
-$result = mysqli_query($con, $sql);
-$numero = mysqli_num_rows($result);
-if ($numero > 0) {
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-$Contenido .= "<tr>";
-$Contenido .= "<td class='text-center align-middle'>".$row['no_dispensario']."</td>";
-$Contenido .= "<td class='text-center align-middle'>".$row['marca'].", ".$row['modelo']."</td>";
-$Contenido .= "<td class='text-center align-middle'>Dispensario</td>";
-$Contenido .= "<td class='text-center align-middle'>Semestral</td>";
-$Contenido .= "</tr>";
-}
-}
-return $Contenido;
-}
-
-function JarraPatron($IDEstacion,$con){
-
-$i = 1;
-$sql = "SELECT * FROM tb_jarra_patron WHERE id_estacion = '".$IDEstacion."' ";
-$result = mysqli_query($con, $sql);
-$numero = mysqli_num_rows($result);
-if ($numero > 0) {
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-$Contenido .= "<tr>";
-$Contenido .= "<td class='text-center align-middle'>".$i."</td>";
-$Contenido .= "<td class='text-center align-middle'>".$row['marca'].", ".$row['no_serie']."</td>";
-$Contenido .= "<td class='text-center align-middle'>Jarra patron</td>";
-$Contenido .= "<td class='text-center align-middle'>Anual</td>";
-$Contenido .= "</tr>";
-
-$i++;
-}
-}
-return $Contenido;
-}
-
+include_once "app/modelo/MonitoreoVerificacionEvaluacion.php";
+$class_monitoreo_evaluacion = new MonitoreoVerificacionEvaluacion();
 ?>
 <html lang="es">
   <head>
@@ -117,7 +46,7 @@ return $Contenido;
   }
 
   function CalendarioCalibraciones(){
-  $('#CalendarioCalibraciones').load('public/sasisopa/vistas/calendario-calibraciones.php');
+  $('#CalendarioCalibraciones').load('app/vistas/sasisopa/elemento14/calendario-calibraciones.php');
   }
 
   function Bitacora(){
@@ -126,56 +55,6 @@ return $Contenido;
 
   function DescargarESC(){
   window.location.href = 'descargar-equipos-sometidos-calibracion';
-  }
-
-  function Adjuntar(id){
-  $('#Modal').modal('show');
-  $('#DivModal').load('public/sasisopa/vistas/modal-agregar-resultados-calibracion.php?ID=' + id);
-  }
-
-  function AgregarR(id){
-
-  var data = new FormData();
-  var url = "public/sasisopa/agregar/agregar-resultados-calibracion.php";
-
-  var Archivo = document.getElementById("Archivo");
-  var file = Archivo.files[0];
-  var filePath = Archivo.value;
-  var valpdf = filePath.split('.').pop();
-
-  if (filePath != "") {
-  $('#Archivo').css('border','');
-  if (valpdf == "pdf") {
-  $('#Archivo').css('border','');
-  $('#DivResultadoPDF').html('');
-
-  data.append('id', id);
-  data.append('file', file);
-
-  
-
-  $.ajax({
-  url: url,
-  type: 'POST',
-  contentType: false,
-  data: data,
-  processData: false,
-  cache: false
-  }).done(function(data){
-
-  CalendarioCalibraciones();
-  Adjuntar(id)
-
-  });
-
-  }else{
-  $('#Archivo').css('border','2px solid #A52525');
-  $('#DivResultadoPDF').html('<label class="text-danger">Solo acepta formato PDF</label>');
-  }
-  }else{
-  $('#Archivo').css('border','2px solid #A52525');
-  }
-
   }
 
   function DescargarCalendario(){
@@ -253,10 +132,10 @@ return $Contenido;
         </thead>
         <tbody>
         <?php 
-        echo TanquesAlmacenamiento($Session_IDEstacion,$con);
-        echo SondasMedicion($Session_IDEstacion,$con);
-        echo Dispensario($Session_IDEstacion,$con);
-        echo JarraPatron($Session_IDEstacion,$con);
+        echo $class_monitoreo_evaluacion->tanquesAlmacenamiento($Session_IDEstacion);
+        echo $class_monitoreo_evaluacion->sondasMedicion($Session_IDEstacion);
+        echo $class_monitoreo_evaluacion->dispensario($Session_IDEstacion);
+        echo $class_monitoreo_evaluacion->jarraPatron($Session_IDEstacion);
         ?>
         </tbody>
       </table>

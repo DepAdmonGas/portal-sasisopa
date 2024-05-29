@@ -47,12 +47,12 @@ require('app/help.php');
   }
 
   function ListaInforme(){
-  $('#ListaInforme').load('public/sasisopa/vistas/lista-informe-revision-resultados.php');   
+  $('#ListaInforme').load('app/vistas/sasisopa/elemento14/lista-informe-revision-resultados.php');   
   }
 
   function btnModalIRR(){
   $('#ModalAgregar').modal('show');
-  $('#ContenidoModal').load('public/sasisopa/vistas/modal-informe-revision-resultados.php');
+  $('#ContenidoModal').load('app/vistas/sasisopa/elemento14/modal-informe-revision-resultados.php');
   }
 
   function btnGuardarIRR(){
@@ -64,17 +64,16 @@ require('app/help.php');
   let FilePath = Documento.value;
 
   var data = new FormData();
-  var url = 'public/sasisopa/agregar/agregar-informe-revision-resultados.php';
+  var url = 'app/controlador/MonitoreoVerificacionEvaluacionControlador.php';
   var ext = $("#Documento").val().split('.').pop();
-
 
 if (Fecha != "") {
 $('#Fecha').css('border',''); 
 if (FilePath != "") {
 $('#Documento').css('border','');
 if (ext == "PDF" || ext == "pdf") {
-
-
+  
+  data.append('accion', 'agregar-informe-revision-resultados');
   data.append('Fecha', Fecha);
   data.append('File', File);
 
@@ -112,12 +111,13 @@ $('#Fecha').css('border','2px solid #A52525');
  function(){
 
   var parametros = {
+      "accion" : "eliminar-informe-revision-resultados",
       "id" : id
       };
 
   $.ajax({
    data:  parametros,
-   url:   'public/sasisopa/eliminar/eliminar-informe-revision-resultados.php',
+   url:   'app/controlador/MonitoreoVerificacionEvaluacionControlador.php',
    type:  'post',
    beforeSend: function() {
    },

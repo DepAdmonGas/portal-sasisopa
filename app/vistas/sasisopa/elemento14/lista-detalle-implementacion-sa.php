@@ -1,5 +1,5 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 $idDetalle = $_GET['idDetalle'];
 
@@ -28,7 +28,6 @@ while($row_implementacion = mysqli_fetch_array($result_implementacion, MYSQLI_AS
 $id = $row_implementacion['id'];
 $pregunta = $row_implementacion['pregunta'];
 $respuesta = $row_implementacion['respuesta'];
-
 
 ?>
 <tr>

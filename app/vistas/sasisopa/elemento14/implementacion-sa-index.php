@@ -61,18 +61,17 @@ require('app/help.php');
   }
 
   function ListaImplementacion(){
-  $('#ContenidoImplementacion').load('../public/sasisopa/vistas/lista-implementacion-sa.php');   
+  $('#ContenidoImplementacion').load('../app/vistas/sasisopa/elemento14/lista-implementacion-sa.php');   
   }
 
   function ModalDetalle(idDetalle){
   $('#ModalDetalle').modal('show');
-  $('#ContenidoDetalle').load('../public/sasisopa/vistas/lista-detalle-implementacion-sa.php?idDetalle=' + idDetalle);
-  
+  $('#ContenidoDetalle').load('../app/vistas/sasisopa/elemento14/lista-detalle-implementacion-sa.php?idDetalle=' + idDetalle);
   }
 
   function ModalEditar(idDetalle){
   $('#ModalDetalle').modal('show');
-  $('#ContenidoDetalle').load('../public/sasisopa/vistas/modal-editar-implementacion-sa.php?idDetalle=' + idDetalle);  
+  $('#ContenidoDetalle').load('../app/vistas/sasisopa/elemento14/modal-editar-implementacion-sa.php?idDetalle=' + idDetalle);  
   }
 
   function btnGuardar(){
@@ -227,8 +226,7 @@ require('app/help.php');
   $('.pregunta-36').css('border','');
 
 var parametros = {
-      "idEstacion" : <?php echo $Session_IDEstacion; ?>,
-      "idUsuario" : <?php echo $Session_IDUsuarioBD; ?>,
+      "accion" : "agregar-cuestionario-sasisopa",
       "Titulo1" : Titulo1,
       "Titulo2" : Titulo2,
       "Titulo3" : Titulo3,
@@ -305,7 +303,7 @@ var parametros = {
 
       $.ajax({
       data:  parametros,
-      url:   '../public/sasisopa/agregar/cuestionario-sasisopa.php',
+      url:   '../app/controlador/MonitoreoVerificacionEvaluacionControlador.php',
       type:  'post',
       beforeSend: function() {
       
@@ -313,6 +311,8 @@ var parametros = {
       complete: function(){
       },
       success:  function (response) {
+
+        console.log(response)
       
       ListaImplementacion();
       $('#myModal').modal('hide');
@@ -372,13 +372,14 @@ if (Fecha != "") {
 $('#Fecha').css('border','');
 
 var parametros = {
+"accion" : "editar-implementacion-sa",
 "idDetalle" : idDetalle,
 "Fecha" : Fecha
 };
 
       $.ajax({
       data:  parametros,
-      url:   '../public/sasisopa/actualizar/editar-implementacion-sa.php',
+      url:   '../app/controlador/MonitoreoVerificacionEvaluacionControlador.php',
       type:  'post',
       beforeSend: function() {
       

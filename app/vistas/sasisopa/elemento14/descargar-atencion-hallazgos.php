@@ -1,24 +1,13 @@
 <?php
 require_once 'dompdf/autoload.inc.php';
 include_once "app/help.php";
-
-
-function Evidencias($id, $con){
-
-$sqlAH = "SELECT * FROM tb_atencion_hallazgos_evidencia WHERE id_atencion = '".$id."'";
-$resultAH = mysqli_query($con, $sqlAH);
-$numeroAH = mysqli_num_rows($resultAH);
-while($rowAH = mysqli_fetch_array($resultAH, MYSQLI_ASSOC)){
-
-$Result .= "<div><small>".$rowAH['archivo']."</small></div>";
-}
-
-return $Result;
-}
+include_once "app/modelo/MonitoreoVerificacionEvaluacion.php";
+$class_monitoreo_evaluacion = new MonitoreoVerificacionEvaluacion();
 
 use Dompdf\Dompdf;
 $dompdf = new Dompdf();
 
+    $contenid0 = "";
     $contenid0 .= "<!DOCTYPE html>";
     $contenid0 .= "<html>";
     $contenid0 .= "<head>";
@@ -250,41 +239,6 @@ $contenid0 .= '<td colspan="11" class="text-center text-secondary" style="font-s
 
 $contenid0 .= '</tbody></table>';
 
-function Sasisopa($id,$con){
-$sql = "SELECT * FROM sa_sasisopa WHERE id = '".$id."' ";
-$result = mysqli_query($con, $sql);
-$numero = mysqli_num_rows($result);
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-$Nombre = $row['nombre'];
-} 
-return $Nombre;
-}
-
-function Evidencia($id,$con){
-$sql = "SELECT * FROM tb_atencion_hallazgos_evidencia WHERE id_hallazgo = '".$id."' ";
-$result = mysqli_query($con, $sql);
-$numero = mysqli_num_rows($result);
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-$archivo = $row['archivo'];
-$contenido .= '<div><a>'.$row['archivo'].'</a></div>';
-} 
-return $contenido;
-}
-
-function Cumplimiento($id,$con){
-$sql = "SELECT * FROM tb_atencion_hallazgos_evidencia WHERE id_hallazgo = '".$id."' ";
-$result = mysqli_query($con, $sql);
-$numero = mysqli_num_rows($result); 
-
-if($numero == 0){
-$Result = '0%';
-}else{
-$Result = '100%'; 
-}
-
-return $Result;
-}
-
 $sqlH = "SELECT * FROM tb_atencion_hallazgos_detalle WHERE id_atencion = '".$GET_ID."' ORDER BY id_sasisopa ASC ";
 $resultH = mysqli_query($con, $sqlH);
 $numeroH = mysqli_num_rows($resultH);
@@ -307,11 +261,11 @@ while($rowH = mysqli_fetch_array($resultH, MYSQLI_ASSOC)){
 
 $idH = $rowH['id'];
 
-$Evidencia = Evidencia($idH,$con);
-$Cumplimiento = Cumplimiento($idH,$con);
+$Evidencia = $class_monitoreo_evaluacion->evidencia($idH);
+$Cumplimiento = $class_monitoreo_evaluacion->cumplimiento($idH);
 
 $contenid0 .= '<tr>';
-$contenid0 .= '<td class="align-middle text-center"><b>'.Sasisopa($rowH['id_sasisopa'],$con).'</b></td>';
+$contenid0 .= '<td class="align-middle text-center"><b>'.$class_monitoreo_evaluacion->sasisopa($rowH['id_sasisopa']).'</b></td>';
 $contenid0 .= '<td class="align-middle text-center">'.$rowH['hallazgos'].'</td>';
 $contenid0 .= '<td class="align-middle text-center">'.$rowH['accion'].'</td>';
 $contenid0 .= '<td class="align-middle text-center">'.FormatoFecha($rowH['fecha_implementacion']).'</td>';
@@ -321,7 +275,7 @@ $contenid0 .= '</tr>';
 
 }
 }else{
-$contenid0 .= "<tr><td colspan='9' class='text-secondary text-center' >No se encontró información para mostrar.</td></tr>";    
+$contenid0 .= "<tr><td colspan='6' class='text-secondary text-center' >No se encontró información para mostrar.</td></tr>";    
 }
 
 $contenid0 .= '</tbody> 

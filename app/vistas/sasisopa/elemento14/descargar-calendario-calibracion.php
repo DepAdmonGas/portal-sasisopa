@@ -3,7 +3,7 @@ require_once 'dompdf/autoload.inc.php';
 include_once "app/help.php";
 
 function Calibracion($IDEstacion,$equipo,$fecha,$estado,$con){
-
+    $Cotenido = "";
 $explode = explode('-', $fecha);
 $Year = $explode[0];
 $Mes = $explode[1];
@@ -132,7 +132,6 @@ $i++;
 }
 
 }else if($equipo == 'Tanques de almacenamiento'){
-
 $i = 1;
 $sql = "SELECT * FROM tb_tanque_almacenamiento WHERE id_estacion = '".$IDEstacion."' ";
 $result = mysqli_query($con, $sql);
@@ -200,7 +199,7 @@ function YearCol($Year, $Mes, $MesCom,$estado){
 use Dompdf\Dompdf;
 $dompdf = new Dompdf();
 
-
+    $contenid0 = "";
     $contenid0 .= "<!DOCTYPE html>";
     $contenid0 .= "<html>";
     $contenid0 .= "<head>";

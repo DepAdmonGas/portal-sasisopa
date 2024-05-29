@@ -1,6 +1,5 @@
 <?php
-require('../../../app/help.php');
-
+require('../../../../app/help.php');
 ?>
 <div class="modal-header">
 <h4 class="modal-title">Informe de revisión de resultados</h4>
@@ -10,7 +9,6 @@ require('../../../app/help.php');
 </div>
 <div class="modal-body">
 
-
 <h6>Fecha:</h6>
 <input type="date" class="form-control rounded-0" id="Fecha">
 <h6>Documento:</h6>
@@ -18,6 +16,6 @@ require('../../../app/help.php');
 
 <div id="result"></div>
 </div>
- <div class="modal-footer">
-          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnGuardarIRR()">Guardar</button>
-        </div>
+<div class="modal-footer">
+<button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnGuardarIRR()">Guardar</button>
+</div>

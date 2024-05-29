@@ -81,5 +81,18 @@ class IndexControlador{
     public function descargarSeguridadContratista(){return 'app/vistas/sasisopa/elemento12/descargar-seguridad-contratistas.php';}
     public function preparacionEmergencias(){return 'app/vistas/sasisopa/elemento13/preparacion-emergencias-index.php';}
     public function descargarSimulacros(){return 'app/vistas/sasisopa/elemento13/descargar-simulacros.php';}
+    public function monitoreoVerificacionEvaluacion(){return 'app/vistas/sasisopa/elemento14/monitoreo-verificacion-evaluacion-index.php';}
+    public function implementacionSA(){return 'app/vistas/sasisopa/elemento14/implementacion-sa-index.php';}
+    public function ventasMes(){return 'app/vistas/sasisopa/elemento14/ventas-mes-index.php';}
+    public function descargarRevisionResultadoDetalle(){return 'app/vistas/sasisopa/elemento14/descargar-revision-resultados-detalle.php';}
+    public function descargarProgramaImplementacionSA(){return 'app/vistas/sasisopa/elemento14/descargar-programa-implementacion-s-a.php';}
+    public function calibracionVerificacionMantenimientoEquipos(){return 'app/vistas/sasisopa/elemento14/calibracion-verificacion-mantenimiento-equipos.php';}
+    public function descargarEquipoSometidosCalibracion(){return 'app/vistas/sasisopa/elemento14/descargar-equipos-sometidos-calibracion.php';}
+    public function descargarCalendarioCalibracion(){return 'app/vistas/sasisopa/elemento14/descargar-calendario-calibracion.php';}
+    public function evaluacionCumplimientoRequisitosLegales(){return 'app/vistas/sasisopa/elemento14/evaluacion-cumplimiento-requisitos-legales-index.php';}
+    public function descargarEvaluacionCumplimiento(){return 'app/vistas/sasisopa/elemento14/descargar-evaluacion-cumplimiento-legal.php';}
+    public function atencionHallazgos(){return 'app/vistas/sasisopa/elemento14/atencion-hallazgos-index.php';}
+    public function atencionHallazgosEditar(){return 'app/vistas/sasisopa/elemento14/atencion-hallazgos-editar.php';}
+    public function descargarAtencionHallazgos(){return 'app/vistas/sasisopa/elemento14/descargar-atencion-hallazgos.php';}
 
 }

@@ -1,40 +1,10 @@
 <?php
 require_once 'dompdf/autoload.inc.php';
 include_once "app/help.php";
+include_once "app/modelo/MonitoreoVerificacionEvaluacion.php";
+$class_monitoreo_evaluacion = new MonitoreoVerificacionEvaluacion();
 
 $Year = $GET_Year;
-
-function Meta($idEstacion,$idObjeto,$con){
-
-$sql_medicion = "SELECT * FROM tb_medicion_indicadores WHERE id_estacion = '".$idEstacion."' AND objeto = '".$idObjeto."' ORDER BY id DESC LIMIT 1 ";
-$result_medicion = mysqli_query($con, $sql_medicion);
-$numero_medicion = mysqli_num_rows($result_medicion);
-while($row_medicion = mysqli_fetch_array($result_medicion, MYSQLI_ASSOC)){
-$meta = $row_medicion['meta'];
-}
-return $meta;
-}
-
-function ResultadoImplementacion($Session_IDEstacion,$Year,$con){
-$sql_implementacion = "SELECT * FROM tb_implementacionsa WHERE id_estacion = '".$Session_IDEstacion."' AND YEAR(fecha) = '".$Year."' ";
-$result_implementacion = mysqli_query($con, $sql_implementacion);
-$numero_implementacion = mysqli_num_rows($result_implementacion);
-
-if ($numero_implementacion > 0) {
-while($row_implementacion = mysqli_fetch_array($result_implementacion, MYSQLI_ASSOC)){
-$calificacion = $calificacion + $row_implementacion['puntos'];
-}
-$Resultado = $calificacion / $numero_implementacion;
-if($Resultado >= 60  && $Resultado <= 100){
-$title = "<b class='text-success'>".$Resultado."% Excelente</b>";                
-}else if($Resultado >= 0 && $Resultado <= 59){
-$title = "<b class='text-warning'>".$Resultado."% Regular</b>";               
-}
-}else{
-$title = "<b>S/I</b>"; 
-}
-return $title;
-}
 
 
 function Ventas($Session_IDEstacion,$mes,$year,$con){
@@ -508,13 +478,13 @@ $contenid0 .= '<td class="align-middle">No. Total de elementos implementados VS 
 $contenid0 .= '</tr>';
 $contenid0 .= '<tr>';
 $contenid0 .= '<td class="align-middle text-center"><b>Meta</b></td>';
-$contenid0 .= '<td class="align-middle">'.Meta($Session_IDEstacion,1,$con).'</td>';
+$contenid0 .= '<td class="align-middle">'.$class_monitoreo_evaluacion->meta($Session_IDEstacion,1).'</td>';
 $contenid0 .= '<td class="align-middle text-center"><b>Frecuencia de medición</b></td>';
 $contenid0 .= '<td class="align-middle">ANUAL</td>';
 $contenid0 .= '</tr>';
 $contenid0 .= '<tr>';
 $contenid0 .= '<td colspan="4">';
-$contenid0 .= '<div class="mt-1"><b>Resultado:</b> '.ResultadoImplementacion($Session_IDEstacion,$Year,$con).'</div>';
+$contenid0 .= '<div class="mt-1"><b>Resultado:</b> '.$class_monitoreo_evaluacion->resultadoImplementacion($Session_IDEstacion,$Year).'</div>';
 $contenid0 .= '</td>';
 $contenid0 .= '</tr>';
 $contenid0 .= '</tbody>';
@@ -534,14 +504,14 @@ $contenid0 .= '<td class="align-middle">Venta del mes inmediato anterior VS vent
 $contenid0 .= '</tr>';
 $contenid0 .= '<tr>';
 $contenid0 .= '<td class="align-middle text-center"><b>Meta</b></td>';
-$contenid0 .= '<td class="align-middle">'.Meta($Session_IDEstacion,2,$con).'</td>';
+$contenid0 .= '<td class="align-middle">'.$class_monitoreo_evaluacion->meta($Session_IDEstacion,2).'</td>';
 $contenid0 .= '<td class="align-middle text-center"><b>Frecuencia de medición</b></td>';
 $contenid0 .= '<td class="align-middle">Mensual</td>';
 $contenid0 .= '</tr>';
 $contenid0 .= '</tbody>';
 $contenid0 .= '</table>';
 
-$contenid0 .= '<div style="font-size: .9em;"><b>Resultado:</b></div>'; 
+$contenid0 .= '<div style="font-size: .9em;"><b>Resultado:</b></div>';
 
 $contenid0 .= '<table class="table table-sm table-bordered" style="font-size: .8em;">';
 $contenid0 .= '<thead>';
@@ -630,7 +600,6 @@ $contenid0 .= '</tbody>';
 $contenid0 .= '</table>';
 
 $contenid0 .= '</div>';
-
 $contenid0 .= '<hr>';
 
 $contenid0 .= '<table class="table table-bordered table-sm pb-0 mb-0" style="font-size: .9em;">';
@@ -643,7 +612,7 @@ $contenid0 .= '<td class="align-middle">No. de personal capacitado vs No. de per
 $contenid0 .= '</tr>';
 $contenid0 .= '<tr>';
 $contenid0 .= '<td class="align-middle text-center"><b>Meta</b></td>';
-$contenid0 .= '<td class="align-middle">'.Meta($Session_IDEstacion,3,$con).'</td>';
+$contenid0 .= '<td class="align-middle">'.$class_monitoreo_evaluacion->meta($Session_IDEstacion,3).'</td>';
 $contenid0 .= '<td class="align-middle text-center"><b>Frecuencia de medición</b></td>';
 $contenid0 .= '<td class="align-middle">Semestral</td>';
 $contenid0 .= '</tr>';
@@ -654,11 +623,10 @@ $contenid0 .= '<div><b>Resultado:</b></div>';
 
 $contenid0 .= '<table class="border-0" style="width: 100%;">
 <tr class="border-0">
-<td class="border-0">Primer semestre:<br>'.ResultadoCapacitacion($Session_IDEstacion,$Year,1,$con).'</td>
-<td class="border-0">Segundo semestre:<br>'.ResultadoCapacitacion($Session_IDEstacion,$Year,2,$con).'</td>
+<td class="border-0">Primer semestre:<br>'.$class_monitoreo_evaluacion->resultadoCapacitacion($Session_IDEstacion,$Year,1).'</td>
+<td class="border-0">Segundo semestre:<br>'.$class_monitoreo_evaluacion->resultadoCapacitacion($Session_IDEstacion,$Year,2).'</td>
 </tr>
 </table>';
-
 
 $contenid0 .= '</td>';
 $contenid0 .= '</tr>';
@@ -677,7 +645,7 @@ $contenid0 .= '<td class="align-middle">Media del total de clientes con experien
 $contenid0 .= '</tr>';
 $contenid0 .= '<tr>';
 $contenid0 .= '<td class="align-middle text-center"><b>Meta</b></td>';
-$contenid0 .= '<td class="align-middle">'.Meta($Session_IDEstacion,4,$con).'</td>';
+$contenid0 .= '<td class="align-middle">'.$class_monitoreo_evaluacion->meta($Session_IDEstacion,4).'</td>';
 $contenid0 .= '<td class="align-middle text-center"><b>Frecuencia de medición</b></td>';
 $contenid0 .= '<td class="align-middle">Semestral</td>';
 $contenid0 .= '</tr>';
@@ -688,8 +656,8 @@ $contenid0 .= '<div><b>Resultado:</b></div>';
 
 $contenid0 .= '<table class="border-0" style="width: 100%;">
 <tr class="border-0">
-<td class="border-0">Primer semestre:<br>'.ResultadoSatisfaccion($Session_IDEstacion,$Year,1,$con).'</td>
-<td class="border-0">Segundo semestre:<br>'.ResultadoSatisfaccion($Session_IDEstacion,$Year,2,$con).'</td>
+<td class="border-0">Primer semestre:<br>'.$class_monitoreo_evaluacion->resultadoSatisfaccion($Session_IDEstacion,$Year,1).'</td>
+<td class="border-0">Segundo semestre:<br>'.$class_monitoreo_evaluacion->resultadoSatisfaccion($Session_IDEstacion,$Year,2).'</td>
 </tr>
 </table>';
 
@@ -699,6 +667,7 @@ $contenid0 .= '</tbody>';
 $contenid0 .= '</table>';
 
 $contenid0 .= '<hr>';
+
 
 $contenid0 .= '<table class="table table-bordered table-sm c-pointer pb-0 mb-0" style="font-size: .9em;">';
 $contenid0 .= '<tbody>';
@@ -710,7 +679,7 @@ $contenid0 .= '<td class="align-middle">No total de accidentes e incidentes ocur
 $contenid0 .= '</tr>';
 $contenid0 .= '<tr>';
 $contenid0 .= '<td class="align-middle text-center"><b>Meta</b></td>';
-$contenid0 .= '<td class="align-middle">'.Meta($Session_IDEstacion,5,$con).'</td>';
+$contenid0 .= '<td class="align-middle">'.$class_monitoreo_evaluacion->meta($Session_IDEstacion,5).'</td>';
 $contenid0 .= '<td class="align-middle text-center"><b>Frecuencia de medición</b></td>';
 $contenid0 .= '<td class="align-middle">Semestral</td>';
 $contenid0 .= '</tr>';
@@ -721,8 +690,8 @@ $contenid0 .= '<div><b>Resultado:</b></div>';
 
 $contenid0 .= '<table class="border-0" style="width: 100%;">
 <tr class="border-0">
-<td class="border-0">Primer semestre:<br>'.ResultadoIncidentes($Session_IDEstacion,$Year,1,$con).'</td>
-<td class="border-0">Segundo semestre:<br>'.ResultadoIncidentes($Session_IDEstacion,$Year,2,$con).'</td>
+<td class="border-0">Primer semestre:<br>'.$class_monitoreo_evaluacion->resultadoIncidentes($Session_IDEstacion,$Year,1).'</td>
+<td class="border-0">Segundo semestre:<br>'.$class_monitoreo_evaluacion->resultadoIncidentes($Session_IDEstacion,$Year,2).'</td>
 </tr>
 </table>';
 
@@ -730,6 +699,7 @@ $contenid0 .= '</td>';
 $contenid0 .= '</tr>';
 $contenid0 .= '</tbody>';
 $contenid0 .= '</table>';
+
 
 $contenid0 .= '</div>';
 $contenid0 .= '</body>';

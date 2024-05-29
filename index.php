@@ -161,9 +161,33 @@ switch ($partes_ruta[1])
     break;
     case '12-seguridad-contratistas':
       $ruta_elegida = $index_controlador->seguridadContratistas();
-      break;
-      case '13-preparacion-emergencias':
+    break;
+    case '13-preparacion-emergencias':
       $ruta_elegida = $index_controlador->preparacionEmergencias();
+    break;
+    case '14-monitoreo-verificacion-evaluacion':
+      $ruta_elegida = $index_controlador->monitoreoVerificacionEvaluacion();
+    break;
+    case 'descargar-programa-implementacion-s-a':
+      $ruta_elegida = $index_controlador->descargarProgramaImplementacionSA();
+    break;
+    case 'calibracion-verificacion-mantenimiento-equipos':
+      $ruta_elegida = $index_controlador->calibracionVerificacionMantenimientoEquipos();
+    break;
+    case 'descargar-equipos-sometidos-calibracion':
+      $ruta_elegida = $index_controlador->descargarEquipoSometidosCalibracion();
+    break;
+    case 'descargar-calendario-calibracion':
+      $ruta_elegida = $index_controlador->descargarCalendarioCalibracion();
+    break;
+    case 'evaluacion-cumplimiento-requisitos-legales':
+      $ruta_elegida = $index_controlador->evaluacionCumplimientoRequisitosLegales();
+    break;
+    case 'descargar-evaluacion-cumplimiento-legal':
+      $ruta_elegida = $index_controlador->descargarEvaluacionCumplimiento();
+    break;
+    case 'atencion-hallazgos':
+      $ruta_elegida = $index_controlador->atencionHallazgos();
       break;
     //-------- ELEMENTOS SASISOPA FIN -------------------
     //---------------------------------------------------
@@ -231,31 +255,6 @@ break;
 //-----------------------------------------------------------------
 
 
-
-case '14-monitoreo-verificacion-evaluacion':
-$ruta_elegida = 'public/sasisopa/monitoreo-verificacion-evaluacion-index.php';
-break;
-case 'atencion-hallazgos':
-$ruta_elegida = 'public/sasisopa/atencion-hallazgos-index.php';
-break;
-case 'evaluacion-cumplimiento-requisitos-legales':
-$ruta_elegida = 'public/sasisopa/evaluacion-cumplimiento-requisitos-legales-index.php';
-break;
-case 'descargar-evaluacion-cumplimiento-legal':
-$ruta_elegida = 'public/sasisopa/vistas/descargar-evaluacion-cumplimiento-legal.php';
-break;
-case 'calibracion-verificacion-mantenimiento-equipos':
-$ruta_elegida = 'public/sasisopa/calibracion-verificacion-mantenimiento-equipos.php';
-break;
-case 'descargar-equipos-sometidos-calibracion':
-$ruta_elegida = 'public/sasisopa/vistas/descargar-equipos-sometidos-calibracion.php';
-break;
-case 'descargar-calendario-calibracion':
-$ruta_elegida = 'public/sasisopa/vistas/descargar-calendario-calibracion.php';
-break;
-case 'descargar-programa-implementacion-s-a':
-$ruta_elegida = 'public/sasisopa/vistas/descargar-programa-implementacion-s-a.php';
-break;
 case '15-auditorias':
 $ruta_elegida = 'public/sasisopa/auditorias-index.php';
 break;
@@ -400,6 +399,24 @@ break;
       $GET_Year = $partes_ruta[2];
       $ruta_elegida = $index_controlador->descargarSimulacros();
     }
+    else if ($partes_ruta[2] == 'implementacion-sa') {
+      $ruta_elegida = $index_controlador->implementacionSA();
+    }
+    else if ($partes_ruta[2] == 'ventas-mes') {
+      $ruta_elegida = $index_controlador->ventasMes();
+    }
+    else if ($partes_ruta[1] == 'descargar-revision-resultados-detalle') {
+      $GET_Year = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->descargarRevisionResultadoDetalle();
+    }
+    else if ($partes_ruta[1] == 'atencion-hallazgos') {
+      $GET_ID = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->atencionHallazgosEditar();
+    }
+    else if ($partes_ruta[1] == 'descargar-atencion-hallazgos') {
+      $GET_ID = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->descargarAtencionHallazgos();
+    }
     //---------------------------------------------
     //---------------------------------------------
     //------------ LISTA ASISTENCIA ---------------
@@ -432,12 +449,6 @@ break;
     else  if ($partes_ruta[1] == 'modulos') {
     $idTema = $partes_ruta[2];
     $ruta_elegida = 'public/cursos/detalle-modulos.php';
-    }
-    else  if ($partes_ruta[2] == 'implementacion-sa') {
-    $ruta_elegida = 'public/sasisopa/implementacion-sa-index.php';
-    }
-    else  if ($partes_ruta[2] == 'ventas-mes') {
-    $ruta_elegida = 'public/sasisopa/ventas-mes-index.php';
     }
     else if ($partes_ruta[1] == 'reporte-diario'){
     $idYear = $partes_ruta[2];
@@ -503,22 +514,12 @@ break;
     $GET_ID = $partes_ruta[2];
     $ruta_elegida = 'public/sasisopa/vistas/descargar-registro-atencio-seguimiento-comunicacion-interna-externa.php';
     }
-    else if ($partes_ruta[1] == 'descargar-revision-resultados-detalle') {
-    $GET_Year = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/vistas/descargar-revision-resultados-detalle.php';
-    }
+
     else if ($partes_ruta[1] == 'descargar-investigacion-sin-incidentes-accidentes') {
     $GET_ID = $partes_ruta[2];
     $ruta_elegida = 'public/sasisopa/vistas/descargar-investigacion-sin-incidentes-accidentes.php';
     }
-    else if ($partes_ruta[1] == 'atencion-hallazgos') {
-    $GET_ID = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/atencion-hallazgos-editar.php';
-    }
-    else if ($partes_ruta[1] == 'descargar-atencion-hallazgos') {
-    $GET_ID = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/vistas/descargar-atencion-hallazgos.php';
-    }
+    
     //-------------------------------------------------------------------
     //-------------------------------------------------------------------
     //----------------------------------

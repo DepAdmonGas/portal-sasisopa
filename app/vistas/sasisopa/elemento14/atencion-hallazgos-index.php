@@ -47,19 +47,25 @@ require('app/help.php');
   }
 
   function ListaAtencionAllazgos(){
-  $('#ListaAtencionAllazgos').load('public/sasisopa/vistas/lista-atencion-hallazgos.php');
+  $('#ListaAtencionAllazgos').load('app/vistas/sasisopa/elemento14/lista-atencion-hallazgos.php');
   }
 
   function btnAgregar(){
 
+    var parametros = {
+    "accion" : "agregar-atencion-hallazgos"
+    };
+
    $.ajax({
-   url:   'public/sasisopa/agregar/agregar-atencion-hallazgos.php',
+    data:  parametros,
+   url:   'app/controlador/MonitoreoVerificacionEvaluacionControlador.php',
    type:  'post',
    beforeSend: function() {
    },
    complete: function(){
    },
    success:  function (response) {
+    console.log(response)
 
     if(response != 0){
 
@@ -74,22 +80,17 @@ require('app/help.php');
 
   }
 
-  function Editar(id){
-  window.location = "atencion-hallazgos/" + id;
-  }
-
-
-
    function Eliminar(id){
 
    var parametros = {
+    "accion" : "eliminar-atencion-hallazgos",
    "id" : id,
    "categoria" : 1
    };
 
    $.ajax({
    data:  parametros,
-   url:   'public/sasisopa/eliminar/eliminar-atencion-hallazgos.php',
+   url:   'app/controlador/MonitoreoVerificacionEvaluacionControlador.php',
    type:  'post',
    beforeSend: function() {
    },
@@ -104,7 +105,9 @@ require('app/help.php');
 
    }
 
- 
+   function Editar(id){
+  window.location = "atencion-hallazgos/" + id;
+  }
 
    function Descargar(id){
   window.location = "descargar-atencion-hallazgos/" + id; 

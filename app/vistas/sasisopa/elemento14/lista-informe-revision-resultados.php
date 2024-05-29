@@ -1,5 +1,5 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 $sql_resultado = "SELECT * FROM tb_informe_revision_resultados WHERE id_estacion = '".$Session_IDEstacion."' ORDER BY fecha desc";
 $result_resultado = mysqli_query($con, $sql_resultado);
@@ -12,8 +12,8 @@ $numero_resultado = mysqli_num_rows($result_resultado);
 		<tr>
 			<th class="align-middle text-center">#</th>
 			<th class="align-middle text-center">Fecha</th>
-			<th class="align-middle text-center" width="20px"></th>
-			<th class="align-middle text-center" width="20px"></th>
+			<th class="align-middle text-center" width="20px"><img src="<?=RUTA_IMG_ICONOS;?>pdf.png"></th>
+			<th class="align-middle text-center" width="20px"><img src="<?=RUTA_IMG_ICONOS;?>eliminar.png"></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -34,7 +34,7 @@ $numero_resultado = mysqli_num_rows($result_resultado);
 		
 	}
 	}else{
-	echo "<tr><td colspan='5' class='text-center'><small>No se encontró información para mostrar</small></td></tr>";
+	echo "<tr><td colspan='4' class='text-center'><small>No se encontró información para mostrar</small></td></tr>";
 	}
 	?>
 	</tbody>

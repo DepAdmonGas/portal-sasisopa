@@ -1,11 +1,14 @@
 <?php
 require_once 'dompdf/autoload.inc.php';
 include_once "app/help.php";
+include_once "app/modelo/MonitoreoVerificacionEvaluacion.php";
+
+$class_monitoreo_evaluacion = new MonitoreoVerificacionEvaluacion();
 
 use Dompdf\Dompdf;
 $dompdf = new Dompdf();
 
-
+    $contenid0 = "";
     $contenid0 .= "<!DOCTYPE html>";
     $contenid0 .= "<html>";
     $contenid0 .= "<head>";
@@ -152,78 +155,7 @@ $contenid0 .= '</head>';
 $contenid0 .= '<body';
 
 $contenid0 .= '<div>';
-//-----------------------------------------------------------------
-function TanquesAlmacenamiento($IDEstacion,$con){
-$sql = "SELECT * FROM tb_tanque_almacenamiento WHERE id_estacion = '".$IDEstacion."' ";
-$result = mysqli_query($con, $sql);
-$numero = mysqli_num_rows($result);
-if ($numero > 0) {
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-$Contenido .= "<tr>";
-$Contenido .= "<td class='text-center align-middle'>".$row['no_tanque']."</td>";
-$Contenido .= "<td class='text-center align-middle'>".$row['capacidad'].", ".$row['producto']."</td>";
-$Contenido .= "<td class='text-center align-middle'>Tanques</td>";
-$Contenido .= "<td class='text-center align-middle'>10 años</td>";
-$Contenido .= "</tr>";
-}
-}
-return $Contenido;
-}
 
-function SondasMedicion($IDEstacion,$con){
-$sql = "SELECT * FROM tb_sondas_medicion WHERE id_estacion = '".$IDEstacion."' ";
-$result = mysqli_query($con, $sql);
-$numero = mysqli_num_rows($result);
-if ($numero > 0) {
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-$Contenido .= "<tr>";
-$Contenido .= "<td class='text-center align-middle'>".$row['no_sonda']."</td>";
-$Contenido .= "<td class='text-center align-middle'>".$row['marca'].", ".$row['modelo']."</td>";
-$Contenido .= "<td class='text-center align-middle'>Sondas de medición</td>";
-$Contenido .= "<td class='text-center align-middle'>2 años</td>";
-$Contenido .= "</tr>";
-}
-}
-return $Contenido;
-}
-
-function Dispensario($IDEstacion,$con){
-$sql = "SELECT * FROM tb_dispensarios WHERE id_estacion = '".$IDEstacion."' ";
-$result = mysqli_query($con, $sql);
-$numero = mysqli_num_rows($result);
-if ($numero > 0) {
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-$Contenido .= "<tr>";
-$Contenido .= "<td class='text-center align-middle'>".$row['no_dispensario']."</td>";
-$Contenido .= "<td class='text-center align-middle'>".$row['marca'].", ".$row['modelo']."</td>";
-$Contenido .= "<td class='text-center align-middle'>Dispensario</td>";
-$Contenido .= "<td class='text-center align-middle'>Semestral</td>";
-$Contenido .= "</tr>";
-}
-}
-return $Contenido;
-}
-
-function JarraPatron($IDEstacion,$con){
-
-$i = 1;
-$sql = "SELECT * FROM tb_jarra_patron WHERE id_estacion = '".$IDEstacion."' ";
-$result = mysqli_query($con, $sql);
-$numero = mysqli_num_rows($result);
-if ($numero > 0) {
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-$Contenido .= "<tr>";
-$Contenido .= "<td class='text-center align-middle'>".$i."</td>";
-$Contenido .= "<td class='text-center align-middle'>".$row['marca'].", ".$row['no_serie']."</td>";
-$Contenido .= "<td class='text-center align-middle'>Jarra patron</td>";
-$Contenido .= "<td class='text-center align-middle'>Anual</td>";
-$Contenido .= "</tr>";
-
-$i++;
-}
-}
-return $Contenido;
-}
 
     $RutaLogo = SERVIDOR."imgs/logo/Logo.png";
     $DataLogo = file_get_contents($RutaLogo);
@@ -253,10 +185,10 @@ $contenid0 .= '<th class="text-center align-middle">Frecuencia de la calibració
 $contenid0 .= '</tr>';
 $contenid0 .= '</thead>';
 $contenid0 .= '<tbody>';
-$contenid0 .= TanquesAlmacenamiento($Session_IDEstacion,$con);
-$contenid0 .= SondasMedicion($Session_IDEstacion,$con);
-$contenid0 .= Dispensario($Session_IDEstacion,$con);
-$contenid0 .= JarraPatron($Session_IDEstacion,$con);
+$contenid0 .= $class_monitoreo_evaluacion->tanquesAlmacenamiento($Session_IDEstacion);
+$contenid0 .= $class_monitoreo_evaluacion->sondasMedicion($Session_IDEstacion);
+$contenid0 .= $class_monitoreo_evaluacion->dispensario($Session_IDEstacion);
+$contenid0 .= $class_monitoreo_evaluacion->jarraPatron($Session_IDEstacion);
 $contenid0 .= '</tbody>';
 $contenid0 .= '</table>';
 //-----------------------------------------------------------------

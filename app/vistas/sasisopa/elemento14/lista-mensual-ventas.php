@@ -1,29 +1,9 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
+include_once "../../../../app/modelo/MonitoreoVerificacionEvaluacion.php";
+$class_monitoreo_evaluacion = new MonitoreoVerificacionEvaluacion();
 
 $Year = $_GET['Year'];
-
-function Ventas($Session_IDEstacion,$mes,$year,$con){
-
-$sql_reporte = "SELECT id FROM re_reporte_cre_mes WHERE id_estacion = '".$Session_IDEstacion."' AND mes = '".$mes."' AND year = '".$year."' ";
-$result_reporte = mysqli_query($con, $sql_reporte);
-$numero_reporte = mysqli_num_rows($result_reporte);
-while($row_reporte = mysqli_fetch_array($result_reporte, MYSQLI_ASSOC)){
-$idReporte = $row_reporte['id'];
-}
-$ventas = 0;
-$sql_reporte_mes = "SELECT volumen_venta FROM re_reporte_cre_producto WHERE id_re_mes = '".$idReporte."'  ";
-$result_reporte_mes = mysqli_query($con, $sql_reporte_mes);
-$numero_reporte_mes = mysqli_num_rows($result_reporte_mes);
-while($row_reporte_mes = mysqli_fetch_array($result_reporte_mes, MYSQLI_ASSOC)){
-
-$ventas = $ventas + $row_reporte_mes['volumen_venta'];
-}
-
-
-return $ventas;
-}
-
 ?>
 
 <div class="mb-2" style="overflow-y: hidden;">
@@ -51,8 +31,8 @@ $mesAnte = $RMA;
 $YearAnte = $Year;
 }
 
-$MesActual = Ventas($Session_IDEstacion,$i,$Year,$con);
-$MesAnte = Ventas($Session_IDEstacion,$mesAnte,$YearAnte,$con);
+$MesActual = $class_monitoreo_evaluacion->ventasMensual($Session_IDEstacion,$i,$Year);
+$MesAnte = $class_monitoreo_evaluacion->ventasMensual($Session_IDEstacion,$mesAnte,$YearAnte);
 
 if ($MesActual == 0 || $MesAnte == 0) {
 $Promedio = 0;

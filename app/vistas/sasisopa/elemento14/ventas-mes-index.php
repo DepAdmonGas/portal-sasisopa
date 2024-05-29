@@ -56,7 +56,7 @@ require('app/help.php');
   }
 
   function ListaMensual(Year){
-  $('#ContenidoLista').load('../public/sasisopa/vistas/lista-mensual-ventas.php?Year=' + Year);   
+  $('#ContenidoLista').load('../app/vistas/sasisopa/elemento14/lista-mensual-ventas.php?Year=' + Year);   
 
   }
 
@@ -80,9 +80,6 @@ require('app/help.php');
       </div>
     <div class="float-left"><h4>Ventas del mes</h4></div>
     <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
-    <a onclick="btnModal()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Agregar" >
-    <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
-    </a>
     </div>
       </div>
     <div class="card-body">

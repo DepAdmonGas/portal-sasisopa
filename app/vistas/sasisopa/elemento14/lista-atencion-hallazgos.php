@@ -1,23 +1,10 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 $sql = "SELECT * FROM tb_atencion_hallazgos WHERE id_estacion = '".$Session_IDEstacion."' ORDER BY id DESC ";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
 
-
-function Evidencias($id, $con){
-
-$sqlAH = "SELECT * FROM tb_atencion_hallazgos_evidencia WHERE id_atencion = '".$id."'";
-$resultAH = mysqli_query($con, $sqlAH);
-$numeroAH = mysqli_num_rows($resultAH);
-while($rowAH = mysqli_fetch_array($resultAH, MYSQLI_ASSOC)){
-
-$Result .= "<div><a href='".RUTA_ARCHIVOS."atencion-hallazgos/".$rowAH['archivo']."' download><small>".$rowAH['archivo']."</small></a></div>";
-}
-
-return $Result;
-}
 ?>
 
 <table class="table table-bordered table-striped table-sm">
@@ -27,9 +14,9 @@ return $Result;
 <th class="text-center align-middle">Fecha de la auditoria</th>
 <th class="text-center align-middle">No de control de la auditoria</th>
 <th class="text-center align-middle">Tipo de auditoria</th>
-<th class="text-center align-middle"></th>
-<th class="text-center align-middle"></th>
-<th class="text-center align-middle"></th>
+<th class="text-center align-middle" width="30"><img src="<?=RUTA_IMG_ICONOS;?>pdf.png"></th>
+<th class="text-center align-middle" width="30"><img src="<?=RUTA_IMG_ICONOS;?>editar.png"></th>
+<th class="text-center align-middle" width="30"><img src="<?=RUTA_IMG_ICONOS;?>eliminar.png"></th>
 </tr>
 </thead>
 <tbody>

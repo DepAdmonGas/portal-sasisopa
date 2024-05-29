@@ -1,14 +1,13 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 $idDetalle = $_GET['idDetalle'];
 
 $sql = "SELECT fecha FROM tb_implementacionsa WHERE id = '".$idDetalle."' ";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 $explode = explode(' ', $row['fecha']);
-}
 ?>
 
   <div class="modal-header">

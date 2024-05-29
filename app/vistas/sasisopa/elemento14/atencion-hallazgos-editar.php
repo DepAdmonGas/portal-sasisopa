@@ -57,76 +57,80 @@ $tipoauditoria = $row['tipo_auditoria'];
   }
 
   function ListaHallazgos(id){
-  $('#ListaHallazgos').load('../public/sasisopa/vistas/lista-hallazgos.php?id=' + id);
+  $('#ListaHallazgos').load('../app/vistas/sasisopa/elemento14/lista-hallazgos.php?id=' + id);
   }
 
   function btnAgregar(id, idHallazgo){
   $('#Modal').modal('show');
-  $('#ContenidoModal').load('../public/sasisopa/vistas/modal-agregar-hallazgos.php?id=' + id + '&idHallazgo=' + idHallazgo);
+  $('#ContenidoModal').load('../app/vistas/sasisopa/elemento14/modal-agregar-hallazgos.php?id=' + id + '&idHallazgo=' + idHallazgo);
   }
 
   function GuardarHallazgo(id,idHallazgo){
 
-  let IdSasisopa = $('#IdSasisopa').val();
-  let Hallazgos = $('#Hallazgos').val();
-  let Accion = $('#Accion').val();
-  let FechaI = $('#FechaI').val();
+let IdSasisopa = $('#IdSasisopa').val();
+let Hallazgos = $('#Hallazgos').val();
+let Accion = $('#Accion').val();
+let FechaI = $('#FechaI').val();
 
-  if (IdSasisopa != "") {
-  $('#IdSasisopa').css('border','');
-  if (Hallazgos != "") {
-  $('#Hallazgos').css('border','');
-  if (Accion != "") {
-  $('#Accion').css('border','');
-  if (FechaI != "") {
-  $('#FechaI').css('border','');
+if (IdSasisopa != "") {
+$('#IdSasisopa').css('border','');
+if (Hallazgos != "") {
+$('#Hallazgos').css('border','');
+if (Accion != "") {
+$('#Accion').css('border','');
+if (FechaI != "") {
+$('#FechaI').css('border','');
 
-  var parametros = {
-  "id" : id,
-  "idHallazgo" : idHallazgo,
-  "IdSasisopa" : IdSasisopa,
-  "Hallazgos" : Hallazgos,
-  "Accion" : Accion,
-  "FechaI" : FechaI
-  };
+var parametros = {
+"accion" : "agregar-hallazgos",
+"id" : id,
+"idHallazgo" : idHallazgo,
+"IdSasisopa" : IdSasisopa,
+"Hallazgos" : Hallazgos,
+"Accion" : Accion,
+"FechaI" : FechaI
+};
 
-   $.ajax({
-   data:  parametros,
-   url:   '../public/sasisopa/agregar/agregar-hallazgos.php',
-   type:  'post',
-   beforeSend: function() {
-   },
-   complete: function(){
-   },
-   success:  function (response) {
+ $.ajax({
+ data:  parametros,
+ url:   '../app/controlador/MonitoreoVerificacionEvaluacionControlador.php',
+ type:  'post',
+ beforeSend: function() {
+ },
+ complete: function(){
+ },
+ success:  function (response) {
 
-  if(response == 1){
-  $('#Modal').modal('hide');
-  ListaHallazgos(id);
-  }else if(response == 2){
-  $('#IdSasisopa').css('border','2px solid #A52525');  
-  $('#idResultado').html('El elemento seleccionado ya se agrego');
-  }
-   }
-   });
+console.log(response)
 
-  }else{
-  $('#FechaI').css('border','2px solid #A52525');
-  }
-  }else{
-  $('#Accion').css('border','2px solid #A52525');
-  }
-  }else{
-  $('#Hallazgos').css('border','2px solid #A52525');
-  }
-  }else{
-  $('#IdSasisopa').css('border','2px solid #A52525');
-  }
+if(response){
+$('#Modal').modal('hide');
+ListaHallazgos(id);
+}else if(response == 0){
+$('#IdSasisopa').css('border','2px solid #A52525');  
+$('#idResultado').html('El elemento seleccionado ya se agrego');
+}
+ }
+ });
 
-  }
+}else{
+$('#FechaI').css('border','2px solid #A52525');
+}
+}else{
+$('#Accion').css('border','2px solid #A52525');
+}
+}else{
+$('#Hallazgos').css('border','2px solid #A52525');
+}
+}else{
+$('#IdSasisopa').css('border','2px solid #A52525');
+}
+
+}
 
 function EditarAH(e,dato,id){
    var parametros = {
+    "accion" : "actualizar-atencion-hallazgos",
         "id" : id,
         "valor" : e.value,
         "dato" : dato
@@ -134,7 +138,7 @@ function EditarAH(e,dato,id){
 
   $.ajax({
    data:  parametros,
-   url:   '../public/sasisopa/actualizar/actualizar-atencion-hallazgos.php',
+   url:   '../app/controlador/MonitoreoVerificacionEvaluacionControlador.php',
    type:  'post',
    beforeSend: function() {
    },
@@ -149,95 +153,90 @@ function EditarAH(e,dato,id){
 
   function Eliminar(id,idHallazgo){
 
-  var parametros = {
-   "idHallazgo" : idHallazgo
-   };
+    var parametros = {
+    "accion" : "eliminar-hallazgos",
+    "idHallazgo" : idHallazgo
+    };
 
-   alertify.confirm('',
+    alertify.confirm('',
     function(){
 
-   $.ajax({
-   data:  parametros,
-   url:   '../public/sasisopa/eliminar/eliminar-hallazgos.php',
-   type:  'post',
-   beforeSend: function() {
-   },
-   complete: function(){
-   },
-   success:  function (response) {
-
-   ListaHallazgos(id);
-
-   }
-   });
-
-
+    $.ajax({
+    data:  parametros,
+    url:   '../app/controlador/MonitoreoVerificacionEvaluacionControlador.php',
+    type:  'post',
+    beforeSend: function() {
     },
-    function(){
-    }).setHeader('Mensaje').set({transition:'zoom',message: 'Desea eliminar la información seleccionada',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
- }
+    complete: function(){
+    },
+    success:  function (response) {
+
+    ListaHallazgos(id);
+
+    }
+    });
 
 
-//------------------------------------------------------------------------------------------
-
+  },
+  function(){
+  }).setHeader('Mensaje').set({transition:'zoom',message: 'Desea eliminar la información seleccionada',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+}
 function ModalEvidencia(idAtencion,idHallazgo){
 $('#Modal').modal('show');
-$('#ContenidoModal').load('../public/sasisopa/vistas/modal-agregar-evidencia-hallazgos.php?idAtencion=' + idAtencion + '&idHallazgo=' + idHallazgo);
+$('#ContenidoModal').load('../app/vistas/sasisopa/elemento14/modal-agregar-evidencia-hallazgos.php?idAtencion=' + idAtencion + '&idHallazgo=' + idHallazgo);
 }
 
-  function Evidencia(idAtencion,idHallazgo){
+function Evidencia(idAtencion,idHallazgo){
 
-  let Evidencia = document.getElementById("Evidencia");
-  let File = Evidencia.files[0];
-  let FilePath = Evidencia.value;
+let Evidencia = document.getElementById("Evidencia");
+let File = Evidencia.files[0];
+let FilePath = Evidencia.value;
 
-  var data = new FormData();
-  var url = '../public/sasisopa/agregar/agregar-evidencia-atencion-hallazgos.php';
+var data = new FormData();
+var url = '../app/controlador/MonitoreoVerificacionEvaluacionControlador.php';
 
-  if (FilePath != "") {
+if (FilePath != "") {
 
-  data.append('idHallazgo', idHallazgo);
-  data.append('File', File);
+data.append('accion', 'agregar-evidencia-atencion-hallazgos');
+data.append('idHallazgo', idHallazgo);
+data.append('File', File);
 
-  $.ajax({
-  url: url,
-  type: 'POST',
-  contentType: false,
-  data: data,
-  processData: false,
-  cache: false
-  }).done(function(data){
+$.ajax({
+url: url,
+type: 'POST',
+contentType: false,
+data: data,
+processData: false,
+cache: false
+}).done(function(data){
 
-  $('#ContenidoModal').load('../public/sasisopa/vistas/modal-agregar-evidencia-hallazgos.php?idAtencion=' + idAtencion + '&idHallazgo=' + idHallazgo);
+$('#ContenidoModal').load('../app/vistas/sasisopa/elemento14/modal-agregar-evidencia-hallazgos.php?idAtencion=' + idAtencion + '&idHallazgo=' + idHallazgo);
+ListaHallazgos(idAtencion);
 
-    ListaHallazgos(idAtencion);
+});
 
-  });
+}else{
+$('#Evidencia').css('border','2px solid #A52525'); 
+}
 
-  }else{
-  $('#Evidencia').css('border','2px solid #A52525'); 
-  }
+ }
 
-   }
-//----------------------------------------------------------------------------------------
-
-     function Guardar(id){
+ function Guardar(id){
     ListaAtencionAllazgos();
     $('#ModalAgregar').modal('hide');
    }
 
-
-
    function EliminarEvidencia(idAtencion,idHallazgo,idEvidencia){
 
     var parametros = {
+    "accion" : "eliminar-atencion-hallazgos",
    "id" : idEvidencia,
    "categoria" : 2
    };
 
    $.ajax({
    data:  parametros,
-   url:   '../public/sasisopa/eliminar/eliminar-atencion-hallazgos.php',
+   url:   '../app/controlador/MonitoreoVerificacionEvaluacionControlador.php',
    type:  'post',
    beforeSend: function() {
    },
@@ -245,7 +244,7 @@ $('#ContenidoModal').load('../public/sasisopa/vistas/modal-agregar-evidencia-hal
    },
    success:  function (response) {
 
-   $('#ContenidoModal').load('../public/sasisopa/vistas/modal-agregar-evidencia-hallazgos.php?idAtencion=' + idAtencion + '&idHallazgo=' + idHallazgo);
+   $('#ContenidoModal').load('../app/vistas/sasisopa/elemento14/modal-agregar-evidencia-hallazgos.php?idAtencion=' + idAtencion + '&idHallazgo=' + idHallazgo);
 
     ListaHallazgos(idAtencion);
 

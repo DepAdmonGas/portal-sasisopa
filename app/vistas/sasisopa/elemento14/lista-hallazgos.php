@@ -1,5 +1,5 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 $idAtencion = $_GET['id'];
 
@@ -9,16 +9,16 @@ $numero = mysqli_num_rows($result);
 
 
 function Sasisopa($id,$con){
-$sql = "SELECT * FROM sa_sasisopa WHERE id = '".$id."' ";
+$sql = "SELECT nombre FROM sa_sasisopa WHERE id = '".$id."' ";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 $Nombre = $row['nombre'];
-} 
 return $Nombre;
 }
 
 function Evidencia($id,$con){
+$contenido = "";
 $sql = "SELECT * FROM tb_atencion_hallazgos_evidencia WHERE id_hallazgo = '".$id."' ";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
@@ -54,9 +54,9 @@ return $Result;
   <th class="align-middle">Fecha de implementación</th>
   <th class="align-middle">Evidencia</th>
   <th class="align-middle">% de cumplimiento</th>
-  <th class="align-middle"></th>
-  <th class="align-middle"></th>
-  <th class="align-middle"></th>
+  <th class="align-middle" width="30"><img src="<?=RUTA_IMG_ICONOS;?>documento.png"></th>
+  <th class="align-middle" width="30"><img src="<?=RUTA_IMG_ICONOS;?>editar.png"></th>
+  <th class="align-middle" width="30"><img src="<?=RUTA_IMG_ICONOS;?>eliminar.png"></th>
 </tr>
 </thead>
 <tbody>

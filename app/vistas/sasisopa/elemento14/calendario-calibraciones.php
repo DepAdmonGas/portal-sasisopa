@@ -1,25 +1,7 @@
 <?php
-require('../../../app/help.php');
-
-function YearCol($Year, $Mes, $MesCom,$estado){
-        
-        if($estado == 0){
-        $Color = 'table-warning';
-        }else{
-        $Color = 'table-success';    
-        }
-
-        if($Mes == $MesCom){
-        $YearR = $Year;
-        $ColR = $Color;
-        }else{
-        $YearR = '';
-        $ColR = ''; 
-        }
-
-        $array = array('Year' => $YearR, 'Col' => $ColR );
-        return $array;
-}
+require('../../../../app/help.php');
+include_once "../../../../app/modelo/MonitoreoVerificacionEvaluacion.php";
+$class_monitoreo_evaluacion = new MonitoreoVerificacionEvaluacion();
 
 ?>
 <div class="text-right" style="margin-top: 6px;">
@@ -87,24 +69,18 @@ function YearCol($Year, $Mes, $MesCom,$estado){
         $Year = $explode[0];
         $Mes = $explode[1];
 
-        if($row_lista['resultados'] == ""){
-        $Adjuntar = '<img src="'.RUTA_IMG_ICONOS.'sin-archivo.png" onclick="Adjuntar('.$row_lista['id'].')">';
-        }else{
-        $Adjuntar = '<img src="'.RUTA_IMG_ICONOS.'descargar.png" onclick="Adjuntar('.$row_lista['id'].')">';
-        }
-
-        $Ene = YearCol($Year, intval($Mes), 1,$row_lista['estado']);
-        $Feb = YearCol($Year, intval($Mes), 2,$row_lista['estado']);
-        $Mar = YearCol($Year, intval($Mes), 3,$row_lista['estado']);
-        $Abr = YearCol($Year, intval($Mes), 4,$row_lista['estado']);
-        $May = YearCol($Year, intval($Mes), 5,$row_lista['estado']);
-        $Jun = YearCol($Year, intval($Mes), 6,$row_lista['estado']);
-        $Jul = YearCol($Year, intval($Mes), 7,$row_lista['estado']);
-        $Ago = YearCol($Year, intval($Mes), 8,$row_lista['estado']);
-        $Sep = YearCol($Year, intval($Mes), 9,$row_lista['estado']);
-        $Oct = YearCol($Year, intval($Mes), 10,$row_lista['estado']);
-        $Nov = YearCol($Year, intval($Mes), 11,$row_lista['estado']);
-        $Dic = YearCol($Year, intval($Mes), 12,$row_lista['estado']);
+        $Ene = $class_monitoreo_evaluacion->yearCol($Year, intval($Mes), 1,$row_lista['estado']);
+        $Feb = $class_monitoreo_evaluacion->yearCol($Year, intval($Mes), 2,$row_lista['estado']);
+        $Mar = $class_monitoreo_evaluacion->yearCol($Year, intval($Mes), 3,$row_lista['estado']);
+        $Abr = $class_monitoreo_evaluacion->yearCol($Year, intval($Mes), 4,$row_lista['estado']);
+        $May = $class_monitoreo_evaluacion->yearCol($Year, intval($Mes), 5,$row_lista['estado']);
+        $Jun = $class_monitoreo_evaluacion->yearCol($Year, intval($Mes), 6,$row_lista['estado']);
+        $Jul = $class_monitoreo_evaluacion->yearCol($Year, intval($Mes), 7,$row_lista['estado']);
+        $Ago = $class_monitoreo_evaluacion->yearCol($Year, intval($Mes), 8,$row_lista['estado']);
+        $Sep = $class_monitoreo_evaluacion->yearCol($Year, intval($Mes), 9,$row_lista['estado']);
+        $Oct = $class_monitoreo_evaluacion->yearCol($Year, intval($Mes), 10,$row_lista['estado']);
+        $Nov = $class_monitoreo_evaluacion->yearCol($Year, intval($Mes), 11,$row_lista['estado']);
+        $Dic = $class_monitoreo_evaluacion->yearCol($Year, intval($Mes), 12,$row_lista['estado']);
 
         echo '<tr>';
         echo '<td class="align-middle text-center">'.$i.'</td>';

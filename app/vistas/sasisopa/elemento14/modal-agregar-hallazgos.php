@@ -1,26 +1,10 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
+include_once "../../../../app/modelo/MonitoreoVerificacionEvaluacion.php";
+$class_monitoreo_evaluacion = new MonitoreoVerificacionEvaluacion();
 
 $idAtencion = $_GET['id'];
 $idHallazgo = $_GET['idHallazgo'];
-
-function Sasisopa($id,$con){
-$sql = "SELECT * FROM sa_sasisopa WHERE id = '".$id."' ";
-$result = mysqli_query($con, $sql);
-$numero = mysqli_num_rows($result);
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-$Nombre = $row['nombre'];
-} 
-return $Nombre;
-}
-
-function Validar($idAtencion,$idSasisopa,$con){
-$sql = "SELECT * FROM tb_atencion_hallazgos_detalle WHERE id_atencion = '".$idAtencion."' AND id_sasisopa = '".$idSasisopa."' ";
-$result = mysqli_query($con, $sql);
-$numero = mysqli_num_rows($result);
-
-return $numero;
-}
 
 if($idHallazgo == 0){
 
@@ -35,21 +19,18 @@ $fecha = "";
 $sqlAH = "SELECT * FROM tb_atencion_hallazgos_detalle WHERE id = '".$idHallazgo."' ";
 $resultAH = mysqli_query($con, $sqlAH);
 $numeroAH = mysqli_num_rows($resultAH);
-while($rowAH = mysqli_fetch_array($resultAH, MYSQLI_ASSOC)){
-
+$rowAH = mysqli_fetch_array($resultAH, MYSQLI_ASSOC);
 $idSasisopa = $rowAH['id_sasisopa'];
-$Sasisopa = Sasisopa($rowAH['id_sasisopa'],$con);
+$Sasisopa = $class_monitoreo_evaluacion->sasisopa($rowAH['id_sasisopa']);
 $hallazgos = $rowAH['hallazgos'];
 $accion = $rowAH['accion'];
 $fecha = $rowAH['fecha_implementacion'];
-}
 
 }
 
 $sql = "SELECT * FROM sa_sasisopa";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
-
 
 ?>
 <div class="modal-header">
@@ -65,7 +46,7 @@ $numero = mysqli_num_rows($result);
 <option value="<?=$idSasisopa;?>"><?=$Sasisopa;?></option>
 <?php
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-$Validar = Validar($idAtencion,$row['id'],$con);
+$Validar = $class_monitoreo_evaluacion->validarHallazgo($idAtencion,$row['id']);
 
 if($Validar == 0){
 echo '<option value="'.$row['id'].'">'.$row['nombre'].'</option>';

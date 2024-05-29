@@ -1,362 +1,17 @@
 <?php
 require('app/help.php');
+include_once "app/modelo/Ayuda.php";
+include_once "app/modelo/MonitoreoVerificacionEvaluacion.php";
 
-$sql_sasisopa_ayuda = "SELECT * FROM pu_sasisopa_ayuda WHERE id_usuario = '".$Session_IDUsuarioBD."' and detalle = '14-monitoreo-verificacion-evaluacion' and estado = 0 LIMIT 1";
-$result_sasisopa_ayuda = mysqli_query($con, $sql_sasisopa_ayuda);
-$numero_sasisopa_ayuda = mysqli_num_rows($result_sasisopa_ayuda);
+$class_ayuda = new Ayuda();
+$class_monitoreo_evaluacion = new MonitoreoVerificacionEvaluacion();
 
-if ($numero_sasisopa_ayuda == 1) {
-while($row_ayuda = mysqli_fetch_array($result_sasisopa_ayuda, MYSQLI_ASSOC)){
-$idAyuda = $row_ayuda['id'];
-}
-}else{
-$idAyuda = 0;
-}
+$array_ayuda = $class_ayuda->sasisopaAyuda($Session_IDUsuarioBD,'14-monitoreo-verificacion-evaluacion');
+$id_ayuda = $array_ayuda['id'];
+$estado = $array_ayuda['estado'];
 
-function MedicionIndicadores($con, $idEstacion){
+$class_monitoreo_evaluacion->agregarIndicadores($Session_IDEstacion);
 
-$sql_medicion1 = "SELECT * FROM tb_medicion_indicadores WHERE id_estacion = '".$idEstacion."' AND objeto = 1 ";
-$result_medicion1 = mysqli_query($con, $sql_medicion1);
-$numero_medicion1 = mysqli_num_rows($result_medicion1);
-
-if ($numero_medicion1 == 0) {
-$sql_insert1 = "INSERT INTO tb_medicion_indicadores (
-id_estacion,
-objeto,
-meta
-)
-VALUES (
-'".$idEstacion."',
-'1',
-'60%'
-)";
-mysqli_query($con, $sql_insert1);
-}
-
-$sql_medicion2 = "SELECT * FROM tb_medicion_indicadores WHERE id_estacion = '".$idEstacion."' AND objeto = 2 ";
-$result_medicion2 = mysqli_query($con, $sql_medicion2);
-$numero_medicion2 = mysqli_num_rows($result_medicion2);
-
-if ($numero_medicion2 == 0) {
-$sql_insert2 = "INSERT INTO tb_medicion_indicadores (
-id_estacion,
-objeto,
-meta
-)
-VALUES (
-'".$idEstacion."',
-'2',
-'80%'
-)";
-mysqli_query($con, $sql_insert2);
-}
-
-$sql_medicion3 = "SELECT * FROM tb_medicion_indicadores WHERE id_estacion = '".$idEstacion."' AND objeto = 3 ";
-$result_medicion3 = mysqli_query($con, $sql_medicion3);
-$numero_medicion3 = mysqli_num_rows($result_medicion3);
-
-if ($numero_medicion3 == 0) {
-$sql_insert3 = "INSERT INTO tb_medicion_indicadores (
-id_estacion,
-objeto,
-meta
-)
-VALUES (
-'".$idEstacion."',
-'3',
-'60%'
-)";
-mysqli_query($con, $sql_insert3);
-}
-
-$sql_medicion4 = "SELECT * FROM tb_medicion_indicadores WHERE id_estacion = '".$idEstacion."' AND objeto = 4 ";
-$result_medicion4 = mysqli_query($con, $sql_medicion4);
-$numero_medicion4 = mysqli_num_rows($result_medicion4);
-
-if ($numero_medicion4 == 0) {
-$sql_insert4 = "INSERT INTO tb_medicion_indicadores (
-id_estacion,
-objeto,
-meta
-)
-VALUES (
-'".$idEstacion."',
-'4',
-'Buena'
-)";
-mysqli_query($con, $sql_insert4);
-}
-
-$sql_medicion5 = "SELECT * FROM tb_medicion_indicadores WHERE id_estacion = '".$idEstacion."' AND objeto = 5 ";
-$result_medicion5 = mysqli_query($con, $sql_medicion5);
-$numero_medicion5 = mysqli_num_rows($result_medicion5);
-
-if ($numero_medicion5 == 0) {
-$sql_insert5 = "INSERT INTO tb_medicion_indicadores (
-id_estacion,
-objeto,
-meta
-)
-VALUES (
-'".$idEstacion."',
-'5',
-'60%'
-)";
-mysqli_query($con, $sql_insert5);
-}
-
-}
-
-function Meta($idEstacion,$idObjeto,$con){
-
-$sql_medicion = "SELECT * FROM tb_medicion_indicadores WHERE id_estacion = '".$idEstacion."' AND objeto = '".$idObjeto."' ORDER BY id DESC LIMIT 1 ";
-$result_medicion = mysqli_query($con, $sql_medicion);
-$numero_medicion = mysqli_num_rows($result_medicion);
-while($row_medicion = mysqli_fetch_array($result_medicion, MYSQLI_ASSOC)){
-$meta = $row_medicion['meta'];
-}
-return $meta;
-}
-
-function ResultadoImplementacion($Session_IDEstacion,$Year,$con){
-$sql_implementacion = "SELECT * FROM tb_implementacionsa WHERE id_estacion = '".$Session_IDEstacion."' AND YEAR(fecha) = '".$Year."' ";
-$result_implementacion = mysqli_query($con, $sql_implementacion);
-$numero_implementacion = mysqli_num_rows($result_implementacion);
-
-if ($numero_implementacion > 0) {
-while($row_implementacion = mysqli_fetch_array($result_implementacion, MYSQLI_ASSOC)){
-$calificacion = $calificacion + $row_implementacion['puntos'];
-}
-$Resultado = $calificacion / $numero_implementacion;
-if($Resultado >= 60  && $Resultado <= 100){
-$title = "<b class='text-success'>".$Resultado."% Excelente</b>";                
-}else if($Resultado >= 0 && $Resultado <= 59){
-$title = "<b class='text-warning'>".$Resultado."% Regular</b>";               
-}
-}else{
-$title = "<b>S/I</b>"; 
-}
-return $title;
-}
-
-
-function Ventas($Session_IDEstacion,$mes,$year,$con){
-
-$sql_reporte = "SELECT id FROM re_reporte_cre_mes WHERE id_estacion = '".$Session_IDEstacion."' AND mes = '".$mes."' AND year = '".$year."' ";
-$result_reporte = mysqli_query($con, $sql_reporte);
-$numero_reporte = mysqli_num_rows($result_reporte);
-while($row_reporte = mysqli_fetch_array($result_reporte, MYSQLI_ASSOC)){
-$idReporte = $row_reporte['id'];
-}
-$ventas = 0;
-$sql_reporte_mes = "SELECT volumen_venta FROM re_reporte_cre_producto WHERE id_re_mes = '".$idReporte."'  ";
-$result_reporte_mes = mysqli_query($con, $sql_reporte_mes);
-$numero_reporte_mes = mysqli_num_rows($result_reporte_mes);
-while($row_reporte_mes = mysqli_fetch_array($result_reporte_mes, MYSQLI_ASSOC)){
-
-$ventas = $ventas + $row_reporte_mes['volumen_venta'];
-}
-
-
-return $ventas;
-}
-
-function ResultadoCapacitacion($Session_IDEstacion,$Year,$Semestre,$con){
-
-
-if($Semestre == 1){
-$Rango = 'AND (MONTH(fecha_programada) >= 1 AND MONTH(fecha_programada) <= 6)';
-}else if($Semestre == 2){
-$Rango = 'AND (MONTH(fecha_programada) >= 7 AND MONTH(fecha_programada) <= 12)';  
-}
-
-$sql_usuarios = "SELECT id FROM tb_usuarios WHERE id_gas = '".$Session_IDEstacion."'  ";
-$result_usuarios = mysqli_query($con, $sql_usuarios);
-$numero_usuarios = mysqli_num_rows($result_usuarios);
-while($row_usuarios = mysqli_fetch_array($result_usuarios, MYSQLI_ASSOC)){
-$idUsuario = $row_usuarios['id'];
-
-
-$sql_detalle = "SELECT * FROM tb_cursos_calendario WHERE id_personal = '".$idUsuario."' AND YEAR(fecha_programada) = '".$Year."' $Rango  GROUP BY fecha_programada   ";
-$result_detalle = mysqli_query($con, $sql_detalle);
-$numero_detalle = mysqli_num_rows($result_detalle);
-
-$SumD = $SumD + $numero_detalle;
-while($row_detalle = mysqli_fetch_array($result_detalle, MYSQLI_ASSOC)){
-$Total = $Total + $row_detalle['resultado'];
-
-}
-
-}
-
-if($SumD == 0){
-$title = "<b class='text-warning'>S/I</b>";
-}else{
-$Porcentaje = $Total / $SumD;
-$calificacion = number_format($Porcentaje,2);
-
-if( $calificacion >= 60  && $calificacion <= 100){
-$title = "<b class='text-success'>".$calificacion."% Excelente</b>";
-                    
-}else if($calificacion >= 0 && $calificacion <= 59){
-$title = "<b class='text-warning'>".$calificacion."% Regular</b>";
-                    
-}
-
-}
-  return $title;
-}
-
-function ResultadoSatisfaccion($Session_IDEstacion,$Year,$Semestre,$con){
-
-if($Semestre == 1){
-$Rango = 'AND (MONTH(fechacreacion) >= 1 AND MONTH(fechacreacion) <= 6)';
-}else if($Semestre == 2){
-$Rango = 'AND (MONTH(fechacreacion) >= 7 AND MONTH(fechacreacion) <= 12)';  
-}
-
-$sql_encuesta = "SELECT * FROM tb_encuentas_estacion WHERE id_estacion = '".$Session_IDEstacion."' AND YEAR(fechacreacion) = '".$Year."' $Rango ORDER BY fechacreacion DESC LIMIT 1 ";
-$result_encuesta = mysqli_query($con, $sql_encuesta);
-$numero_encuesta = mysqli_num_rows($result_encuesta);
-while($row_encuesta = mysqli_fetch_array($result_encuesta, MYSQLI_ASSOC)){
-
-$IdReporte = $row_encuesta['id'];
-
-$sql_encuesta = "SELECT id FROM tb_encuentas_estacion_cliente WHERE id_cuentas_estacion = '".$IdReporte."' ";
-$result_encuesta = mysqli_query($con, $sql_encuesta);
-$numero_encuesta = mysqli_num_rows($result_encuesta);
-while($row_encuesta = mysqli_fetch_array($result_encuesta, MYSQLI_ASSOC)){
-
-$IdCliente = $row_encuesta['id'];
-
-$sql_encuestaP = "SELECT resultado FROM tb_encuentas_estacion_cliente_preguntas WHERE id_cliente = '".$IdCliente."' ORDER BY resultado desc";
-$result_encuestaP = mysqli_query($con, $sql_encuestaP);
-$numero_encuestaP = mysqli_num_rows($result_encuestaP);
-while($row_encuestaP = mysqli_fetch_array($result_encuestaP, MYSQLI_ASSOC)){
-
-
-if($row_encuestaP['resultado'] == 4){
-$resultado4 = $resultado4 + 1;
-}else if($row_encuestaP['resultado'] == 3){
-$resultado3 = $resultado3 + 1;
-}else if($row_encuestaP['resultado'] == 2){
-$resultado2 = $resultado2 + 1;
-}else if($row_encuestaP['resultado'] == 1){
-$resultado1 = $resultado1 + 1;
-}
-
-} 
-}
-
-} 
-
-if ($resultado1 == 0) {
-$resultado1 = 0;
-}else{
-$resultado1 = $resultado1;
-}
-
-if ($resultado2 == 0) {
-$resultado2 = 0;
-}else{
-$resultado2 = $resultado2;
-}
-
-if ($resultado3 == 0) {
-$resultado3 = 0;
-}else{
-$resultado3 = $resultado3;
-}
-
-if ($resultado4 == 0) {
-$resultado4 = 0;
-}else{
-$resultado4 = $resultado4;
-}
-
-$resultado = "
-<div class='text-danger'>Mala: <b>".$resultado1."</b></div>
-<div class='text-warning'>Regular: <b>".$resultado2."</b></div>
-<div class='text-info'>Buena: <b>".$resultado3."</b></div>
-<div class='text-success'>Excelente: <b>".$resultado4."</b></div>
-";
-
-return $resultado;
-
-}
-
-function ResultadoIncidentes($Session_IDEstacion,$Year,$Semestre,$con){
-
-if($Semestre == 1){
-$Rango = 'AND (MONTH(fechacreacion) >= 1 AND MONTH(fechacreacion) <= 6)';
-}else if($Semestre == 2){
-$Rango = 'AND (MONTH(fechacreacion) >= 7 AND MONTH(fechacreacion) <= 12)';  
-}
-
-$sql_inv = "SELECT * FROM tb_investigacion_incidente_accidente WHERE id_estacion= '".$Session_IDEstacion."' AND YEAR(fechacreacion) = '".$Year."' $Rango ORDER BY id desc ";
-$result_inv = mysqli_query($con, $sql_inv);
-$numero_inv = mysqli_num_rows($result_inv);
-
-if ($numero_inv == 0) {
-$title = "<b class='text-success'>100% Excelente</b>";
-}else{
-$totalRe = 0;
-while($row_inv = mysqli_fetch_array($result_inv, MYSQLI_ASSOC)){
-$id = $row_inv['id'];
-$formato026 = formatos($id, $con);
-$Grupo = Grupo($id, $con);
-
-$Total = $formato026 + $Grupo;
-
-if ($Total >= 2) {
-$suma = 1;
-}else{
-$suma = 0;
-}
-
-$totalRe = $totalRe + $suma;
-
-}
-
-if ($totalRe == 0) {
-$title = "<b class='text-warning'>50% Regular</b>";
-}else{
-
-$calificacion = $totalRe / $numero_inv  * 100;
-
-if( $calificacion >= 60  && $calificacion <= 100){
-$title = "<b class='text-success'>".$calificacion."% Excelente</b>";
-                    
-}else if($calificacion >= 0 && $calificacion <= 59){
-$title = "<b class='text-warning'>".$calificacion."% Regular</b>";
-                    
-}
-
-}
-
-}
-
-return $title;
-}
-
-function formatos($id, $con){
-
-$sql_archivo = "SELECT * FROM tb_investigacion_incidente_accidente_formato WHERE id_investigacion = '".$id."' ORDER BY id asc ";
-$result_archivo = mysqli_query($con, $sql_archivo);
-$numero_archivo = mysqli_num_rows($result_archivo);
-return $numero_archivo;
-}
-
-function Grupo($id, $con){
-
-$sql_inv = "SELECT * FROM tb_investigacion_incidente_accidente_grupo WHERE id_investigacion= '".$id."' ORDER BY id desc ";
-$result_inv = mysqli_query($con, $sql_inv);
-$numero_inv = mysqli_num_rows($result_inv);
-
-return $numero_inv;
-}
-
-MedicionIndicadores($con, $Session_IDEstacion);
 ?>
 <html lang="es">
   <head>
@@ -393,7 +48,7 @@ MedicionIndicadores($con, $Session_IDEstacion);
   $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
   $(".LoaderPage").fadeOut("slow");
-  <?php if ($numero_sasisopa_ayuda == 1) {echo "btnAyuda();";} ?>
+  <?php if ($id_ayuda != 0) {echo "btnAyuda();";} ?>
   });
   function regresarP(){
    window.history.back();
@@ -403,19 +58,17 @@ MedicionIndicadores($con, $Session_IDEstacion);
   $('#myModalPolitica').modal('show');
   }
 
-  function btnFinAyuda(){
+  function btnFinAyuda(idayuda, estado){
 
-var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
+    var parametros = {
+      "accion" : "actualizar-ayuda",
+      "idayuda" : idayuda
+    };
 
- var parametros = {
-        "idAyuda" : <?=$idAyuda; ?>
-      };
-
-  if (puntosSasisopa != 0) {
-
+    if (idayuda != 0 && estado == 0) {
    $.ajax({
    data:  parametros,
-   url:   'public/sasisopa/actualizar/actualizar-ayuda.php',
+   url:   'app/controlador/AyudaControlador.php',
    type:  'post',
    beforeSend: function() {
    },
@@ -430,10 +83,8 @@ var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
   $('#myModalPolitica').modal('hide');
   }
 
-
-
 }
-  
+
 function Implementacion(){
 window.location.href = '14-monitoreo-verificacion-evaluacion/implementacion-sa'; 
 }
@@ -445,12 +96,11 @@ window.location.href = '14-monitoreo-verificacion-evaluacion/ventas-mes';
 function Capacitacion(){
 $('#myModalCapacitacion').modal('show');
 }
+
 function SatisfaccionClientes(){
 window.location.href = '4-objetivos-metas-indicadores/experiencia-cliente';
 }
-function IncidentesAccidentes(){
-window.location.href = '16-investigacion-incidentes-accidentes';
-}
+
 function btnMonitoreo(){
 window.location.href = '2-analisis-riesgo-evaluacion-impactos-ambientales';
 }
@@ -460,6 +110,10 @@ window.location.href = 'capacitacion-interna';
 }
 function btnCExterna(){
 window.location.href = 'capacitacion-externa';
+}
+
+function IncidentesAccidentes(){
+window.location.href = '16-investigacion-incidentes-accidentes';
 }
 
 function btnAtencionHallazgos(){
@@ -480,7 +134,7 @@ let YearBuscar = $('#YearBuscar').val();
 if (YearBuscar != "") {
 $('#YearBuscar').css('border','');
 
- $('#Contenido').load('public/sasisopa/vistas/lista-monitoreo-verificacion-evaluacion.php?Year=' + YearBuscar);
+ $('#Contenido').load('app/vistas/sasisopa/elemento14/lista-monitoreo-verificacion-evaluacion.php?Year=' + YearBuscar);
  $('#ModalBuscar').modal('hide');
 
 }else{
@@ -560,19 +214,19 @@ window.location = "descargar-programa-implementacion-s-a";
 
       $YearAnt = $fecha_year - 1;
     
-      $DicAnt = Ventas($Session_IDEstacion,12,$YearAnt,$con);
-      $Ene = Ventas($Session_IDEstacion,1,$fecha_year,$con);
-      $Feb = Ventas($Session_IDEstacion,2,$fecha_year,$con);
-      $Mar = Ventas($Session_IDEstacion,3,$fecha_year,$con);
-      $Abr = Ventas($Session_IDEstacion,4,$fecha_year,$con);
-      $May = Ventas($Session_IDEstacion,5,$fecha_year,$con);
-      $Jun = Ventas($Session_IDEstacion,6,$fecha_year,$con);
-      $Jul = Ventas($Session_IDEstacion,7,$fecha_year,$con);
-      $Ago = Ventas($Session_IDEstacion,8,$fecha_year,$con);
-      $Sep = Ventas($Session_IDEstacion,9,$fecha_year,$con);
-      $Oct = Ventas($Session_IDEstacion,10,$fecha_year,$con);
-      $Nov = Ventas($Session_IDEstacion,11,$fecha_year,$con);
-      $Dic = Ventas($Session_IDEstacion,12,$fecha_year,$con);
+      $DicAnt = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,12,$YearAnt);
+      $Ene = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,1,$fecha_year);
+      $Feb = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,2,$fecha_year);
+      $Mar = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,3,$fecha_year);
+      $Abr = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,4,$fecha_year);
+      $May = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,5,$fecha_year);
+      $Jun = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,6,$fecha_year);
+      $Jul = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,7,$fecha_year);
+      $Ago = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,8,$fecha_year);
+      $Sep = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,9,$fecha_year);
+      $Oct = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,10,$fecha_year);
+      $Nov = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,11,$fecha_year);
+      $Dic = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,12,$fecha_year);
 
       $TC1 = TC($Ene,$DicAnt);
       $TC2 = TC($Feb,$Ene);
@@ -604,13 +258,13 @@ window.location = "descargar-programa-implementacion-s-a";
         </tr>
         <tr>
           <td class="align-middle text-center"><b>Meta</b></td>
-          <td class="align-middle"><?=Meta($Session_IDEstacion,1,$con);?></td>
+          <td class="align-middle"><?=$class_monitoreo_evaluacion->meta($Session_IDEstacion,1);?></td>
           <td class="align-middle text-center"><b>Frecuencia de medición</b></td>
           <td class="align-middle">ANUAL</td>
         </tr>
         <tr>
           <td colspan="4">
-          <div class="mt-1"><b>Resultado:</b> <?=ResultadoImplementacion($Session_IDEstacion,$fecha_year,$con);?></div>
+          <div class="mt-1"><b>Resultado:</b> <?=$class_monitoreo_evaluacion->resultadoImplementacion($Session_IDEstacion,$fecha_year);?></div>
           </td>
         </tr>
         </tbody>
@@ -633,7 +287,7 @@ window.location = "descargar-programa-implementacion-s-a";
         </tr>
         <tr>
           <td class="align-middle text-center"><b>Meta</b></td>
-          <td class="align-middle"><?=Meta($Session_IDEstacion,2,$con);?></td>
+          <td class="align-middle"><?=$class_monitoreo_evaluacion->meta($Session_IDEstacion,2,$con);?></td>
           <td class="align-middle text-center"><b>Frecuencia de medición</b></td>
           <td class="align-middle">Mensual</td>
         </tr>
@@ -923,7 +577,7 @@ window.location = "descargar-programa-implementacion-s-a";
         </tr>
         <tr>
           <td class="align-middle text-center"><b>Meta</b></td>
-          <td class="align-middle"><?=Meta($Session_IDEstacion,3,$con);?></td>
+          <td class="align-middle"><?=$class_monitoreo_evaluacion->meta($Session_IDEstacion,3,$con);?></td>
           <td class="align-middle text-center"><b>Frecuencia de medición</b></td>
           <td class="align-middle">Semestral</td>
         </tr>
@@ -935,12 +589,12 @@ window.location = "descargar-programa-implementacion-s-a";
         <div class="row">
           <div class="col-6">
           <div class="text-secondary">Primer semestre:</div>
-          <?=ResultadoCapacitacion($Session_IDEstacion,$fecha_year,1,$con);?>
+          <?=$class_monitoreo_evaluacion->resultadoCapacitacion($Session_IDEstacion,$fecha_year,1);?>
           </div>
           <?php if(number_format(date("m")) >= 7){ ?>
           <div class="col-6">
           <div class="text-secondary">Segundo semestre:</div>
-          <?=ResultadoCapacitacion($Session_IDEstacion,$fecha_year,2,$con);?>
+          <?=$class_monitoreo_evaluacion->resultadoCapacitacion($Session_IDEstacion,$fecha_year,2);?>
           </div>
         <?php } ?>
         </div>
@@ -967,7 +621,7 @@ window.location = "descargar-programa-implementacion-s-a";
         </tr>
         <tr>
           <td class="align-middle text-center"><b>Meta</b></td>
-          <td class="align-middle"><?=Meta($Session_IDEstacion,4,$con);?></td>
+          <td class="align-middle"><?=$class_monitoreo_evaluacion->meta($Session_IDEstacion,4,$con);?></td>
           <td class="align-middle text-center"><b>Frecuencia de medición</b></td>
           <td class="align-middle">Semestral</td>
         </tr>
@@ -978,12 +632,12 @@ window.location = "descargar-programa-implementacion-s-a";
         <div class="row">
           <div class="col-6">
           <div class="text-secondary">Primer semestre:</div>
-          <?=ResultadoSatisfaccion($Session_IDEstacion,$fecha_year,1,$con);?>
+          <?=$class_monitoreo_evaluacion->resultadoSatisfaccion($Session_IDEstacion,$fecha_year,1);?>
           </div>
           <?php if(number_format(date("m")) >= 7){ ?>
           <div class="col-6">
           <div class="text-secondary">Segundo semestre:</div>
-          <?=ResultadoSatisfaccion($Session_IDEstacion,$fecha_year,2,$con);?>
+          <?=$class_monitoreo_evaluacion->resultadoSatisfaccion($Session_IDEstacion,$fecha_year,2);?>
           </div>
         <?php } ?>
         </div>
@@ -1011,7 +665,7 @@ window.location = "descargar-programa-implementacion-s-a";
         </tr>
         <tr>
           <td class="align-middle text-center"><b>Meta</b></td>
-          <td class="align-middle"><?=Meta($Session_IDEstacion,5,$con);?></td>
+          <td class="align-middle"><?=$class_monitoreo_evaluacion->meta($Session_IDEstacion,5,$con);?></td>
           <td class="align-middle text-center"><b>Frecuencia de medición</b></td>
           <td class="align-middle">Semestral</td>
         </tr>
@@ -1022,12 +676,12 @@ window.location = "descargar-programa-implementacion-s-a";
         <div class="row">
           <div class="col-6">
           <div class="text-secondary">Primer semestre:</div>
-          <?=ResultadoIncidentes($Session_IDEstacion,$fecha_year,1,$con);?>
+          <?=$class_monitoreo_evaluacion->resultadoIncidentes($Session_IDEstacion,$fecha_year,1);?>
           </div>
           <?php if(number_format(date("m")) >= 7){ ?>
           <div class="col-6">
           <div class="text-secondary">Segundo semestre:</div>
-          <?=ResultadoIncidentes($Session_IDEstacion,$fecha_year,2,$con);?>
+          <?=$class_monitoreo_evaluacion->resultadoIncidentes($Session_IDEstacion,$fecha_year,2);?>
           </div>
         <?php } ?>
         </div>
@@ -1131,7 +785,7 @@ window.location = "descargar-programa-implementacion-s-a";
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda()">Aceptar</button>
+          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda(<?=$id_ayuda;?>,<?=$estado;?>)">Aceptar</button>
         </div>
       </div>
     </div>
