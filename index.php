@@ -188,7 +188,19 @@ switch ($partes_ruta[1])
     break;
     case 'atencion-hallazgos':
       $ruta_elegida = $index_controlador->atencionHallazgos();
-      break;
+    break;
+    case '15-auditorias':
+      $ruta_elegida = $index_controlador->auditoria();
+    break;
+    case 'programa-auditorias-internas-externas':
+      $ruta_elegida = $index_controlador->programaAuditoriaInternaExterna();
+    break;
+    case 'auditoria-interna':
+      $ruta_elegida = $index_controlador->auditoriaInterna();
+    break;
+    case 'auditoria-externa':
+      $ruta_elegida = $index_controlador->auditoriaExterna();
+    break;
     //-------- ELEMENTOS SASISOPA FIN -------------------
     //---------------------------------------------------
       
@@ -255,18 +267,7 @@ break;
 //-----------------------------------------------------------------
 
 
-case '15-auditorias':
-$ruta_elegida = 'public/sasisopa/auditorias-index.php';
-break;
-case 'programa-auditorias-internas-externas':
-$ruta_elegida = 'public/sasisopa/programa-auditorias-internas-externas-index.php';
-break;
-case 'auditoria-interna':
-$ruta_elegida = 'public/sasisopa/auditoria-interna-index.php';
-break;
-case 'auditoria-externa':
-$ruta_elegida = 'public/sasisopa/auditoria-externa-index.php';
-break;
+
 case '16-investigacion-incidentes-accidentes':
 $ruta_elegida = 'public/sasisopa/investigacion-incidentes-accidentes-index.php';
 break;
@@ -570,6 +571,11 @@ break;
         $SelMes = $partes_ruta[3];
         $ruta_elegida = $index_controlador->reporteMantenimientoCorrectivo();
       }
+      else if ($partes_ruta[1] == 'descargar-programa-auditorias-internas-externas') {
+        $FechaInicio = $partes_ruta[2];
+        $FechaFin = $partes_ruta[3];
+        $ruta_elegida = $index_controlador->descargarProgramaAuditoriaInternaExterna();
+      }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     else if ($partes_ruta[1] == 'detalle-reporte-diario'){
@@ -604,11 +610,7 @@ break;
     $idEstacion = $partes_ruta[3];
     $ruta_elegida = 'public/administrador/detalle-requisitos-legales-index.php';
     }
-    else if ($partes_ruta[1] == 'descargar-programa-auditorias-internas-externas') {
-    $FechaInicio = $partes_ruta[2];
-    $FechaFin = $partes_ruta[3];
-    $ruta_elegida = 'public/sasisopa/vistas/descargar-programa-auditorias-internas-externas.php';
-    }
+    
     else if ($partes_ruta[1] == 'gestoria-calibracion-tanques') {
     $idEstacion = $partes_ruta[2];
     $idReporte = $partes_ruta[3];

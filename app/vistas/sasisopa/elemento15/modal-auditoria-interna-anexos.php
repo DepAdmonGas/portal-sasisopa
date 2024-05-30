@@ -1,5 +1,5 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 $id = $_GET['id'];
 $formato = $_GET['formato'];

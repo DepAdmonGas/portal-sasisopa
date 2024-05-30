@@ -132,13 +132,13 @@ $numero = mysqli_num_rows($result);
   $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
   $(".LoaderPage").fadeOut("slow");
- <?php if ($numero_sasisopa_ayuda == 1) {echo "btnAyuda();";} ?>
+
   });
   function regresarP(){
   window.history.back();
   }
 
-  function btnDescargar(YearInicio,YearFin){
+function btnDescargar(YearInicio,YearFin){
 window.location = "descargar-programa-auditorias-internas-externas/" + YearInicio + "/" + YearFin; 
 }
 
@@ -156,7 +156,7 @@ $('#FechaInicio').css('border','');
 if (FechaTermino != "") {
 $('#FechaTermino').css('border','');
 
-$('#DivContenido').load('public/sasisopa/vistas/lista-programa-auditoria-interna-externa.php?FechaInicio=' + FechaInicio + '&FechaTermino=' + FechaTermino);
+$('#DivContenido').load('app/vistas/sasisopa/elemento15/lista-programa-auditoria-interna-externa.php?FechaInicio=' + FechaInicio + '&FechaTermino=' + FechaTermino);
 $('#ModalBuscar').modal('hide');
 
 }else{
@@ -228,6 +228,7 @@ $('#FechaInicio').css('border','2px solid #A52525');
 <th class="text-center align-middle">Periodicidad</th>
 
 <?php
+$TR = 0;
 for ($i = $fecha_year; $i <= $YearFin; $i++) {
 echo '<td class="text-center align-middle"><b>'.$i.'</b></td>';
 $TR = $TR + 1;

@@ -1,5 +1,5 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
  $FechaInicio = $_GET['FechaInicio'];
  $FechaTermino = $_GET['FechaTermino'];
@@ -26,6 +26,7 @@ $numero = mysqli_num_rows($result);
 <th class="text-center align-middle">Periodicidad</th>
 
 <?php
+$TR = 0;
 for ($i = $Explode1[0]; $i <= $Explode2[0]; $i++) {
 echo '<td class="text-center align-middle"><b>'.$i.'</b></td>';
 $TR = $TR + 1;

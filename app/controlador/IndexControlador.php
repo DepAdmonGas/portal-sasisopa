@@ -94,5 +94,10 @@ class IndexControlador{
     public function atencionHallazgos(){return 'app/vistas/sasisopa/elemento14/atencion-hallazgos-index.php';}
     public function atencionHallazgosEditar(){return 'app/vistas/sasisopa/elemento14/atencion-hallazgos-editar.php';}
     public function descargarAtencionHallazgos(){return 'app/vistas/sasisopa/elemento14/descargar-atencion-hallazgos.php';}
+    public function auditoria(){return 'app/vistas/sasisopa/elemento15/auditorias-index.php';}
+    public function programaAuditoriaInternaExterna(){return 'app/vistas/sasisopa/elemento15/programa-auditorias-internas-externas-index.php';}
+    public function descargarProgramaAuditoriaInternaExterna(){return 'app/vistas/sasisopa/elemento15/descargar-programa-auditorias-internas-externas.php';}
+    public function auditoriaInterna(){return 'app/vistas/sasisopa/elemento15/auditoria-interna-index.php';}
+    public function auditoriaExterna(){return 'app/vistas/sasisopa/elemento15/auditoria-externa-index.php';}
 
 }

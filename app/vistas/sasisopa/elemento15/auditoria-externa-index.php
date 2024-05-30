@@ -30,14 +30,16 @@ require('app/help.php');
   height: 100%;
   z-index: 9999;
   background: url('imgs/iconos/load-img.gif') 50% 50% no-repeat rgb(249,249,249);
-  }
-  .div-hover:hover{
+}
+
+.div-hover:hover{
   opacity: .9;
-  }
-  a:link, a:hover
-  {
-  text-decoration:none !important;
-  }
+}
+
+a:link, a:hover
+{
+text-decoration:none !important;
+}
   </style>
   <script type="text/javascript">
   $(document).ready(function(){
@@ -46,7 +48,6 @@ require('app/help.php');
 
   ListaAuditoria();
   });
-
   function regresarP(){
   window.history.back();
   }
@@ -54,7 +55,7 @@ require('app/help.php');
   function ListaAuditoria(){
 
      $.ajax({
-     url:   'public/sasisopa/buscar/buscar-lista-auditoria-interna.php',
+     url:   'app/vistas/sasisopa/elemento15/buscar-lista-auditoria-externa.php',
      type:  'post',
      beforeSend: function() {
      },
@@ -69,11 +70,11 @@ require('app/help.php');
 
   }
 
-function ModalAgregar(){
-$('#ModalAgregar').modal('show');
-}
+  function ModalAgregar(){
+    $('#ModalAgregar').modal('show');
+    }
 
-function BTNCrear(){
+    function BTNCrear(){
 
 var PrestadorS = $('#PrestadorS').val();
 
@@ -81,14 +82,13 @@ if (PrestadorS != "") {
 $('#PrestadorS').css('border',''); 
 
 var parametros = {
-    "PrestadorS" : PrestadorS,
-    "IdEstacion" : <?=$Session_IDEstacion;?>,
-    "IdUsuario" : <?=$Session_IDUsuarioBD;?>
+    "accion" : "agregar-auditoria-externa",
+    "PrestadorS" : PrestadorS
   };
 
      $.ajax({
      data:  parametros,
-     url:   'public/sasisopa/agregar/agregar-auditoria-interna.php',
+     url:   'app/controlador/AuditoriaControlador.php',
      type:  'post',
      beforeSend: function() {
      },
@@ -105,7 +105,6 @@ $('#PrestadorS').css('border','2px solid #A52525');
 }
 
 }
-//----------------------------------------------------------------------
 
 function Modal024(id){
 $('#ModalDetalle').modal('show');
@@ -116,7 +115,7 @@ var parametros = {
 
 $.ajax({
 data:  parametros,
-url:   'public/sasisopa/buscar/buscar-informe-auditoria.php',
+url:   'app/vistas/sasisopa/elemento15/buscar-informe-auditoria.php',
 type:  'post',
 beforeSend: function() {
 },
@@ -137,7 +136,7 @@ function BTNArchivoIA(id){
   var ext = $("#ArchivoPdf").val().split('.').pop();
 
   var data = new FormData();
-  var url = 'public/sasisopa/agregar/agregar-archivo-interna-formato24.php';
+  var url = 'app/controlador/AuditoriaControlador.php';
 
 if (ArchivoPdf_filePath != "") {
 $('#ArchivoPdf').css('border','');
@@ -145,6 +144,7 @@ if (ext == "PDF" || ext == "pdf") {
 $('#ResultIA').html('');
 $('#ArchivoPdf').css('border','');
 
+data.append('accion', 'agregar-archivo-formato24');
 data.append('idDocumento', id);
 data.append('ArchivoPdf_file', ArchivoPdf_file);
 
@@ -173,8 +173,6 @@ $('#ArchivoPdf').css('border','2px solid #A52525');
 
 }
 
-//----------------------------------------------------------------------
-
 function Modal025(id){
 $('#ModalDetalle').modal('show');
 
@@ -184,7 +182,7 @@ var parametros = {
 
 $.ajax({
 data:  parametros,
-url:   'public/sasisopa/buscar/buscar-plan-atencion-hallazgos.php',
+url:   'app/vistas/sasisopa/elemento15/buscar-plan-atencion-hallazgos.php',
 type:  'post',
 beforeSend: function() {
 },
@@ -205,7 +203,7 @@ function BTNArchivoPAH(id){
   var ext = $("#ArchivoPdf").val().split('.').pop();
 
   var data = new FormData();
-  var url = 'public/sasisopa/agregar/agregar-archivo-interna-formato25.php';
+  var url = 'app/controlador/AuditoriaControlador.php';
 
 if (ArchivoPdf_filePath != "") {
 $('#ArchivoPdf').css('border','');
@@ -213,6 +211,7 @@ if (ext == "PDF" || ext == "pdf") {
 $('#ResultIA').html('');
 $('#ArchivoPdf').css('border','');
 
+data.append('accion', 'agregar-archivo-formato25');
 data.append('idDocumento', id);
 data.append('ArchivoPdf_file', ArchivoPdf_file);
 
@@ -237,65 +236,127 @@ $('#ArchivoPdf').css('border','2px solid #A52525');
 }else{
 $('#ArchivoPdf').css('border','2px solid #A52525');  
 }
-}
-
-function ModalAnexo(id,formato){
-  $('#ModalDetalle').modal('show');
-  $('#ContenidoDetalle').load('public/sasisopa/vistas/modal-auditoria-interna-anexos.php?id=' + id + '&formato=' + formato);
-}
-
-function BtnGuardar(id,formato){
-
-  let Documento = $('#Documento').val();
-  let ArchivoPdf = document.getElementById("ArchivoPdf");
-  let ArchivoPdf_file = ArchivoPdf.files[0];
-  let ArchivoPdf_filePath = ArchivoPdf.value;
-  let ext = $("#ArchivoPdf").val().split('.').pop();
-
-  let data = new FormData();
-  let url = 'public/sasisopa/agregar/agregar-anexo-auditoria-interna.php';
-
-  if (Documento != "") {
-  $('#Documento').css('border','');
-  if (ArchivoPdf_filePath != "") {
-  $('#ArchivoPdf').css('border','');
-  if (ext == "PDF" || ext == "pdf") {
-  $('#ResultIA').html('');
-  $('#ArchivoPdf').css('border','');
-
-    data.append('id', id);
-    data.append('formato', formato);
-    data.append('Documento', Documento);
-    data.append('ArchivoPdf_file', ArchivoPdf_file);
-
-    $.ajax({
-    url: url,
-    type: 'POST',
-    contentType: false,
-    data: data,
-    processData: false,
-    cache: false
-    }).done(function(data){
-
-      console.log(data)
-      ModalAnexo(id,formato)
-
-    });
-
-  }else{
-  $('#ResultIA').html('<small class="text-danger">Solo se aceptan formato PDF</small>');
-  $('#ArchivoPdf').css('border','2px solid #A52525');  
-  }
-  }else{
-  $('#ArchivoPdf').css('border','2px solid #A52525');  
-  }
-  }else{
-  $('#Documento').css('border','2px solid #A52525');  
-  }
-
 
 }
 
+function Asea(id){
+$('#ModalDetalle').modal('show');
+
+var parametros = {
+    "id" : id
+  };
+
+$.ajax({
+data:  parametros,
+url:   'app/vistas/sasisopa/elemento15/buscar-detalle-asea.php',
+type:  'post',
+beforeSend: function() {
+},
+complete: function(){
+},
+success:  function (response) {
+
+$('#ContenidoDetalle').html(response);
+ListaAsea(id);
+}
+});
+}
+
+function ListaAsea(id){
+
+var parametros = {
+    "id" : id
+  };
+
+$.ajax({
+data:  parametros,
+url:   'app/vistas/sasisopa/elemento15/buscar-lista-asea.php',
+type:  'post',
+beforeSend: function() {
+},
+complete: function(){
+},
+success:  function (response) {
+
+$('#ContenidoAsea').html(response);
+
+}
+});
+
+}
+
+function BTNASEA(id){
+
+var parametros = {
+"id" : id
+};
+
+$.ajax({
+data:  parametros,
+url:   'app/vistas/sasisopa/elemento15/buscar-formulario-asea.php',
+type:  'post',
+beforeSend: function() {
+},
+complete: function(){
+},
+success:  function (response) {
+
+$('#ContenidoAsea').html(response);
+
+}
+});
+
+}
+
+function BTNArchivoASEA(id){
+
+var ArchivoPdf = document.getElementById("ArchivoPdf");
+var ArchivoPdf_file = ArchivoPdf.files[0];
+var ArchivoPdf_filePath = ArchivoPdf.value;
+var ext = $("#ArchivoPdf").val().split('.').pop();
+
+var Comentario = $('#Comentario').val();
+
+var data = new FormData();
+var url = 'app/controlador/AuditoriaControlador.php';
+
+if (ArchivoPdf_filePath != "") {
+$('#ArchivoPdf').css('border','');
+if (ext == "PDF" || ext == "pdf") {
+$('#ResultIA').html('');
+$('#ArchivoPdf').css('border','');
+if (Comentario != "") {
+
+data.append('accion', 'agregar-archivo-asea');
+data.append('idDocumento', id);
+data.append('ArchivoPdf_file', ArchivoPdf_file);
+data.append('Comentario', Comentario);
+
+$.ajax({
+url: url,
+type: 'POST',
+contentType: false,
+data: data,
+processData: false,
+cache: false
+}).done(function(data){
+
+ListaAsea(id);
+
+});
+
+}else{
+$('#Comentario').css('border','2px solid #A52525');  
+}
+}else{
+$('#ResultIA').html('<small class="text-danger">Solo se aceptan formato PDF</small>');
+$('#ArchivoPdf').css('border','2px solid #A52525');  
+}
+}else{
+$('#ArchivoPdf').css('border','2px solid #A52525');  
+}
+
+}
   </script>
   </head>
   <body>
@@ -314,7 +375,7 @@ function BtnGuardar(id,formato){
       <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
       <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
       </div>
-    <div class="float-left"><h4>AUDITORIA INTERNA</h4></div>
+    <div class="float-left"><h4>AUDITORIA EXTERNA</h4></div>
     <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
     <a onclick="ModalAgregar()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Agregar" >
     <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
@@ -331,28 +392,30 @@ function BtnGuardar(id,formato){
     </div>
     </div>
 
-<div class="modal fade bd-example-modal-lg" id="ModalAgregar" >
+    <div class="modal fade bd-example-modal-lg" id="ModalAgregar" >
 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 <div class="modal-content" style="border-radius: 0px;border: 0px;">
-<div class="modal-header">
-<h4 class="modal-title">Crear auditoria interna</h4>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
-</div>
-<div class="modal-body">
+ <div class="modal-header">
+   <h4 class="modal-title">Crear auditoria externas</h4>
+     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+   <span aria-hidden="true">&times;</span>
+ </button>
+ </div>
+ <div class="modal-body">
 
-<div class="mb-2"><small class="text-secondary">* Nombre del auditor:</small></div>
+<div class="mb-2"><small class="text-secondary">* Nombre del prestador de servicio:</small></div>
 <input class="form-control input-style rounded-0" type="text" id="PrestadorS">
 
 <hr>
-
+ 
 <small>* Descarga los siguientes formatos y carga cada uno al Sistema</small>
 
+ 
 
 <div class="row justify-content-md-center row-cols-md-4 mt-3">
  
 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mt-2 mb-2 div-hover"> 
+
 <a href="<?=RUTA_ARCHIVOS_ADMONGAS."Fo.ADMONGAS.024.doc";?>" download>
 <div class="bg-light text-center p-2 c-pointer">
 <div ><img src="<?php echo RUTA_IMG_ICONOS."word.png"; ?>"></div>
@@ -360,6 +423,8 @@ function BtnGuardar(id,formato){
 </div>
 </a>
 </div>
+
+
 
 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mt-2 mb-2 div-hover"> 
 <a href="<?=RUTA_ARCHIVOS_ADMONGAS."Fo.ADMONGAS.025.docx";?>" download>
@@ -369,7 +434,10 @@ function BtnGuardar(id,formato){
 </div>
 </a>
 </div>
+
 </div>
+
+
 </div>
 <div class="modal-footer">
 <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="BTNCrear()">Crear nueva</button>
@@ -378,7 +446,7 @@ function BtnGuardar(id,formato){
 </div>
 </div>
 
-<div class="modal fade bd-example-modal-lg" id="ModalDetalle" >
+ <div class="modal fade bd-example-modal-lg" id="ModalDetalle" >
 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 <div class="modal-content" style="border-radius: 0px;border: 0px;">
 
@@ -388,6 +456,6 @@ function BtnGuardar(id,formato){
 </div>
 </div>
 
-<script src="<?php echo RUTA_JS ?>bootstrap.min.js"></script>
-</body>
-</html>
+  <script src="<?php echo RUTA_JS ?>bootstrap.min.js"></script>
+  </body>
+  </html>

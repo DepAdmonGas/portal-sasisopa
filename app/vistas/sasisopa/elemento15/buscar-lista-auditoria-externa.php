@@ -1,21 +1,13 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
+include_once "../../../../app/modelo/Auditoria.php";
+
+$class_auditoria = new Auditoria();
 
 $sql_auditoria = "SELECT * FROM tb_auditoria_externa WHERE id_estacion= '".$Session_IDEstacion."' ORDER BY id desc ";
 $result_auditoria = mysqli_query($con, $sql_auditoria);
 $numero_auditoria = mysqli_num_rows($result_auditoria);
 
-
-function formatos($id, $formato, $con){
-
-$sql_archivo = "SELECT * FROM tb_auditoria_externa_formato WHERE id_auditoria = '".$id."' AND formato = '".$formato."' ORDER BY id asc ";
-$result_archivo = mysqli_query($con, $sql_archivo);
-$numero_archivo = mysqli_num_rows($result_archivo);
-while($row_archivo = mysqli_fetch_array($result_archivo, MYSQLI_ASSOC)){
-$archivo = $row_archivo['archivo'];
-}
-return $archivo;
-}
 ?>
 
 <div class="mb-2" style="overflow-y: hidden;">
@@ -35,8 +27,8 @@ while($row_auditoria = mysqli_fetch_array($result_auditoria, MYSQLI_ASSOC)){
 $id = $row_auditoria['id'];
 $fechahora = explode(" ", $row_auditoria['fechacreacion']);
 
-$formato024 = formatos($id, 'formato024', $con);
-$formato025 = formatos($id, 'formato025', $con);
+$formato024 = $class_auditoria->formatosExterna($id, 'formato024');
+$formato025 = $class_auditoria->formatosExterna($id, 'formato025');
 
 if ($formato024 != "") {
 $F024 = "<a target='_BLANK' href='".$formato024."'><img src='".RUTA_IMG_ICONOS."pdf.png'></a>";	
