@@ -1,84 +1,25 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
+include_once "../../../../app/modelo/InvestigacionIncidentesAccidentes.php";
 
-
-function Puesto($idpuesto,$con){
-
-$sqlID = "SELECT tipo_puesto FROM tb_puestos WHERE id = '".$idpuesto."' ";
-$resultID = mysqli_query($con, $sqlID);
-while($rowID = mysqli_fetch_array($resultID, MYSQLI_ASSOC)){
-$Puesto = $rowID['tipo_puesto'];
-}
-return $Puesto;
-}
-
-function Estacion($idestacion,$con){
-$sql = "SELECT * FROM tb_estaciones WHERE id = '".$idestacion."' ";
-$result = mysqli_query($con, $sql);
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-$Razonsocial = $row['razonsocial'];
-$Estado = $row['di_estado'];
-$Municipio = $row['di_municipio'];
-$Direccion = $row['direccioncompleta'];
-}
-
-$array = array('Razonsocial' => $Razonsocial, 'Estado' => $Estado, 'Municipio' => $Municipio, 'Direccion' => $Direccion);
-
-return $array;
-}
+$class_incidentes_accidentes = new InvestigacionIncidentesAccidentes();
 
 if($_GET['Id'] == 0){
-
-   $sqlID = "SELECT id FROM tb_investigacion_incidente_accidente_no ORDER BY id desc LIMIT 1";
-   $resultID = mysqli_query($con, $sqlID);
-   $numeroID = mysqli_num_rows($resultID);
-
-   if ($numeroID == 0) {
-   $ID = 1;
-   }else{
-   while($rowID = mysqli_fetch_array($resultID, MYSQLI_ASSOC)){
-   $ID = $rowID['id'] + 1;
-   }
-   }
-
-$sql_insert = "INSERT INTO tb_investigacion_incidente_accidente_no (
-id,
-id_estacion,
-fecha,
-id_usuario,
-estatus
-
-  )
-  VALUES (
-  '".$ID."',
-  '".$Session_IDEstacion."',
-  '',
-  '".$Session_IDUsuarioBD."',
-  0
-  )";
-  mysqli_query($con, $sql_insert);
-
-
+$ID = $class_incidentes_accidentes->agregarSinAccidentes($Session_IDEstacion,$Session_IDUsuarioBD);
 }else{
 $ID = $_GET['Id']; 
 }
 
 $sqlCR = "SELECT * FROM tb_investigacion_incidente_accidente_no WHERE id = '".$ID."' ";
 $resultCR = mysqli_query($con, $sqlCR);
-while($rowCR = mysqli_fetch_array($resultCR, MYSQLI_ASSOC)){
-
-$Estacion = Estacion($rowCR['id_estacion'],$con);
+$rowCR = mysqli_fetch_array($resultCR, MYSQLI_ASSOC);
+$Estacion = $class_incidentes_accidentes->estacion($rowCR['id_estacion']);
 
 $sql_usuario = "SELECT nombre, id_puesto FROM tb_usuarios WHERE id = '".$rowCR['id_usuario']."' ";
 $result_usuario = mysqli_query($con, $sql_usuario);
-while($row_usuario = mysqli_fetch_array($result_usuario, MYSQLI_ASSOC)){
+$row_usuario = mysqli_fetch_array($result_usuario, MYSQLI_ASSOC);
 $nomencargado = $row_usuario['nombre'];
-$Puesto = Puesto($row_usuario['id_puesto'],$con);
-}
-
-
-
-
+$Puesto = $class_incidentes_accidentes->puesto($row_usuario['id_puesto']);
 
 $razonsocial = $Estacion['Razonsocial'];
 $estado = $Estacion['Estado'];
@@ -86,7 +27,6 @@ $municipio = $Estacion['Municipio'];
 $domicilio = $Estacion['Direccion'];
 $fecha = $rowCR['fecha'];
 
-}
 ?>
 <div class="modal-header">
 <h4 class="modal-title">Sin accidentes a la fecha</h4>

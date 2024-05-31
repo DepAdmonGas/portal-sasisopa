@@ -201,6 +201,12 @@ switch ($partes_ruta[1])
     case 'auditoria-externa':
       $ruta_elegida = $index_controlador->auditoriaExterna();
     break;
+    case '16-investigacion-incidentes-accidentes':
+      $ruta_elegida = $index_controlador->investigacionIncidentesAccidentes();
+    break;
+    case 'descargar-investigacion-incidentes-accidentes':
+      $ruta_elegida = $index_controlador->descargarIncidentesAccidentes();
+      break;
     //-------- ELEMENTOS SASISOPA FIN -------------------
     //---------------------------------------------------
       
@@ -266,14 +272,6 @@ $ruta_elegida = 'public/sasisopa/bitacora-recepcion-descargar-producto-index.php
 break;
 //-----------------------------------------------------------------
 
-
-
-case '16-investigacion-incidentes-accidentes':
-$ruta_elegida = 'public/sasisopa/investigacion-incidentes-accidentes-index.php';
-break;
-case 'descargar-investigacion-incidentes-accidentes':
-$ruta_elegida = 'public/sasisopa/vistas/descargar-investigacion-incidentes-accidentes.php';
-break;
 case '17-revision-resultados':
 $ruta_elegida = 'public/sasisopa/revision-resultados-index.php';
 break;
@@ -418,6 +416,10 @@ break;
       $GET_ID = $partes_ruta[2];
       $ruta_elegida = $index_controlador->descargarAtencionHallazgos();
     }
+    else if ($partes_ruta[1] == 'descargar-investigacion-sin-incidentes-accidentes') {
+      $GET_ID = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->descargarSinIncidentesAccidentes();
+      }
     //---------------------------------------------
     //---------------------------------------------
     //------------ LISTA ASISTENCIA ---------------
@@ -516,11 +518,7 @@ break;
     $ruta_elegida = 'public/sasisopa/vistas/descargar-registro-atencio-seguimiento-comunicacion-interna-externa.php';
     }
 
-    else if ($partes_ruta[1] == 'descargar-investigacion-sin-incidentes-accidentes') {
-    $GET_ID = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/vistas/descargar-investigacion-sin-incidentes-accidentes.php';
-    }
-    
+   
     //-------------------------------------------------------------------
     //-------------------------------------------------------------------
     //----------------------------------

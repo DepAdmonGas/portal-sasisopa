@@ -1,50 +1,12 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
+include_once "../../../../app/modelo/InvestigacionIncidentesAccidentes.php";
 
+$class_incidentes_accidentes = new InvestigacionIncidentesAccidentes();
 $sql_inv = "SELECT * FROM tb_investigacion_incidente_accidente WHERE id_estacion= '".$Session_IDEstacion."' ORDER BY id desc ";
 $result_inv = mysqli_query($con, $sql_inv);
 $numero_inv = mysqli_num_rows($result_inv);
 
-function Usuario($id, $con){
-
-$sql_usuarios = "SELECT 
-tb_usuarios.id,
-tb_usuarios.nombre,
-tb_puestos.tipo_puesto
-FROM tb_usuarios
-INNER JOIN tb_puestos ON tb_usuarios.id_puesto = tb_puestos.id WHERE tb_usuarios.id = '".$id."' ";
-$result_usuarios = mysqli_query($con, $sql_usuarios);
-$numero_usuarios = mysqli_num_rows($result_usuarios);
-while($row_usuarios = mysqli_fetch_array($result_usuarios, MYSQLI_ASSOC)){
-$nombre = $row_usuarios['nombre'];
-$puesto = $row_usuarios['tipo_puesto'];
-}
-
-$array = array("nombre" => $nombre, "puesto" => $puesto);
-
-return $array;
-}
-
-
-function Grupo($id, $con){
-
-$sql_inv = "SELECT * FROM tb_investigacion_incidente_accidente_grupo WHERE id_investigacion= '".$id."' ORDER BY id desc ";
-$result_inv = mysqli_query($con, $sql_inv);
-$numero_inv = mysqli_num_rows($result_inv);
-
-return $numero_inv;
-}
-
-function formatos($id, $con){
-
-$sql_archivo = "SELECT * FROM tb_investigacion_incidente_accidente_formato WHERE id_investigacion = '".$id."' ORDER BY id asc ";
-$result_archivo = mysqli_query($con, $sql_archivo);
-$numero_archivo = mysqli_num_rows($result_archivo);
-while($row_archivo = mysqli_fetch_array($result_archivo, MYSQLI_ASSOC)){
-$archivo = $row_archivo['archivo'];
-}
-return $archivo;
-}
 ?>
 
 <div class="mb-2" style="overflow-y: hidden;">
@@ -60,7 +22,7 @@ return $archivo;
 <th class="text-center" colspan="2"><span class="badge badge-pill badge-primary">1</span> Grupo interdiciplinario</th>
 <th class="text-center" colspan="3"><span class="badge badge-pill badge-primary">2</span> Fo.ADMONGAS.026</th>
 <th class="text-center"><span class="badge badge-pill badge-primary">3</span> Tercer Autorizado</th>
-<th></th>
+<th class="text-center" width="20px"><img src="<?=RUTA_IMG_ICONOS;?>eliminar.png"></th>
 </thead>
 <tbody>
 <?php
@@ -69,9 +31,9 @@ if ($numero_inv > 0) {
 while($row_inv = mysqli_fetch_array($result_inv, MYSQLI_ASSOC)){
 $id = $row_inv['id'];
 $fechahora = explode(" ", $row_inv['fechacreacion']);
-$Usuario = Usuario($row_inv['id_usuario'], $con);
+$Usuario = $class_incidentes_accidentes->usuario($row_inv['id_usuario']);
 
-$formato026 = formatos($id, $con);
+$formato026 = $class_incidentes_accidentes->formatos($id);
 
 if ($row_inv['muertes'] == 0) {
 $muertes = "NO";
@@ -100,11 +62,7 @@ $F026 = "<img src='".RUTA_IMG_ICONOS."img-no.png'>";
 $Tercer = "<a class='c-pointer' onclick='ModalTercerA(".$id.")'><img src='".RUTA_IMG_ICONOS."autorizado.png'></a>";	
 }
 
-
-
-
-
-$Grupo = Grupo($id, $con);
+$Grupo = $class_incidentes_accidentes->grupo($id);
 
 if ($Grupo > 0) {
 $ImgGrupo = "<img src='".RUTA_IMG_ICONOS."correcto-16.png'>";

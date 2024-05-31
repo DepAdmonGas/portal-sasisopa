@@ -1,5 +1,5 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 
 
@@ -16,9 +16,9 @@ $numero_resultado = mysqli_num_rows($result_resultado);
 			<th class="align-middle text-center">#</th>
 			<th class="align-middle text-center">Fecha</th>
 			<th class="align-middle text-center">Nombre completo</th>
-			<th class="align-middle text-center" width="20px"></th>
-			<th class="align-middle text-center" width="20px"></th>
-			<th class="align-middle text-center" width="20px"></th>
+			<th class="align-middle text-center" width="20px"><img width="20px" src="<?=RUTA_IMG_ICONOS;?>editar.png"></th>
+			<th class="align-middle text-center" width="20px"><img src="<?=RUTA_IMG_ICONOS;?>pdf-16.png"></th>
+			<th class="align-middle text-center" width="20px"><img src="<?=RUTA_IMG_ICONOS;?>eliminar-red-16.png"></th>
 		</tr>
 	</thead>
 	<tbody>

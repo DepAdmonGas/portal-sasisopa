@@ -99,5 +99,8 @@ class IndexControlador{
     public function descargarProgramaAuditoriaInternaExterna(){return 'app/vistas/sasisopa/elemento15/descargar-programa-auditorias-internas-externas.php';}
     public function auditoriaInterna(){return 'app/vistas/sasisopa/elemento15/auditoria-interna-index.php';}
     public function auditoriaExterna(){return 'app/vistas/sasisopa/elemento15/auditoria-externa-index.php';}
+    public function investigacionIncidentesAccidentes(){return 'app/vistas/sasisopa/elemento16/investigacion-incidentes-accidentes-index.php';}
+    public function descargarIncidentesAccidentes(){return 'app/vistas/sasisopa/elemento16/descargar-investigacion-incidentes-accidentes.php';}
+    public function descargarSinIncidentesAccidentes(){return 'app/vistas/sasisopa/elemento16/descargar-investigacion-sin-incidentes-accidentes.php';}
 
 }

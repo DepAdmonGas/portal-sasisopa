@@ -1,5 +1,5 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 $idINV = $_POST['id'];
 
 $sql_inv = "SELECT * FROM tb_investigacion_incidente_accidente_tercerautorizado WHERE id_investigacion= '".$idINV."' ORDER BY id desc ";
@@ -67,7 +67,7 @@ $archivo = $row_inv['archivo'];
 <thead>
 <th class="text-center">#</th>
 <th class="text-center">Fecha</th>
-<th class="text-center"></th>
+<th class="text-center" width="20px"><img src="<?=RUTA_IMG_ICONOS;?>pdf.png"></th>
 </thead>
 <tbody>
 <?php

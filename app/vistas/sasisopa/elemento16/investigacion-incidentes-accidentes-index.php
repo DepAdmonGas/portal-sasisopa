@@ -1,17 +1,12 @@
 <?php
 require('app/help.php');
+include_once "app/modelo/Ayuda.php";
 
-$sql_sasisopa_ayuda = "SELECT * FROM pu_sasisopa_ayuda WHERE id_usuario = '".$Session_IDUsuarioBD."' and detalle = '16-investigacion-incidentes-accidentes' and estado = 0 LIMIT 1";
-$result_sasisopa_ayuda = mysqli_query($con, $sql_sasisopa_ayuda);
-$numero_sasisopa_ayuda = mysqli_num_rows($result_sasisopa_ayuda);
+$class_ayuda = new Ayuda();
+$array_ayuda = $class_ayuda->sasisopaAyuda($Session_IDUsuarioBD,'16-investigacion-incidentes-accidentes');
+$id_ayuda = $array_ayuda['id'];
+$estado = $array_ayuda['estado'];
 
-if ($numero_sasisopa_ayuda == 1) {
-while($row_ayuda = mysqli_fetch_array($result_sasisopa_ayuda, MYSQLI_ASSOC)){
-$idAyuda = $row_ayuda['id'];
-}
-}else{
-$idAyuda = 0;
-}
 ?>
 
 <html lang="es">
@@ -48,7 +43,7 @@ $idAyuda = 0;
   $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
   $(".LoaderPage").fadeOut("slow");
- <?php if ($numero_sasisopa_ayuda == 1) {echo "btnAyuda();";} ?>
+  <?php if ($id_ayuda != 0) {echo "btnAyuda();";} ?>
  ListaInvestigacion();
  ListaInvestigacionNO();
   });
@@ -60,20 +55,18 @@ $idAyuda = 0;
   $('#Modalinvestigacion').modal('show');
   }
 
+  function btnFinAyuda(idayuda, estado){
 
-function btnFinAyuda(){
+    var parametros = {
+      "accion" : "actualizar-ayuda",
+      "idayuda" : idayuda
+    };
 
-var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
-
- var parametros = {
-        "idAyuda" : <?=$idAyuda; ?>
-      };
-
-  if (puntosSasisopa != 0) {
+    if (idayuda != 0 && estado == 0) {
 
    $.ajax({
    data:  parametros,
-   url:   'public/sasisopa/actualizar/actualizar-ayuda.php',
+   url:   'app/controlador/AyudaControlador.php',
    type:  'post',
    beforeSend: function() {
    },
@@ -89,30 +82,28 @@ var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
   }
 
 }
-//-----------------------------------------------------------------
+
 function ListaInvestigacion(){
+  $.ajax({
+  url:   'app/vistas/sasisopa/elemento16/buscar-lista-incidentes-accidentes.php',
+  type:  'post',
+  beforeSend: function() {
+  },
+  complete: function(){
+  },
+  success:  function (response) {
 
-   $.ajax({
-     url:   'public/sasisopa/buscar/buscar-lista-incidentes-accidentes.php',
-     type:  'post',
-     beforeSend: function() {
-     },
-     complete: function(){
-     },
-     success:  function (response) {
+  $('#DivContenido').html(response);
 
-     $('#DivContenido').html(response);
-
-     }
-     });
+  }
+  });
 }
 
 function ModalAgregar(){
 $('#ModalDetalle').modal('show'); 
 
-
    $.ajax({
-     url:   'public/sasisopa/buscar/buscar-formulario-incidentes-accidentes.php',
+     url:   'app/vistas/sasisopa/elemento16/buscar-formulario-incidentes-accidentes.php',
      type:  'post',
      beforeSend: function() {
      },
@@ -124,7 +115,6 @@ $('#ModalDetalle').modal('show');
 
      }
      });
-
 
 }
 
@@ -307,7 +297,6 @@ $('#EventoDetalle').html('<div class="mb-2 mt-2"><small class="text-secondary">*
 '<input class="form-control input-style rounded-0" type="text" id="NombreLI">'); 
 
 }
-//--------------------------------------------------------------------------------
 
 function BTNCrear(){
 
@@ -361,6 +350,7 @@ if (NombreLI != "") {
 $('#NombreLI').css('border','');
 
 var parametros = {
+"accion" : "agregar-incedentes-accidentes",
 "Fecha" : Fecha,
 "Descripcion"  :  Descripcion,
 "TipoEvento"   :  TipoEvento,
@@ -373,7 +363,7 @@ var parametros = {
 
      $.ajax({
      data:  parametros,
-     url:   'public/sasisopa/agregar/agregar-incedentes-accidentes.php',
+     url:   'app/controlador/InvestigacionIncidentesAccidentesControlador.php',
      type:  'post',
      beforeSend: function() {
      },
@@ -410,6 +400,7 @@ var Descripcion =  $('#Descripcion').val();
 var TipoEvento  =  $('#TipoEvento').val(); 
 
 var parametros = {
+"accion" : "agregar-incedentes-accidentes",
 "Fecha" : Fecha,
 "Descripcion"  :  Descripcion,
 "TipoEvento"   :  TipoEvento,
@@ -418,21 +409,20 @@ var parametros = {
 
      $.ajax({
      data:  parametros,
-     url:   'public/sasisopa/agregar/agregar-incedentes-accidentes.php',
+     url:   'app/controlador/InvestigacionIncidentesAccidentesControlador.php',
      type:  'post',
      beforeSend: function() {
      },
      complete: function(){
      },
      success:  function (response) {
+
     ListaInvestigacion();
      $('#ModalDetalle').modal('hide'); 
      }
      });
 
 }
-
-//------------------- EVENTO TIPO 2 Forma 1
 
 function EventoTipo2(){
 
@@ -463,6 +453,7 @@ if (NombreLI != "") {
 $('#NombreLI').css('border','');
 
 var parametros = {
+"accion" : "agregar-incedentes-accidentes",
 "Fecha" : Fecha,
 "Descripcion"  :  Descripcion,
 "TipoEvento"   :  TipoEvento,
@@ -476,13 +467,14 @@ var parametros = {
 
      $.ajax({
      data:  parametros,
-     url:   'public/sasisopa/agregar/agregar-incedentes-accidentes.php',
+     url:   'app/controlador/InvestigacionIncidentesAccidentesControlador.php',
      type:  'post',
      beforeSend: function() {
      },
      complete: function(){
      },
      success:  function (response) {
+
      ListaInvestigacion();
      $('#ModalDetalle').modal('hide'); 
      }
@@ -522,6 +514,7 @@ if (NombreLI != "") {
 $('#NombreLI').css('border','');
 
 var parametros = {
+"accion" : "agregar-incedentes-accidentes",
 "Fecha" : Fecha,
 "Descripcion"  :  Descripcion,
 "TipoEvento"   :  TipoEvento,
@@ -535,13 +528,14 @@ var parametros = {
 
      $.ajax({
      data:  parametros,
-     url:   'public/sasisopa/agregar/agregar-incedentes-accidentes.php',
+     url:   'app/controlador/InvestigacionIncidentesAccidentesControlador.php',
      type:  'post',
      beforeSend: function() {
      },
      complete: function(){
      },
      success:  function (response) {
+ 
      ListaInvestigacion();
      $('#ModalDetalle').modal('hide'); 
      }
@@ -558,17 +552,16 @@ $('#NombreTA').css('border','2px solid #A52525');
 } 
 }
 
-//----------------------------------------------------------------------------
 function GrupoInterdiciplinario(id){
-$('#ModalDetalle').modal('show');
+    $('#ModalDetalle').modal('show');
 
-var parametros = {
-"id"  :  id
-};
+    var parametros = {
+    "id"  :  id
+    };
 
-$.ajax({
+    $.ajax({
      data:  parametros,
-     url:   'public/sasisopa/buscar/buscar-formulario-lista-grupo.php',
+     url:   'app/vistas/sasisopa/elemento16/buscar-formulario-lista-grupo.php',
      type:  'post',
      beforeSend: function() {
      },
@@ -577,7 +570,7 @@ $.ajax({
      success:  function (response) {
 
      $('#DivModalDetalle').html(response);
-ListaGrupoI(id);
+    ListaGrupoI(id);
      }
      });
 
@@ -591,7 +584,7 @@ var parametros = {
 
 $.ajax({
 data:  parametros,
-url:   'public/sasisopa/buscar/buscar-lista-grupo-inter.php',
+url:   'app/vistas/sasisopa/elemento16/buscar-lista-grupo-inter.php',
 type:  'post',
 beforeSend: function() {
 },
@@ -616,7 +609,7 @@ var parametros = {
 
 $.ajax({
 data:  parametros,
-url:   'public/sasisopa/buscar/buscar-formulario-agregar-grupo.php',
+url:   'app/vistas/sasisopa/elemento16/buscar-formulario-agregar-grupo.php',
 type:  'post',
 beforeSend: function() {
 },
@@ -644,8 +637,8 @@ $('#PuestoG').css('border','');
 if (EspecialidadG != "") {
 $('#EspecialidadG').css('border','');
 
-
 var parametros = {
+    "accion" : "agregar-grupo-interdiciplinario",
     "id" : id,
     "NombreG" : NombreG,
     "PuestoG" : PuestoG,
@@ -654,7 +647,7 @@ var parametros = {
 
 $.ajax({
 data:  parametros,
-url:   'public/sasisopa/agregar/agregar-grupo-interdiciplinario.php',
+url:   'app/controlador/InvestigacionIncidentesAccidentesControlador.php',
 type:  'post',
 beforeSend: function() {
 },
@@ -667,8 +660,6 @@ ListaGrupoI(id);
 
 }
 });
-
-
 
 }else{
 $('#EspecialidadG').css('border','2px solid #A52525');
@@ -692,7 +683,7 @@ var parametros = {
 
 $.ajax({
      data:  parametros,
-     url:   'public/sasisopa/buscar/buscar-formulario-informe.php',
+     url:   'app/vistas/sasisopa/elemento16/buscar-formulario-informe.php',
      type:  'post',
      beforeSend: function() {
      },
@@ -707,13 +698,13 @@ $('#DivModalDetalle').html(response);
 
 function BTNArchivoID(id){
 
- var ArchivoPdf = document.getElementById("ArchivoPdf");
-  var ArchivoPdf_file = ArchivoPdf.files[0];
-  var ArchivoPdf_filePath = ArchivoPdf.value;
-  var ext = $("#ArchivoPdf").val().split('.').pop();
+var ArchivoPdf = document.getElementById("ArchivoPdf");
+ var ArchivoPdf_file = ArchivoPdf.files[0];
+ var ArchivoPdf_filePath = ArchivoPdf.value;
+ var ext = $("#ArchivoPdf").val().split('.').pop();
 
-  var data = new FormData();
-  var url = 'public/sasisopa/agregar/agregar-archivo-formato26.php';
+ var data = new FormData();
+ var url = 'app/controlador/InvestigacionIncidentesAccidentesControlador.php';
 
 if (ArchivoPdf_filePath != "") {
 $('#ArchivoPdf').css('border','');
@@ -721,17 +712,18 @@ if (ext == "PDF" || ext == "pdf") {
 $('#ResultIA').html('');
 $('#ArchivoPdf').css('border','');
 
+data.append('accion', 'agregar-archivo-formato26');
 data.append('idDocumento', id);
 data.append('ArchivoPdf_file', ArchivoPdf_file);
 
-  $.ajax({
-  url: url,
-  type: 'POST',
-  contentType: false,
-  data: data,
-  processData: false,
-  cache: false
-  }).done(function(data){
+ $.ajax({
+ url: url,
+ type: 'POST',
+ contentType: false,
+ data: data,
+ processData: false,
+ cache: false
+ }).done(function(data){
 
 $('#td11' + id).html('<a target="_BLANK" href="'+data+'"><img src="<?=RUTA_IMG_ICONOS;?>pdf.png"></a>');
 $('#ModalDetalle').modal('hide');
@@ -747,7 +739,7 @@ $('#ArchivoPdf').css('border','2px solid #A52525');
 }
 
 }
-//----------------------------------------------------------------------------------------------
+
 function ModalTercerA(id){
 $('#ModalDetalle').modal('show');  
 
@@ -763,7 +755,7 @@ var parametros = {
 
 $.ajax({
      data:  parametros,
-     url:   'public/sasisopa/buscar/buscar-formulario-tercerautorizado.php',
+     url:   'app/vistas/sasisopa/elemento16/buscar-formulario-tercerautorizado.php',
      type:  'post',
      beforeSend: function() {
      },
@@ -777,13 +769,13 @@ $('#DivModalDetalle').html(response);
 
 function BTNArchivoTA(id, idta){
 
- var ArchivoPdf = document.getElementById("ArchivoPdf");
-  var ArchivoPdf_file = ArchivoPdf.files[0];
-  var ArchivoPdf_filePath = ArchivoPdf.value;
-  var ext = $("#ArchivoPdf").val().split('.').pop();
+var ArchivoPdf = document.getElementById("ArchivoPdf");
+ var ArchivoPdf_file = ArchivoPdf.files[0];
+ var ArchivoPdf_filePath = ArchivoPdf.value;
+ var ext = $("#ArchivoPdf").val().split('.').pop();
 
-  var data = new FormData();
-  var url = 'public/sasisopa/actualizar/actualizar-archivo-ta.php';
+ var data = new FormData();
+ var url = 'app/controlador/InvestigacionIncidentesAccidentesControlador.php';
 
 if (ArchivoPdf_filePath != "") {
 $('#ArchivoPdf').css('border','');
@@ -791,18 +783,19 @@ if (ext == "PDF" || ext == "pdf") {
 $('#ResultIA').html('');
 $('#ArchivoPdf').css('border','');
 
+data.append('accion', 'agregar-archivo-tercer-autorizado');
 data.append('idDocumento', id);
 data.append('idta', idta);
 data.append('ArchivoPdf_file', ArchivoPdf_file);
 
-  $.ajax({
-  url: url,
-  type: 'POST',
-  contentType: false,
-  data: data,
-  processData: false,
-  cache: false
-  }).done(function(data){
+ $.ajax({
+ url: url,
+ type: 'POST',
+ contentType: false,
+ data: data,
+ processData: false,
+ cache: false
+ }).done(function(data){
 
 DatosFTA(id);
 
@@ -817,7 +810,6 @@ $('#ArchivoPdf').css('border','2px solid #A52525');
 }
 
 }
-//--------------------------------------------------------------
 
 function Descargar(){
 window.location = "descargar-investigacion-incidentes-accidentes";
@@ -825,59 +817,62 @@ window.location = "descargar-investigacion-incidentes-accidentes";
 
 function Eliminar(id){
 
- var parametros = {
-  "id" : id
-  };
+var parametros = {
+ "accion" : "eliminar-investigacion-incidentes-accidentes",
+ "id" : id
+ };
 
-  alertify.confirm('',
+ alertify.confirm('',
 function(){
 
-  $.ajax({
-  data:  parametros,
-  url:   'public/sasisopa/eliminar/eliminar-investigacion-incidentes-accidentes.php',
-  type:  'post',
-  beforeSend: function() {
-  },
-  complete: function(){
-  },
-  success:  function (response) {
- 
-     ListaInvestigacion();
+ $.ajax({
+ data:  parametros,
+ url:   'app/controlador/InvestigacionIncidentesAccidentesControlador.php',
+ type:  'post',
+ beforeSend: function() {
+ },
+ complete: function(){
+ },
+ success:  function (response) {
 
-  }
-  });
+    ListaInvestigacion();
 
-  },
+ }
+ });
+
+ },
 function(){
 }).setHeader('Mensaje').set({transition:'zoom',message: 'Desea eliminar la información seleccionada',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
 
 }
 
-
-//--------------------------------------------------------------
-
 function ListaInvestigacionNO(){
-$('#ListaInvestigacionNO').load('public/sasisopa/vistas/lista-sin-accidentes-fecha.php');
-
+$('#ListaInvestigacionNO').load('app/vistas/sasisopa/elemento16/lista-sin-accidentes-fecha.php');
 }
 
 function ModalSAF(){
 $('#ModalDetalle').modal('show');
-$('#DivModalDetalle').load('public/sasisopa/vistas/modal-sin-accidentes-fecha.php?Id=0');
+$('#DivModalDetalle').load('app/vistas/sasisopa/elemento16/modal-sin-accidentes-fecha.php?Id=0');
 ListaInvestigacionNO();
+}
+
+function EditarIIAN(id){
+$('#ModalDetalle').modal('show');
+$('#DivModalDetalle').load('app/vistas/sasisopa/elemento16/modal-sin-accidentes-fecha.php?Id=' + id);
 }
 
 function btnGuardarSAF(id){
 let Fecha = $('#Fecha').val();
 
  var parametros = {
+ "accion" : "actualizar-sin-accidentes",
   "id" : id,
   "Fecha" : Fecha
   };
 
   $.ajax({
   data:  parametros,
-  url:   'public/sasisopa/actualizar/actualizar-investigacion-incidentes-accidentes-no.php',
+  url:   'app/controlador/InvestigacionIncidentesAccidentesControlador.php',
   type:  'post',
   beforeSend: function() {
   },
@@ -893,16 +888,9 @@ let Fecha = $('#Fecha').val();
 
 }
 
-function DescargarIIAN(id){
-window.location = "descargar-investigacion-sin-incidentes-accidentes/" + id; 
-}
-
-function EditarIIAN(id){
-$('#ModalDetalle').modal('show');
-$('#DivModalDetalle').load('public/sasisopa/vistas/modal-sin-accidentes-fecha.php?Id=' + id);
-}
 function EliminarIIAN(id){
  var parametros = {
+    "accion" : "eliminar-sin-accidentes",
   "id" : id
   };
 
@@ -911,7 +899,7 @@ function(){
 
   $.ajax({
   data:  parametros,
-  url:   'public/sasisopa/eliminar/eliminar-investigacion-sin-incidentes-accidentes.php',
+  url:   'app/controlador/InvestigacionIncidentesAccidentesControlador.php',
   type:  'post',
   beforeSend: function() {
   },
@@ -927,6 +915,9 @@ function(){
   },
 function(){
 }).setHeader('Mensaje').set({transition:'zoom',message: 'Desea eliminar la información seleccionada',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+}
+function DescargarIIAN(id){
+window.location = "descargar-investigacion-sin-incidentes-accidentes/" + id; 
 }
 
   </script>
@@ -1023,7 +1014,7 @@ function(){
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda()">Aceptar</button>
+          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda(<?=$id_ayuda;?>,<?=$estado;?>)">Aceptar</button>
         </div>
       </div>
     </div>
