@@ -206,7 +206,10 @@ switch ($partes_ruta[1])
     break;
     case 'descargar-investigacion-incidentes-accidentes':
       $ruta_elegida = $index_controlador->descargarIncidentesAccidentes();
-      break;
+    break;
+    case '17-revision-resultados':
+      $ruta_elegida = $index_controlador->revisionResultados();
+    break;
     //-------- ELEMENTOS SASISOPA FIN -------------------
     //---------------------------------------------------
       
@@ -272,9 +275,7 @@ $ruta_elegida = 'public/sasisopa/bitacora-recepcion-descargar-producto-index.php
 break;
 //-----------------------------------------------------------------
 
-case '17-revision-resultados':
-$ruta_elegida = 'public/sasisopa/revision-resultados-index.php';
-break;
+
 case '18-informes-desempeno':
 $ruta_elegida = 'public/sasisopa/informes-desempeno-index.php';
 break;

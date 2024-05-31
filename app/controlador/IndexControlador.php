@@ -102,5 +102,6 @@ class IndexControlador{
     public function investigacionIncidentesAccidentes(){return 'app/vistas/sasisopa/elemento16/investigacion-incidentes-accidentes-index.php';}
     public function descargarIncidentesAccidentes(){return 'app/vistas/sasisopa/elemento16/descargar-investigacion-incidentes-accidentes.php';}
     public function descargarSinIncidentesAccidentes(){return 'app/vistas/sasisopa/elemento16/descargar-investigacion-sin-incidentes-accidentes.php';}
+    public function revisionResultados(){return 'app/vistas/sasisopa/elemento17/revision-resultados-index.php';}
 
 }

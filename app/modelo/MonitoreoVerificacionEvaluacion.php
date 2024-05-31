@@ -820,7 +820,68 @@ class MonitoreoVerificacionEvaluacion{
             
             return $Result;
             }
-        
+        //-----------------------------------------------------------------------------------------------
+
+        public function agregarRevisionResultado($id_usuario,$id_estacion,$file_name,$filetmp_name,$hoy){
+
+            $ruta = "../../archivos/revision-resultados/".$id_estacion."-RESULTADOS-".strtotime($hoy).".pdf";
+            $nom = "archivos/revision-resultados/".$id_estacion."-RESULTADOS-".strtotime($hoy).".pdf";
+
+            if(move_uploaded_file($filetmp_name, $ruta)) {
+
+            $sql = "INSERT INTO tb_revision_resultados (
+            id_estacion,
+            id_usuario,
+            archivo
+            )
+            VALUES 
+            (
+            '".$id_estacion."',
+            '".$id_usuario."',
+            '".$nom."'
+            )";
+            return $this->sqlQuery($sql);
+            $this->class_base_datos->desconectarBD($this->con); 
+            
+            }else{
+                return false;
+            }
+
+        }
+
+        public function eliminarRevisionResultados($id){
+
+            $sql = "DELETE FROM tb_revision_resultados WHERE id = '".$id."'";
+            return $this->sqlQuery($sql);
+            $this->class_base_datos->desconectarBD($this->con); 
+
+        }
+
+        public function editarRevisionResultado($id,$fecha,$file_name,$file_tmp_name,$hoy,$hora_del_dia){
+
+            $ruta = "../../archivos/revision-resultados/".$id."-RESULTADOS-".strtotime($hoy).".pdf";
+            $nom = "archivos/revision-resultados/".$id."-RESULTADOS-".strtotime($hoy).".pdf";
+
+            if(move_uploaded_file($file_tmp_name, $ruta)) {
+
+            $sql1 = "UPDATE tb_revision_resultados SET
+            archivo = '".$nom."'
+            WHERE id = '".$id."' ";
+            $this->sqlQuery($sql1);
+
+            $sql2 = "UPDATE tb_revision_resultados SET
+            fecha_hora = '".$fecha." ".$hora_del_dia."'
+            WHERE id = '".$id."' ";
+            $this->sqlQuery($sql2);
+
+            return true;
+            }else{
+                return false;
+            }
+
+            $this->class_base_datos->desconectarBD($this->con);            
+
+        }
 
 
 }

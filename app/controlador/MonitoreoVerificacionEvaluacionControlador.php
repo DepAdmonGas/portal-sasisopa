@@ -115,6 +115,17 @@ switch($_POST['accion']){
     case 'agregar-evidencia-atencion-hallazgos':
         echo $class_monitoreo_evaluacion->agregarEvidenciaHallazgos($_POST['idHallazgo'],$_FILES['File']['name'],$_FILES['File']['tmp_name'],$hoy);
     break;
+    //----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
+    case 'agregar-revision-resultados':
+        echo $class_monitoreo_evaluacion->agregarRevisionResultado($_POST['idUsuario'],$_POST['idEstacion'],$_FILES['file']['name'],$_FILES['file']['tmp_name'],$hoy);
+    break;
+    case 'eliminar-revision-resultados':
+        echo $class_monitoreo_evaluacion->eliminarRevisionResultados($_POST['id']);
+    break;
+    case 'editar-revision-resultados':
+        echo $class_monitoreo_evaluacion->editarRevisionResultado($_POST['id'],$_POST['EditFecha'],$_FILES['file']['name'],$_FILES['file']['tmp_name'],$hoy,$hora_del_dia);
+    break;
 }
 
 
