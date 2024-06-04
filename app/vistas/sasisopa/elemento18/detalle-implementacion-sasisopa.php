@@ -1,5 +1,5 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 $idReporte = $_GET['idReporte'];
 

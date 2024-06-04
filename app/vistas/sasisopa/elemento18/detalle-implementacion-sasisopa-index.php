@@ -9,11 +9,9 @@ $numero_resultado = mysqli_num_rows($result_resultado);
 $sql_reporte = "SELECT fecha_hora FROM tb_implementacion_sasisopa WHERE id = '".$idReporte."' ";
 $result_reporte = mysqli_query($con, $sql_reporte);
 $numero_reporte = mysqli_num_rows($result_reporte);
-while($row_reporte = mysqli_fetch_array($result_reporte, MYSQLI_ASSOC)){
+$row_reporte = mysqli_fetch_array($result_reporte, MYSQLI_ASSOC);
 $explode = explode(" ", $row_reporte['fecha_hora']);
 $fechahora = $explode[0];
-}
-
 
 ?>
 <html lang="es">
@@ -52,7 +50,6 @@ $fechahora = $explode[0];
   $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
   $(".LoaderPage").fadeOut("slow");
- <?php if ($numero_sasisopa_ayuda == 1) {echo "btnAyuda();";} ?>
 
   });
   function regresarP(){
@@ -65,27 +62,21 @@ var Fecha = $('#Fecha' + id).val();
 var Titulo = $('#Titulo' + id).text();
 
  var parametros = {
+     "accion" : "actualizar-fecha-procedimiento",
       "id" : id,
       "Fecha" : Fecha
     };
 
-        $.ajax({
+    $.ajax({
      data:  parametros,
-     url:   '../public/sasisopa/actualizar/actualizar-fecha-procedimiento.php',
+     url:   '../app/controlador/InformeDesempenoControlador.php',
      type:  'post',
      beforeSend: function() {
-
      },
      complete: function(){
-
-
      },
      success:  function (response) {
-  
-     $('#borderF' + id).css('border','');
-
-
-           
+    $('#borderF' + id).css('border','');  
      }
      });
 
@@ -93,88 +84,72 @@ var Titulo = $('#Titulo' + id).text();
 
 function EditDescripcion(id,idReporte){
 
-  var Descripcion = $('#Descripcion' + id).val();
+var Descripcion = $('#Descripcion' + id).val();
 var Titulo = $('#Titulo' + id).text();
 
- var parametros = {
-      "id" : id,
-      "Descripcion" : Descripcion
-    };
+var parametros = {
+   "accion" : "actualizar-descripcion-procedimiento",
+    "id" : id,
+    "Descripcion" : Descripcion
+  };
 
-        $.ajax({
-     data:  parametros,
-     url:   '../public/sasisopa/actualizar/actualizar-descripcion-procedimiento.php',
-     type:  'post',
-     beforeSend: function() {
-
-     },
-     complete: function(){
-
-
-     },
-     success:  function (response) {
- 
-       $('#bordedesc' + id).css('border','');
-
-      
-     
-     }
-     });
-
+      $.ajax({
+   data:  parametros,
+   url:   '../app/controlador/InformeDesempenoControlador.php',
+   type:  'post',
+   beforeSend: function() {
+   },
+   complete: function(){
+   },
+   success:  function (response) {
+      $('#bordedesc' + id).css('border','');
+   }
+   });
 }
 
-function EditObservacion(id,idReporte){
+    function EditObservacion(id,idReporte){
 
-var Observaciones = $('#Observaciones' + id).val();
-var Titulo = $('#Titulo' + id).text();
+    var Observaciones = $('#Observaciones' + id).val();
+    var Titulo = $('#Titulo' + id).text();
 
- var parametros = {
-      "id" : id,
-      "Observaciones" : Observaciones
-    };
+    var parametros = {
+        "accion" : "actualizar-observaciones-procedimiento",
+        "id" : id,
+        "Observaciones" : Observaciones
+        };
 
         $.ajax({
-     data:  parametros,
-     url:   '../public/sasisopa/actualizar/actualizar-observaciones-procedimiento.php',
-     type:  'post',
-     beforeSend: function() {
-
-     },
-     complete: function(){
-
-
-     },
-     success:  function (response) {
-    
-     
-     }
-     });
-
-}
+        data:  parametros,
+        url:   '../app/controlador/InformeDesempenoControlador.php',
+        type:  'post',
+        beforeSend: function() {
+        },
+        complete: function(){
+        },
+        success:  function (response) { 
+        }
+        });
+    }
 
   function Csi(id,idReporte){
 
     var Titulo = $('#Titulo' + id).text();
 
     var parametros = {
+      "accion" : "actualizar-conocer-procedimiento",
       "id" : id,
       "estado": 1
     };
 
         $.ajax({
      data:  parametros,
-     url:   '../public/sasisopa/actualizar/actualizar-conocer-procedimiento.php',
+     url:   '../app/controlador/InformeDesempenoControlador.php',
      type:  'post',
      beforeSend: function() {
-
      },
      complete: function(){
-
-
      },
-     success:  function (response) {
-     
-     
+     success:  function (response) {    
      }
      });
 
@@ -184,28 +159,26 @@ var Titulo = $('#Titulo' + id).text();
   var Titulo = $('#Titulo' + id).text();
 
  var parametros = {
+    "accion" : "actualizar-conocer-procedimiento",
       "id" : id,
       "estado": 2
     };
 
-        $.ajax({
+    $.ajax({
      data:  parametros,
-     url:   '../public/sasisopa/actualizar/actualizar-conocer-procedimiento.php',
+     url:   '../app/controlador/InformeDesempenoControlador.php',
      type:  'post',
      beforeSend: function() {
-
      },
      complete: function(){
-
-
      },
-     success:  function (response) {
-     
-     
+     success:  function (response) {   
      }
      });
 
   }
+
+  //---------------------------------------------------
 
   function Puestos(id,idPuesto){
 
@@ -214,16 +187,13 @@ var Titulo = $('#Titulo' + id).text();
   var estado = 0;
 
     if( $('#CH' + idPuesto + id).is(':checked') ) {
-
     estado = 1;
-       
     } else {
-
     estado = 0;
-
     }
 
     var parametros = {
+      "accion" : "actualizar-puesto-procedimiento",
       "id" : id,
       "idPuesto" : idPuesto,
       "Puesto" : Puesto,
@@ -232,22 +202,15 @@ var Titulo = $('#Titulo' + id).text();
 
       $.ajax({
      data:  parametros,
-     url:   '../public/sasisopa/actualizar/actualizar-puesto-procedimiento.php',
+     url:   '../app/controlador/InformeDesempenoControlador.php',
      type:  'post',
      beforeSend: function() {
-
      },
      complete: function(){
-
-
      },
-     success:  function (response) {
-     
-     
+     success:  function (response) {    
      }
      });
-
-
   }
 
   function EditFechaPro(idReporte){
@@ -255,14 +218,15 @@ var Titulo = $('#Titulo' + id).text();
     var Fecha = $('#Fecha').val();
 
      var parametros = {
-      "idReporte" : idReporte,
+      "accion" : "actualizar-conocer-procedimiento",
+      "id" : idReporte,
       "Fecha": Fecha,
       "estado": 3
     };
 
         $.ajax({
      data:  parametros,
-     url:   '../public/sasisopa/actualizar/actualizar-conocer-procedimiento.php',
+     url:   '../app/controlador/InformeDesempenoControlador.php',
      type:  'post',
      beforeSend: function() {
 
@@ -417,11 +381,10 @@ $result_ch7 = mysqli_query($con, $sql_ch7);
 $numero_ch7 = mysqli_num_rows($result_ch7);
 
 echo "<td>";
-echo "<div class='p-4'>";
-echo "<div class='row mt-3'>";
+echo "<div class=''>";
 
 if ($numero_ch1 > 0) {
-echo "<div class='col-12 text-center mb-2'>";
+echo "<div class='text-center mb-2'>";
 echo "<input type='checkbox' value='' id='CH1$id' onchange='Puestos($id,1);' checked>
       <label for='CH1$id' id='CHT1$id'>Representante Técnico</label>";
 echo "</div>";     
@@ -429,46 +392,46 @@ echo "</div>";
 
 }else{
 
-echo "<div class='col-12 text-center mb-2'>";
+echo "<div class='text-center mb-2'>";
 echo "<input type='checkbox' value='' id='CH1$id' onchange='Puestos($id,1);'>
       <label for='CH1$id' id='CHT1$id'>Representante Técnico</label>";
 echo "</div>";     
 }
 
 if ($numero_ch2 > 0) {
-echo "<div class='col-12 text-center mb-2'>";
+echo "<div class='text-center mb-2'>";
 echo " <input type='checkbox' value='' id='CH2$id' onchange='Puestos($id,2)' checked>
       <label for='CH2$id' id='CHT2$id'>Gerente</label>";
 echo "</div>";      
 
 }else{
-echo "<div class='col-12 text-center mb-2'>";
+echo "<div class='text-center mb-2'>";
 echo " <input type='checkbox' value='' id='CH2$id' onchange='Puestos($id,2)'>
       <label for='CH2$id' id='CHT2$id'>Gerente</label>";
 echo "</div>";    
 }
 
 if ($numero_ch3 > 0) {
-echo "<div class='col-12 text-center mb-2'>";
+echo "<div class='text-center mb-2'>";
 echo "<input type='checkbox' value='' id='CH3$id' onchange='Puestos($id,3)' checked>
       <label for='CH3$id' id='CHT3$id'>Jefe de Piso</label>";
 echo "</div>";   
 
 }else{
-echo "<div class='col-12 text-center mb-2'>";
+echo "<div class='text-center mb-2'>";
 echo "<input type='checkbox' value='' id='CH3$id' onchange='Puestos($id,3)'>
       <label for='CH3$id' id='CHT3$id'>Jefe de Piso</label>";
 echo "</div>";    
 }
 
 if ($numero_ch4 > 0) {
-echo "<div class='col-12 text-center mb-2'>";
+echo "<div class='text-center mb-2'>";
 echo "<input type='checkbox' value='' id='CH4$id' onchange='Puestos($id,4)' checked>
       <label for='CH4$id' id='CHT4$id'>Facturista</label>";
 echo "</div>";     
 
 }else{
-echo "<div class='col-12 text-center mb-2'>";
+echo "<div class='text-center mb-2'>";
 echo " <input type='checkbox' value='' id='CH4$id' onchange='Puestos($id,4)'>
       <label for='CH4$id' id='CHT4$id'>Facturista</label>";
 echo "</div>";     
@@ -476,13 +439,13 @@ echo "</div>";
 }
 
 if ($numero_ch5 > 0) {
-echo "<div class='col-12 text-center mb-2'>";
+echo "<div class='text-center mb-2'>";
 echo "<input type='checkbox' value='' id='CH5$id' onchange='Puestos($id,5)' checked>
       <label for='CH5$id' id='CHT5$id'>Despachador</label>";
 echo "</div>";      
 
 }else{
-echo "<div class='col-12 text-center mb-2'>";
+echo "<div class='text-center mb-2'>";
 echo "<input type='checkbox' value='' id='CH5$id' onchange='Puestos($id,5)'>
       <label for='CH5$id' id='CHT5$id'>Despachador</label>";
 echo "</div>";      
@@ -490,13 +453,13 @@ echo "</div>";
 }
 
 if ($numero_ch6 > 0) {
-echo "<div class='col-12 text-center mb-2'>";
+echo "<div class='text-center mb-2'>";
 echo "<input type='checkbox' value='' id='CH6$id' onchange='Puestos($id,6)' checked>
       <label for='CH6$id' id='CHT6$id'>Auxiliar administrativo</label>";
 echo "</div>";    
 
 }else{
-echo "<div class='col-12 text-center mb-2'>";
+echo "<div class='text-center mb-2'>";
 echo "<input type='checkbox' value='' id='CH6$id' onchange='Puestos($id,6)'>
       <label for='CH6$id' id='CHT6$id'>Auxiliar administrativo</label>";
 echo "</div>";   
@@ -504,24 +467,23 @@ echo "</div>";
 }
 
 if ($numero_ch7 > 0) {
-echo "<div class='col-12 text-center mb-2'>";
+echo "<div class='text-center mb-2'>";
 echo "<input type='checkbox' value='' id='CH7$id' onchange='Puestos($id,7)' checked>
       <label for='CH7$id' id='CHT7$id'>Mantenimiento</label>";
 echo "</div>";   
 
 }else{
-echo "<div class='col-12 text-center mb-2'>";
+echo "<div class='text-center mb-2'>";
 echo "<input type='checkbox' value='' id='CH7$id' onchange='Puestos($id,7)'>
     <label for='CH7$id' id='CHT7$id'>Mantenimiento</label>";
 echo "</div>";    
 
 }
-
-echo "</div>";   
+  
 echo "</td>";
 
 
-      echo "<td class='p-1'><textarea class='form-control rounded-0 border-0' id='Observaciones$id' onchange='EditObservacion($id,$idReporte)' rows='3'>".$row_resultado['observaciones']."</textarea></td>";
+      echo "<td class='p-1'><textarea class='form-control rounded-0 border-0' rows='11' id='Observaciones$id' onchange='EditObservacion($id,$idReporte)' rows='3'>".$row_resultado['observaciones']."</textarea></td>";
       echo "</tr>";
 
     }

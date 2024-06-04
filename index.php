@@ -210,6 +210,9 @@ switch ($partes_ruta[1])
     case '17-revision-resultados':
       $ruta_elegida = $index_controlador->revisionResultados();
     break;
+    case '18-informes-desempeno':
+      $ruta_elegida = $index_controlador->informeDesempeno();
+    break;
     //-------- ELEMENTOS SASISOPA FIN -------------------
     //---------------------------------------------------
       
@@ -276,9 +279,7 @@ break;
 //-----------------------------------------------------------------
 
 
-case '18-informes-desempeno':
-$ruta_elegida = 'public/sasisopa/informes-desempeno-index.php';
-break;
+
 case 'nom-035-etapas':
 $ruta_elegida = 'public/sasisopa/nom-035-etapas-index.php';
 break;
@@ -420,6 +421,14 @@ break;
     else if ($partes_ruta[1] == 'descargar-investigacion-sin-incidentes-accidentes') {
       $GET_ID = $partes_ruta[2];
       $ruta_elegida = $index_controlador->descargarSinIncidentesAccidentes();
+    }
+    else if ($partes_ruta[1] == 'descargar-registro-atencio-seguimiento-comunicacion-interna-externa') {
+      $GET_ID = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->descargarRegistroAtencionSeguimiento();
+    }
+    else if ($partes_ruta[1] == 'implementacion-sasisopa'){
+      $idReporte = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->detalleImplementacionSasisopa();
       }
     //---------------------------------------------
     //---------------------------------------------
@@ -488,10 +497,7 @@ break;
     $idEstacion = $partes_ruta[2];
     $ruta_elegida = 'public/administrador/bitacoras-configuracion-index.php';
     }
-    else if ($partes_ruta[1] == 'implementacion-sasisopa'){
-    $idReporte = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/detalle-implementacion-sasisopa-index.php';
-    }else if ($partes_ruta[1] == 'gestoria-programa-mantenimiento'){
+    else if ($partes_ruta[1] == 'gestoria-programa-mantenimiento'){
     $idEstacion = $partes_ruta[2];
     $ruta_elegida = 'public/administrador/programa-mantenimiento-index.php';
     }
@@ -514,10 +520,7 @@ break;
     $ruta_elegida = 'public/gerente/calendario-editar.php';
     }
     
-    else if ($partes_ruta[1] == 'descargar-registro-atencio-seguimiento-comunicacion-interna-externa') {
-    $GET_ID = $partes_ruta[2];
-    $ruta_elegida = 'public/sasisopa/vistas/descargar-registro-atencio-seguimiento-comunicacion-interna-externa.php';
-    }
+
 
    
     //-------------------------------------------------------------------

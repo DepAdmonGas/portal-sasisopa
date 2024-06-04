@@ -1,19 +1,18 @@
 <?php
-require('../../../app/help.php');
+require('../../../../app/help.php');
 
 $id = $_GET['id'];
 
-$sql_resultado = "SELECT * FROM tb_revision_resultados WHERE id = '".$id."' ";
+$sql_resultado = "SELECT * FROM tb_evaluacion_desempeno WHERE id = '".$id."' ";
 $result_resultado = mysqli_query($con, $sql_resultado);
 $numero_resultado = mysqli_num_rows($result_resultado);
-while($row_resultado = mysqli_fetch_array($result_resultado, MYSQLI_ASSOC)){
+$row_resultado = mysqli_fetch_array($result_resultado, MYSQLI_ASSOC);
 $explode = explode(' ', $row_resultado['fecha_hora']);  
 $Fecha = $explode[0];
-}
 ?>
 
   <div class="modal-header">
-  <h4 class="modal-title">Editar Informe de revisión de resultados</h4>
+  <h4 class="modal-title">Editar Informe de Evaluación de Desempeño (IED)</h4>
   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
   <span aria-hidden="true">&times;</span>
   </button>
@@ -21,10 +20,10 @@ $Fecha = $explode[0];
   
   <div class="modal-body">
 
-     
+    <div class="mt-2">Fecha:</div>
     <input type="date" class="form-control rounded-0 mt-2" value="<?=$Fecha;?>" id="EditFecha">
 
-    <div class="mt-2">Revisión de resultados en formato PDF:</div>
+    <div class="mt-2">Informe de Evaluación de Desempeño (IED) en formato PDF:</div>
     <input type="file" class="mt-2" id="EditArchivoPDF">
 
   </div>

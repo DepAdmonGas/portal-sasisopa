@@ -1,17 +1,12 @@
 <?php
 require('app/help.php');
+include_once "app/modelo/Ayuda.php";
 
-$sql_sasisopa_ayuda = "SELECT * FROM pu_sasisopa_ayuda WHERE id_usuario = '".$Session_IDUsuarioBD."' and detalle = '18-informes-desempeno' and estado = 0 LIMIT 1";
-$result_sasisopa_ayuda = mysqli_query($con, $sql_sasisopa_ayuda);
-$numero_sasisopa_ayuda = mysqli_num_rows($result_sasisopa_ayuda);
+$class_ayuda = new Ayuda();
+$array_ayuda = $class_ayuda->sasisopaAyuda($Session_IDUsuarioBD,'18-informes-desempeno');
+$id_ayuda = $array_ayuda['id'];
+$estado = $array_ayuda['estado'];
 
-if ($numero_sasisopa_ayuda == 1) {
-while($row_ayuda = mysqli_fetch_array($result_sasisopa_ayuda, MYSQLI_ASSOC)){
-$idAyuda = $row_ayuda['id'];
-}
-}else{
-$idAyuda = 0;
-}
 ?>
 <html lang="es">
   <head>
@@ -52,7 +47,7 @@ $idAyuda = 0;
   $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
   $(".LoaderPage").fadeOut("slow");
- <?php if ($numero_sasisopa_ayuda == 1) {echo "btnAyuda();";} ?>
+  <?php if ($id_ayuda != 0) {echo "btnAyuda();";} ?>
 
  InformeEvaluacion();
  ImplementacionSasisopa();
@@ -60,34 +55,21 @@ $idAyuda = 0;
   function regresarP(){
    window.history.back();
   }
-
-  function InformeEvaluacion(){
-  $('#InformeEvaluacion').load('public/sasisopa/vistas/lista-informe-evaluacion.php');  
-  }
-
-  function ImplementacionSasisopa(){
-  $('#ImplementacionSasisopa').load('public/sasisopa/vistas/lista-implementacion-sasisopa.php');  
-  }
-
-
   function btnAyuda(){
   $('#myModalPolitica').modal('show');
   }
+  function btnFinAyuda(idayuda, estado){
 
+    var parametros = {
+      "accion" : "actualizar-ayuda",
+      "idayuda" : idayuda
+    };
 
-function btnFinAyuda(){
-
-var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
-
- var parametros = {
-        "idAyuda" : <?=$idAyuda; ?>
-      };
-
-  if (puntosSasisopa != 0) {
+    if (idayuda != 0 && estado == 0) {
 
    $.ajax({
    data:  parametros,
-   url:   'public/sasisopa/actualizar/actualizar-ayuda.php',
+   url:   'app/controlador/AyudaControlador.php',
    type:  'post',
    beforeSend: function() {
    },
@@ -98,227 +80,225 @@ var puntosSasisopa = <?=$numero_sasisopa_ayuda;?>;
    }
    });
 
-  }else{
-  $('#myModalPolitica').modal('hide');
-  }
+    }else{
+    $('#myModalPolitica').modal('hide');
+    }
 
-}
+    }
 
-function ModalArchivo(){
-$('#ModalArchivo').modal('show'); 
-}
+    function InformeEvaluacion(){
+    $('#InformeEvaluacion').load('app/vistas/sasisopa/elemento18/lista-informe-evaluacion.php');  
+    }
 
-function BTNAgregar(idUsuario, idEstacion){
+    function ImplementacionSasisopa(){
+    $('#ImplementacionSasisopa').load('app/vistas/sasisopa/elemento18/lista-implementacion-sasisopa.php');  
+    }
 
-  var data = new FormData();
-  var url = "public/sasisopa/agregar/agregar-evaluacion-desempeno.php";
+    function ModalArchivo(){
+    $('#ModalArchivo').modal('show'); 
+    }
 
-  var ArchivoPDF = document.getElementById("ArchivoPDF");
-  var file = ArchivoPDF.files[0];
-  var filePath = ArchivoPDF.value;
-  var valpdf = filePath.split('.').pop();
+    function BTNAgregar(idUsuario, idEstacion){
 
-  if (filePath != "") {
-  $('#ArchivoPDF').css('border','');
-  if (valpdf == "pdf") {
-  $('#ArchivoPDF').css('border','');
-  $('#DivResultadoPDF').html('');
+    var data = new FormData();
+    var url = "app/controlador/InformeDesempenoControlador.php";
 
-  data.append('idUsuario', idUsuario);
-  data.append('idEstacion', idEstacion);
-  data.append('file', file);
+    var ArchivoPDF = document.getElementById("ArchivoPDF");
+    var file = ArchivoPDF.files[0];
+    var filePath = ArchivoPDF.value;
+    var valpdf = filePath.split('.').pop();
 
-  
+    if (filePath != "") {
+    $('#ArchivoPDF').css('border','');
+    if (valpdf == "pdf") {
+    $('#ArchivoPDF').css('border','');
+    $('#DivResultadoPDF').html('');
 
-  $.ajax({
-  url: url,
-  type: 'POST',
-  contentType: false,
-  data: data,
-  processData: false,
-  cache: false
-  }).done(function(data){
+    data.append('accion', 'agregar-evaluacion-desempeno');
+    data.append('idUsuario', idUsuario);
+    data.append('idEstacion', idEstacion);
+    data.append('file', file);
 
-  InformeEvaluacion();
-  ArchivoPDF.value = '';
-  $('#ModalArchivo').modal('hide'); 
+    $.ajax({
+    url: url,
+    type: 'POST',
+    contentType: false,
+    data: data,
+    processData: false,
+    cache: false
+    }).done(function(data){
 
-  });
+    InformeEvaluacion();
+    ArchivoPDF.value = '';
+    $('#ModalArchivo').modal('hide'); 
 
-  }else{
-  $('#ArchivoPDF').css('border','2px solid #A52525');
-  $('#DivResultadoPDF').html('<label class="text-danger">Solo acepta formato PDF</label>');
-  }
-  }else{
-  $('#ArchivoPDF').css('border','2px solid #A52525');
-  }
+    });
 
+    }else{
+    $('#ArchivoPDF').css('border','2px solid #A52525');
+    $('#DivResultadoPDF').html('<label class="text-danger">Solo acepta formato PDF</label>');
+    }
+    }else{
+    $('#ArchivoPDF').css('border','2px solid #A52525');
+    }
 
-}
+    }
 
-function Eliminar(id){
+    function Eliminar(id){
 
     var parametros = {
-      "id" : id
+    "accion" : "eliminar-evaluacion-desempeno",
+    "id" : id
     };
 
-  alertify.confirm('',
+    alertify.confirm('',
     function(){
 
     $.ajax({
-     data:  parametros,
-     url:   'public/sasisopa/eliminar/eliminar-evaluacion-desempeno.php',
-     type:  'post',
-     beforeSend: function() {
+    data:  parametros,
+    url:   'app/controlador/InformeDesempenoControlador.php',
+    type:  'post',
+    beforeSend: function() {
+    },
+    complete: function(){
+    },
+    success:  function (response) {
 
-     },
-     complete: function(){
+    alertify.message('Se eliminó correctamente el Informe de Evaluación de Desempeño');
+    InformeEvaluacion();
 
-
-     },
-     success:  function (response) {
-
-      alertify.message('Se eliminó correctamente el Informe de Evaluación de Desempeño');
-      InformeEvaluacion();
-
-     }
-     });
+    }
+    });
 
     },
     function(){
     }).setHeader('Mensaje').set({transition:'zoom',message: 'Desea eliminar el Informe de Evaluación de Desempeño seleccionado',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
 
-}
+    }
 
-function ModalImplementacion(idUsuario, idEstacion){
-
-  var parametros = {
-      "idUsuario" : idUsuario,
-      "idEstacion" : idEstacion
-    };
-
-        $.ajax({
-     data:  parametros,
-     url:   'public/sasisopa/agregar/agregar-control-implementacion-sasisopa.php',
-     type:  'post',
-     beforeSend: function() {
-
-     },
-     complete: function(){
-
-
-     },
-     success:  function (response) {
-      
-      window.location.href = "implementacion-sasisopa/" + response;  
-     
-     }
-     });
- 
-} 
-
-function EliminarImplementacion(id){
-
-
-    var parametros = {
-      "id" : id
-    };
-
-  alertify.confirm('',
-    function(){
-
-    $.ajax({
-     data:  parametros,
-     url:   'public/sasisopa/eliminar/eliminar-implementacion-sasisopa.php',
-     type:  'post',
-     beforeSend: function() {
-
-     },
-     complete: function(){
-
-
-     },
-     success:  function (response) {
-
-      alertify.message('Se eliminó correctamente el Control de la implementación de los procedimientos del SASISOPA');
-      ImplementacionSasisopa();
-
-     }
-     });
- 
-    },
-    function(){
-    }).setHeader('Mensaje').set({transition:'zoom',message: 'Desea eliminar el Control de la implementación de los procedimientos del SASISOPA seleccionado',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
-}
-
-function EditarImplementacion (id){
-
-  window.location.href = "implementacion-sasisopa/" + id;  
-
-  }
-  function VerImplementacion (id){
-$('#ModalDetalle').modal('show');
-$('#DetalleImplementacion').load('public/sasisopa/vistas/detalle-implementacion-sasisopa.php?idReporte=' + id);  
-    
-  }
-
-  function DescargarIS(id){
-
-  window.location = "descargar-registro-atencio-seguimiento-comunicacion-interna-externa/" + id;  
-
-  }
-
-  function Editar(id){
+    function Editar(id){
     $('#ModalDetalle').modal('show');
-  $('#DetalleImplementacion').load('public/sasisopa/vistas/editar-informe-evaluacion-desempeno.php?id=' + id); 
+    $('#DetalleImplementacion').load('app/vistas/sasisopa/elemento18/editar-informe-evaluacion-desempeno.php?id=' + id); 
   }
 
   function BtnEditar(id){
 
     let EditFecha = $('#EditFecha').val();
 
-var data = new FormData();
-var url = "public/sasisopa/actualizar/editar-informe-evaluacion-desempeno.php";
+    var data = new FormData();
+    var url = "app/controlador/InformeDesempenoControlador.php";
 
-  var ArchivoPDF = document.getElementById("EditArchivoPDF");
-  var file = ArchivoPDF.files[0];
-  var filePath = ArchivoPDF.value;
-  var valpdf = filePath.split('.').pop();
+    var ArchivoPDF = document.getElementById("EditArchivoPDF");
+    var file = ArchivoPDF.files[0];
+    var filePath = ArchivoPDF.value;
+    var valpdf = filePath.split('.').pop();
 
-if (EditFecha != "") {
-$('#EditFecha').css('border','');
+    if (EditFecha != "") {
+    $('#EditFecha').css('border','');
 
-  alertify.confirm('',
+    alertify.confirm('',
     function(){
 
-  data.append('id', id);
-  data.append('EditFecha', EditFecha);
-  data.append('file', file);
+    data.append('accion', 'editar-evaluacion-desempeno');
+    data.append('id', id);
+    data.append('EditFecha', EditFecha);
+    data.append('file', file);
 
     $.ajax({
-  url: url,
-  type: 'POST',
-  contentType: false,
-  data: data,
-  processData: false,
-  cache: false
-  }).done(function(data){
+    url: url,
+    type: 'POST',
+    contentType: false,
+    data: data,
+    processData: false,
+    cache: false
+    }).done(function(data){
 
     alertify.message('Se edito correctamente la evaluación de desempeño');
     InformeEvaluacion();
     $('#ModalDetalle').modal('hide');
 
-  });
+    });
 
     },
     function(){
     }).setHeader('Mensaje').set({transition:'zoom',message: 'Desea editar la revisión de resultados seleccionado',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
 
-}else{
-$('#EditFecha').css('border','2px solid #A52525');  
-}
+    }else{
+    $('#EditFecha').css('border','2px solid #A52525');  
+    }
 
+    }
+
+    function ModalImplementacion(idUsuario, idEstacion){
+
+    var parametros = {
+        "accion" : "agregar-control-implementacion-sasisopa",
+        "idUsuario" : idUsuario,
+        "idEstacion" : idEstacion
+    };
+
+        $.ajax({
+    data:  parametros,
+    url:   'app/controlador/InformeDesempenoControlador.php',
+    type:  'post',
+    beforeSend: function() {
+    },
+    complete: function(){
+    },
+    success:  function (response) {
+        
+        window.location.href = "implementacion-sasisopa/" + response;  
+    
+    }
+    });
+
+    }
+
+    function EliminarImplementacion(id){
+    var parametros = {
+    "accion": "eliminar-implementacion-sasisopa",
+    "id" : id
+    };
+
+    alertify.confirm('',
+    function(){
+
+    $.ajax({
+    data:  parametros,
+    url:   'app/controlador/InformeDesempenoControlador.php',
+    type:  'post',
+    beforeSend: function() {
+
+    },
+    complete: function(){
+
+
+    },
+    success:  function (response) {
+
+    alertify.message('Se eliminó correctamente el Control de la implementación de los procedimientos del SASISOPA');
+    ImplementacionSasisopa();
+
+    }
+    });
+
+    },
+    function(){
+    }).setHeader('Mensaje').set({transition:'zoom',message: 'Desea eliminar el Control de la implementación de los procedimientos del SASISOPA seleccionado',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+    }
+
+    function VerImplementacion (id){
+    $('#ModalDetalle').modal('show');
+    $('#DetalleImplementacion').load('app/vistas/sasisopa/elemento18/detalle-implementacion-sasisopa.php?idReporte=' + id);  
+    }
+
+    function DescargarIS(id){
+  window.location = "descargar-registro-atencio-seguimiento-comunicacion-interna-externa/" + id;  
   }
+    function EditarImplementacion (id){
+    window.location.href = "implementacion-sasisopa/" + id;  
+    }
+
 
   </script>
   </head>
@@ -466,7 +446,7 @@ $('#EditFecha').css('border','2px solid #A52525');
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda()">Aceptar</button>
+          <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda(<?=$id_ayuda;?>,<?=$estado;?>)">Aceptar</button>
         </div>
       </div>
     </div>
@@ -509,10 +489,6 @@ $('#EditFecha').css('border','2px solid #A52525');
 </div>
 
 
-
-
   <script src="<?php echo RUTA_JS ?>bootstrap.min.js"></script>
   </body>
   </html>
-
-

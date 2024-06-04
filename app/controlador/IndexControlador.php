@@ -103,5 +103,8 @@ class IndexControlador{
     public function descargarIncidentesAccidentes(){return 'app/vistas/sasisopa/elemento16/descargar-investigacion-incidentes-accidentes.php';}
     public function descargarSinIncidentesAccidentes(){return 'app/vistas/sasisopa/elemento16/descargar-investigacion-sin-incidentes-accidentes.php';}
     public function revisionResultados(){return 'app/vistas/sasisopa/elemento17/revision-resultados-index.php';}
+    public function informeDesempeno(){return 'app/vistas/sasisopa/elemento18/informes-desempeno-index.php';}
+    public function descargarRegistroAtencionSeguimiento(){return 'app/vistas/sasisopa/elemento18/descargar-registro-atencio-seguimiento-comunicacion-interna-externa.php';}
+    public function detalleImplementacionSasisopa(){return 'app/vistas/sasisopa/elemento18/detalle-implementacion-sasisopa-index.php';}
 
 }

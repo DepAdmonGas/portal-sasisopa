@@ -9,6 +9,7 @@ $numero_resultado = mysqli_num_rows($result_resultado);
 use Dompdf\Dompdf;
 $dompdf = new Dompdf();
 
+    $contenid0 = "";
     $contenid0 .= "<!DOCTYPE html>";
     $contenid0 .= "<html>";
     $contenid0 .= "<head>";
