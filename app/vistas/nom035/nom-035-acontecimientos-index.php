@@ -1,13 +1,6 @@
 <?php
 require('app/help.php');
 
-$sql_estaciones = "SELECT nombre, razonsocial FROM tb_estaciones WHERE id = '".$Session_IDEstacion."' ";
-$result_estaciones = mysqli_query($con, $sql_estaciones);
-$numero_estaciones = mysqli_num_rows($result_estaciones);
-while($row_estaciones = mysqli_fetch_array($result_estaciones, MYSQLI_ASSOC)){
-$estacion = $row_estaciones['nombre'];
-}
-
 
 ?>
 <html lang="es">
@@ -75,7 +68,7 @@ $estacion = $row_estaciones['nombre'];
     var idfile;
 
     var data = new FormData();
-    var url = 'public/sasisopa/agregar/agregar-archivo-nom035-cuestionario.php';
+    var url = 'app/vistas/nom035/agregar-archivo-nom035-cuestionario.php';
 
     if(numarchivo == 8){
 
@@ -104,7 +97,7 @@ $estacion = $row_estaciones['nombre'];
     cache: false
     }).done(function(data){
 
-    $('#td3' + numarchivo).html('<a target="_BLANK" href="../'+data+'"><img src="<?=RUTA_IMG_ICONOS;?>pdf.png"></a>');
+    $('#td3' + numarchivo).html('<a target="_BLANK" href="'+data+'"><img src="<?=RUTA_IMG_ICONOS;?>pdf.png"></a>');
     $("#" + idfile).val(null);
 
     });
@@ -140,43 +133,43 @@ $estacion = $row_estaciones['nombre'];
     <div class="card-body">
 
 <?php
-      $sql_a_c = "SELECT * FROM tb_nom_035_archivos WHERE id_estacion = '".$Session_IDEstacion."' AND categoria = 'Acontecimientos-t-s' AND nom_archivo = 'acontecimientos-cuestionario' ORDER BY id desc LIMIT 1";
+      $sql_a_c = "SELECT archivo FROM tb_nom_035_archivos WHERE id_estacion = '".$Session_IDEstacion."' AND categoria = 'Acontecimientos-t-s' AND nom_archivo = 'acontecimientos-cuestionario' ORDER BY id desc LIMIT 1";
       $result_a_c = mysqli_query($con, $sql_a_c);     
       $numero_a_c = mysqli_num_rows($result_a_c);
       if ($numero_a_c > 0) {
       while($row_a_c = mysqli_fetch_array($result_a_c, MYSQLI_ASSOC)){
       $acontecimiento_c = $row_a_c['archivo'];
-      $imgcuestionario = '<a target="_BLANK" href="../'.$acontecimiento_c.'"><img src="'.RUTA_IMG_ICONOS.'pdf.png"></a>';
+      $imgcuestionario = '<a target="_BLANK" href="'.$acontecimiento_c.'"><img src="'.RUTA_IMG_ICONOS.'pdf.png"></a>';
       }
       }else{
       $imgcuestionario = '<img src="'.RUTA_IMG_ICONOS.'sin-archivo.png">';  
       }
 
-      $sql_a_ts = "SELECT * FROM tb_nom_035_archivos WHERE id_estacion = '".$Session_IDEstacion."' AND categoria = 'Acontecimientos-t-s' AND nom_archivo = 'acontecimientos-triptico' ORDER BY id desc LIMIT 1";
+      $sql_a_ts = "SELECT archivo FROM tb_nom_035_archivos WHERE id_estacion = '".$Session_IDEstacion."' AND categoria = 'Acontecimientos-t-s' AND nom_archivo = 'acontecimientos-triptico' ORDER BY id desc LIMIT 1";
       $result_a_ts = mysqli_query($con, $sql_a_ts);     
       $numero_a_ts = mysqli_num_rows($result_a_ts);
       if ($numero_a_ts > 0) {
       while($row_a_ts = mysqli_fetch_array($result_a_ts, MYSQLI_ASSOC)){
       $acontecimiento_ts = $row_a_ts['archivo'];
-      $imgtriptico = '<a target="_BLANK" href="../'.$acontecimiento_ts.'"><img src="'.RUTA_IMG_ICONOS.'pdf.png"></a>';
+      $imgtriptico = '<a target="_BLANK" href="'.$acontecimiento_ts.'"><img src="'.RUTA_IMG_ICONOS.'pdf.png"></a>';
       }
       }else{
       $imgtriptico = '<img src="'.RUTA_IMG_ICONOS.'sin-archivo.png">';  
       }
 
-      $sql_aa = "SELECT * FROM tb_nom_035_archivos WHERE id_estacion = '".$Session_IDEstacion."' AND categoria = 'Acontecimientos-t-s' AND nom_archivo = 'acontecimientos-acuerdo' ORDER BY id desc LIMIT 1";
+      $sql_aa = "SELECT archivo FROM tb_nom_035_archivos WHERE id_estacion = '".$Session_IDEstacion."' AND categoria = 'Acontecimientos-t-s' AND nom_archivo = 'acontecimientos-acuerdo' ORDER BY id desc LIMIT 1";
       $result_aa = mysqli_query($con, $sql_aa);     
       $numero_aa = mysqli_num_rows($result_aa);
       if ($numero_aa > 0) {
       while($row_aa = mysqli_fetch_array($result_aa, MYSQLI_ASSOC)){
       $acontecimientoa = $row_aa['archivo'];
-      $imgacuerdo = '<a target="_BLANK" href="../'.$acontecimientoa.'"><img src="'.RUTA_IMG_ICONOS.'pdf.png"></a>';
+      $imgacuerdo = '<a target="_BLANK" href="'.$acontecimientoa.'"><img src="'.RUTA_IMG_ICONOS.'pdf.png"></a>';
       }
       }else{
       $imgacuerdo = '<img src="'.RUTA_IMG_ICONOS.'sin-archivo.png">';  
       }
 
-      $sql_rc = "SELECT * FROM tb_nom_035_archivos WHERE id_estacion = '".$Session_IDEstacion."' AND categoria = 'Acontecimientos-t-s' AND nom_archivo = 'acontecimientos-resultado-cuestionario' ORDER BY id desc LIMIT 1";
+      $sql_rc = "SELECT archivo FROM tb_nom_035_archivos WHERE id_estacion = '".$Session_IDEstacion."' AND categoria = 'Acontecimientos-t-s' AND nom_archivo = 'acontecimientos-resultado-cuestionario' ORDER BY id desc LIMIT 1";
       $result_rc = mysqli_query($con, $sql_rc);     
       $numero_rc = mysqli_num_rows($result_rc);
       if ($numero_rc > 0) {

@@ -106,5 +106,9 @@ class IndexControlador{
     public function informeDesempeno(){return 'app/vistas/sasisopa/elemento18/informes-desempeno-index.php';}
     public function descargarRegistroAtencionSeguimiento(){return 'app/vistas/sasisopa/elemento18/descargar-registro-atencio-seguimiento-comunicacion-interna-externa.php';}
     public function detalleImplementacionSasisopa(){return 'app/vistas/sasisopa/elemento18/detalle-implementacion-sasisopa-index.php';}
-
+    //----------------------------------------------------------------------------------------------------------------------------------------------
+    public function nom035Etapas(){return 'app/vistas/nom035/nom-035-etapas-index.php';}
+    public function nom035Politica(){return 'app/vistas/nom035/nom-035-politica-index.php';}
+    public function nom035Acontecimientos(){return 'app/vistas/nom035/nom-035-acontecimientos-index.php';}
+    public function nom035FactoresRiesgo(){return 'app/vistas/nom035/nom-035-factores-riesgo-index.php';}
 }

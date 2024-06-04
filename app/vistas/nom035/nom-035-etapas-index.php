@@ -1,14 +1,5 @@
 <?php
-require('app/help.php');
-
-$sql_estaciones = "SELECT nombre FROM tb_estaciones WHERE id = '".$Session_IDEstacion."' ";
-$result_estaciones = mysqli_query($con, $sql_estaciones);
-$numero_estaciones = mysqli_num_rows($result_estaciones);
-while($row_estaciones = mysqli_fetch_array($result_estaciones, MYSQLI_ASSOC)){
-$estacion = $row_estaciones['nombre'];
-}
- 
- 
+require('app/help.php'); 
 ?>
 <html lang="es">
   <head>
@@ -30,7 +21,7 @@ $estacion = $row_estaciones['nombre'];
   <script type="text/javascript" src="<?php echo RUTA_JS ?>alertify.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-      <style media="screen">
+  <style media="screen">
   .LoaderPage {
   position: fixed;
   left: 0px;
@@ -60,14 +51,14 @@ $estacion = $row_estaciones['nombre'];
   }
 
  function Politica(){
-window.location.href = 'nom-035-politica/';
+    window.location.href = 'nom-035-politica';
   }
   function Acontecimientos(){
-   window.location.href = 'nom-035-acontecimientos/'; 
+   window.location.href = 'nom-035-acontecimientos'; 
   }
 
   function FactoresRS(){
-    window.location.href = 'nom-035-factores-riesgo/'; 
+    window.location.href = 'nom-035-factores-riesgo'; 
   }
   </script>
   </head>
@@ -87,7 +78,7 @@ window.location.href = 'nom-035-politica/';
       <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
       <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
       </div>
-    <div class="float-left"><h4><?=$estacion;?> (NOM-035) </h4></div>
+    <div class="float-left"><h4><?=$session_nomestacion;?> (NOM-035) </h4></div>
       </div>
     <div class="card-body">
 

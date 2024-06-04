@@ -1,14 +1,6 @@
 <?php
 require('app/help.php');
 
-$sql_estaciones = "SELECT nombre, razonsocial FROM tb_estaciones WHERE id = '".$Session_IDEstacion."' ";
-$result_estaciones = mysqli_query($con, $sql_estaciones);
-$numero_estaciones = mysqli_num_rows($result_estaciones);
-while($row_estaciones = mysqli_fetch_array($result_estaciones, MYSQLI_ASSOC)){
-$estacion = $row_estaciones['nombre'];
-}
-
-
 ?>
 <html lang="es">
   <head>
@@ -60,62 +52,9 @@ $estacion = $row_estaciones['nombre'];
   $('[data-toggle="tooltip"]').tooltip();
   $(".LoaderPage").fadeOut("slow");
   
-
   });
   function regresarP(id){
   window.history.back();
-  }
-
-  function BTNarchivo(numarchivo){
-
-    var ArchivoPdf;
-    var ArchivoPdf_file;
-    var ArchivoPdf_filePath;
-    var ext;
-    var idfile;
-
-    var data = new FormData();
-    var url = 'public/sasisopa/agregar/agregar-archivo-nom035-cuestionario.php';
-
-    if(numarchivo == 8){
-
-    ArchivoPdf = document.getElementById("RCuestionario");
-    ArchivoPdf_file = ArchivoPdf.files[0];
-    ArchivoPdf_filePath = ArchivoPdf.value;
-    ext = $("#RCuestionario").val().split('.').pop();
-    idfile = "RCuestionario";
-
-  }
-
-  if (ArchivoPdf_filePath != "") {
-    $('#' + idfile).css('border','');
-    if (ext == "PDF" || ext == "pdf") {
-
-    data.append('idEstacion',<?=$Session_IDEstacion;?>);
-    data.append('numarchivo', numarchivo);
-      data.append('ArchivoPdf_file', ArchivoPdf_file);
-
-    $.ajax({
-    url: url,
-    type: 'POST',
-    contentType: false,
-    data: data,
-    processData: false,
-    cache: false
-    }).done(function(data){
-
-    $('#td3' + numarchivo).html('<a target="_BLANK" href="../'+data+'"><img src="<?=RUTA_IMG_ICONOS;?>pdf.png"></a>');
-    $("#" + idfile).val(null);
-
-    });
-
-  }else{
-    $('#' + idfile).css('border','2px solid #A52525'); 
-  }
-  }else{
-    $('#' + idfile).css('border','2px solid #A52525'); 
-  }
-
   }
   </script>
   </head>
@@ -178,7 +117,7 @@ $sql_a_c = "SELECT * FROM tb_nom_035_archivos WHERE id_estacion = '".$Session_ID
       if ($numero_a_c > 0) {
       while($row_a_c = mysqli_fetch_array($result_a_c, MYSQLI_ASSOC)){
       $acontecimiento_c = $row_a_c['archivo'];
-      $imgcuestionario = '<a target="_BLANK" href="../'.$acontecimiento_c.'"><img src="'.RUTA_IMG_ICONOS.'pdf.png"></a>';
+      $imgcuestionario = '<a target="_BLANK" href="'.$acontecimiento_c.'"><img src="'.RUTA_IMG_ICONOS.'pdf.png"></a>';
       }
       }else{
       $imgcuestionario = '<img src="'.RUTA_IMG_ICONOS.'sin-archivo.png">';  
@@ -190,7 +129,7 @@ $sql_a_c = "SELECT * FROM tb_nom_035_archivos WHERE id_estacion = '".$Session_ID
       if ($numero_a_ts > 0) {
       while($row_a_ts = mysqli_fetch_array($result_a_ts, MYSQLI_ASSOC)){
       $acontecimiento_ts = $row_a_ts['archivo'];
-      $imgtriptico = '<a target="_BLANK" href="../'.$acontecimiento_ts.'"><img src="'.RUTA_IMG_ICONOS.'pdf.png"></a>';
+      $imgtriptico = '<a target="_BLANK" href="'.$acontecimiento_ts.'"><img src="'.RUTA_IMG_ICONOS.'pdf.png"></a>';
       }
       }else{
       $imgtriptico = '<img src="'.RUTA_IMG_ICONOS.'sin-archivo.png">';  

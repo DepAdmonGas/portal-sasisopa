@@ -1,19 +1,11 @@
 <?php
 require('app/help.php');
 
-$sql_estaciones = "SELECT nombre, razonsocial FROM tb_estaciones WHERE id = '".$Session_IDEstacion."' ";
-$result_estaciones = mysqli_query($con, $sql_estaciones);
-$numero_estaciones = mysqli_num_rows($result_estaciones);
-while($row_estaciones = mysqli_fetch_array($result_estaciones, MYSQLI_ASSOC)){
-$estacion = $row_estaciones['nombre'];
-}
-
 $sql_estaciones = "SELECT politica FROM tb_nom_035_politica WHERE id_estacion = '".$Session_IDEstacion."' ";
 $result_estaciones = mysqli_query($con, $sql_estaciones);
 $numero_estaciones = mysqli_num_rows($result_estaciones);
-while($row_estaciones = mysqli_fetch_array($result_estaciones, MYSQLI_ASSOC)){
+$row_estaciones = mysqli_fetch_array($result_estaciones, MYSQLI_ASSOC);
 $politica = $row_estaciones['politica'];
-}
 
 ?>
 <html lang="es">
@@ -97,49 +89,49 @@ $politica = $row_estaciones['politica'];
 
       <?php
 
-      $sql_pac = "SELECT * FROM tb_nom_035_archivos WHERE id_estacion = '".$Session_IDEstacion."' AND categoria = 'Politica' AND nom_archivo = 'politica-cuerpo' ORDER BY id desc LIMIT 1";
+      $sql_pac = "SELECT archivo FROM tb_nom_035_archivos WHERE id_estacion = '".$Session_IDEstacion."' AND categoria = 'Politica' AND nom_archivo = 'politica-cuerpo' ORDER BY id desc LIMIT 1";
       $result_pac = mysqli_query($con, $sql_pac);     
       $numero_pac = mysqli_num_rows($result_pac);
       if ($numero_pac > 0) {
       while($row_pac = mysqli_fetch_array($result_pac, MYSQLI_ASSOC)){
       $pac = $row_pac['archivo'];
-      $imgcuerpo = '<a target="_BLANK" href="../'.$pac.'"><img src="'.RUTA_IMG_ICONOS.'pdf.png"></a>';
+      $imgcuerpo = '<a target="_BLANK" href="'.$pac.'"><img src="'.RUTA_IMG_ICONOS.'pdf.png"></a>';
       }
       }else{
       $imgcuerpo = '<img src="'.RUTA_IMG_ICONOS.'sin-archivo.png">';  
       }
 
-      $sql_pa = "SELECT * FROM tb_nom_035_archivos WHERE id_estacion = '".$Session_IDEstacion."' AND categoria = 'Politica' AND nom_archivo = 'politica-archivo' ORDER BY id desc LIMIT 1";
+      $sql_pa = "SELECT archivo FROM tb_nom_035_archivos WHERE id_estacion = '".$Session_IDEstacion."' AND categoria = 'Politica' AND nom_archivo = 'politica-archivo' ORDER BY id desc LIMIT 1";
       $result_pa = mysqli_query($con, $sql_pa);     
       $numero_pa = mysqli_num_rows($result_pa);
       if ($numero_pa > 0) {
       while($row_pa = mysqli_fetch_array($result_pa, MYSQLI_ASSOC)){
       $pa = $row_pa['archivo'];
-      $imgpolitica = '<a target="_BLANK" href="../'.$pa.'"><img src="'.RUTA_IMG_ICONOS.'pdf.png"></a>';
+      $imgpolitica = '<a target="_BLANK" href="'.$pa.'"><img src="'.RUTA_IMG_ICONOS.'pdf.png"></a>';
       }
       }else{
       $imgpolitica = '<img src="'.RUTA_IMG_ICONOS.'sin-archivo.png">';  
       }
 
-      $sql_pat = "SELECT * FROM tb_nom_035_archivos WHERE id_estacion = '".$Session_IDEstacion."' AND categoria = 'Politica' AND nom_archivo = 'politica-triptico' ORDER BY id desc LIMIT 1";
+      $sql_pat = "SELECT archivo FROM tb_nom_035_archivos WHERE id_estacion = '".$Session_IDEstacion."' AND categoria = 'Politica' AND nom_archivo = 'politica-triptico' ORDER BY id desc LIMIT 1";
       $result_pat = mysqli_query($con, $sql_pat);     
       $numero_pat = mysqli_num_rows($result_pat);
       if ($numero_pat > 0) {
       while($row_pat = mysqli_fetch_array($result_pat, MYSQLI_ASSOC)){
       $pat = $row_pat['archivo'];
-      $imgtriptico = '<a target="_BLANK" href="../'.$pat.'"><img src="'.RUTA_IMG_ICONOS.'pdf.png"></a>';
+      $imgtriptico = '<a target="_BLANK" href="'.$pat.'"><img src="'.RUTA_IMG_ICONOS.'pdf.png"></a>';
       }
       }else{
       $imgtriptico = '<img src="'.RUTA_IMG_ICONOS.'sin-archivo.png">';  
       }
 
-      $sql_pacta = "SELECT * FROM tb_nom_035_archivos WHERE id_estacion = '".$Session_IDEstacion."' AND categoria = 'Politica' AND nom_archivo = 'politica-acta' ORDER BY id desc LIMIT 1";
+      $sql_pacta = "SELECT archivo FROM tb_nom_035_archivos WHERE id_estacion = '".$Session_IDEstacion."' AND categoria = 'Politica' AND nom_archivo = 'politica-acta' ORDER BY id desc LIMIT 1";
       $result_pacta = mysqli_query($con, $sql_pacta);     
       $numero_pacta = mysqli_num_rows($result_pacta);
       if ($numero_pacta > 0) {
       while($row_pacta = mysqli_fetch_array($result_pacta, MYSQLI_ASSOC)){
       $pacta = $row_pacta['archivo'];
-      $imgacta = '<a target="_BLANK" href="../'.$pacta.'"><img src="'.RUTA_IMG_ICONOS.'pdf.png"></a>';
+      $imgacta = '<a target="_BLANK" href="'.$pacta.'"><img src="'.RUTA_IMG_ICONOS.'pdf.png"></a>';
       }
       }else{
       $imgacta = '<img src="'.RUTA_IMG_ICONOS.'sin-archivo.png">';  

@@ -215,6 +215,22 @@ switch ($partes_ruta[1])
     break;
     //-------- ELEMENTOS SASISOPA FIN -------------------
     //---------------------------------------------------
+
+    //---------------------------------------------------
+    //------------ NOM 035 ------------------------------
+    case 'nom-035-etapas':
+      $ruta_elegida = $index_controlador->nom035Etapas();
+    break;
+    case 'nom-035-politica':
+      $ruta_elegida = $index_controlador->nom035Politica();
+    break;
+    case 'nom-035-acontecimientos':
+      $ruta_elegida = $index_controlador->nom035Acontecimientos();
+    break;
+    case 'nom-035-factores-riesgo':
+      $ruta_elegida = $index_controlador->nom035FactoresRiesgo();
+    break;
+    //---------------------------------------------------
       
 case 'perfil':
 $ruta_elegida = 'public/perfil/perfil-index.php';
@@ -280,18 +296,7 @@ break;
 
 
 
-case 'nom-035-etapas':
-$ruta_elegida = 'public/sasisopa/nom-035-etapas-index.php';
-break;
-case 'nom-035-politica':
-$ruta_elegida = 'public/sasisopa/nom-035-politica-index.php';
-break;
-case 'nom-035-acontecimientos':
-$ruta_elegida = 'public/sasisopa/nom-035-acontecimientos-index.php';
-break;
-case 'nom-035-factores-riesgo':
-$ruta_elegida = 'public/sasisopa/nom-035-factores-riesgo-index.php';
-break;
+
 case 'cambio-precio':
 $ruta_elegida = 'public/gerente/cambio-precio-index.php';
 break;
