@@ -16,8 +16,8 @@ $result_modulos_cursos = $class_cursos->cursosModulos();
   <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -109,74 +109,66 @@ background: rgba(204, 204, 204, 0.35);
     <?php require('public/componentes/header.menu.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
-    <div class="row no-gutters">
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-      </div>
-    
-    <!-- TITULO / ENCABEZADO -->
-    <div class="float-left">
-      <h4>CAPACITACIÓN INTERNA</h4>
-    </div>
+    <div class="magir-top-principal p-3">
 
+    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
+    <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
+    </div>
+        <!-- TITULO / ENCABEZADO -->
+    <div class="float-left">
+    <h4>CAPACITACIÓN INTERNA</h4>
+    </div>
     <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
     <a onclick="ModalBuscar()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Buscar" >
     <img src="<?php echo RUTA_IMG_ICONOS."buscar-icono.png"; ?>">
     </a>
     </div>
 
-    </div>
-    <div class="card-body">
+    <div class="mt-5">
 
     <div id="DivContenido">
 
     <h5>Modulos</h5>
     <div class="row no-gutters">
 
-<?php
-while($row = mysqli_fetch_array($result_modulos_cursos, MYSQLI_ASSOC)){
+    <?php
+    while($row = mysqli_fetch_array($result_modulos_cursos, MYSQLI_ASSOC)){
 
-$GET_idModulo = $row['id'];
-$num_modulo = $row['num_modulo'];
-$titulo = $row['titulo'];
+    $GET_idModulo = $row['id'];
+    $num_modulo = $row['num_modulo'];
+    $titulo = $row['titulo'];
 
-$totalTemas = $class_cursos->numTemasModulo($GET_idModulo);
+    $totalTemas = $class_cursos->numTemasModulo($GET_idModulo);
 
-?>
+    ?>
 
-<!-- CARD - PROCEDIMIENTOS -->
-<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mt-2 mb-2 "> 
+    <!-- CARD - PROCEDIMIENTOS -->
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mt-2 mb-2 "> 
 
-<div class="" style="padding: 10px;" >
-  <div class="card-cursos-float">
-  <div class="card card-cursos-home" >
-  <div class="card-body text-center">
+    <div class="" style="padding: 10px;" >
+    <div class="card-cursos-float">
+    <div class="card card-cursos-home" >
+    <div class="card-body text-center">
 
-  <h5 data-toggle="tooltip" data-placement="top" title="<?=$row['titulo']; ?>"><?=$titulo; ?></h5>
-  <div><a><a style="color: #1BB05F;font-size: 3.5em;font-weight: bold"><?=$totalTemas; ?></a> <a class="text-muted" style="font-size: .9em;">Temas</a></a></div>
-  <div class="text-right"><button type="button" class="btn btn-outline-success btn-sm" onclick="BTNverModulos(<?=$GET_idModulo; ?>)" >Ver Temas</button></div>
-  </div>
-  </div>
-  </div>
-</div>
-
-</div>
- <?php
- }
- ?>
-</div>
-
-
+    <h5 data-toggle="tooltip" data-placement="top" title="<?=$row['titulo']; ?>"><?=$titulo; ?></h5>
+    <div><a><a style="color: #1BB05F;font-size: 3.5em;font-weight: bold"><?=$totalTemas; ?></a> <a class="text-muted" style="font-size: .9em;">Temas</a></a></div>
+    <div class="text-right"><button type="button" class="btn btn-outline-success btn-sm" onclick="BTNverModulos(<?=$GET_idModulo; ?>)" >Ver Temas</button></div>
+    </div>
+    </div>
     </div>
     </div>
 
     </div>
+    <?php
+    }
+    ?>
     </div>
+
+
     </div>
+
+    </div>
+
     </div>
 
            <div class="modal fade bd-example-modal-lg" id="ModalBuscar" data-backdrop="static">

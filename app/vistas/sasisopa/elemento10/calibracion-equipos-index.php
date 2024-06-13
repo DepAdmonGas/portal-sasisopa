@@ -14,8 +14,8 @@ require('app/help.php');
   <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -81,29 +81,21 @@ require('app/help.php');
     <?php require('public/componentes/header.menu.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-      </div>
-    
-
+    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
+    <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
+    </div>   
     <!-- TITULO / ENCABEZADO -->
     <div class="float-left">
-      <h4>Calibración de equipos</h4>
+    <h4>Calibración de equipos</h4>
     </div>
+    <div class="mt-5">
 
-    </div>
-    <div class="card-body">
-
-     <div class="row">
+    <div class="row">
       
       <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mt-2 mb-2"> 
-        <div class="p-3 cont-puntos mb-3">
+        <div class="p-3 cont-puntos mb-3 bg-white">
         <div class="titulo-punto">1. Configuración de Tanques de almacenamiento</div>   
         <div class="text-right mt-3">
         <button type="button" class="btn btn-primary rounded-0" onclick="ConfiguracionTanques()">Entrar</button>
@@ -112,7 +104,7 @@ require('app/help.php');
       </div>
 
         <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mt-2 mb-2"> 
-        <div class="p-3 cont-puntos mb-3">
+        <div class="p-3 cont-puntos mb-3 bg-white">
         <div class="titulo-punto">2. Configuración de Dispensarios</div>   
         <div class="text-right mt-3">
         <button type="button" class="btn btn-primary rounded-0" onclick="ConfiguracionDispensario()">Entrar</button>
@@ -121,7 +113,7 @@ require('app/help.php');
       </div>
 
       <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mt-2 mb-2"> 
-        <div class="p-3 cont-puntos mb-3">
+        <div class="p-3 cont-puntos mb-3 bg-white">
         <div class="titulo-punto">3. Configuración de Sondas de medición</div>   
         <div class="text-right mt-3">
         <button type="button" class="btn btn-primary rounded-0" onclick="ConfiguracionSondas()">Entrar</button>
@@ -130,7 +122,7 @@ require('app/help.php');
       </div>
 
       <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mt-2 mb-2"> 
-        <div class="p-3 cont-puntos mb-3">
+        <div class="p-3 cont-puntos mb-3 bg-white">
         <div class="titulo-punto">4. Configuración de Jarra patron</div>   
         <div class="text-right mt-3">
         <button type="button" class="btn btn-primary rounded-0" onclick="ConfiguracionJarra()">Entrar</button>
@@ -139,7 +131,7 @@ require('app/help.php');
       </div>
 
         <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mt-2 mb-2"> 
-        <div class="p-3 cont-puntos mb-3">
+        <div class="p-3 cont-puntos mb-3 bg-white">
         <div class="titulo-punto">5. Bitácora calibración de equipos </div>   
         <div class="text-right mt-3">
         <button type="button" class="btn btn-primary rounded-0" onclick="Bitacora()">Entrar</button>
@@ -150,9 +142,7 @@ require('app/help.php');
       </div>
 
     </div>
-    </div>
-    </div>
-    </div>
+
     </div>
 
 

@@ -111,7 +111,59 @@ if($TotalPendientes > 0){
   document.getElementById("DivCalendario").style.display = "none";
   document.getElementById("DivPuntosSasisopa").style.display = "block";
   sizeWindow();
-  $('#DivPuntosSasisopa').load('public/gerente/vistas/puntos-sasisopa.php');
+  $('#DivPuntosSasisopa').load('app/vistas/homegerente/puntos-sasisopa.php');
+  }
+
+  function BtnSasisopa(id,nombre){
+
+    if (id == 1) {
+    window.location.href = "1-politica";
+    }else if (id == 2) {
+    window.location.href = "2-analisis-riesgo-evaluacion-impactos-ambientales";
+    }else if (id == 3) {
+    window.location.href = "3-requisitos-legales";
+    }else if (id == 4) {
+    window.location.href = "4-objetivos-metas-indicadores";
+    }else if (id == 5) {
+    window.location.href = "5-funciones-responsabilidades-autoridad";
+    }else if (id == 6) {
+    window.location.href = "6-competencia-personal-capacitacion-entrenamiento";
+    }else if (id == 7) {
+    window.location.href = "7-comunicacion-participacion-consulta";
+    }else if (id == 8) {
+    window.location.href = "8-control-documentos-registros";
+    }else if (id == 9) {
+    window.location.href = "9-mejores-practicas-estandares";
+    }else if (id == 10) {
+    window.location.href = "10-control-actividades-procesos";
+    }else if (id == 11) {
+    window.location.href = "11-integridad-mecanica-aseguramiento";
+    }else if (id == 12) {
+    window.location.href = "12-seguridad-contratistas";
+    }else if (id == 13) {
+    window.location.href = "13-preparacion-emergencias";
+    }else if (id == 14) {
+    window.location.href = "14-monitoreo-verificacion-evaluacion";
+    }else if (id == 15) {
+    window.location.href = "15-auditorias";
+    }else if (id == 16) {
+    window.location.href = "16-investigacion-incidentes-accidentes";
+    }else if (id == 17) {
+    window.location.href = "17-revision-resultados";
+    }else if (id == 18) {
+    window.location.href = "18-informes-desempeno";
+    }
+
+    }
+
+  //--------------------------------------------------------------------
+
+  function HomeCalendario(Fecha,mes,year){
+    sizeWindow();
+    document.getElementById("DivPuntosSasisopa").style.display = "none";
+    document.getElementById("DivCalendario").style.display = "block";
+    Actividades(Fecha,0);
+    Calendario(Fecha,mes,year);
   }
 
   function Actividades(Fecha,opcion){
@@ -122,118 +174,109 @@ if($TotalPendientes > 0){
   $('#Calendario').load('public/home/contenido-calendario.php?fecha=' + Fecha + '&Mes=' + mes + '&Year=' + year);
   }
 
- function Comunicados(){
- window.location.href = "comunicados";      
- }
-
-function ConsultaSasisopa(){
-sizeWindow();
-$('#ModalSasisopa').modal('show'); 
-}
-
-function ProgramaImplementacion(){
-window.location.href = "programa-implementacion";
-}
-
-function ReporteCRE(){
-window.location.href = "reporte-diario";
-}
-
-function ProgramaAnualM(){
-window.location.href = "programa-anual-mantenimiento"; 
-}
-
-function btnMisCursos(){
-window.location.href = "cursos";
-}
-
-function Personal(){
-window.location.href = "personal";
-}
-
-function CambioPrecio(){
-window.location.href = "cambio-precio";
-}
-
-function Nom035(){
-window.location.href = "nom-035-etapas";
-}
-
-function HomeCalendario(Fecha,mes,year){
-sizeWindow();
-document.getElementById("DivPuntosSasisopa").style.display = "none";
-document.getElementById("DivCalendario").style.display = "block";
-Actividades(Fecha,0);
-Calendario(Fecha,mes,year);
-}
-
-function EditarCalendario(idEstacion){
-window.location.href = 'editar-calendario/' + idEstacion;
-}
-
-function modalBuscar(){
-$('#ModalBuscar').modal('show');
-}
-
-function BuscarRegistros(id){
-
-let FechaInicio = $('#FechaInicio').val();
-let FechaTermino = $('#FechaTermino').val();
-
-if (FechaInicio != "") {
-$('#FechaInicio').css('border','');
-if (FechaTermino != "") {
-$('#FechaTermino').css('border','');
-
-window.location.href = "reporte-sasisopa/"+FechaInicio + '/' + FechaTermino;
-
-}else{
-$('#FechaTermino').css('border','2px solid #A52525');
-}
-}else{
-$('#FechaInicio').css('border','2px solid #A52525');
-}
-
-}
-
-function ModalCursos(idCalendario){
-$('#ModalDetalle').modal('show');
-$('#DivDetalle').load('public/home/modal-editar-curso.php?idCalendario=' + idCalendario);
-}
-
-function Programar(idTema,idUsuario){
-  var FechaCurso = $('#FechaCurso').val();
-
-  if (FechaCurso != "") {
-  $('#FechaCurso').css('border',''); 
-
-  var parametros = {
-      "idTema" : idTema,
-      "idUsuario" : idUsuario,
-      "FechaCurso" : FechaCurso
-    };
-
-  $.ajax({
-   data:  parametros,
-   url:   'public/sasisopa/agregar/agregar-capacitacion-interna.php',
-   type:  'post',
-   beforeSend: function() {
-   },
-   complete: function(){
-   },
-   success:  function (response) {
-
-   $('#ModalDetalle').modal('hide');
-   alertify.success('Se programo el curso correctamente');
-   Actividades(response,1);
-   }
-   });
-
- 
-  }else{
-  $('#FechaCurso').css('border','2px solid #A52525');  
+  function Comunicados(){
+  window.location.href = "comunicados";      
   }
-}
+
+  function ConsultaSasisopa(){
+  sizeWindow();
+  $('#ModalSasisopa').modal('show'); 
+  }
+
+  function ProgramaImplementacion(){
+  window.location.href = "programa-implementacion";
+  }
+
+  function ReporteCRE(){
+  window.location.href = "reporte-diario";
+  }
+
+  function ProgramaAnualM(){
+  window.location.href = "programa-anual-mantenimiento"; 
+  }
+
+  function btnMisCursos(){
+  window.location.href = "cursos";
+  }
+
+  function Personal(){
+  window.location.href = "personal";
+  }
+
+  function CambioPrecio(){
+  window.location.href = "cambio-precio";
+  }
+
+  function Nom035(){
+  window.location.href = "nom-035-etapas";
+  }
+
+  function EditarCalendario(idEstacion){
+  window.location.href = 'editar-calendario/' + idEstacion;
+  }
+
+  function modalBuscar(){
+  $('#ModalBuscar').modal('show');
+  }
+
+  function BuscarRegistros(id){
+
+  let FechaInicio = $('#FechaInicio').val();
+  let FechaTermino = $('#FechaTermino').val();
+
+  if (FechaInicio != "") {
+  $('#FechaInicio').css('border','');
+  if (FechaTermino != "") {
+  $('#FechaTermino').css('border','');
+
+  window.location.href = "reporte-sasisopa/"+FechaInicio + '/' + FechaTermino;
+
+  }else{
+  $('#FechaTermino').css('border','2px solid #A52525');
+  }
+  }else{
+  $('#FechaInicio').css('border','2px solid #A52525');
+  }
+
+  }
+
+  function ModalCursos(idCalendario){
+  $('#ModalDetalle').modal('show');
+  $('#DivDetalle').load('public/home/modal-editar-curso.php?idCalendario=' + idCalendario);
+  }
+
+  function Programar(idTema,idUsuario){
+    var FechaCurso = $('#FechaCurso').val();
+
+    if (FechaCurso != "") {
+    $('#FechaCurso').css('border',''); 
+
+    var parametros = {
+        "idTema" : idTema,
+        "idUsuario" : idUsuario,
+        "FechaCurso" : FechaCurso
+      };
+
+    $.ajax({
+    data:  parametros,
+    url:   'public/sasisopa/agregar/agregar-capacitacion-interna.php',
+    type:  'post',
+    beforeSend: function() {
+    },
+    complete: function(){
+    },
+    success:  function (response) {
+
+    $('#ModalDetalle').modal('hide');
+    alertify.success('Se programo el curso correctamente');
+    Actividades(response,1);
+    }
+    });
+  
+    }else{
+    $('#FechaCurso').css('border','2px solid #A52525');  
+    }
+  }
 
 //--------------------------------------------------------
 
@@ -252,9 +295,7 @@ function DetalleActividad(id){
    complete: function(){
    },
    success:  function (response) {
-
     window.location.href = response;
-
    }
    });
 
@@ -369,7 +410,7 @@ function DetalleActividad(id){
     <div class="row"> 
 
     <div class="col-12">
-    <div id="DivPuntosSasisopa" class="cardAG"></div> 
+    <div id="DivPuntosSasisopa" class=""></div> 
     </div>
 
     <div class="col-12">

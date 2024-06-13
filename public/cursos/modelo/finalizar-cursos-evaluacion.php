@@ -26,7 +26,7 @@ mysqli_query($con, $sql);
 		if($Resultado >= 90 && $Resultado <= 100){
 
 	$titleMensaje = "<div class='text-center' style='font-size: 4em;color: #3186C1'>Felicidades</div>";
-	$titleModulo = "<div class='text-center font-weight-light' style='font-size: 1.3em;color: #949494'>Acreditaste la evaluación <b>".$modulodescripcion."</b></div>";
+	$titleModulo = "<div class='text-center font-weight-light' style='font-size: 1.3em;color: #949494'>Acreditaste la evaluación</div>";
 	$colorC = "text-success";
 	$title = "<label class='text-secondary font-weight-light' style='font-size: 1.5em'> Excelente </label>";
 	$Icono = '<img src="'.RUTA_IMG.'iconos/globos.png" style="width: 90%;">';
@@ -34,7 +34,7 @@ mysqli_query($con, $sql);
 		}else if($Resultado >= 80 && $Resultado <= 89){
 
 		$titleMensaje = "<div class='text-center' style='font-size: 4em;color: #3186C1'>Felicidades</div>";
-	$titleModulo = "<div class='text-center font-weight-light' style='font-size: 1.3em;color: #949494'>Acreditaste la evaluación <b>".$modulodescripcion."</b></div>";
+	$titleModulo = "<div class='text-center font-weight-light' style='font-size: 1.3em;color: #949494'>Acreditaste la evaluación</div>";
 	$colorC = "text-primary";
 	$title = "<label class='text-secondary font-weight-light' style='font-size: 1.5em'> Bueno </label>";
 	$Icono = '<img src="'.RUTA_IMG.'iconos/globos.png" style="width: 90%;">';
@@ -42,7 +42,7 @@ mysqli_query($con, $sql);
 		}else if($Resultado >= 60 && $Resultado <= 79){
 
 		$titleMensaje = "<div class='text-center' style='font-size: 4em;color: #3186C1'>Felicidades</div>";
-	$titleModulo = "<div class='text-center font-weight-light' style='font-size: 1.3em;color: #949494'>Acreditaste la evaluación <b>".$modulodescripcion."</b></div>";
+	$titleModulo = "<div class='text-center font-weight-light' style='font-size: 1.3em;color: #949494'>Acreditaste la evaluación</div>";
 	$colorC = "text-primary";
 	$title = "<label class='text-secondary font-weight-light' style='font-size: 1.5em'> Regular </label>";
 	$Icono = '<img src="'.RUTA_IMG.'iconos/globos.png" style="width: 90%;">';
@@ -50,7 +50,7 @@ mysqli_query($con, $sql);
 		}else{
 
 		$titleMensaje = "<div class='text-center' style='font-size: 4em;color: #C13131'>No acreditaste</div>";
-		$titleModulo = "<div class='text-center font-weight-light' style='font-size: 1.3em;color: #949494'>Muy cerca pero no acreditaste la evaluación <b>".$modulodescripcion."</b></div>";
+		$titleModulo = "<div class='text-center font-weight-light' style='font-size: 1.3em;color: #949494'>Muy cerca pero no acreditaste la evaluación</div>";
 		$colorC = "text-danger";
 		$title = "<label class='text-secondary font-weight-light' style='font-size: 1.5em'> Malo </label>";
 		$Icono = '<img src="'.RUTA_IMG.'iconos/calificacion-mala.png" style="width: 100%;">';

@@ -3,9 +3,7 @@ require('../../../../app/help.php');
 include_once "../../../../app/modelo/PreparacionEmergencias.php";
 
 $class_preparacion_emergencias = new PreparacionEmergencias();
-
 ?>
-
 <div style="overflow-y: hidden;">
 <table class="table table-bordered table-sm mt-2 mb-2">
 <tr>
@@ -22,18 +20,13 @@ $class_preparacion_emergencias = new PreparacionEmergencias();
 </table>
 </div>
 
-<div class="border mt-3 mb-3">
-<div class="p-3">
-
-<div class="text-right mt-2 mb-2">
+<div class="text-right mt-2">
 <img class="mr-2" src="<?=RUTA_IMG_ICONOS;?>lupa.png" onclick="BuscarReporte()">
 <button type="button" class="btn btn-success btn-sm rounded-0" onclick="ModalPrograma(0)">Nuevo programa anual</button>
 </div>
 
-<hr>
-
 <div class="" style="overflow-y: hidden;">
-<table class="table table-bordered table-striped table-hover table-sm mt-3">
+<table class="table table-bordered table-striped table-hover table-sm mt-3 mb-0 pb-0">
 <thead>
 <th class="text-center align-middle">Nombre del simulacro</th>
 <th class="text-center align-middle">Periodicidad</th>
@@ -98,8 +91,6 @@ echo "<tr><td colspan='12' class='text-center'><small>No se encontrÃ³ informaciÃ
 ?>	
 </tbody>
 </table>
-</div>
-</div>
 </div>
 
 <?php  

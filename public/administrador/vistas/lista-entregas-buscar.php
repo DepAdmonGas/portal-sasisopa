@@ -11,7 +11,7 @@ $razonsocial = $row['razonsocial'];
 return $razonsocial;
 }
 
-$sql = "SELECT * FROM tb_entregas WHERE id_estacion = '".$_GET['idEstacion']."' ORDER BY id DESC";
+$sql = "SELECT * FROM tb_entregas WHERE estacion = '".$_GET['idEstacion']."' ORDER BY id DESC";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
 

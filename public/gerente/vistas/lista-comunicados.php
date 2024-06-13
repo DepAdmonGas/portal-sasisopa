@@ -13,7 +13,7 @@ $('#DivDetalle').html("<img src='<?php echo RUTA_IMG_ICONOS; ?>load-img.gif' sty
 $('#DivDetalle').load('public/gerente/vistas/detalle-comunicado.php?idcomunicado='+id);  
 }
 </script>
-<table class="table table-bordered table-striped table-sm table-hover">
+<table class="table table-bordered table-striped table-sm table-hover pb-0 mb-0">
 <thead>	
 <tr>
 <th class="text-center align-middle">#</th>

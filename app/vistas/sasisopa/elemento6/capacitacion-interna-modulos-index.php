@@ -17,8 +17,8 @@ $query = $class_cursos->cursosTemas($idModulo);
   <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -26,7 +26,7 @@ $query = $class_cursos->cursosTemas($idModulo);
   <script type="text/javascript" src="<?php echo RUTA_JS ?>alertify.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-      <style media="screen">
+  <style media="screen">
   .LoaderPage {
   position: fixed;
   left: 0px;
@@ -160,62 +160,49 @@ filter: grayscale(100%);
     <?php require('public/componentes/header.menu.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
-    <div class="row no-gutters">
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-      </div>
+    <div class="magir-top-principal p-3">
 
-  <!-- TITULO / ENCABEZADO -->
-
+    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
+    <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
+    </div>
     <div class="float-left">
-      <h4>CAPACITACIÓN INTERNA TEMAS</h4>
+    <h4>CAPACITACIÓN INTERNA TEMAS</h4>
     </div>
 
-    </div>
-    <div class="card-body">
-
+    <div class="mt-5">
     <div class="row no-gutters">
-<?php
-while($row = mysqli_fetch_array($query, MYSQLI_ASSOC)){
-
-  $idTema = $row['id'];
-  
-?>
-
-<!-- CARD - CAPACITACION EXTERNA -->
-<div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mt-2 mb-2 "> 
-
-<div class="" style="padding: 5px;" >
-  <div class="card-cursos-float" onclick="ListaPersonal(<?=$idModulo;?>,<?=$idTema;?>)">
-  <div class="card card-cursos-home" >
-  <div class="card-body text-center">
-  <h6 class="" data-toggle="tooltip" data-placement="top" title="<?=$row['titulo']; ?>"><span class="badge badge-pill badge-secondary"><?=$row['num_tema'] ?></span> <?=$row['titulo']; ?></h6>
-  </div>
-  </div>
-  </div>
-</div>
-
-</div>
- <?php
- }
- ?>
-</div>
-
-
-<div id="DivPersonal">
-<div class="alert alert-secondary" role="alert">
-Selecciona el modulo para visualizar el programa
-</div>
-</div>
-
+    <?php
+    while($row = mysqli_fetch_array($query, MYSQLI_ASSOC)){
+      $idTema = $row['id'];
+    ?>
+    <!-- CARD - CAPACITACION EXTERNA -->
+    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mt-2 mb-2 "> 
+    <div class="" style="padding: 5px;" >
+      <div class="card-cursos-float" onclick="ListaPersonal(<?=$idModulo;?>,<?=$idTema;?>)">
+      <div class="card card-cursos-home" >
+      <div class="card-body text-center">
+      <h5 class="" data-toggle="tooltip" data-placement="top" title="<?=$row['titulo']; ?>"><span class="badge badge-pill badge-secondary"><?=$row['num_tema'] ?></span> <?=$row['titulo']; ?></h5>
+      </div>
+      </div>
+      </div>
     </div>
     </div>
+    <?php
+    }
+    ?>
     </div>
     </div>
+
+    <div class="mt-3 bg-white p-3">
+
+    <div id="DivPersonal">
+    <div class="alert alert-secondary" role="alert">
+    Selecciona el modulo para visualizar el programa
+    </div>
+    </div>
+
+    </div>
+
     </div>
 
 <div class="modal fade bd-example-modal-lg" id="ModalCapacitacion" >

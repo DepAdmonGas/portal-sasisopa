@@ -20,8 +20,8 @@ $estado = $array_ayuda['estado'];
   <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -929,37 +929,34 @@ window.location = "descargar-investigacion-sin-incidentes-accidentes/" + id;
     <?php require('public/componentes/header.menu.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-      </div>
+    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
+    <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
+    </div>
     <div class="float-left"><h4>16. INVESTIGACIÓN DE INCIDENTES Y ACCIDENTES</h4></div>
     <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
     <a onclick="btnAyuda()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Ayuda" >
     <img src="<?php echo RUTA_IMG_ICONOS."info.png"; ?>">
     </a>
-
     <a class="ml-2" onclick="ModalAgregar()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Agregar" >
     <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
     </a>
     </div>
-      </div>
-    <div class="card-body">
-    
+
+    <div class="mt-5">
+
     <div class="text-right mb-2">
       <a class="ml-2" onclick="Descargar()" style="cursor: pointer;">
     <img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>">
     </a>
     </div>
+
+    <div class="bg-white p-3">
     <div id="DivContenido"></div>
+    </div>
 
-    <hr>
-
+    <div class="bg-white mt-3 p-3">
     <div class="row">
     <div class="col-11"><h5>Sin accidentes a la fecha</h5></div>
     <div class="col-1 text-right">
@@ -968,13 +965,9 @@ window.location = "descargar-investigacion-sin-incidentes-accidentes/" + id;
     </a>
     </div>
     </div>
-
     <div id="ListaInvestigacionNO"></div>
-    
-  
     </div>
-    </div>
-    </div>
+
     </div>
     </div>
 

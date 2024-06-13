@@ -12,8 +12,8 @@ require('app/help.php');
   <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -49,25 +49,18 @@ require('app/help.php');
     <?php require('public/componentes/header.menu.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-      </div>
-    <div class="float-left"><h4>PROGRAMA DE IMPLEMENTACION</h4></div>
- 
+    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
+    <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
     </div>
-    <div class="card-body" >
+    <div class="float-left"><h4>PROGRAMA DE IMPLEMENTACION</h4></div>
 
+    <div class="mt-5 p-3 bg-white">
     <?php if ($session_nomestacion == "Ventura Puente") { ?>
 
-
-<div class="mb-2" style="overflow-y: hidden;">
-    <table class="table table-bordered table-sm" style="margin-top: 30px;">
+    <div style="overflow-y: hidden;">
+    <table class="table table-bordered table-sm mb-0 pb-0">
    <tr style="background: #F8F8F8">
     <td class="font-weight-bold align-middle text-center" style="font-size: 1.4em;">Programa de implementación del Sistema de Administración</td>
     <td class="align-middle text-center" colspan="3" style="font-size: 1.4em;"><b>Fecha:</b> 07-Agosto-19</td>
@@ -169,8 +162,8 @@ require('app/help.php');
 
     <?php }else if($session_nomestacion == "Xochimilco") { ?>
 
-<div class="mb-2" style="overflow-y: hidden;">
-    <table class="table table-bordered table-sm" style="margin-top: 30px;">
+<div style="overflow-y: hidden;">
+    <table class="table table-bordered table-sm mb-0 pb-0">
    <tr style="background: #F8F8F8">
     <td class="font-weight-bold align-middle text-center" style="font-size: 1.4em;">Programa de implementación del Sistema de Administración</td>
     <td class="align-middle text-center" colspan="3" style="font-size: 1.4em;"><b>Fecha:</b> 04-Diciembre-18</td>
@@ -271,8 +264,8 @@ require('app/help.php');
 
     <?php }else if($session_nomestacion == "Interlomas" || $session_nomestacion == "Palo Solo" || $session_nomestacion == "San Agustin" || $session_nomestacion == "Gasomira" || $session_nomestacion == "Valle de Guadalupe" || $session_nomestacion == "Esmegas"){?>
 
-<div class="mb-2" style="overflow-y: hidden;">
-    <table class="table table-bordered table-sm" style="margin-top: 30px;">
+<div style="overflow-y: hidden;">
+    <table class="table table-bordered table-sm mb-0 pb-0">
     <tr style="background: #F8F8F8">
      <td class="font-weight-bold align-middle text-center" style="font-size: 1.4em;">Programa de implementación del Sistema de Administración</td> 
      <td class="align-middle text-center" colspan="3" style="font-size: 1.4em;"><b>Fecha:</b> 04-Diciembre-18</td>
@@ -372,13 +365,8 @@ require('app/help.php');
     </div> 
 
     <?php } ?>
+    </div>
 
-
-
-    </div>
-    </div>
-    </div>
-    </div>
     </div>
 
   <script src="<?php echo RUTA_JS ?>bootstrap.min.js"></script>

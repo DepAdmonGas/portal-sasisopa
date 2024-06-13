@@ -15,7 +15,7 @@ $result_modulos_cursos = mysqli_query($con, $sql_modulos_cursos);
 $numero_modulos_cursos  = mysqli_num_rows($result_modulos_cursos);
 while($row_modulos_cursos = mysqli_fetch_array($result_modulos_cursos, MYSQLI_ASSOC)){
 
-echo '<div class="bg-info p-2 text-white mt-2"><h6>'.$row_modulos_cursos['num_modulo'].'. '.$row_modulos_cursos['titulo'].'</h6></div>';
+echo '<div class="bg-info p-2 text-white mt-2"><h5>'.$row_modulos_cursos['num_modulo'].'. '.$row_modulos_cursos['titulo'].'</h5></div>';
 echo '<div class="text-right mt-2">Programa de Capacitacion y
 adiestramiento 
 <a style="cursor: pointer;" href="app/vistas/sasisopa/elemento6/descargar-capacitacion-interna.php?Year='.$Year.'&idModulo='.$row_modulos_cursos['id'].'"><img src="'.RUTA_IMG_ICONOS.'pdf.png"></a></div></div>';
@@ -26,8 +26,8 @@ $sql = "SELECT * FROM tb_cursos_temas WHERE id_modulo = '".$row_modulos_cursos['
 $result = mysqli_query($con, $sql);
 $numero  = mysqli_num_rows($result);
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-echo '<div class="bg-light p-2 mt-2 mb-2"><h6>'.$row['num_tema'].'. '.$row['titulo'].'</h6></div>';
-
+echo '<div class="bg-white p-3 mt-3">';
+echo '<div class="mb-4"><h6>'.$row['num_tema'].'. '.$row['titulo'].'</h6></div>';
 echo '<table class="table table-bordered table-striped table-hover table-sm" style="font-size: .9em;">
 <thead>
 <tr>
@@ -105,7 +105,7 @@ echo "</tr>";
 
 echo '</tbody>
 </table>';
-
+echo "</div>";
 }
 
 }

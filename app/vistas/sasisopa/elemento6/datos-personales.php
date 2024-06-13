@@ -18,13 +18,7 @@ $password = $row_usuarios['password'];
 $puesto = $row_usuarios['tipo_puesto'];
 
 ?> 
-
-<div class="border">
-<div class="p-3">  
-
 <div style="font-size: 1.4em;">1. Datos del personal</div>
-<hr>
-
 <div class="row" >
 
 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-2 mb-2"> 
@@ -82,7 +76,5 @@ $puesto = $row_usuarios['tipo_puesto'];
 
 </div>
 
-</div>
-</div>
 
 

@@ -13,8 +13,8 @@ require('app/help.php');
   <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -33,11 +33,10 @@ require('app/help.php');
   height: 100%;
   z-index: 9999;
   background: url('imgs/iconos/load-img.gif') 50% 50% no-repeat rgb(249,249,249);
-}
+  }
   .car-admin{
     border: 1px solid #eeeeee;box-shadow: 1px 1px 5px #EDEDED;border-bottom: 3px solid #3399cc;border-radius: 0;
   }
-
   .card-hover:hover{
     background: rgba(239, 239, 239, .3);
   }
@@ -165,27 +164,15 @@ function(){
     </div>
 
     <!-- TITULO / ENCABEZADO -->
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
+    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
       <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
       </div>
     <div class="float-left"><h4>REQUISITOS LEGALES CONFIGURACIÓN</h4></div>
-    </div>
-  
 
-  <!-- REQUISITOS LEGALES (MUNICIPAL/ESTATAL/FEDERAL/VARIOS) -->
-  <div class="card-body">
-  <div id="RequisitosConfiguracion"></div>
-  </div>
-
-
-    </div>
-    </div>
+    <div class="mt-5">
+    <div id="RequisitosConfiguracion"></div>
     </div>
     </div>
 

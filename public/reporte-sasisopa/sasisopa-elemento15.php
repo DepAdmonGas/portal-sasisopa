@@ -15,6 +15,7 @@ $result_auditoria = mysqli_query($con, $sql_auditoria);
 $numero_auditoria = mysqli_num_rows($result_auditoria);
 
 function formatos($id, $formato, $con){
+    $archivo = "";
 $sql_archivo = "SELECT * FROM tb_auditoria_interna_formato WHERE id_auditoria = '".$id."' AND formato = '".$formato."' ORDER BY id asc ";
 $result_archivo = mysqli_query($con, $sql_archivo);
 $numero_archivo = mysqli_num_rows($result_archivo);

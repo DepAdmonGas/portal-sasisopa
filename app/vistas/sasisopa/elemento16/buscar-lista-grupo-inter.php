@@ -11,7 +11,7 @@ $numero_inv = mysqli_num_rows($result_inv);
 ?>
 
 <div class="mb-2" style="overflow-y: hidden;">
-<table class="table table-bordered table-striped table-hover table-sm">
+<table class="table table-bordered table-striped table-hover table-sm mb-0 pb-0">
 <thead>
 <th class="text-center">#</th>
 <th class="text-center">Nombre</th>

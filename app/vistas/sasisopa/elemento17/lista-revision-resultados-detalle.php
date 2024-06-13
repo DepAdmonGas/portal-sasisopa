@@ -55,7 +55,6 @@ $Year = $_GET['Year'];
 ?>
 <a onclick="Descargar(<?=$Year;?>)" style="cursor: pointer;"><img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>"></a>
 <h5>Resumen del Año: <?=$Year;?></h5>
-<div class="border p-2">
 
       <table class="table table-bordered table-sm pb-0 mb-0">
       <tbody>
@@ -79,11 +78,7 @@ $Year = $_GET['Year'];
         </tbody>
         </table> 
 
-        </div>
-
     <hr>
-
-      <div class="border p-2">
 
       <table class="table table-bordered table-sm pb-0 mb-0">
       <tbody>
@@ -347,11 +342,7 @@ $Year = $_GET['Year'];
         </div>
       </div>
 
-      </div>
-
       <hr>
-
-    <div class="border p-2">
 
       <table class="table table-bordered table-sm pb-0 mb-0">
       <tbody>
@@ -388,11 +379,7 @@ $Year = $_GET['Year'];
         </tbody>
         </table> 
 
-        </div>
-
         <hr>
-
-        <div class="border p-2">
 
       <table class="table table-bordered table-sm pb-0 mb-0">
       <tbody>
@@ -427,11 +414,7 @@ $Year = $_GET['Year'];
         </tbody>
         </table>      
 
-      </div>
-
       <hr>
-
-      <div class="border p-2">
 
       <table class="table table-bordered table-sm c-pointer pb-0 mb-0">
       <tbody>
@@ -465,6 +448,3 @@ $Year = $_GET['Year'];
         </tr>
         </tbody>
         </table>
-      </div>
-
-    <hr>

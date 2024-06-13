@@ -19,8 +19,8 @@ $estado = $array_ayuda['estado'];
   <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -28,8 +28,6 @@ $estado = $array_ayuda['estado'];
   <script type="text/javascript" src="<?php echo RUTA_JS ?>alertify.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-
-
   <style media="screen">
   .LoaderPage {
   position: fixed;
@@ -202,16 +200,11 @@ $estado = $array_ayuda['estado'];
     <?php require('public/componentes/header.menu.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
     <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
     <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
     </div>
-    
     <!-- TITULO / ENCABEZADO -->
     <div class="float-left">
     <h4>Experiencia del cliente</h4>
@@ -221,43 +214,29 @@ $estado = $array_ayuda['estado'];
     <a onclick="btnAyuda()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Ayuda" >
     <img src="<?php echo RUTA_IMG_ICONOS."info.png"; ?>">
     </a>
-
     <a style="text-decoration: none;cursor: pointer;margin-left: 10px;" download href="<?=RUTA_ARCHIVOS;?>encuestas/Formato encuestas.pdf" data-toggle="tooltip" data-placement="left" title="PDF" >
     <img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>">
     </a>
-
     <a onclick="btnNuEncuesta()" style="cursor: pointer;margin-left: 10px;" data-toggle="tooltip" data-placement="left" title="Agregar nueva encuesta" >
     <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
     </a>
-
     </div>
+
+    <div class="row mt-5">  
+   <!-- TABLA - ENCUESTADOS -->
+    <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 mt-2 mb-2"> 
+      <div class="bg-white p-3">    
+       <div id="DivContenido"></div>
+      </div> 
     </div>
-   
-
-    <div class="card-body">
-
-      <div class="row">
-   
-    <!-- TABLA - ENCUESTADOS -->
-     <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 mt-2 mb-2">      
-        <div id="DivContenido"></div>
+   <!-- GRAFICA - ENCUESTADOS -->
+    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mt-2 mb-2">  
+      <div class="chart_wrap">
+      <div id="donutchart" class="piechart"></div>
+      </div>
+     </div>
      </div>
 
-    <!-- GRAFICA - ENCUESTADOS -->
-     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mt-2 mb-2">  
-        
-        <div class="border chart_wrap" align="center">
-        <div id="donutchart" class="piechart"></div>
-        </div>
-
-      </div>
-
-      </div>
-
-    </div>
-    </div>
-    </div>
-    </div>
     </div>
 
     <div class="modal fade bd-example-modal-lg" id="ModalAyuda" data-backdrop="static">

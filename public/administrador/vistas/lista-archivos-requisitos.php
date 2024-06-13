@@ -4,16 +4,7 @@ require('../../../app/help.php');
 $NGobierno = $_GET['NGobierno'];
 $idEstacion = $_GET['idEstacion'];
 $Dependencia = $_GET['Dependencia'];
-
-if ($NGobierno == "municipal") {
-    $title = "Municipal";
-    }else if ($NGobierno == "estatal") {
-    $title = "Estatal";
-    }else if ($NGobierno == "federal") {
-    $title = "Federal";
-    }else if ($NGobierno == "varios") {
-    $title = "Varios";
-    }
+$TotalCmp = 0;
 
 function UltimaAct($idre,$con){
 
@@ -325,7 +316,7 @@ $Renovacion = trim($ArrayRenovacion, ',');
   echo "<td class='text-center align-middle'><b>".$UltimaA['cumplimiento']."</b></td>";
   echo "<td class='text-center align-middle'><small>".$Renovacion."</small></td>";
   echo "<td class='text-center align-middle'width='20px' style='cursor: pointer;'><img src='".RUTA_IMG_ICONOS."ojo-black-16.png' onclick='Detalle(".$idre.")'></td>";
-  echo '<td class="text-center align-middle" width="20px" style="cursor: pointer;"><img src="'.RUTA_IMG_ICONOS.'edit-black-16.png" onclick="editar('.$idre.',\''.$title.'\')"></td>';
+  echo '<td class="text-center align-middle" width="20px" style="cursor: pointer;"><img src="'.RUTA_IMG_ICONOS.'edit-black-16.png" onclick="editar('.$idre.',\''.$NGobierno.'\')"></td>';
   echo "<td class='text-center align-middle'width='20px' style='cursor: pointer;'><img src='".RUTA_IMG_ICONOS."lista.png' onclick='listaReq(".$idre.")'></td>";
   echo "<td class='text-center align-middle'width='20px' style='cursor: pointer;'><img src='".RUTA_IMG_ICONOS."img-no.png' onclick='EliminarRL(".$idre.")'></td>";
   echo "</tr>";

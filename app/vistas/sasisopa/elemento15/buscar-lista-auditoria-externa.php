@@ -10,8 +10,8 @@ $numero_auditoria = mysqli_num_rows($result_auditoria);
 
 ?>
 
-<div class="mb-2" style="overflow-y: hidden;">
-<table class="table table-bordered table-striped table-hover table-sm">
+<div style="overflow-y: hidden;">
+<table class="table table-bordered table-striped table-hover table-sm pb-0 mb-0">
 <thead>
 <th class="text-center">#</th>
 <th class="text-center">Fecha</th>

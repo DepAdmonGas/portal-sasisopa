@@ -24,8 +24,8 @@ $class_monitoreo_evaluacion->agregarIndicadores($Session_IDEstacion);
   <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -165,18 +165,13 @@ window.location = "descargar-programa-implementacion-s-a";
     <?php require('public/componentes/header.menu.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
     <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
     <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
     </div>
     <div class="float-left"><h4>14. MONITOREO, VERIFICACIÓN Y EVALUACIÓN</h4></div>
     <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
-
     <a class="mr-1" onclick="ModalBuscar()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Buscar" >
     <img src="<?php echo RUTA_IMG_ICONOS."lupa.png"; ?>">
     </a>
@@ -184,521 +179,498 @@ window.location = "descargar-programa-implementacion-s-a";
     <img src="<?php echo RUTA_IMG_ICONOS."info.png"; ?>">
     </a>
     </div>
-      </div>
-    <div class="card-body">
+    <div class="mt-5 p-3 bg-white">
 
     <div id="Contenido">
   
-     <?php 
+  <?php 
 
-      function TC($a,$b){
+   function TC($a,$b){
 
-        if($a == 0 || $b == 0){
-          $Return = "<b class='text-warning'>S/I</b>";
-        }else{
+     if($a == 0 || $b == 0){
+       $Return = "<b class='text-warning'>S/I</b>";
+     }else{
 
-          $Resul = ($a - $b) / $b * 100;
-          $tece = 100 + ($Resul);
-          $Porcentaje = number_format($tece,2);
+       $Resul = ($a - $b) / $b * 100;
+       $tece = 100 + ($Resul);
+       $Porcentaje = number_format($tece,2);
 
-          if( $Porcentaje >= 80  ){
-          $Return = "<b class='text-success'>".$Porcentaje."% Excelente</b>";                 
-          }else if($Porcentaje >= 0 && $Porcentaje <= 79){
-          $Return = "<b class='text-warning'>".$Porcentaje."% Regular</b>";
-          }
+       if( $Porcentaje >= 80  ){
+       $Return = "<b class='text-success'>".$Porcentaje."% Excelente</b>";                 
+       }else if($Porcentaje >= 0 && $Porcentaje <= 79){
+       $Return = "<b class='text-warning'>".$Porcentaje."% Regular</b>";
+       }
 
-        }
+     }
 
-      return $Return;
-      }
+   return $Return;
+   }
 
-      $YearAnt = $fecha_year - 1;
-    
-      $DicAnt = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,12,$YearAnt);
-      $Ene = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,1,$fecha_year);
-      $Feb = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,2,$fecha_year);
-      $Mar = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,3,$fecha_year);
-      $Abr = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,4,$fecha_year);
-      $May = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,5,$fecha_year);
-      $Jun = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,6,$fecha_year);
-      $Jul = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,7,$fecha_year);
-      $Ago = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,8,$fecha_year);
-      $Sep = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,9,$fecha_year);
-      $Oct = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,10,$fecha_year);
-      $Nov = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,11,$fecha_year);
-      $Dic = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,12,$fecha_year);
+   $YearAnt = $fecha_year - 1;
+ 
+   $DicAnt = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,12,$YearAnt);
+   $Ene = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,1,$fecha_year);
+   $Feb = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,2,$fecha_year);
+   $Mar = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,3,$fecha_year);
+   $Abr = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,4,$fecha_year);
+   $May = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,5,$fecha_year);
+   $Jun = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,6,$fecha_year);
+   $Jul = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,7,$fecha_year);
+   $Ago = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,8,$fecha_year);
+   $Sep = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,9,$fecha_year);
+   $Oct = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,10,$fecha_year);
+   $Nov = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,11,$fecha_year);
+   $Dic = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,12,$fecha_year);
 
-      $TC1 = TC($Ene,$DicAnt);
-      $TC2 = TC($Feb,$Ene);
-      $TC3 = TC($Mar,$Feb);
-      $TC4 = TC($Abr,$Mar);
-      $TC5 = TC($May,$Abr);
-      $TC6 = TC($Jun,$May);
-      $TC7 = TC($Jul,$Jun);
-      $TC8 = TC($Ago,$Jul);
-      $TC9 = TC($Sep,$Ago);
-      $TC10 = TC($Oct,$Sep);
-      $TC11 = TC($Nov,$Oct);
-      $TC12 = TC($Dic,$Nov);
-      ?>
+   $TC1 = TC($Ene,$DicAnt);
+   $TC2 = TC($Feb,$Ene);
+   $TC3 = TC($Mar,$Feb);
+   $TC4 = TC($Abr,$Mar);
+   $TC5 = TC($May,$Abr);
+   $TC6 = TC($Jun,$May);
+   $TC7 = TC($Jul,$Jun);
+   $TC8 = TC($Ago,$Jul);
+   $TC9 = TC($Sep,$Ago);
+   $TC10 = TC($Oct,$Sep);
+   $TC11 = TC($Nov,$Oct);
+   $TC12 = TC($Dic,$Nov);
+   ?>
 
-      <div class="border p-2">
+<div class="text-right">
+<a onclick="Descargar(<?=$fecha_year;?>)" style="cursor: pointer;"><img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>"></a>
+</div>
 
-  <div class="text-right">
-  <a onclick="Descargar(<?=$fecha_year;?>)" style="cursor: pointer;"><img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>"></a>
-  </div>
+   <table class="table table-bordered table-sm pb-0 mb-0 mt-1">
+   <tbody>
+    <tr>
+       <td class="align-middle text-center"><b>Objeto</b></td>
+       <td class="align-middle">Implementación del SA</td>
+       <td class="align-middle text-center"><b>Indicador</b></td>
+       <td class="align-middle">No. Total de elementos implementados VS No. de elementos del SA</td>
+     </tr>
+     <tr>
+       <td class="align-middle text-center"><b>Meta</b></td>
+       <td class="align-middle"><?=$class_monitoreo_evaluacion->meta($Session_IDEstacion,1);?></td>
+       <td class="align-middle text-center"><b>Frecuencia de medición</b></td>
+       <td class="align-middle">ANUAL</td>
+     </tr>
+     <tr>
+       <td colspan="4">
+       <div class="mt-1"><b>Resultado:</b> <?=$class_monitoreo_evaluacion->resultadoImplementacion($Session_IDEstacion,$fecha_year);?></div>
+       </td>
+     </tr>
+     </tbody>
+     </table> 
 
-      <table class="table table-bordered table-sm pb-0 mb-0 mt-1">
-      <tbody>
-       <tr>
-          <td class="align-middle text-center"><b>Objeto</b></td>
-          <td class="align-middle">Implementación del SA</td>
-          <td class="align-middle text-center"><b>Indicador</b></td>
-          <td class="align-middle">No. Total de elementos implementados VS No. de elementos del SA</td>
-        </tr>
-        <tr>
-          <td class="align-middle text-center"><b>Meta</b></td>
-          <td class="align-middle"><?=$class_monitoreo_evaluacion->meta($Session_IDEstacion,1);?></td>
-          <td class="align-middle text-center"><b>Frecuencia de medición</b></td>
-          <td class="align-middle">ANUAL</td>
-        </tr>
-        <tr>
-          <td colspan="4">
-          <div class="mt-1"><b>Resultado:</b> <?=$class_monitoreo_evaluacion->resultadoImplementacion($Session_IDEstacion,$fecha_year);?></div>
-          </td>
-        </tr>
-        </tbody>
-        </table> 
-
-        <div class="text-right mt-2"><button type="button" class="btn btn-primary btn-sm" style="border-radius: 0px;" onclick="Implementacion()" >Ver detalle</button></div>
-        </div>
+     <div class="text-right mt-2"><button type="button" class="btn btn-primary btn-sm" style="border-radius: 0px;" onclick="Implementacion()" >Ver detalle</button></div>
 
     <hr>
 
-      <div class="border p-2">
+   <table class="table table-bordered table-sm pb-0 mb-0">
+   <tbody>
+    <tr>
+       <td class="align-middle text-center"><b>Objeto</b></td>
+       <td class="align-middle">Ventas</td>
+       <td class="align-middle text-center"><b>Indicador</b></td>
+       <td class="align-middle">Venta del mes inmediato anterior VS venta del mes actual</td>
+     </tr>
+     <tr>
+       <td class="align-middle text-center"><b>Meta</b></td>
+       <td class="align-middle"><?=$class_monitoreo_evaluacion->meta($Session_IDEstacion,2,$con);?></td>
+       <td class="align-middle text-center"><b>Frecuencia de medición</b></td>
+       <td class="align-middle">Mensual</td>
+     </tr>
+     </tbody>
+     </table> 
 
-      <table class="table table-bordered table-sm pb-0 mb-0">
-      <tbody>
-       <tr>
-          <td class="align-middle text-center"><b>Objeto</b></td>
-          <td class="align-middle">Ventas</td>
-          <td class="align-middle text-center"><b>Indicador</b></td>
-          <td class="align-middle">Venta del mes inmediato anterior VS venta del mes actual</td>
-        </tr>
-        <tr>
-          <td class="align-middle text-center"><b>Meta</b></td>
-          <td class="align-middle"><?=$class_monitoreo_evaluacion->meta($Session_IDEstacion,2,$con);?></td>
-          <td class="align-middle text-center"><b>Frecuencia de medición</b></td>
-          <td class="align-middle">Mensual</td>
-        </tr>
-        </tbody>
-        </table> 
+  <div class="mt-1"><b>Resultado:</b></div>
 
+   <div class="row">
+     <div class="col-2">
+       <table class="table table-sm table-bordered" style="font-size: .9em;">
+         <thead>
+           <tr>
+             <th class="text-center bg-light">Dic <?=$YearAnt;?></th>
+             <th class="text-center bg-light">Ene <?=$fecha_year;?></th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr>
+             <td class="text-center bg-light"><?=number_format($DicAnt,2);?></td>
+             <td class="text-center bg-light"><?=number_format($Ene,2);?></td>
+           </tr>
+           <tr>
+             <td colspan="2" class="text-center bg-light"><?=$TC1;?></td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+     <?php if(number_format(date("m")) >= 2){ ?>
+     <div class="col-2">
+       <table class="table table-sm table-bordered" style="font-size: .9em;">
+         <thead>
+           <tr>
+             <th class="text-center">Ene <?=$fecha_year;?></th>
+             <th class="text-center">Feb <?=$fecha_year;?></th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr>
+             <td class="text-center"><?=number_format($Ene,2);?></td>
+             <td class="text-center"><?=number_format($Feb,2);?></td>
+           </tr>
+           <tr>
+             <td colspan="2" class="text-center"><?=$TC2;?></td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+     <?php } ?>
+
+     <?php if(number_format(date("m")) >= 3){ ?>
+       <div class="col-2">
+       <table class="table table-sm table-bordered" style="font-size: .9em;">
+         <thead>
+           <tr>
+             <th class="text-center bg-light">Feb <?=$fecha_year;?></th>
+             <th class="text-center bg-light">Mar <?=$fecha_year;?></th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr>
+             <td class="text-center bg-light"><?=number_format($Feb,2);?></td>
+             <td class="text-center bg-light"><?=number_format($Mar,2);?></td>
+           </tr>
+           <tr>
+             <td colspan="2" class="text-center bg-light"><?=$TC3;?></td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+     <?php } ?>
+
+     <?php if(number_format(date("m")) >= 4){ ?>
+       <div class="col-2">
+       <table class="table table-sm table-bordered" style="font-size: .9em;">
+         <thead>
+           <tr>
+             <th class="text-center">Mar <?=$fecha_year;?></th>
+             <th class="text-center">Abr <?=$fecha_year;?></th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr>
+             <td class="text-center"><?=number_format($Mar,2);?></td>
+             <td class="text-center"><?=number_format($Abr,2);?></td>
+           </tr>
+           <tr>
+             <td colspan="2" class="text-center"><?=$TC4;?></td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+     <?php } ?>
+
+     <?php if(number_format(date("m")) >= 5){ ?>
+     <div class="col-2">
+       <table class="table table-sm table-bordered" style="font-size: .9em;">
+         <thead>
+           <tr>
+             <th class="text-center bg-light">Abr <?=$fecha_year;?></th>
+             <th class="text-center bg-light">May <?=$fecha_year;?></th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr>
+             <td class="text-center bg-light"><?=number_format($Abr,2);?></td>
+             <td class="text-center bg-light"><?=number_format($May,2);?></td>
+           </tr>
+           <tr>
+             <td colspan="2" class="text-center bg-light"><?=$TC5;?></td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+     <?php } ?>
+
+     <?php if(number_format(date("m")) >= 6){ ?>
+     <div class="col-2">
+       <table class="table table-sm table-bordered" style="font-size: .9em;">
+         <thead>
+           <tr>
+             <th class="text-center">May <?=$fecha_year;?></th>
+             <th class="text-center">Jun <?=$fecha_year;?></th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr>
+             <td class="text-center"><?=number_format($May,2);?></td>
+             <td class="text-center"><?=number_format($Jun,2);?></td>
+           </tr>
+           <tr>
+             <td colspan="2" class="text-center"><?=$TC6;?></td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+     <?php } ?>
+   </div>
+
+     <div class="row">
+     <?php if(number_format(date("m")) >= 7){ ?>
+     <div class="col-2">
+       <table class="table table-sm table-bordered" style="font-size: .9em;">
+         <thead>
+           <tr>
+             <th class="text-center bg-light">Jun <?=$fecha_year;?></th>
+             <th class="text-center bg-light">Jul <?=$fecha_year;?></th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr>
+             <td class="text-center bg-light"><?=number_format($Jun,2);?></td>
+             <td class="text-center bg-light"><?=number_format($Jul,2);?></td>
+           </tr>
+           <tr>
+             <td colspan="2" class="text-center bg-light"><?=$TC7;?></td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+     <?php } ?>
+
+     <?php if(number_format(date("m")) >= 8){ ?>
+     <div class="col-2">
+       <table class="table table-sm table-bordered" style="font-size: .9em;">
+         <thead>
+           <tr>
+             <th class="text-center">Jul <?=$fecha_year;?></th>
+             <th class="text-center">Ago <?=$fecha_year;?></th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr>
+             <td class="text-center"><?=number_format($Jul,2);?></td>
+             <td class="text-center"><?=number_format($Ago,2);?></td>
+           </tr>
+           <tr>
+             <td colspan="2" class="text-center"><?=$TC8;?></td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+     <?php } ?>
+
+     <?php if(number_format(date("m")) >= 9){ ?>
+       <div class="col-2">
+       <table class="table table-sm table-bordered" style="font-size: .9em;">
+         <thead>
+           <tr>
+             <th class="text-center bg-light">Ago <?=$fecha_year;?></th>
+             <th class="text-center bg-light">Sep <?=$fecha_year;?></th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr>
+             <td class="text-center bg-light"><?=number_format($Ago,2);?></td>
+             <td class="text-center bg-light"><?=number_format($Sep,2);?></td>
+           </tr>
+           <tr>
+             <td colspan="2" class="text-center bg-light"><?=$TC9;?></td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+     <?php } ?>
+
+     <?php if(number_format(date("m")) >= 10){ ?>
+       <div class="col-2">
+       <table class="table table-sm table-bordered" style="font-size: .9em;">
+         <thead>
+           <tr>
+             <th class="text-center">Sep <?=$fecha_year;?></th>
+             <th class="text-center">Oct <?=$fecha_year;?></th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr>
+             <td class="text-center"><?=number_format($Sep,2);?></td>
+             <td class="text-center"><?=number_format($Oct,2);?></td>
+           </tr>
+           <tr>
+             <td colspan="2" class="text-center"><?=$TC10;?></td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+     <?php } ?>
+
+     <?php if(number_format(date("m")) >= 11){ ?>
+     <div class="col-2">
+       <table class="table table-sm table-bordered" style="font-size: .9em;">
+         <thead>
+           <tr>
+             <th class="text-center bg-light">Oct <?=$fecha_year;?></th>
+             <th class="text-center bg-light">Nov <?=$fecha_year;?></th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr>
+             <td class="text-center bg-light"><?=number_format($Oct,2);?></td>
+             <td class="text-center bg-light"><?=number_format($Nov,2);?></td>
+           </tr>
+           <tr>
+             <td colspan="2" class="text-center bg-light"><?=$TC11;?></td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+     <?php } ?>
+
+     <?php if(number_format(date("m")) >= 12){ ?>
+     <div class="col-2">
+       <table class="table table-sm table-bordered" style="font-size: .9em;">
+         <thead>
+           <tr>
+             <th class="text-center">Nov <?=$fecha_year;?></th>
+             <th class="text-center">Dic <?=$fecha_year;?></th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr>
+             <td class="text-center"><?=number_format($Nov,2);?></td>
+             <td class="text-center"><?=number_format($Dic,2);?></td>
+           </tr>
+           <tr>
+             <td colspan="2" class="text-center"><?=$TC12;?></td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+     <?php } ?>
+   </div>
+   <div class="text-right"><button type="button" class="btn btn-primary btn-sm" style="border-radius: 0px;" onclick="Ventas()" >Ver detalle</button></div>
+   <hr>
+
+   <table class="table table-bordered table-sm pb-0 mb-0">
+   <tbody>
+    <tr>
+       <td class="align-middle text-center"><b>Objeto</b></td>
+       <td class="align-middle">Capacitación</td>
+       <td class="align-middle text-center"><b>Indicador</b></td>
+       <td class="align-middle">No. de personal capacitado vs No. de personal de la estación</td>
+     </tr>
+     <tr>
+       <td class="align-middle text-center"><b>Meta</b></td>
+       <td class="align-middle"><?=$class_monitoreo_evaluacion->meta($Session_IDEstacion,3,$con);?></td>
+       <td class="align-middle text-center"><b>Frecuencia de medición</b></td>
+       <td class="align-middle">Semestral</td>
+     </tr>
+     <tr>
+       <td colspan="4">
+         
      <div class="mt-1"><b>Resultado:</b></div>
 
-      <div class="row">
-        <div class="col-2">
-          <table class="table table-sm table-bordered" style="font-size: .9em;">
-            <thead>
-              <tr>
-                <th class="text-center bg-light">Dic <?=$YearAnt;?></th>
-                <th class="text-center bg-light">Ene <?=$fecha_year;?></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-center bg-light"><?=number_format($DicAnt,2);?></td>
-                <td class="text-center bg-light"><?=number_format($Ene,2);?></td>
-              </tr>
-              <tr>
-                <td colspan="2" class="text-center bg-light"><?=$TC1;?></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <?php if(number_format(date("m")) >= 2){ ?>
-        <div class="col-2">
-          <table class="table table-sm table-bordered" style="font-size: .9em;">
-            <thead>
-              <tr>
-                <th class="text-center">Ene <?=$fecha_year;?></th>
-                <th class="text-center">Feb <?=$fecha_year;?></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-center"><?=number_format($Ene,2);?></td>
-                <td class="text-center"><?=number_format($Feb,2);?></td>
-              </tr>
-              <tr>
-                <td colspan="2" class="text-center"><?=$TC2;?></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <?php } ?>
+     <div class="row">
+       <div class="col-6">
+       <div class="text-secondary">Primer semestre:</div>
+       <?=$class_monitoreo_evaluacion->resultadoCapacitacion($Session_IDEstacion,$fecha_year,1);?>
+       </div>
+       <?php if(number_format(date("m")) >= 7){ ?>
+       <div class="col-6">
+       <div class="text-secondary">Segundo semestre:</div>
+       <?=$class_monitoreo_evaluacion->resultadoCapacitacion($Session_IDEstacion,$fecha_year,2);?>
+       </div>
+     <?php } ?>
+     </div>
 
-        <?php if(number_format(date("m")) >= 3){ ?>
-          <div class="col-2">
-          <table class="table table-sm table-bordered" style="font-size: .9em;">
-            <thead>
-              <tr>
-                <th class="text-center bg-light">Feb <?=$fecha_year;?></th>
-                <th class="text-center bg-light">Mar <?=$fecha_year;?></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-center bg-light"><?=number_format($Feb,2);?></td>
-                <td class="text-center bg-light"><?=number_format($Mar,2);?></td>
-              </tr>
-              <tr>
-                <td colspan="2" class="text-center bg-light"><?=$TC3;?></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <?php } ?>
+       </td>
+     </tr>
+     </tbody>
+     </table> 
 
-        <?php if(number_format(date("m")) >= 4){ ?>
-          <div class="col-2">
-          <table class="table table-sm table-bordered" style="font-size: .9em;">
-            <thead>
-              <tr>
-                <th class="text-center">Mar <?=$fecha_year;?></th>
-                <th class="text-center">Abr <?=$fecha_year;?></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-center"><?=number_format($Mar,2);?></td>
-                <td class="text-center"><?=number_format($Abr,2);?></td>
-              </tr>
-              <tr>
-                <td colspan="2" class="text-center"><?=$TC4;?></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <?php } ?>
+     <div class="text-right mt-2"><button type="button" class="btn btn-primary btn-sm" style="border-radius: 0px;" onclick="Capacitacion()" >Ver detalle</button></div>
+     <hr>
 
-        <?php if(number_format(date("m")) >= 5){ ?>
-        <div class="col-2">
-          <table class="table table-sm table-bordered" style="font-size: .9em;">
-            <thead>
-              <tr>
-                <th class="text-center bg-light">Abr <?=$fecha_year;?></th>
-                <th class="text-center bg-light">May <?=$fecha_year;?></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-center bg-light"><?=number_format($Abr,2);?></td>
-                <td class="text-center bg-light"><?=number_format($May,2);?></td>
-              </tr>
-              <tr>
-                <td colspan="2" class="text-center bg-light"><?=$TC5;?></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <?php } ?>
+   <table class="table table-bordered table-sm pb-0 mb-0">
+   <tbody>
+    <tr>
+       <td class="align-middle text-center"><b>Objeto</b></td>
+       <td class="align-middle">Satisfacción del cliente</td>
+       <td class="align-middle text-center"><b>Indicador</b></td>
+       <td class="align-middle">Media del total de clientes con experiencia: Mala, Buena y Excelente</td>
+     </tr>
+     <tr>
+       <td class="align-middle text-center"><b>Meta</b></td>
+       <td class="align-middle"><?=$class_monitoreo_evaluacion->meta($Session_IDEstacion,4,$con);?></td>
+       <td class="align-middle text-center"><b>Frecuencia de medición</b></td>
+       <td class="align-middle">Semestral</td>
+     </tr>
+     <tr>
+       <td colspan="4">
+       <div class="mt-1"><b>Resultado:</b></div>
 
-        <?php if(number_format(date("m")) >= 6){ ?>
-        <div class="col-2">
-          <table class="table table-sm table-bordered" style="font-size: .9em;">
-            <thead>
-              <tr>
-                <th class="text-center">May <?=$fecha_year;?></th>
-                <th class="text-center">Jun <?=$fecha_year;?></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-center"><?=number_format($May,2);?></td>
-                <td class="text-center"><?=number_format($Jun,2);?></td>
-              </tr>
-              <tr>
-                <td colspan="2" class="text-center"><?=$TC6;?></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <?php } ?>
-      </div>
+     <div class="row">
+       <div class="col-6">
+       <div class="text-secondary">Primer semestre:</div>
+       <?=$class_monitoreo_evaluacion->resultadoSatisfaccion($Session_IDEstacion,$fecha_year,1);?>
+       </div>
+       <?php if(number_format(date("m")) >= 7){ ?>
+       <div class="col-6">
+       <div class="text-secondary">Segundo semestre:</div>
+       <?=$class_monitoreo_evaluacion->resultadoSatisfaccion($Session_IDEstacion,$fecha_year,2);?>
+       </div>
+     <?php } ?>
+     </div>
+       </td>
+     </tr>
+     </tbody>
+     </table>
 
-        <div class="row">
-        <?php if(number_format(date("m")) >= 7){ ?>
-        <div class="col-2">
-          <table class="table table-sm table-bordered" style="font-size: .9em;">
-            <thead>
-              <tr>
-                <th class="text-center bg-light">Jun <?=$fecha_year;?></th>
-                <th class="text-center bg-light">Jul <?=$fecha_year;?></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-center bg-light"><?=number_format($Jun,2);?></td>
-                <td class="text-center bg-light"><?=number_format($Jul,2);?></td>
-              </tr>
-              <tr>
-                <td colspan="2" class="text-center bg-light"><?=$TC7;?></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <?php } ?>
+     <div class="text-right mt-2"><button type="button" class="btn btn-primary btn-sm" style="border-radius: 0px;" onclick="SatisfaccionClientes()" >Ver detalle</button></div>
+   <hr>
 
-        <?php if(number_format(date("m")) >= 8){ ?>
-        <div class="col-2">
-          <table class="table table-sm table-bordered" style="font-size: .9em;">
-            <thead>
-              <tr>
-                <th class="text-center">Jul <?=$fecha_year;?></th>
-                <th class="text-center">Ago <?=$fecha_year;?></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-center"><?=number_format($Jul,2);?></td>
-                <td class="text-center"><?=number_format($Ago,2);?></td>
-              </tr>
-              <tr>
-                <td colspan="2" class="text-center"><?=$TC8;?></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <?php } ?>
-
-        <?php if(number_format(date("m")) >= 9){ ?>
-          <div class="col-2">
-          <table class="table table-sm table-bordered" style="font-size: .9em;">
-            <thead>
-              <tr>
-                <th class="text-center bg-light">Ago <?=$fecha_year;?></th>
-                <th class="text-center bg-light">Sep <?=$fecha_year;?></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-center bg-light"><?=number_format($Ago,2);?></td>
-                <td class="text-center bg-light"><?=number_format($Sep,2);?></td>
-              </tr>
-              <tr>
-                <td colspan="2" class="text-center bg-light"><?=$TC9;?></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <?php } ?>
-
-        <?php if(number_format(date("m")) >= 10){ ?>
-          <div class="col-2">
-          <table class="table table-sm table-bordered" style="font-size: .9em;">
-            <thead>
-              <tr>
-                <th class="text-center">Sep <?=$fecha_year;?></th>
-                <th class="text-center">Oct <?=$fecha_year;?></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-center"><?=number_format($Sep,2);?></td>
-                <td class="text-center"><?=number_format($Oct,2);?></td>
-              </tr>
-              <tr>
-                <td colspan="2" class="text-center"><?=$TC10;?></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <?php } ?>
-
-        <?php if(number_format(date("m")) >= 11){ ?>
-        <div class="col-2">
-          <table class="table table-sm table-bordered" style="font-size: .9em;">
-            <thead>
-              <tr>
-                <th class="text-center bg-light">Oct <?=$fecha_year;?></th>
-                <th class="text-center bg-light">Nov <?=$fecha_year;?></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-center bg-light"><?=number_format($Oct,2);?></td>
-                <td class="text-center bg-light"><?=number_format($Nov,2);?></td>
-              </tr>
-              <tr>
-                <td colspan="2" class="text-center bg-light"><?=$TC11;?></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <?php } ?>
-
-        <?php if(number_format(date("m")) >= 12){ ?>
-        <div class="col-2">
-          <table class="table table-sm table-bordered" style="font-size: .9em;">
-            <thead>
-              <tr>
-                <th class="text-center">Nov <?=$fecha_year;?></th>
-                <th class="text-center">Dic <?=$fecha_year;?></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-center"><?=number_format($Nov,2);?></td>
-                <td class="text-center"><?=number_format($Dic,2);?></td>
-              </tr>
-              <tr>
-                <td colspan="2" class="text-center"><?=$TC12;?></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <?php } ?>
-      </div>
-      <div class="text-right"><button type="button" class="btn btn-primary btn-sm" style="border-radius: 0px;" onclick="Ventas()" >Ver detalle</button></div>
-      </div>
-
-      <hr>
-
-    <div class="border p-2">
-
-      <table class="table table-bordered table-sm pb-0 mb-0">
-      <tbody>
-       <tr>
-          <td class="align-middle text-center"><b>Objeto</b></td>
-          <td class="align-middle">Capacitación</td>
-          <td class="align-middle text-center"><b>Indicador</b></td>
-          <td class="align-middle">No. de personal capacitado vs No. de personal de la estación</td>
-        </tr>
-        <tr>
-          <td class="align-middle text-center"><b>Meta</b></td>
-          <td class="align-middle"><?=$class_monitoreo_evaluacion->meta($Session_IDEstacion,3,$con);?></td>
-          <td class="align-middle text-center"><b>Frecuencia de medición</b></td>
-          <td class="align-middle">Semestral</td>
-        </tr>
-        <tr>
-          <td colspan="4">
-            
+   <table class="table table-bordered table-sm c-pointer pb-0 mb-0">
+   <tbody>
+    <tr>
+       <td class="align-middle text-center"><b>Objeto</b></td>
+       <td class="align-middle">Incidentes y accidentes</td>
+       <td class="align-middle text-center"><b>Indicador</b></td>
+       <td class="align-middle">No total de accidentes e incidentes ocurridos VS número total de accidentes e incidentes atendidos</td>
+     </tr>
+     <tr>
+       <td class="align-middle text-center"><b>Meta</b></td>
+       <td class="align-middle"><?=$class_monitoreo_evaluacion->meta($Session_IDEstacion,5,$con);?></td>
+       <td class="align-middle text-center"><b>Frecuencia de medición</b></td>
+       <td class="align-middle">Semestral</td>
+     </tr>
+     <tr>
+       <td colspan="4">
         <div class="mt-1"><b>Resultado:</b></div>
 
-        <div class="row">
-          <div class="col-6">
-          <div class="text-secondary">Primer semestre:</div>
-          <?=$class_monitoreo_evaluacion->resultadoCapacitacion($Session_IDEstacion,$fecha_year,1);?>
-          </div>
-          <?php if(number_format(date("m")) >= 7){ ?>
-          <div class="col-6">
-          <div class="text-secondary">Segundo semestre:</div>
-          <?=$class_monitoreo_evaluacion->resultadoCapacitacion($Session_IDEstacion,$fecha_year,2);?>
-          </div>
-        <?php } ?>
-        </div>
+     <div class="row">
+       <div class="col-6">
+       <div class="text-secondary">Primer semestre:</div>
+       <?=$class_monitoreo_evaluacion->resultadoIncidentes($Session_IDEstacion,$fecha_year,1);?>
+       </div>
+       <?php if(number_format(date("m")) >= 7){ ?>
+       <div class="col-6">
+       <div class="text-secondary">Segundo semestre:</div>
+       <?=$class_monitoreo_evaluacion->resultadoIncidentes($Session_IDEstacion,$fecha_year,2);?>
+       </div>
+     <?php } ?>
+     </div>
+       </td>
+     </tr>
+     </tbody>
+     </table>
 
-          </td>
-        </tr>
-        </tbody>
-        </table> 
+     <div class="text-right mt-2"><button type="button" class="btn btn-primary btn-sm" style="border-radius: 0px;" onclick="IncidentesAccidentes()" >Ver detalle</button></div>
 
-        <div class="text-right mt-2"><button type="button" class="btn btn-primary btn-sm" style="border-radius: 0px;" onclick="Capacitacion()" >Ver detalle</button></div>
-        </div>
+ <hr>
+</div>
 
-        <hr>
-
-        <div class="border p-2">
-
-      <table class="table table-bordered table-sm pb-0 mb-0">
-      <tbody>
-       <tr>
-          <td class="align-middle text-center"><b>Objeto</b></td>
-          <td class="align-middle">Satisfacción del cliente</td>
-          <td class="align-middle text-center"><b>Indicador</b></td>
-          <td class="align-middle">Media del total de clientes con experiencia: Mala, Buena y Excelente</td>
-        </tr>
-        <tr>
-          <td class="align-middle text-center"><b>Meta</b></td>
-          <td class="align-middle"><?=$class_monitoreo_evaluacion->meta($Session_IDEstacion,4,$con);?></td>
-          <td class="align-middle text-center"><b>Frecuencia de medición</b></td>
-          <td class="align-middle">Semestral</td>
-        </tr>
-        <tr>
-          <td colspan="4">
-          <div class="mt-1"><b>Resultado:</b></div>
-
-        <div class="row">
-          <div class="col-6">
-          <div class="text-secondary">Primer semestre:</div>
-          <?=$class_monitoreo_evaluacion->resultadoSatisfaccion($Session_IDEstacion,$fecha_year,1);?>
-          </div>
-          <?php if(number_format(date("m")) >= 7){ ?>
-          <div class="col-6">
-          <div class="text-secondary">Segundo semestre:</div>
-          <?=$class_monitoreo_evaluacion->resultadoSatisfaccion($Session_IDEstacion,$fecha_year,2);?>
-          </div>
-        <?php } ?>
-        </div>
-          </td>
-        </tr>
-        </tbody>
-        </table>
-
-        <div class="text-right mt-2"><button type="button" class="btn btn-primary btn-sm" style="border-radius: 0px;" onclick="SatisfaccionClientes()" >Ver detalle</button></div>
-      
-
-      </div>
-
-      <hr>
-
-      <div class="border p-2">
-
-      <table class="table table-bordered table-sm c-pointer pb-0 mb-0">
-      <tbody>
-       <tr>
-          <td class="align-middle text-center"><b>Objeto</b></td>
-          <td class="align-middle">Incidentes y accidentes</td>
-          <td class="align-middle text-center"><b>Indicador</b></td>
-          <td class="align-middle">No total de accidentes e incidentes ocurridos VS número total de accidentes e incidentes atendidos</td>
-        </tr>
-        <tr>
-          <td class="align-middle text-center"><b>Meta</b></td>
-          <td class="align-middle"><?=$class_monitoreo_evaluacion->meta($Session_IDEstacion,5,$con);?></td>
-          <td class="align-middle text-center"><b>Frecuencia de medición</b></td>
-          <td class="align-middle">Semestral</td>
-        </tr>
-        <tr>
-          <td colspan="4">
-           <div class="mt-1"><b>Resultado:</b></div>
-
-        <div class="row">
-          <div class="col-6">
-          <div class="text-secondary">Primer semestre:</div>
-          <?=$class_monitoreo_evaluacion->resultadoIncidentes($Session_IDEstacion,$fecha_year,1);?>
-          </div>
-          <?php if(number_format(date("m")) >= 7){ ?>
-          <div class="col-6">
-          <div class="text-secondary">Segundo semestre:</div>
-          <?=$class_monitoreo_evaluacion->resultadoIncidentes($Session_IDEstacion,$fecha_year,2);?>
-          </div>
-        <?php } ?>
-        </div>
-          </td>
-        </tr>
-        </tbody>
-        </table>
-
-        <div class="text-right mt-2"><button type="button" class="btn btn-primary btn-sm" style="border-radius: 0px;" onclick="IncidentesAccidentes()" >Ver detalle</button></div>
-
-      </div>
-
-    <hr>
-  </div>
-
-
-  <table class="table table-sm table-bordered">
+<table class="table table-sm table-bordered pb-0 mb-0">
     <tbody>
       <tr>
       <td><b>Programa de implementación del Sistema de Administración</b></td>
@@ -708,19 +680,22 @@ window.location = "descargar-programa-implementacion-s-a";
     </tbody>
   </table>
 
-  <div class="row">
+    </div>
+    
+    <div class="mt-4">
+    <div class="row">
 
     <div class="col-3">
-      <div class="border p-4">
+      <div class="bg-white p-4">
       <h5>Monitoreo de aspectos ambientales y riesgos</h5>
       <div class="text-right mt-3">
         <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnMonitoreo()">Ver detalle</button>
       </div>
       </div>
     </div>
-    
+
     <div class="col-3">
-      <div class="border p-4">
+      <div class="bg-white p-4">
       <h5>Calibración, Verificación y mantenimiento de equipos</h5>
       <div class="text-right mt-3">
       <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="CalibracionEquipos()">Ver detalle</button>
@@ -729,7 +704,7 @@ window.location = "descargar-programa-implementacion-s-a";
     </div>
 
     <div class="col-3">
-      <div class="border p-4">
+      <div class="bg-white p-4">
       <h5>Evaluación y cumplimiento de requisitos legales</h5>
       <div class="text-right mt-3">
       <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="EvaluacionCRL()">Ver detalle</button>
@@ -738,7 +713,7 @@ window.location = "descargar-programa-implementacion-s-a";
     </div>
 
     <div class="col-3">
-      <div class="border p-4">
+      <div class="bg-white p-4">
       <h5>Administración de hallazgos derivados del monitoreo del sistema de administración</h5>
       <div class="text-right mt-3">
       <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnAtencionHallazgos()">Ver detalle</button>
@@ -746,13 +721,12 @@ window.location = "descargar-programa-implementacion-s-a";
       </div>
     </div>
 
-  </div>
+    </div>
+
+    </div>
 
 
-    </div>
-    </div>
-    </div>
-    </div>
+
     </div>
 
   <div class="modal fade bd-example-modal-lg" id="myModalPolitica" data-backdrop="static">

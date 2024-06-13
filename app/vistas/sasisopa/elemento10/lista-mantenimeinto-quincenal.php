@@ -18,8 +18,8 @@ $numero_mantenimiento = mysqli_num_rows($result_mantenimiento);
         }
 
 ?>
-<div class="mb-2" style="overflow-y: hidden;">
-<table class="table table-bordered table-striped table-sm table-hover mt-3">
+<div style="overflow-y: hidden;">
+<table class="table table-bordered table-striped table-sm table-hover mt-3 pb-0 mb-0">
 	<thead>
 		<tr>
 			<th class="align-middle text-center" width="250px">Fecha </th>

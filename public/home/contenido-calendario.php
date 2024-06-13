@@ -50,6 +50,7 @@ return $array;
 function Cursos($idEstacion,$CalenDate,$con){
     $Pendientes = 0;
     $Finalizadas = 0;
+    $Resultado = 0;
 
 $sql = "SELECT * FROM tb_cursos_calendario WHERE id_estacion = '".$idEstacion."' AND fecha_programada = '".$CalenDate."' ";
 $result = mysqli_query($con, $sql);
@@ -118,17 +119,9 @@ function generar_calendario($idEstacion,$month,$year,$lang,$con){
         if($running_day == 6 ){
             $class .="not-work ";
         }
-         
-        $key_month_day = "month_{$month}_day_{$list_day}";
     
         $CalenDate = $year.'-'.$month.'-'.$list_day;
-
-        if(strtotime($CalenDate) == strtotime($fecha_del_dia)){
-        $classYes = "yes-day ";
-        }else{
-        $classYes = "not-day ";   
-        }
-
+       
         $Actividades = Actividades($idEstacion,$CalenDate,$con);
         $Cursos = Cursos($idEstacion,$CalenDate,$con);
 
@@ -136,10 +129,16 @@ function generar_calendario($idEstacion,$month,$year,$lang,$con){
         $TotalFinalizadas = $Actividades['Finalizadas'] + $Cursos['Finalizadas'];
         $TotalPendientes = $Actividades['Pendientes'] + $Cursos['Pendientes'];
 
-        if($Cursos['Resultado'] > 0){
-        $Resultado = "color-warning";
+        if(strtotime($CalenDate) == strtotime($fecha_del_dia)){
+            $classYes = "yes-day ";
         }else{
-        $Resultado = "";
+            
+            if($TotalActividad > 0 && $TotalFinalizadas <= 0){
+            $classYes = "color-warning";
+            }else{
+            $classYes = "not-day";
+            }
+                           
         }
 
         if($TotalActividad == $TotalFinalizadas){
@@ -157,7 +156,7 @@ function generar_calendario($idEstacion,$month,$year,$lang,$con){
         }
 
         $calendar.= '<td class="calendar-day td-efect '.$classYes.'">';
-        $calendar.= "<div class='".$Resultado."' onclick='Actividades(".strtotime($CalenDate).",1)'>
+        $calendar.= "<div class='' onclick='Actividades(".strtotime($CalenDate).",1)'>
         <div class='style-day'><h6>".$list_day."</h6></div>
         <div class='text-end p-1'><small><span class='badge $ColorDato text-light'>".$Actividad."</span></small></div>
         </div>";
@@ -188,8 +187,6 @@ function generar_calendario($idEstacion,$month,$year,$lang,$con){
     return $calendar;
 }
 ?>
-
-
 <div class="border-0 p-3"> 
   
   <div class="row"> 
@@ -200,11 +197,8 @@ function generar_calendario($idEstacion,$month,$year,$lang,$con){
 <div class="col-2">
 <img class="text-center pointer float-end" src="<?php echo RUTA_IMG_ICONOS."editar.png";?>" onclick="EditarCalendario('<?=$Session_IDEstacion;?>')">
 </div>
-
   </div> 
-
   <hr>
-
 		<?=generar_calendario($Session_IDEstacion,$Mes,$Year,"es",$con);?>
 
 		<div class="text-end mt-2">

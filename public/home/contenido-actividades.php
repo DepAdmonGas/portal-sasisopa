@@ -4,6 +4,7 @@ require ('../../app/help.php');
 $Dia = $_GET['fecha'];
 $opcion = $_GET['opcion'];
 $CalenDate = date("Y-m-d",$Dia);
+$Onclick = '';
 
 if($opcion == 0){
 $estadoActividad = "AND fecha_inicio <= '".$CalenDate."' AND estado = 0 ";
@@ -109,9 +110,9 @@ return $array;
         if($rowCurso['estado'] == 1){
         $colorCurso = '';
         }else{
-        if($rowCurso['fecha_inicio'] == $fecha_del_dia){
+        if($rowCurso['fecha_programada'] == $fecha_del_dia){
         $colorCurso = 'list-group-item-warning';
-        }else if($rowCurso['fecha_inicio'] <= $fecha_del_dia){
+        }else if($rowCurso['fecha_programada'] <= $fecha_del_dia){
         $colorCurso = 'list-group-item-danger';  
         }else{
         $colorCurso = '';    

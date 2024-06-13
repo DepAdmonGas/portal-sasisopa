@@ -14,8 +14,8 @@ $class_monitoreo_evaluacion = new MonitoreoVerificacionEvaluacion();
   <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -70,44 +70,40 @@ $class_monitoreo_evaluacion = new MonitoreoVerificacionEvaluacion();
     <?php require('public/componentes/header.menu.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-      </div>
-    
+    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
+    <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
+    </div>    
     <div class="float-left">
-      <h4>Calibración, Verificación y mantenimiento de equipos</h4>
+    <h4>Calibración, Verificación y mantenimiento de equipos</h4>
     </div>
 
-    </div>
-    <div class="card-body">
-
+    <div class="mt-5">
     <div class="row">
-    <div class="col-3">
-      <div class="border p-3">
+    <div class="col-5">
+      <div class="bg-white p-3">
       <h5>Bitácora calibración de equipos</h5>
-      <div class="text-right mt-3">
+      <div class="text-right mt-4">
       <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="Bitacora()">Ver detalle</button>
       </div>
       </div>
     </div>
     </div>
-
+    </div>
+  
+    <div class="mt-4">
     <div class="row">
-      <div class="col-5">
+    <div class="col-5">
 
-      <div class="text-right" style="margin-top: 6px;">
+    <div class="bg-white p-3">
+    <div class="text-right" style="margin-top: 6px;">
     <a onclick="DescargarESC()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Descargar" >
     <img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>">
     </a>
     </div>
 
-      <table class="table table-bordered table-sm mt-2 mb-1" style="font-size: .9em;">
+      <table class="table table-bordered table-sm mt-2" style="font-size: .9em;">
       <tr>
       <td class="text-center align-middle"><img class="text-center" src="<?php echo RUTA_IMG_LOGOS."Logo.png";?>" style="width: 150px;"></td>
       <td colspan="2" class="text-center align-middle"><b>Equipos sometidos a calibración</b></td>
@@ -121,7 +117,7 @@ $class_monitoreo_evaluacion = new MonitoreoVerificacionEvaluacion();
       </tr>
       </table>
 
-      <table class="table table-bordered table-sm" style="font-size: .9em;">
+      <table class="table table-bordered table-sm mt-2 pb-0 mb-0" style="font-size: .9em;">
         <thead>
           <tr>
             <th class="text-center align-middle">Número de identificación</th>
@@ -140,18 +136,17 @@ $class_monitoreo_evaluacion = new MonitoreoVerificacionEvaluacion();
         </tbody>
       </table>
       </div>
+      </div>
 
       <div class="col-7">
+      <div class="bg-white p-3">
       <div id="CalendarioCalibraciones"></div>   
+      </div>
       </div>   
 
       </div>
+    </div>
 
-
-    </div>
-    </div>
-    </div>
-    </div>
     </div>
 
 

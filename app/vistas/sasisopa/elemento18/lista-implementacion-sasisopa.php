@@ -15,7 +15,7 @@ $result_resultado = mysqli_query($con, $sql_resultado);
 $numero_resultado = mysqli_num_rows($result_resultado);
 
 ?>
-<table class="table table-bordered table-striped table-sm table-hover mt-3">
+<table class="table table-bordered table-striped table-sm table-hover mt-2 pb-0 mb-0">
 	<thead>
 		<tr>
 			<th class="align-middle text-center">#</th>

@@ -10,6 +10,22 @@ $array_ayuda = $class_ayuda->sasisopaAyuda($Session_IDUsuarioBD,'17-revision-res
 $id_ayuda = $array_ayuda['id'];
 $estado = $array_ayuda['estado'];
 
+function TC($a,$b){
+  if($a == 0 || $b == 0){
+    $Return = "<b class='text-warning'>S/I</b>"; 
+  }else{
+    $Resul = ($a - $b) / $b * 100;
+    $TC = 100 + ($Resul);
+    $Porcentaje = number_format($TC,2);
+
+    if( $Porcentaje >= 80  ){
+    $Return = "<b class='text-success'>".$Porcentaje."% Excelente</b>";                 
+    }else if($Porcentaje >= 0 && $Porcentaje <= 79){
+    $Return = "<b class='text-warning'>".$Porcentaje."% Regular</b>";
+    }
+  }
+return $Return;
+}
 ?>
 <html lang="es">
   <head>
@@ -22,8 +38,8 @@ $estado = $array_ayuda['estado'];
   <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -263,14 +279,9 @@ $('#EditFecha').css('border','2px solid #A52525');
     <?php require('public/componentes/header.menu.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
+    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
       <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
       </div>
     <div class="float-left"><h4>17. REVISIÓN DE RESULTADOS</h4></div>
@@ -282,50 +293,17 @@ $('#EditFecha').css('border','2px solid #A52525');
     <img src="<?php echo RUTA_IMG_ICONOS."info.png"; ?>">
     </a>
     </div>
+
+    <div class="bg-white mt-5 p-3">
+
+    <div id="Contenido">
+
+      <div class="text-right mb-3">
+      <a onclick="Descargar(<?=$fecha_year;?>)" style="cursor: pointer;"><img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>"></a>
       </div>
-    
-<div class="card-body">
 
-
-<div class="row"> 
-  <!-- TABLA - Fo.ADMONGAS.027 -->
-  <div class="col-12 mt-2 mb-2"> 
-
-
-   <div class="border">
-  <div class="p-3">
-
-  <div class="text-right">
-  <a onclick="Descargar(<?=$fecha_year;?>)" style="cursor: pointer;"><img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>"></a>
-  </div>
-   <div class="row">   
-        
-        <div class="col-12 mt-1">
-
-       <div id="Contenido">
       <?php 
-
-      function TC($a,$b){
-
-        if($a == 0 || $b == 0){
-          $Return = "<b class='text-warning'>S/I</b>"; 
-        }else{
-
-          $Resul = ($a - $b) / $b * 100;
-          $TC = 100 + ($Resul);
-          $Porcentaje = number_format($TC,2);
     
-          if( $Porcentaje >= 80  ){
-          $Return = "<b class='text-success'>".$Porcentaje."% Excelente</b>";                 
-          }else if($Porcentaje >= 0 && $Porcentaje <= 79){
-          $Return = "<b class='text-warning'>".$Porcentaje."% Regular</b>";
-          }
-
-        }
-
-      return $Return;
-      }
-
       $YearAnt = $fecha_year - 1;
 
       $DicAnt = $class_monitoreo_evaluacion->ventas($Session_IDEstacion,12,$YearAnt);
@@ -356,8 +334,6 @@ $('#EditFecha').css('border','2px solid #A52525');
       $TC12 = TC($Dic,$Nov);
       ?>
 
-      <div class="border p-2">
-
       <table class="table table-bordered table-sm pb-0 mb-0">
       <tbody>
        <tr>
@@ -380,11 +356,7 @@ $('#EditFecha').css('border','2px solid #A52525');
         </tbody>
         </table> 
 
-        </div>
-
     <hr>
-
-      <div class="border p-2">
 
       <table class="table table-bordered table-sm pb-0 mb-0">
       <tbody>
@@ -670,11 +642,7 @@ $('#EditFecha').css('border','2px solid #A52525');
         <?php } ?>
       </div>
 
-      </div>
-
       <hr>
-
-    <div class="border p-2">
 
       <table class="table table-bordered table-sm pb-0 mb-0">
       <tbody>
@@ -713,11 +681,7 @@ $('#EditFecha').css('border','2px solid #A52525');
         </tbody>
         </table> 
 
-        </div>
-
         <hr>
-
-        <div class="border p-2">
 
       <table class="table table-bordered table-sm pb-0 mb-0">
       <tbody>
@@ -754,11 +718,7 @@ $('#EditFecha').css('border','2px solid #A52525');
         </tbody>
         </table>      
 
-      </div>
-
       <hr>
-
-      <div class="border p-2">
 
       <table class="table table-bordered table-sm c-pointer pb-0 mb-0">
       <tbody>
@@ -795,11 +755,9 @@ $('#EditFecha').css('border','2px solid #A52525');
         </tbody>
         </table>
 
-      </div>
-
-    <hr>
-  </div>
-
+        </div>
+        
+      <div class="mt-3 pb-2">
         <a class="float-right ml-3" onclick="ModalArchivo()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Agregar" >
         <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
         </a>
@@ -807,22 +765,12 @@ $('#EditFecha').css('border','2px solid #A52525');
         <b>Fo.ADMONGAS.027</b>
         <img src="<?php echo RUTA_IMG_ICONOS."word.png"; ?>">
         </a>
+        </div>
+        
+        <div class="mt-4">
+        <div id="ContenidoDiv"></div>
+        </div>
 
-      </div>
-
-  </div>
-  <hr>
-      <div id="ContenidoDiv"></div>
-  
-  </div>
-  </div>
-    
-    </div>
-    </div>
-    
-    </div>
-    </div>
-    </div>
     </div>
     </div>
 

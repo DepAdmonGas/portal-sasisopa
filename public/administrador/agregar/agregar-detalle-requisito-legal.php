@@ -4,9 +4,6 @@ require('../../../app/help.php');
 $idEstacion = $_POST['idEstacion'];
 $fechaemision = $_POST['fechaemision'];
 
-$ext_acuse = pathinfo($_FILES['acusePDF_file']['name'], PATHINFO_EXTENSION);
-$ext_requisito = pathinfo($_FILES['requisitoPDF_file']['name'], PATHINFO_EXTENSION);
-
 if($_POST['vigencia'] == "Anual"){
 $Resultado = $_POST['vencimiento'];
 }else if($_POST['vigencia'] == "Bianual"){
@@ -45,6 +42,7 @@ $NG = $row['nivel_gobierno'];
 if(empty($_FILES['acusePDF_file']['name'])) {
 $ruta_a = "";
 }else{
+$ext_acuse = pathinfo($_FILES['acusePDF_file']['name'], PATHINFO_EXTENSION);
 $ruta_a = "archivos/reuisitos-legales/"."PDF-ACUSE-".$idEstacion."-".strtotime($hoy).".".$ext_acuse;
 move_uploaded_file($_FILES['acusePDF_file']['tmp_name'], '../../../'.$ruta_a);
 }
@@ -52,6 +50,7 @@ move_uploaded_file($_FILES['acusePDF_file']['tmp_name'], '../../../'.$ruta_a);
 if(empty($_FILES['requisitoPDF_file']['name'])) {
 $ruta_rl = "";
 }else{
+$ext_requisito = pathinfo($_FILES['requisitoPDF_file']['name'], PATHINFO_EXTENSION);
 $ruta_rl = "archivos/reuisitos-legales"."PDF-REQUISITOL-".$idEstacion."-".strtotime($hoy).".".$ext_requisito;
 move_uploaded_file($_FILES['requisitoPDF_file']['tmp_name'], '../../../'.$ruta_rl);
 }

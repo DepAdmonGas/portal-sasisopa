@@ -55,8 +55,6 @@ $Year = $_GET['Year'];
 ?>
 <a onclick="Descargar(<?=$Year;?>)" style="cursor: pointer;"><img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>"></a>
 <h5>Resumen del Año: <?=$Year;?></h5>
-      <div class="border p-2">
-
       <table class="table table-bordered table-sm pb-0 mb-0">
       <tbody>
        <tr>
@@ -80,11 +78,7 @@ $Year = $_GET['Year'];
         </table> 
 
         <div class="text-right mt-2"><button type="button" class="btn btn-primary btn-sm" style="border-radius: 0px;" onclick="Implementacion()" >Ver detalle</button></div>
-        </div>
-
     <hr>
-
-      <div class="border p-2">
 
       <table class="table table-bordered table-sm pb-0 mb-0">
       <tbody>
@@ -352,11 +346,8 @@ $Year = $_GET['Year'];
 
       </div>
       <div class="text-right"><button type="button" class="btn btn-primary btn-sm" style="border-radius: 0px;" onclick="Ventas()" >Ver detalle</button></div>
-      </div>
 
       <hr>
-
-    <div class="border p-2">
 
       <table class="table table-bordered table-sm pb-0 mb-0">
       <tbody>
@@ -394,11 +385,7 @@ $Year = $_GET['Year'];
         </table> 
 
         <div class="text-right mt-2"><button type="button" class="btn btn-primary btn-sm" style="border-radius: 0px;" onclick="Capacitacion()" >Ver detalle</button></div>
-        </div>
-
         <hr>
-
-        <div class="border p-2">
 
       <table class="table table-bordered table-sm pb-0 mb-0">
       <tbody>
@@ -434,13 +421,7 @@ $Year = $_GET['Year'];
         </table>
 
         <div class="text-right mt-2"><button type="button" class="btn btn-primary btn-sm" style="border-radius: 0px;" onclick="SatisfaccionClientes()" >Ver detalle</button></div>
-      
-
-      </div>
-
       <hr>
-
-      <div class="border p-2">
 
       <table class="table table-bordered table-sm c-pointer pb-0 mb-0">
       <tbody>
@@ -476,7 +457,5 @@ $Year = $_GET['Year'];
         </table>
 
         <div class="text-right mt-2"><button type="button" class="btn btn-primary btn-sm" style="border-radius: 0px;" onclick="IncidentesAccidentes()" >Ver detalle</button></div>
-
-      </div>
 
     <hr>

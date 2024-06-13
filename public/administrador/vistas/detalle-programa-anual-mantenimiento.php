@@ -14,7 +14,7 @@ $razonsocial = $row_estaciones['razonsocial'];
 
 function txtFecha($fecha){
 if($fecha == "0000-00-00"){
-$resultado == "";
+$resultado = "";
 }else{
 $formato_fecha = explode("-",$fecha);
 $resultado = "<b>".$formato_fecha[2]."</b>.".substr(nombremes($formato_fecha[1]),0,3).".".substr($formato_fecha[0],-2,2);
@@ -78,6 +78,11 @@ return $resultado;
 }
 
 ?>
+<div class="text-right mb-2">
+ <a class="ml-2" onclick="Descargar(<?=$idReporte;?>,<?=$idEstacion;?>)" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Imprimir" >
+    <img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>">
+    </a>
+</div>
 
 <div class="mb-2" style="overflow-y: hidden;">
 <table class="table table-bordered table-sm">
@@ -85,11 +90,7 @@ return $resultado;
 <tr>
     <td colspan="2" class="align-middle text-center">Permiso CRE: <b><?=$permisocre;?></b></b></td>
         <td colspan="2" class="align-middle text-center">Razón Social: <b><?=$razonsocial;?></b></td>
-
-
 </tr>
-
-
         <tr style="font-size: 1.2em;">
           <td class="align-middle text-center"><img class="text-center" src="<?php echo RUTA_IMG_LOGOS."Logo.png";?>" style="width: 300px;"></td>
           <td colspan="2" class="align-middle text-center font-weight-bold">Programa Anual de Mantenimiento </td>

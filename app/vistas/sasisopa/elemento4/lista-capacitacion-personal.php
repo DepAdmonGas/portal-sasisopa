@@ -18,11 +18,9 @@ $NetoNoAcreditado = 0;
 <div class="row">
 	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2 mb-2">
 		
-	<div class="border">
-    <div class="p-3">
+    <div class="bg-white p-3">
 
     	<h5>Programa de capacitación interna </h5>
-        <hr>
 
         <?php 
 
@@ -34,7 +32,7 @@ $NetoNoAcreditado = 0;
         $noacreditado = 0;
         $acreditado = 0;
         $numero_curso = 0;
-        echo '<div class="text-secondary mt-2 mb-2"><b>'.$numModulo.'.- '.$row['titulo'].'</b></div>';
+        echo '<div class="text-secondary mt-4 mb-4"><b>'.$numModulo.'.- '.$row['titulo'].'</b></div>';
 
 		$sql_curso = "SELECT 
 		tb_cursos_calendario.id, 
@@ -177,15 +175,14 @@ $NetoNoAcreditado = 0;
           </div>
 
     </div>
-	</div>
 
 	</div>
 	<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2 mb-2">
 	
-	<div class="border p-3">
+	<div class="bg-white p-3">
         <h5>Programa de capacitación externa</h5>
-        <hr>
-          <div class="row mt-3">
+
+          <div class="row mt-4">
             
              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mb-2">
               

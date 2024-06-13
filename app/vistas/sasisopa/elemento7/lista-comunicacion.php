@@ -45,7 +45,7 @@ $numero_comunicado = mysqli_num_rows($result_comunicado);
 </div>
 
 <div class="" style="overflow-y: hidden;">
-<table class="table table-bordered table-striped table-sm" style="font-size: .9em;">
+<table class="table table-bordered table-striped table-sm pb-0 mb-0" style="font-size: .9em;">
 <thead>	
 <tr class="table-primary">
 <th class="text-center align-middle">No.</th>

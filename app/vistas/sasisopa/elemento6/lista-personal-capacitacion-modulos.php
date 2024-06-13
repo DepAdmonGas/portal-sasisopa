@@ -19,12 +19,12 @@ $('[data-toggle="tooltip"]').tooltip();
 });
 
 </script>
-<div class="text-center p-2"><h5><?=$tituloTema;?></h5></div>
+<div class="text-center p-2"><h4><?=$tituloTema;?></h4></div>
 <?php if ($numero_usuarios > 0) {
 ?>
 
 <div class="mb-2" style="overflow-y: hidden;">
-<table class="table table-bordered table-striped table-hover table-sm" style="font-size: .9em;">
+<table class="table table-bordered table-striped table-hover table-sm pb-0 mb-0" style="font-size: .9em;">
 <thead>
 <tr>
   <th class="text-center">#</th>

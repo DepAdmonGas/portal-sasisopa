@@ -1,9 +1,9 @@
 <?php
 require('../../../app/help.php');
+include_once "../../../app/modelo/RequisitoLegal.php";
+$class_requisito_legal = new RequisitoLegal();
 $idre = $_GET['id'];
 $idmatriz = $_GET['idmatriz'];
-$idUsuario = $_GET['idUsuario'];
-$Estacion = $_GET['Estacion'];
 
 $sql_programa_m = "SELECT * FROM rl_requisitos_legales_calendario WHERE id = '".$idre."' ";
 $result_programa_m = mysqli_query($con, $sql_programa_m);
@@ -16,33 +16,19 @@ $idrequisitolegal = $row_programa_m['id_requisito_legal'];
 if($idrequisitolegal == 0){
 $requisoLegal = $row_programa_m['requisito_legal']; 
 }else{
-$requisoLegal = DetalleRL($idrequisitolegal,$con);
+    $array = $class_requisito_legal->DetalleRL($idrequisitolegal);
+    $requisoLegal = $array['permiso'];
 }
 
 }
 
-function DetalleRL($idrequisitol,$con){
-
-$sql = "SELECT * FROM rl_requisitos_legales_lista WHERE id = '".$idrequisitol."' LIMIT 1 ";
-$result = mysqli_query($con, $sql);
-$numero = mysqli_num_rows($result);
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-$nivelgobierno = $row['nivel_gobierno'];
-$munalcest = $row['mun_alc_est'];
-$dependencia = $row['dependencia']; 
-$permiso = $row['permiso']; 
-}
-
-return $permiso;
-}
-
-$sql_matriz = "SELECT * FROM rl_requisitos_legales_matriz WHERE id = '".$idmatriz."' ORDER BY id desc LIMIT 1";
+$sql_matriz = "SELECT acusepdf, requisitolegalpdf, fecha_emision, fecha_vencimiento FROM rl_requisitos_legales_matriz WHERE id = '".$idmatriz."' ORDER BY id desc LIMIT 1";
 $result_matriz = mysqli_query($con, $sql_matriz);
 $numero_matriz = mysqli_num_rows($result_matriz);
 while($row_matriz = mysqli_fetch_array($result_matriz, MYSQLI_ASSOC)){
-$fecha = FormatoFecha($row_matriz['ultima_actualizacion']);
 $acusepdf = $row_matriz['acusepdf'];
 $requisitolegalpdf = $row_matriz['requisitolegalpdf'];
+$fechaemision = $row_matriz['fecha_emision'];
 $fechavencimiento = $row_matriz['fecha_vencimiento'];
 }
 
@@ -81,18 +67,19 @@ if ($acusepdf == "") {
 </div>
 
 
-
-
  <div></div>
 
   <hr>
-  
+
+<div  id="respuesta"><b>Fecha emisión:</b></div>
+ <input type="date" class="form-control rounded-0 mt-2" value="<?=$fechaemision;?>" id="fechaemision">
+
  <div  id="respuesta"><b>Fecha vencimiento:</b></div>
  <input type="date" class="form-control rounded-0 mt-2" value="<?=$fechavencimiento;?>" id="fechavencimiento">
 
 <div class="text-right mt-3">
-<button type="button" class="btn btn-secondary btn-sm rounded-0" onclick="CancelarAgregar(<?=$idre;?>,<?=$idUsuario;?>, <?=$Estacion;?>)">Cancelar</button>
-<button type="button" class="btn btn-primary btn-sm rounded-0" onclick="EditarRequisito(<?=$idre;?>,<?=$idmatriz;?>,<?=$idUsuario;?>, <?=$Estacion;?>)">Editar</button>
+<button type="button" class="btn btn-secondary btn-sm rounded-0" onclick="CancelarAgregar(<?=$idre;?>)">Cancelar</button>
+<button type="button" class="btn btn-primary btn-sm rounded-0" onclick="EditarRequisito(<?=$idre;?>,<?=$idmatriz;?>)">Editar</button>
 </div>
 
 </div>

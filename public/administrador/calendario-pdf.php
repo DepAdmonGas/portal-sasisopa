@@ -4,39 +4,18 @@ include_once "../../app/help.php";
 
 $idEstacion = $_GET['idEstacion'];
 
-$sql_estacion = "SELECT logo, apoderado_legal FROM es_estaciones WHERE id = '".$idEstacion."' ";
-$result_estacion = mysqli_query($con, $sql_estacion);
-$numero_estacion = mysqli_num_rows($result_estacion);
-while($row_estaciones = mysqli_fetch_array($result_estacion, MYSQLI_ASSOC)){
-$logoEstacion = $row_estaciones['logo'];
-$ApoderadoLegal = $row_estaciones['apoderado_legal'];
-}
-
-if ($NGobierno == "municipal") {
-    $title = "Municipal";
-    }else if ($NGobierno == "estatal") {
-    $title = "Estatal";
-    }else if ($NGobierno == "federal") {
-    $title = "Federal";
-    }else if ($NGobierno == "varios") {
-    $title = "Varios";
-    }
-
 function DetalleRL($idrequisitol,$con){
 
 $sql = "SELECT * FROM rl_requisitos_legales_lista WHERE id = '".$idrequisitol."' LIMIT 1 ";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
- while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 $dependencia = $row['dependencia'];
 $permiso = $row['permiso']; 
- }
-
 $array = array(
 "dependencia" => $dependencia,
 "permiso" => $permiso,
 );
-
 return $array;
 }
 
@@ -103,7 +82,7 @@ return $array;
 
 
 function NivelGobierno($NGobierno,$IDEstacion,$con){
-
+$contenid0 = "";
 $sql_programa_c = "SELECT 
 rl_requisitos_legales_calendario.id,
 rl_requisitos_legales_calendario.id_estacion,
@@ -158,7 +137,6 @@ $diciembre = $row_programa_c['diciembre'];
 
 $dependencia = $row_programa_c['dependencia'];
 $requisitol = $row_programa_c['permiso'];
-
 
 $UltimaA = UltimaAct($idre,$con);
 
@@ -256,7 +234,8 @@ return $contenid0;
 
 use Dompdf\Dompdf;
 $dompdf = new Dompdf();
-
+    
+    $contenid0 = "";
     $contenid0 .= "<!DOCTYPE html>";
     $contenid0 .= "<html>";
     $contenid0 .= "<head>";

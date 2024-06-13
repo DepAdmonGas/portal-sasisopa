@@ -8,7 +8,7 @@ $numero_capacitacion = mysqli_num_rows($result_capacitacion);
 ?>
 
 <div class="mb-2" style="overflow-y: hidden;">
-<table class="table table-bordered table-striped table-sm">
+<table class="table table-bordered table-striped table-sm pb-0 mb-0">
 <thead>	
 <tr>
 <th class="text-center align-middle">#</th>

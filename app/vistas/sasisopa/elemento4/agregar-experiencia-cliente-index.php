@@ -24,8 +24,8 @@ $IdReporte = $class_objetivos_metas_indicadores->idEncuestas($Session_IDEstacion
   <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -326,138 +326,118 @@ function(){
     <?php require('public/componentes/header.menu.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-      </div>
-    
-    
+    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
+    <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
+    </div>   
     <!-- TITULO / ENCABEZADO -->
     <div class="float-left">
       <h4>Agregar experiencia del cliente</h4>
     </div>
-
     <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
-
     <a onclick="btnAyuda()" style="text-decoration: none;cursor: pointer;margin-right: 10px;" data-toggle="tooltip" data-placement="left" title="Ayuda" >
     <img src="<?php echo RUTA_IMG_ICONOS."info.png"; ?>">
     </a>
-
     <a onclick="btnEliminar(<?=$IdReporte;?>)" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Eliminar Reporte" >
     <img src="<?php echo RUTA_IMG_ICONOS."eliminar.png"; ?>">
     </a>
     </div>
+
+    <div class="mt-5 bg-white p-3">
+    <?php
+    $sql_encuestas = "SELECT fechacreacion FROM tb_encuentas_estacion WHERE id = '".$IdReporte."' ";
+    $result_encuestas = mysqli_query($con, $sql_encuestas);
+    while($row_encuestas = mysqli_fetch_array($result_encuestas, MYSQLI_ASSOC)){
+    $date = $row_encuestas['fechacreacion'];
+    $Explode = explode(" ", $date);
+    $fecha = $Explode[0];
+    }
+    echo "<div class='text-secondary' style='font-size: 1.1em;'>Fecha:</div>";
+    echo '<div class="row">
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">  
+    <input type="date" class="form-control rounded-0" value="'.$fecha.'" id="Fecha">
     </div>
-    <div class="card-body">
+    </div>'
+    ?>
 
-      <?php
+ <div class="row">
 
-      $sql_encuestas = "SELECT fechacreacion FROM tb_encuentas_estacion WHERE id = '".$IdReporte."' ";
-      $result_encuestas = mysqli_query($con, $sql_encuestas);
-      while($row_encuestas = mysqli_fetch_array($result_encuestas, MYSQLI_ASSOC)){
-      $date = $row_encuestas['fechacreacion'];
-      $Explode = explode(" ", $date);
-      $fecha = $Explode[0];
-      }
+  <!-- TABLA - CUESTIONARIO -->
+  <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 mt-3">  
 
-      echo "<div class='text-secondary' style='font-size: 1.1em;'>Fecha:</div>";
+    <div class="p-3 bg-light text-dark font-weight-bold">Encuesta</div>
 
-      echo '<div class="row">
-      
-      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">  
-      
-      <input type="date" class="form-control rounded-0" value="'.$fecha.'" id="Fecha">
-      </div>
+    <div class="mt-3"><small class="text-secondary">Nombre:</small></div>
 
-      </div>'
-      ?>
-      <hr>
+    <input type="text" class="form-control rounded-0" id="Nombre">
+    <div class="font-weight-bold mt-1 mb-1" style="padding-top: 5px;padding-bottom: 5px;">Cuestionario:</div>
 
-       <div class="row">
+    <table class="table table-sm table-bordered table-striped" style="font-size: 1.1em;">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Pregunta</th>
+        <th>Respuesta</th>
+      </tr>
+      </thead>
+      <tbody>
+        <?php
 
-        <!-- TABLA - CUESTIONARIO -->
-        <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 mt-2 mb-2">  
+        $sql_encuesta = "SELECT id FROM tb_encuestas WHERE estado = 1 LIMIT 1";
+        $result_encuesta = mysqli_query($con, $sql_encuesta);
+        while($row_encuesta = mysqli_fetch_array($result_encuesta, MYSQLI_ASSOC)){
+        $Id = $row_encuesta['id'];
 
-          <div class="p-3 mb-2 bg-light text-dark font-weight-bold">Encuesta</div>
+        $sql_cuestionario = "SELECT id, num_pregunta, pregunta FROM tb_encuentas_cuestionario ORDER BY num_pregunta";
+        $result_cuestionario = mysqli_query($con, $sql_cuestionario);
+        $numero_cuestionario = mysqli_num_rows($result_cuestionario);
+        while($row_cuestionario = mysqli_fetch_array($result_cuestionario, MYSQLI_ASSOC)){
+        $IdCuestionario = $row_cuestionario['id'];
+        $numPregunta = $row_cuestionario['num_pregunta'];
 
-          <label>
-          <small class="text-secondary">Nombre:</small></label>
+        echo "<tr>";
+        echo "<td class='text-center'><div id='pre-$numPregunta'>".$numPregunta."</div></td>";
+        echo "<td>".$row_cuestionario['pregunta']."</td>";
+        echo "<td style='padding: 0px;'>
+        <select id='sel-$numPregunta' class='' style='width: 100%;padding: 2px;'>
+        <option value='0'>SELECIONA</option>
+        <option value='4'>Excelente</option>
+        <option value='3'>Bueno</option>
+        <option value='2'>Regular</option>
+        <option value='1'>Malo</option>
+        </select></td>";
+        echo "</tr>";
 
-          <input type="text" class="form-control rounded-0" id="Nombre">
-          <div class="font-weight-bold mt-1 mb-1" style="padding-top: 5px;padding-bottom: 5px;">Cuestionario:</div>
+        }
+        }
 
-          <table class="table table-sm table-bordered table-striped" style="font-size: 1.1em;">
-            <thead>
-            <tr>
-              <th>#</th>
-              <th>Pregunta</th>
-              <th>Respuesta</th>
-            </tr>
-            </thead>
-            <tbody>
-              <?php
+        ?>
+      </tbody>
+    </table>
 
-              $sql_encuesta = "SELECT id FROM tb_encuestas WHERE estado = 1 LIMIT 1";
-              $result_encuesta = mysqli_query($con, $sql_encuesta);
-              while($row_encuesta = mysqli_fetch_array($result_encuesta, MYSQLI_ASSOC)){
-              $Id = $row_encuesta['id'];
+    <textarea class="form-control rounded-0" id="Comentario" rows="3" placeholder="Comentario"></textarea>
 
-              $sql_cuestionario = "SELECT id, num_pregunta, pregunta FROM tb_encuentas_cuestionario ORDER BY num_pregunta";
-              $result_cuestionario = mysqli_query($con, $sql_cuestionario);
-              $numero_cuestionario = mysqli_num_rows($result_cuestionario);
-              while($row_cuestionario = mysqli_fetch_array($result_cuestionario, MYSQLI_ASSOC)){
-              $IdCuestionario = $row_cuestionario['id'];
-              $numPregunta = $row_cuestionario['num_pregunta'];
+    <button type="button" class="btn btn-info rounded-0 p-2 mt-2 mb-3" style="width: 100%;margin-top: 5px;" onclick="BtnAgregar(<?=$numero_cuestionario;?>,<?=$IdReporte;?>)">Agregar encuesta</button>
 
-              echo "<tr>";
-              echo "<td class='text-center'><div id='pre-$numPregunta'>".$numPregunta."</div></td>";
-              echo "<td>".$row_cuestionario['pregunta']."</td>";
-              echo "<td style='padding: 0px;'>
-              <select id='sel-$numPregunta' class='' style='width: 100%;padding: 2px;'>
-              <option value='0'>SELECIONA</option>
-              <option value='4'>Excelente</option>
-              <option value='3'>Bueno</option>
-              <option value='2'>Regular</option>
-              <option value='1'>Malo</option>
-              </select></td>";
-              echo "</tr>";
+  </div>
+  
+  <!-- TABLA - CUESTIONARIO -->
+  <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 mt-3">          
 
-              }
-              }
+    <div class="p-3 bg-light text-dark font-weight-bold">Lista encuestados</div>
 
-              ?>
-            </tbody>
-          </table>
+    <div style="overflow-y: scroll;height: 422px;">
+    <div id="DivResultado"></div>
+    </div>
 
-          <textarea class="form-control rounded-0" id="Comentario" rows="3" placeholder="Comentario"></textarea>
+    <button type="button" id="btnfin" class="btn btn-success rounded-0 mt-2 p-2" style="width: 100%;margin-top: 5px;" onclick="BtnFinalizar(<?=$IdReporte;?>)">Finalizar encuestas</button>
 
-          <button type="button" class="btn btn-info rounded-0 p-2 mt-2 mb-3" style="width: 100%;margin-top: 5px;" onclick="BtnAgregar(<?=$numero_cuestionario;?>,<?=$IdReporte;?>)">Agregar encuesta</button>
-
-        </div>
-        
-        <!-- TABLA - CUESTIONARIO -->
-        <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12">          
-
-          <div class="p-3 mb-2 bg-light text-dark font-weight-bold">Lista encuestados</div>
-
-          <div style="overflow-y: scroll;height: 422px;">
-          <div id="DivResultado"></div>
-          </div>
-
-          <button type="button" id="btnfin" class="btn btn-success rounded-0 mt-2 p-2" style="width: 100%;margin-top: 5px;" onclick="BtnFinalizar(<?=$IdReporte;?>)">Finalizar encuestas</button>
-
-        </div>
-       </div>
+  </div>
+ </div>
 
     </div>
-    </div>
-    </div>
-    </div>
+
     </div>
 
     <div class="modal fade bd-example-modal-lg" id="ModalAyuda" data-backdrop="static">

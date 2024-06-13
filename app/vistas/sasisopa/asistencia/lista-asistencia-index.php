@@ -15,8 +15,8 @@ include_once "app/modelo/Asistencia.php";
   <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -223,21 +223,14 @@ $('#DivListaAsistencia').load('../app/vistas/sasisopa/asistencia/lista-asistenci
     <?php require('public/componentes/header.menu.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-      </div>
+    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
+    <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
+    </div>
     <div class="float-left"><h4>Fo.ADMONGAS.010 (Registro de la atención y el seguimiento a la comunicación interna y externa.)</h4></div>
 
-      </div>
-    <div class="card-body">
-
-      <div class="row">
+    <div class="row no-gutters mt-5 bg-white">
     <?php  
     
     $class_asistencia = new Asistencia();
@@ -259,7 +252,7 @@ $('#DivListaAsistencia').load('../app/vistas/sasisopa/asistencia/lista-asistenci
     ?>
        
       <!-- Elemento 1-->
-      <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 mt-2 mb-1 border-right">      
+      <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 border-right p-3">      
 
       <div class="row">
       
@@ -328,43 +321,31 @@ $('#DivListaAsistencia').load('../app/vistas/sasisopa/asistencia/lista-asistenci
     
     <!-- Elemento 2-->
 
-    <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 mt-2 mb-1 "> 
+    <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 p-3"> 
+    <div class="row">  
 
-    <div class="row">
-  
     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-1 border-right"> 
-
     <div id="DivSelPersonal"></div>
-
     <div class="text-right mt-2 mb-3">
     <button type="button" class="btn btn-sm btn-Primary rounded-0" onclick="btnGuardarFirma(<?=$GET_idRegistro;?>)">Agregar</button>
     </div>
+    </div>         
 
-    </div>
-           
+    <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 mt-2 "> 
 
-
- <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 mt-2 "> 
-
-      <div id="DivListaAsistencia"></div>
-      </div>
-     </div>
-
-      </div>
-      </div>
-
-
-      <hr>
-
-      <div class="text-right ">
-      <button type="button" class="btn btn-success rounded-0" onclick="btnGuardar(<?=$GET_idRegistro;?>,<?=$estado;?>)">Guardar cambios</button>
-      </div>
-
-
+    <div style="height: 30em;overflow-x: hidden;overflow-y: scroll;">
+    <div id="DivListaAsistencia"></div>
     </div>
     </div>
     </div>
+
     </div>
+    </div>
+
+    <div class="text-right mt-3">
+    <button type="button" class="btn btn-success rounded-0" onclick="btnGuardar(<?=$GET_idRegistro;?>,<?=$estado;?>)">Guardar cambios</button>
+    </div>
+
     </div>
 
 

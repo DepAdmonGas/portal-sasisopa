@@ -104,8 +104,9 @@ $array = array(
 return $array;
 }
 
-function Detalle($NGobierno,$IDEstacion,$FechaInicio,$FechaTermino,$con){
-
+function Detalle($NGobierno,$IDEstacion,$FechaInicio,$FechaTermino,$fecha_del_dia,$con){
+  $Result = "";
+  $TotalCmp = 0;
 $sql_programa_c = "SELECT
 rl_requisitos_legales_calendario.id,
 rl_requisitos_legales_calendario.id_estacion,
@@ -350,13 +351,13 @@ $numero2 = mysqli_num_rows($result2);
 <h4>3. REQUISITOS LEGALES</h4>
 <?php
 echo '<h5>Municipal</h5>';
-echo Detalle('Municipal',$Session_IDEstacion,$FechaInicio,$FechaTermino,$con);
+echo Detalle('Municipal',$Session_IDEstacion,$FechaInicio,$FechaTermino,$fecha_del_dia,$con);
 echo '<h5 class="mt-2">Estatal</h5>';
-echo Detalle('Estatal',$Session_IDEstacion,$FechaInicio,$FechaTermino,$con);
+echo Detalle('Estatal',$Session_IDEstacion,$FechaInicio,$FechaTermino,$fecha_del_dia,$con);
 echo '<h5 class="mt-2">Federal</h5>';
-echo Detalle('Federal',$Session_IDEstacion,$FechaInicio,$FechaTermino,$con);
+echo Detalle('Federal',$Session_IDEstacion,$FechaInicio,$FechaTermino,$fecha_del_dia,$con);
 echo '<h5 class="mt-2">Varios</h5>';
-echo Detalle('Varios',$Session_IDEstacion,$FechaInicio,$FechaTermino,$con);
+echo Detalle('Varios',$Session_IDEstacion,$FechaInicio,$FechaTermino,$fecha_del_dia,$con);
 
 echo '<div class="row">';
 echo '<div class="col-6">';

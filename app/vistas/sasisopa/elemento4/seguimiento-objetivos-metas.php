@@ -10,7 +10,7 @@ while($row_capacitacion = mysqli_fetch_array($result_capacitacion, MYSQLI_ASSOC)
 $id = $row_capacitacion['id'];
 ?>
 
-<table class="table table-bordered table-sm table-hover">
+<table class="table table-bordered table-sm table-hover pb-0 mb-0">
 <thead>	
 <tr>
 <th class="text-center align-middle">Fecha</th>

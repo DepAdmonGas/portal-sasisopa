@@ -21,8 +21,8 @@ $estado = $array_ayuda['estado'];
   <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -186,85 +186,68 @@ window.location = "descargar-lista-asistencia/" + id;
     <?php require('public/componentes/header.menu.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-    
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    
-    <div class="adm-car-title">
-      
+
+    <div class="row">
+      <div class="col-xl-11 col-lg-11 col-md-12 col-sm-12">
       <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
       <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
       </div>
+      <div class="float-left"><h4>2. IDENTIFICACIÓN DE PELIGROS Y ASPECTOS AMBIENTALES, ANÁLISIS DE RIESGO Y EVALUACIÓN DE IMPACTOS AMBIENTALES</h4></div>
+      </div>
+      <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12">
+      <div class="float-right">
+      <a onclick="btnAyuda()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Ayuda" >
+      <img src="<?php echo RUTA_IMG_ICONOS."info.png"; ?>">
+      </a>
+      </div>
+      </div>
+    </div>  
 
-    <div class="float-left"><h4>2. IDENTIFICACIÓN DE PELIGROS Y ASPECTOS AMBIENTALES, ANÁLISIS DE RIESGO Y EVALUACIÓN DE IMPACTOS AMBIENTALES
-    </h4>
-    </div>
-
-    <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
-    <a onclick="btnAyuda()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Ayuda" >
-    <img src="<?php echo RUTA_IMG_ICONOS."info.png"; ?>">
-    </a>
-    </div>
-
-    </div>
-
-
-    <div class="card-body">
-
-      <div class="row">
-      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mt-2 mb-2">
-      <div class="border p-3">
+    <div class="row mt-4">
+      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+      <div class="p-3 bg-white">
         <h5>Identificación y evaluación de Aspectos e Impactos Ambientales.</h5>
         <div class="text-right mt-3"><button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="Formato2()">Descargar</button></div>
       </div>
       </div>  
 
-      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mt-2 mb-2">
-      <div class="border p-3">
+      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+      <div class="p-3 bg-white">
         <h5>Identificación y evaluación de Riesgos y Peligros para registrar el análisis.</h5>
         <div class="text-right mt-3"><button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="Formato3()">Descargar</button></div>
       </div>
       </div>  
       </div>
 
-      <h5 class="mt-3">Análisis de Riesgo del Sector Hidrocarburos (ARSH)</h5>
-
+      <div class="row mt-2">
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2 mb-2">
+      <div class="bg-white p-3">
+      <h5>Análisis de Riesgo del Sector Hidrocarburos (ARSH)</h5>
       <div class="mt-3" id="DivListaAnalisis"></div>
+      </div>
+      </div>
 
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2 mb-2">
+      <div class="bg-white p-3">
       <div class="row">
-      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mt-2 mb-2">
-      <div class="border">
-      <div class="p-3">
-
-        <div class="row">
-
-            <div class="col-10">
-            <h5>Fo.ADMONGAS.010 (Registro de la atención y el seguimiento a la comunicación interna y externa.)</h5>
-            </div>
-            
-            <div class="col-2">
-           
-            <a class="float-right" onclick="btnAsistencia()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Crear" >
-            <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
-            </a>
-
-            </div>
-           </div>
-
-          <div id="DivListaAsistencia"></div>
-
-      </div>  
+      <div class="col-10">
+      <h5>Fo.ADMONGAS.010 (Registro de la atención y el seguimiento a la comunicación interna y externa.)</h5>
+      </div>
+      <div class="col-2">
+      <a class="float-right" onclick="btnAsistencia()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Crear" >
+      <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
+      </a>
       </div>
       </div>
+      <div id="DivListaAsistencia"></div>
       </div>
- 
-    </div>
-    </div>
-    </div>
-    </div>
+      </div>
+
+      </div>
+
+
     </div>
 
     <div class="modal fade bd-example-modal-lg" id="ModalAyuda" data-backdrop="static">

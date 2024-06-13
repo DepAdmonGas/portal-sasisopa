@@ -8,13 +8,15 @@ $dompdf = new Dompdf();
 $sql_reportecre = "SELECT * FROM re_reporte_cre_mes WHERE id_estacion = '".$Session_IDEstacion."' and mes = '".$_GET['idMes']."' and year = '".$_GET['idYear']."' ";
 $result_reportecre = mysqli_query($con, $sql_reportecre);
 $numero_reportecre = mysqli_num_rows($result_reportecre);
-
-while($row_reportecre = mysqli_fetch_array($result_reportecre, MYSQLI_ASSOC)){
+$row_reportecre = mysqli_fetch_array($result_reportecre, MYSQLI_ASSOC);
 $idReporteCre = $row_reportecre['id'];
-}
 
 function Detalle($Producto,$idReporteCre,$con){
-
+  $VolumenInicial = 0;
+  $VolumenVenta = 0;
+  $VolumenFinal = 0;
+  $VolumenCompra = 0;
+  
 $sql_reportepro1 = "SELECT * FROM re_reporte_cre_producto WHERE id_re_mes = '".$idReporteCre."' and producto = '".$Producto."' ";
 $result_reportepro1 = mysqli_query($con, $sql_reportepro1);
 $numero_reportepro1 = mysqli_num_rows($result_reportepro1);
@@ -31,7 +33,6 @@ $tovolpro = $row_pipas['volpro1'];
 $VolumenInicial = $VolumenInicial + $row_reportepro1['volumen_inicial'];
 $VolumenVenta = $VolumenVenta + $row_reportepro1['volumen_venta'];
 $VolumenFinal = $VolumenFinal + $row_reportepro1['volumen_final'];
-
 $VolumenCompra = $VolumenCompra + $tovolpro;
 
 }
@@ -49,6 +50,7 @@ $RutaLogo = "http://portal.admongas.com.mx/portal-sasisopa/imgs/logo/Logo.png";
 $DataLogo = file_get_contents($RutaLogo);
 $baseLogo = 'data:image/png;base64,' . base64_encode($DataLogo);
 
+$contenid0 = "";
 $contenid0 .= "<!DOCTYPE html>";
 $contenid0 .= "<html>";
 $contenid0 .= "<head>";
@@ -371,7 +373,7 @@ $dompdf->setPaper("A4", "portrait");
 // Escribimos el html en el PDF
 $dompdf->render();
 // Ponemos el PDF en el browser
-$dompdf->stream('Reporte Estadistico Diario.pdf',["Attachment" => true]);
+$dompdf->stream('Reporte Estadistico Diario.pdf');
 //------------------
 mysqli_close($con);
 //------------------

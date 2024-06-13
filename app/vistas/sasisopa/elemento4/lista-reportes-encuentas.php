@@ -15,8 +15,8 @@ $porcentaje1 = 0;
 $totalResultado = 0;
 ?>
 
-<div class="mb-2" style="overflow-y: hidden;">
-<table class="table table-bordered table-striped table-sm" style="font-size: .95em">
+<div style="overflow-y: hidden;">
+<table class="table table-bordered table-striped table-sm mb-0 pb-0" style="font-size: .95em">
 <thead>	
 <tr>
 <th colspan="3"></th>	

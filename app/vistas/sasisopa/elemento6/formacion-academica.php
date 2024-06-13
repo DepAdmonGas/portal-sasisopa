@@ -2,9 +2,6 @@
 require('../../../../app/help.php');
 $idUsuario = $_GET['idUsuario'];
 ?>
-<div class="border mt-3">
-<div class="p-3">
-
 <div class="row">
 
 <div class="col-10">
@@ -18,8 +15,6 @@ $idUsuario = $_GET['idUsuario'];
 </div>
 
 </div>
-
-<hr>
 
 <div class="mb-2" style="overflow-y: hidden;">
 <table class="table table-bordered table-striped table-sm" style="margin-top: 10px;font-size: 1.2em;">
@@ -50,8 +45,3 @@ $idUsuario = $_GET['idUsuario'];
   </tbody>
 </table>
 </div>
-
-</div>
-</div>
-
-

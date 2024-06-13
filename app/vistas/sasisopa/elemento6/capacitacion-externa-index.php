@@ -13,8 +13,8 @@ require('app/help.php');
   <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -22,7 +22,7 @@ require('app/help.php');
   <script type="text/javascript" src="<?php echo RUTA_JS ?>alertify.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-      <style media="screen">
+  <style media="screen">
   .LoaderPage {
   position: fixed;
   left: 0px;
@@ -279,48 +279,39 @@ window.location = "descargar-capacitacion-externa/" + id;
     <?php require('public/componentes/header.menu.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-      </div>
+    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
+    <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
+    </div>
     <div class="float-left"><h4>CAPACITACIÓN EXTERNA</h4></div>
     <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
     <a onclick="btnModal()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Agregar" >
     <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
     </a>
     </div>
-      </div>
-    <div class="card-body">
 
-<div class="mb-3" style="overflow-y: hidden;">
-<table class="table table-bordered table-sm">
-<tr>
-<td class="text-center align-middle"><img class="text-center" src="<?php echo RUTA_IMG_LOGOS."Logo.png";?>" style="width: 200px;"></td>
-<td colspan="2" class="text-center align-middle"><b>Programa de Capacitacion y adiestramiento </b></td>
-<td class="text-center align-middle">Fo.ADMONGAS.009</td>
-</tr>
-<tr>
-<td class="text-center align-middle">Realizado por: Nelly Estrada Garcia </td>
-<td class="text-center align-middle">Revisado por: Eduardo Galicia Flores </td>
-<td class="text-center align-middle">Autorizado por: Tomas Tarno Quinzaños </td>
-<td class="text-center align-middle">Fecha de autorizacion 01/10/2018</td>
-</tr>
-</table>
-</div>
+    <div class="bg-white mt-5 p-3">
 
-
-<div id="ListaCursos"></div>
-
+    <div class="mb-3" style="overflow-y: hidden;">
+    <table class="table table-bordered table-sm">
+    <tr>
+    <td class="text-center align-middle"><img class="text-center" src="<?php echo RUTA_IMG_LOGOS."Logo.png";?>" style="width: 200px;"></td>
+    <td colspan="2" class="text-center align-middle"><b>Programa de Capacitacion y adiestramiento </b></td>
+    <td class="text-center align-middle">Fo.ADMONGAS.009</td>
+    </tr>
+    <tr>
+    <td class="text-center align-middle">Realizado por: Nelly Estrada Garcia </td>
+    <td class="text-center align-middle">Revisado por: Eduardo Galicia Flores </td>
+    <td class="text-center align-middle">Autorizado por: Tomas Tarno Quinzaños </td>
+    <td class="text-center align-middle">Fecha de autorizacion 01/10/2018</td>
+    </tr>
+    </table>
+    </div>
+    <div id="ListaCursos"></div>
 
     </div>
-    </div>
-    </div>
-    </div>
+
     </div>
 
 

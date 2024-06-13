@@ -2,29 +2,19 @@
 require('../../../../app/help.php');
 $idUsuario = $_GET['idUsuario'];
 ?>
-<div class="border mt-3">
-<div class="p-3">
-
-
+<div class="mt-3">
 <div class="row">
-
 <div class="col-10">
-
 <div style="font-size: 1.4em;">
 2. Datos de familiares
 </div>
-
 </div>
-
 <div class="col-2">
   <a class="float-right" onclick="AgregarDatos()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Agregar">
   <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
 </a>
 </div>
-
 </div>
-
-<hr>
 
 <div style="overflow-y: hidden;">
 <table class="table table-bordered table-striped table-sm" style="font-size: 1.2em;">
@@ -59,7 +49,5 @@ $idUsuario = $_GET['idUsuario'];
   ?>
   </tbody>
 </table>
-</div>
-
 </div>
 </div>

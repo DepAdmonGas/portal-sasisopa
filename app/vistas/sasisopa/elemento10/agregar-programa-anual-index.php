@@ -17,8 +17,8 @@ $ProgramaYear = $class_control_actividad_proceso->yearProgramaAnual($idReporte);
   <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -264,17 +264,11 @@ var Diciembre = $('#Diciembre').val();
     <?php require('public/componentes/header.menu.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
-
-    <div class="row no-gutters">
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
+    <div class="magir-top-principal p-3">
 
     <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
     <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
     </div>
-
     <div class="float-left"><h4>Programa Anual de Mantenimiento <?=$ProgramaYear;?></h4></div>
     <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
     <a class="ml-2" onclick="Descargar(<?=$idReporte;?>)" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Descargar" >
@@ -284,15 +278,10 @@ var Diciembre = $('#Diciembre').val();
     <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
     </a>
     </div>
+    <div class="bg-white mt-5 p-3">
+    <div id="DivProgramanual"></div>
     </div>
-    <div class="card-body">
 
-      <div id="DivProgramanual"></div>
-
-    </div>
-    </div>
-    </div>
-    </div>
     </div>
 
     <div class="modal fade bd-example-modal-lg" id="ModalAgregar" data-backdrop="static">

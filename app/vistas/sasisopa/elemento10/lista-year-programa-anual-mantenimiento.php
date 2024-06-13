@@ -19,7 +19,7 @@ $estado = $row_programa['estado'];
 
 <!-- CARD - PROG. ANUAL MTTO (AÑO) -->
 <div class="col-xl-3 col-lg-3 col-md-3 col-12 mt-2 mb-2 ">
-<div class="card" style="border-radius: 0px;cursor: pointer" onclick="ProgramaNew(<?=$year;?>)">
+<div class="card border-0 rounded-0" style="cursor: pointer" onclick="ProgramaNew(<?=$year;?>)">
 <div class="card-body">
 <div class="text-center" style="font-size: 1.7em;"><?=$year;?></div>
 <div class="text-center"><small class="text-primary">Programa anual de mantenimiento</small></div>

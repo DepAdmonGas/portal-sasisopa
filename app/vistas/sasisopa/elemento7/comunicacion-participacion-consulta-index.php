@@ -20,8 +20,8 @@ $estado = $array_ayuda['estado'];
   <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -29,7 +29,7 @@ $estado = $array_ayuda['estado'];
   <script type="text/javascript" src="<?php echo RUTA_JS ?>alertify.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-      <style media="screen">
+  <style media="screen">
   .LoaderPage {
   position: fixed;
   left: 0px;
@@ -668,32 +668,25 @@ var parametros = {
     <?php require('public/componentes/header.menu.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-      </div>
+    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
+    <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
+    </div>
     <div class="float-left"><h4>7. COMUNICACIÓN, PARTICIPACIÓN Y CONSULTA</h4></div>
     <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
     <a onclick="btnAyuda()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Ayuda" >
     <img src="<?php echo RUTA_IMG_ICONOS."info.png"; ?>">
     </a>
     </div>
-    </div>
-    <div class="card-body">
 
+    <div class="bg-white mt-5 p-3">
     <div id="DivListaComunicacion"></div>
+    </div>
 
-      <div class="row">
-
-       <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-          
-          <div class="border">
-          <div class="p-2">   
+    <div class="row mt-3">
+       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+          <div class="p-3 bg-white">   
           <div class="row">
           <div class="col-10">
           <h5>Quejas y sugerencias</h5>
@@ -706,17 +699,9 @@ var parametros = {
           </div>
           <div id="DivListaQuejasS"></div>
           </div>            
-          </div>
-
         </div>
-
-
       </div>
 
-    </div>
-    </div>
-    </div>
-    </div>
     </div>
 
   <div class="modal fade bd-example-modal-lg" id="myModalComunicacion" data-backdrop="static">

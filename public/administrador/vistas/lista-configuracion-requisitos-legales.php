@@ -4,7 +4,7 @@ require('../../../app/help.php');
 
 
 function Requisitos($NivelGobierno,$con){
-
+$Resultado = "";
 $sql = "SELECT * FROM rl_requisitos_legales_lista WHERE nivel_gobierno = '".$NivelGobierno."' AND estado = 1 ORDER BY mun_alc_est ASC ";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
@@ -32,11 +32,13 @@ return $Resultado;
 
 
 function Personal($idusuario,$con){
-
-$sql = "SELECT * FROM tb_usuarios WHERE id = '".$idusuario."' ";
-$result = mysqli_query($con, $sql);
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-$nombre = $row['nombre'];
+if($idusuario == 0){
+	$nombre = '';
+}else{
+	$sql = "SELECT * FROM tb_usuarios WHERE id = '".$idusuario."' ";
+	$result = mysqli_query($con, $sql);
+	$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+	$nombre = $row['nombre'];
 }
 return $nombre;
 }

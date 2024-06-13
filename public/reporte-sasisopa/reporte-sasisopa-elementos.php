@@ -17,8 +17,8 @@ $ReporteFechaTermino = strtotime($FechaTermino);
   <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -314,13 +314,7 @@ $ReporteFechaTermino = strtotime($FechaTermino);
     <?php require('public/componentes/header.menu.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
-
-    <div class="row no-gutters">
-
-    <div class="col-12 col-sm-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
+    <div class="magir-top-principal p-3">
 
     <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
     <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
@@ -331,10 +325,8 @@ $ReporteFechaTermino = strtotime($FechaTermino);
     <img src="<?php echo RUTA_IMG_ICONOS."info.png"; ?>">
     </a>
     </div>
-    </div>
 
-    <div class="card-body">
-
+    <div class="mt-5 p-3 bg-white">
     <div id="Elemento1"></div>
     <div id="Elemento2"></div>
     <div id="Elemento3"></div>
@@ -353,11 +345,8 @@ $ReporteFechaTermino = strtotime($FechaTermino);
     <div id="Elemento16"></div>
     <div id="Elemento17"></div>
     <div id="Elemento18"></div>
-    
     </div>
-    </div>
-    </div>
-    </div>
+
     </div>
 
     <div class="modal fade bd-example-modal-lg" id="Modal" data-backdrop="static">

@@ -12,8 +12,8 @@ require('app/help.php');
   <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -173,6 +173,7 @@ $.ajax({
  },
  success:  function (response) {
 
+  CambioPrecio();
   EliminarWeb(id,idEstacion);
  
  }
@@ -215,43 +216,37 @@ $.ajax({
     <?php require('public/componentes/header.menu.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-      </div>
-    <div class="float-left"><h4>CAMBIO DE PRECIO</h4></div>
+    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
+    <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
     </div>
-    <div class="card-body">
+    <div class="float-left"><h4>CAMBIO DE PRECIO</h4></div>
 
-    	<?php
+    <div class="mt-5 p-3">
+    <?php
 
-$sql_estacion = "SELECT producto_uno, producto_dos, producto_tres FROM tb_estaciones WHERE id = '".$Session_IDEstacion."' ";
-$result_estacion = mysqli_query($con, $sql_estacion);
-$numero_estacion = mysqli_num_rows($result_estacion);
-while($row_estacion = mysqli_fetch_array($result_estacion, MYSQLI_ASSOC)){
-$gsuper = $row_estacion['producto_uno'];
-$gpremium = $row_estacion['producto_dos'];
-$gdiesel = $row_estacion['producto_tres'];
-}
+    $sql_estacion = "SELECT producto_uno, producto_dos, producto_tres FROM tb_estaciones WHERE id = '".$Session_IDEstacion."' ";
+    $result_estacion = mysqli_query($con, $sql_estacion);
+    $numero_estacion = mysqli_num_rows($result_estacion);
+    while($row_estacion = mysqli_fetch_array($result_estacion, MYSQLI_ASSOC)){
+    $gsuper = $row_estacion['producto_uno'];
+    $gpremium = $row_estacion['producto_dos'];
+    $gdiesel = $row_estacion['producto_tres'];
+    }
 
-if ($gdiesel == "") {
-$disabled = "disabled";
-}
+    if ($gdiesel == "") {
+    $disabled = "disabled";
+    }else{
+      $disabled = '';
+    }
 
-    	?>
+          ?>
 
     	<div class="row">
-
-
-    		<div class="col-xl-4 col-lg-4 col-md-12 col-12 mb-3">
-
-    			<div class="card p-4 rounded-0">
-
+        
+    		<div class="col-xl-4 col-lg-4 col-md-12 col-12">
+    			<div class="bg-white border-0 p-3 rounded-0">
     			<div class="font-weight-bold text-success">G SUPER</div>
     			<input type="number" name="" class="form-control rounded-0" step='0.01' min="1" id="GSUPER">
     			<hr>
@@ -274,14 +269,12 @@ $disabled = "disabled";
     		</div>
 
         <div class="col-xl-8 col-lg-8 col-md-12 col-12 mb-3">
+          <div class="bg-white p-3">
     			<div id="DivPrecios"></div>
+          </div>
     		</div>
     	</div>
 
-
-    </div>
-    </div>
-    </div>
     </div>
     </div>
 

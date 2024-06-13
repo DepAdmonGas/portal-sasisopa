@@ -19,8 +19,8 @@ $estado = $array_ayuda['estado'];
   <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -284,15 +284,11 @@ function EliminarRT(id){
     <?php require('public/componentes/header.menu.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
+    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
       <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-      </div>
+    </div>
     <div class="float-left"><h4>5. FUNCIONES, RESPONSABILIDADES Y AUTORIDAD</h4></div>
     <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
     <a onclick="btnAyuda()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Ayuda" >
@@ -300,10 +296,7 @@ function EliminarRT(id){
     </a>
     </div>
 
-    </div>
-
-    <div class="card-body">
-    <div class="text-center">
+    <div class="text-center mt-5">
     <?php if ($Session_Organigrama != "") {
     ?>
     <div class="row">
@@ -312,97 +305,67 @@ function EliminarRT(id){
     </div>
     <div class="col-12 col-md-2">
     
-  <div class="card rounded-0">
-  <h5 class="card-header">Responsabilidades</h5>
-  <div class="card-body p-2">
-  
-<button type="button" style="width: 100%;" class="btn btn-primary rounded-0 btn-sm mt-1" onclick="Rete()">Representante Técnico</button>
-
-<button type="button" style="width: 100%;" class="btn btn-primary rounded-0 btn-sm mt-1" onclick="Gerente()">Gerente</button>
-
-<button type="button" style="width: 100%;" class="btn btn-primary rounded-0 btn-sm mt-1" onclick="JefePiso()">Jefe de Piso</button>
-
-<button type="button" style="width: 100%;" class="btn btn-primary rounded-0 btn-sm mt-1" onclick="Facturista()">Facturista</button>
-
-<button type="button" style="width: 100%;" class="btn btn-primary rounded-0 btn-sm mt-1" onclick="Despachador()">Despachador</button>
-
-<button type="button" style="width: 100%;" class="btn btn-primary rounded-0 btn-sm mt-1" onclick="AuxiliarAdmi()">Auxiliar administrativo</button>
-
-<button type="button" style="width: 100%;" class="btn btn-primary rounded-0 btn-sm mt-1" onclick="Mantenimiento()">Mantenimiento</button>
-  
-  </div>
-  </div>
-
+    <div class="card rounded-0">
+    <h5 class="card-header">Responsabilidades</h5>
+    <div class="card-body p-2">
+    
+    <button type="button" style="width: 100%;" class="btn btn-primary rounded-0 btn-sm mt-1" onclick="Rete()">Representante Técnico</button>
+    <button type="button" style="width: 100%;" class="btn btn-primary rounded-0 btn-sm mt-1" onclick="Gerente()">Gerente</button>
+    <button type="button" style="width: 100%;" class="btn btn-primary rounded-0 btn-sm mt-1" onclick="JefePiso()">Jefe de Piso</button>
+    <button type="button" style="width: 100%;" class="btn btn-primary rounded-0 btn-sm mt-1" onclick="Facturista()">Facturista</button>
+    <button type="button" style="width: 100%;" class="btn btn-primary rounded-0 btn-sm mt-1" onclick="Despachador()">Despachador</button>
+    <button type="button" style="width: 100%;" class="btn btn-primary rounded-0 btn-sm mt-1" onclick="AuxiliarAdmi()">Auxiliar administrativo</button>
+    <button type="button" style="width: 100%;" class="btn btn-primary rounded-0 btn-sm mt-1" onclick="Mantenimiento()">Mantenimiento</button>
+      
     </div>
     </div>
-    <?php
-    }else{
-      echo "<div class='border p-4'><small>No se encontró el organigrama para mostrar, póngase en contacto con su administrador</small></div>";
-    } ?>
 
-    </div>
+      </div>
+      </div>
+      <?php
+      }else{
+        echo "<div class='border p-4'><small>No se encontró el organigrama para mostrar, póngase en contacto con su administrador</small></div>";
+      } ?>
 
-    <hr>
+      </div>
 
-<div class="row">
-          
+      <div class="row mt-2">          
           <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2">
           
-          <div class="border">
-            <div class="p-3">
-            
+          <div class="bg-white p-3">          
             <div class="row">
-            
             <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11">
             <h5>Fo.ADMONGAS.010 (Registro de la atención y el seguimiento a la comunicación interna y externa.)</h5>
             </div>
-
             <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1">
             <a class="float-right" onclick="btnAsistencia()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Crear" >
             <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
             </a>
             </div>
             </div>
-
             <div id="DivListaAsistencia"></div>
-
-            </div>
-            
           </div>
+
         </div>
 
           <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2">
           
-          <div class="border">
-            <div class="p-3">
-            
-            <div class="row">
-            
+          <div class="bg-white p-3">
+            <div class="row">            
             <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11">
               <h5>Formato de asignación de representante técnico</h5>
             </div>
-
             <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1">
             <a class="float-right" onclick="btnRepresentanteT()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Crear" >
             <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
             </a>
             </div>
             </div>
-
             <div id="DivListaRT"></div>
-
             </div>
-            
           </div>
-        </div>
-</div>
+      </div>
 
-    </div>
-
-
-    </div>
-    </div>
-    </div>
     </div>
 
     <div class="modal fade bd-example-modal-lg" id="ModalReTe" data-backdrop="static">

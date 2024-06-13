@@ -2,7 +2,7 @@
 require('../../../../app/help.php');
 ?>
 <div style="overflow-y: hidden;">
-<table class="table table-bordered table-striped table-hover table-sm mt-3" style="font-size: .9em;">
+<table class="table table-bordered table-striped table-hover table-sm mt-3 pb-0 mb-0" style="font-size: .9em;">
 <thead>
 <th class="text-center">#</th>	
 <th>Nombre equipo</th>

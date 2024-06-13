@@ -57,7 +57,7 @@ if ($numero_programa_c != 0) {
 ?>
 
 <div style="overflow-y: hidden;">
-<table class="table table-bordered table-sm">
+<table class="table table-bordered table-sm pb-0 mb-0">
   <thead>
   <tr class="bg-primary text-white">
     <th class="text-center align-middle">Dependencia</th>

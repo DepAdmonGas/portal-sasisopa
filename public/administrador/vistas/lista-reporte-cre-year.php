@@ -88,7 +88,7 @@ echo "<div class='p-2 mb-2 $hover $background $text_color text-center' style='$c
     <strong>Total, ventas anuales en litros</strong>
     <?php
 
-$sql_estaciones = "SELECT producto_uno, producto_dos, producto_tres FROM tb_estaciones WHERE id = '".$idEstacion."' ";
+$sql_estaciones = "SELECT nombre, producto_uno, producto_dos, producto_tres FROM tb_estaciones WHERE id = '".$idEstacion."' ";
 $result_estaciones = mysqli_query($con, $sql_estaciones);
 $numero_estaciones = mysqli_num_rows($result_estaciones);
 while($row_estaciones = mysqli_fetch_array($result_estaciones, MYSQLI_ASSOC)){

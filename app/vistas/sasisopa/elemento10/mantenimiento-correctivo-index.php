@@ -12,8 +12,8 @@ require('app/help.php');
   <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -248,69 +248,47 @@ window.onblur = function() {
     <?php require('public/componentes/header.menu.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-      </div>
-
-
+    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
+    <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
+    </div>
     <div class="float-left"><h4>Mantenimiento Preventivo y Correctivo</h4></div>
-
     <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
     <a onclick="ModalBuscar()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Buscar" >
     <img src="<?php echo RUTA_IMG_ICONOS."buscar-icono.png"; ?>">
     </a>
     </div>
+    <div class="mt-5 p-3 bg-white">
+    <?php
+    //-----------------------------------------------------------------------------
+    //--- Agregar campo nombre, agregar el nombre de quien firma en po_mantenimiento_correctivo_firma, eliminar id_usuario
+    //--- Eliminar despues de realizar el Query
 
-    </div>
-    <div class="card-body">
-
-<?php
-
-//-----------------------------------------------------------------------------
-//--- Agregar campo nombre, agregar el nombre de quien firma en po_mantenimiento_correctivo_firma, eliminar id_usuario
-//--- Eliminar despues de realizar el Query
-
-
-/*function NombreUsuario($idUsuario, $con){
-$sql_usuario = "SELECT nombre FROM tb_usuarios WHERE id = '".$idUsuario."' ";
-$result_usuario = mysqli_query($con, $sql_usuario);
-while($row_usuario = mysqli_fetch_array($result_usuario, MYSQLI_ASSOC)){
-$nomencargado = $row_usuario['nombre'];
-}
-return $nomencargado;
-}
-
-$sql_mpc = "SELECT * FROM po_mantenimiento_correctivo_firma ";
-$query_mpc = mysqli_query($con, $sql_mpc);
-while($row_mpc = mysqli_fetch_array($query_mpc, MYSQLI_ASSOC)){
-$id = $row_mpc['id'];
-$idUsuario = $row_mpc['id_usuario'];
-$NombreUsuario = NombreUsuario($row_mpc['id_usuario'], $con);
-
-$sql = "UPDATE po_mantenimiento_correctivo_firma SET
-nombre = '".$NombreUsuario."'
-WHERE id = '".$id."' ";
-mysqli_query($con, $sql);
-
-}
-
-*/
-
-?>
+    /*function NombreUsuario($idUsuario, $con){
+    $sql_usuario = "SELECT nombre FROM tb_usuarios WHERE id = '".$idUsuario."' ";
+    $result_usuario = mysqli_query($con, $sql_usuario);
+    while($row_usuario = mysqli_fetch_array($result_usuario, MYSQLI_ASSOC)){
+    $nomencargado = $row_usuario['nombre'];
+    }
+    return $nomencargado;
+    }
+    $sql_mpc = "SELECT * FROM po_mantenimiento_correctivo_firma ";
+    $query_mpc = mysqli_query($con, $sql_mpc);
+    while($row_mpc = mysqli_fetch_array($query_mpc, MYSQLI_ASSOC)){
+    $id = $row_mpc['id'];
+    $idUsuario = $row_mpc['id_usuario'];
+    $NombreUsuario = NombreUsuario($row_mpc['id_usuario'], $con);
+    $sql = "UPDATE po_mantenimiento_correctivo_firma SET
+    nombre = '".$NombreUsuario."'
+    WHERE id = '".$id."' ";
+    mysqli_query($con, $sql);
+    }
+    */
+    ?>
     <div id="DivContenido"></div>
+    </div>
 
-
-    </div>
-    </div>
-    </div>
-    </div>
     </div>
 
   <div class="modal fade bd-example-modal-lg" id="ModalDetalle" >

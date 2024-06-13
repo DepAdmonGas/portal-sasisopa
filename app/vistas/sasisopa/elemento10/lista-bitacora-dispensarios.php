@@ -36,8 +36,8 @@ $result_lista = mysqli_query($con, $sql_lista);
 $numero_lista = mysqli_num_rows($result_lista);
 ?>
 
-<div class="mb-2" style="overflow-y: hidden;">
-<table class="table table-bordered table-striped table-sm">
+<div style="overflow-y: hidden;">
+<table class="table table-bordered table-striped table-sm pb-0 mb-0">
 <thead>	
 <tr>
 <th class="text-center align-middle">Fecha</th>
@@ -130,7 +130,7 @@ echo paginate($pagina, $TotalPaginas, $adjacents);
 function paginate($page, $tpages, $adjacents) {
 	$prevlabel = "Anterior";
 	$nextlabel = "Siguiente";
-	$out = '<ul class="pagination justify-content-end pagination-sm rounded-0">';
+	$out = '<ul class="pagination justify-content-end pagination-sm rounded-0 mt-3 pb-0 mb-0">';
 
 	// previous label
 

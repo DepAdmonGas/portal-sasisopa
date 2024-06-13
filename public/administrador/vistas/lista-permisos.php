@@ -16,7 +16,7 @@ $NombreUsuario = $rowUsuario['nombre'];
 }
 
 function UltimaAct($idre,$con){
-
+$vigencia = '';
 $sql_matriz = "SELECT * FROM rl_requisitos_legales_matriz WHERE idcalendario = '".$idre."' ORDER BY id desc LIMIT 1";
 $result_matriz = mysqli_query($con, $sql_matriz);
 $numero_matriz = mysqli_num_rows($result_matriz);
@@ -113,7 +113,7 @@ WHERE rl_requisitos_legales_calendario.id_estacion = '".$Estacion."' AND rl_requ
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-
+$vigencia = $row['vigencia'];
 $idre = $row['id'];
 $UltimaA = UltimaAct($idre,$con);
 
@@ -141,7 +141,7 @@ if($UltimaA['fechaemision'] == "S/I"){
   $fechaVencimiento = FormatoFecha($UltimaA['fechavencimiento']);
   }
 
-    if($vigencia == 'Cuando se realice cambio' || $vigencia == 'Permanente'){
+  if($vigencia == 'Cuando se realice cambio' || $vigencia == 'Permanente'){
   $fondotr = ''; 
   }else{
 

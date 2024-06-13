@@ -2,6 +2,8 @@
 
 class IndexControlador{
 
+    public function homeGerente(){return 'app/vistas/homegerente/index.php';}
+    //-----------------------------------------------------------------------------------------
     public function politicaRuta(){return 'app/vistas/sasisopa/elemento1/politica-index.php';}
     public function descargarPolitica(){return 'app/vistas/sasisopa/elemento1/descargar-politica.php';}
     public function descargarListaComprobacion(){return 'app/vistas/sasisopa/elemento1/descargar-lista-comprobacion.php';}

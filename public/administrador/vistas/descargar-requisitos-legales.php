@@ -2,23 +2,6 @@
 require_once 'dompdf/autoload.inc.php';
 include_once "app/help.php";
 
-$sql_estacion = "SELECT logo, apoderado_legal FROM es_estaciones WHERE id = '".$idEstacion."' ";
-$result_estacion = mysqli_query($con, $sql_estacion);
-$numero_estacion = mysqli_num_rows($result_estacion);
-while($row_estaciones = mysqli_fetch_array($result_estacion, MYSQLI_ASSOC)){
-$logoEstacion = $row_estaciones['logo'];
-$ApoderadoLegal = $row_estaciones['apoderado_legal'];
-}
-
-if ($NGobierno == "municipal") {
-    $title = "Municipal";
-    }else if ($NGobierno == "estatal") {
-    $title = "Estatal";
-    }else if ($NGobierno == "federal") {
-    $title = "Federal";
-    }else if ($NGobierno == "varios") {
-    $title = "Varios";
-    }
 
 function DetalleRL($idrequisitol,$con){
 
@@ -95,7 +78,7 @@ return $array;
 
 
 function NivelGobierno($NGobierno,$IDEstacion,$con){
-
+$contenid0 = "";
 $sql_programa_c = "SELECT * FROM rl_requisitos_legales_calendario WHERE id_estacion = '".$IDEstacion."' AND nivel_gobierno = '".$NGobierno."' AND estado = 1";
 $result_programa_c = mysqli_query($con, $sql_programa_c);
 $numero_programa_c = mysqli_num_rows($result_programa_c);
@@ -222,7 +205,7 @@ return $contenid0;
 
 use Dompdf\Dompdf;
 $dompdf = new Dompdf();
-
+    $contenid0 = "";
     $contenid0 .= "<!DOCTYPE html>";
     $contenid0 .= "<html>";
     $contenid0 .= "<head>";
@@ -385,7 +368,7 @@ $contenid0 .= "<body>";
 
 $RutaLogo = "http://portal.admongas.com.mx/portal-sasisopa/imgs/logo/Logo.png";
 $DataLogo = file_get_contents($RutaLogo);
-$baseLogo = 'data:image/' . $type . ';base64,' . base64_encode($DataLogo);
+$baseLogo = 'data:image/;base64,' . base64_encode($DataLogo);
 
 $contenid0 .= '<table class="table table-bordered" style="font-size: .8em;">';
 $contenid0 .= '<tbody>';
@@ -411,7 +394,7 @@ $contenid0 .= '<td class="align-middle text-center">';
 $contenid0 .= 'Revisado por:<br> Eduardo Galicia Flores';
 $contenid0 .= '</td>';
 $contenid0 .= '<td class="align-middle text-center">';
-$contenid0 .= 'Autorizado por:<br> '.$ApoderadoLegal.'';
+$contenid0 .= 'Autorizado por:<br> '.$Session_ApoderadoLegal.'';
 $contenid0 .= '</td>';
 $contenid0 .= '<td class="align-middle text-center">';
 $contenid0 .= 'Fecha de aprobacion:<br>  01-Oct-2018';

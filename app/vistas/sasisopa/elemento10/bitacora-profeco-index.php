@@ -13,8 +13,8 @@ require('app/help.php');
     <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
     <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
     <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-    <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
     <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -73,34 +73,26 @@ require('app/help.php');
     <?php require('public/componentes/header.menu.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-      </div>
-   
-    <!-- TITULO / ENCABEZADO -->
-   <div class="float-left">
-    <h4>BITÁCORA DE REGISTRO DE EVENTOS PROFECO</h4>
-  </div>
-
-
+    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
+    <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
     </div>
-    <div class="card-body">
+    <!-- TITULO / ENCABEZADO -->
+    <div class="float-left">
+    <h4>BITÁCORA DE REGISTRO DE EVENTOS PROFECO</h4>
+    </div>
 
+    <div class="mt-5">
     <div class="row">
       
 
       <!-- CARD - CONFIG. DISPENSARIOS -->
       <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mt-2 mb-2"> 
-         <div class="p-3 cont-puntos mb-3">
+         <div class="p-3 cont-puntos mb-3 bg-white">
           <div class="titulo-punto">1. Configuración de Dispensarios</div>
                 
-          <div class="text-right mt-3">
+          <div class="text-right mt-4">
           <button type="button" class="btn btn-primary rounded-0" onclick="Configuracion()">Entrar</button>
           </div>
 
@@ -110,10 +102,10 @@ require('app/help.php');
       <!-- CARD - BITACORA DE REGISTRO -->
       
       <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mt-2 mb-2"> 
-        <div class="rounded-0 p-3 cont-puntos mb-3">
+        <div class="rounded-0 p-3 cont-puntos mb-3 bg-white">
         <div class="titulo-punto">2. Bitácora de registro de eventos PROFECO</div>
 
-        <div class="text-right mt-3">
+        <div class="text-right mt-4">
         <button type="button" class="btn btn-primary rounded-0" onclick="Bitacora()">Entrar</button>
         </div>
 
@@ -121,12 +113,8 @@ require('app/help.php');
       </div>
 
       </div>
+    </div>
 
-
-    </div>
-    </div>
-    </div>
-    </div>
     </div>
 
   <script src="<?php echo RUTA_JS ?>bootstrap.min.js"></script>

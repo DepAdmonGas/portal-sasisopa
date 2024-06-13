@@ -4,9 +4,8 @@ require('app/help.php');
 $sql_reportecre = "SELECT * FROM re_reporte_cre_mes WHERE id_estacion = '".$Session_IDEstacion."' and mes = '".$idMes."' and year = '".$idYear."' ";
 $result_reportecre = mysqli_query($con, $sql_reportecre);
 $numero_reportecre = mysqli_num_rows($result_reportecre);
-while($row_reportecre = mysqli_fetch_array($result_reportecre, MYSQLI_ASSOC)){
+$row_reportecre = mysqli_fetch_array($result_reportecre, MYSQLI_ASSOC);
 $idReporteCre = $row_reportecre['id'];
-}
 ?>
 <html lang="es">
   <head>
@@ -19,8 +18,8 @@ $idReporteCre = $row_reportecre['id'];
   <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -67,35 +66,24 @@ $idReporteCre = $row_reportecre['id'];
     <?php require('public/componentes/header.menu.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
     <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
     <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
     </div>
     <div class="float-left"><h4><?php echo nombremes($idMes)." ".$idYear; ?></h4></div>
     <div class="float-right">
-
     <a href="../../public/gerente/vistas/descargar-reporte-estadistico-diario.php?idMes=<?=$idMes;?>&idYear=<?=$idYear;?>" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Descargar" >
     <img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>">
     </a>
-
     <a onclick="Agregar()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Agregar" >
     <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
     </a>    
     </div>
-    </div>
-    <div class="card-body">
-
+    <div class="mt-5 p-3 bg-white">
     <div id="DivReporteEstadistico"></div>
+    </div>
 
-    </div>
-    </div>
-    </div>
-    </div>
     </div>
 
     <div class="modal fade bd-example-modal-lg" id="ModalPDF" data-backdrop="static">

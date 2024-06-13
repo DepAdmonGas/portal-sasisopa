@@ -133,6 +133,7 @@ require('app/help.php');
     $('#ModalDetalle').modal('show');    
     $('#ContenidoModal').load('public/administrador/vistas/modal-buscar-entregas.php');  
     }
+
 function Buscar(){
     let BuEstacion = $('#BuEstacion').val(); 
 
@@ -140,17 +141,28 @@ function Buscar(){
   $('.BuEstacion').css('border','');
 
   var parametros = {
-    "BuEstacion" : BuEstacion
+    "idEstacion" : BuEstacion
     };
 
-    $('#ListaEntregas').load('public/administrador/vistas/lista-entregas-buscar.php?idEstacion=' + BuEstacion); 
+    $.ajax({
+   data:  parametros,
+   url:   'public/administrador/vistas/lista-entregas-buscar.php',
+   type:  'get',
+   beforeSend: function() {
+   },
+   complete: function(){
+   },
+   success:  function (response) {
+    $('#ListaEntregas').html(response); 
+   }
+   });
+
     $('#ModalDetalle').modal('hide'); 
 
   }else{
   $('.BuEstacion').css('border','2px solid #A52525');
   }
     }
-
 
   </script>
   </head>

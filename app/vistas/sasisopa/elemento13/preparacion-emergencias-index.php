@@ -23,8 +23,8 @@ $estado = $array_ayuda['estado'];
   <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -693,15 +693,12 @@ $('#BuscarYear').css('border','2px solid #A52525');
     <?php require('public/componentes/header.menu.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
-
-    <div class="row no-gutters">
+    <div class="magir-top-principal p-3">
+    <div class="row">
     <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-      </div>
+    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
+    <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
+    </div>
     <div class="float-left"><h4>13. PREPARACIÓN Y RESPUESTA A EMERGENCIAS</h4></div>
     <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
     <a onclick="btnAyuda()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Ayuda" >
@@ -709,62 +706,43 @@ $('#BuscarYear').css('border','2px solid #A52525');
     </a>
     </div>
     </div>
-    <div class="card-body">
-
-
-<div class="row justify-content-md-center">
-
-<div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 mt-2 mb-2"> 
-<div class="card" style="border-radius: 0px;">
-  <div class="card-body" style="font-size: 1.3em;">
-    
-  <div class="row">
-
-    <div class="text-secondary col-10">
-    Protocolo de respuesta a emergencias
     </div>
 
+    <div class="row mt-2">
 
-
-    <div class="col-2">
-    <a class="float-right" onclick="ModalAgregarProtocolo()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Agregar" >
-    <img width="20px" src="<?php echo RUTA_IMG_ICONOS."subir.png"; ?>">
-    </a>
+    <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 mt-2 mb-2"> 
+    <div class="card border-0 rounded-0" >
+    <div class="card-body" style="font-size: 1.3em;">
+    <div class="row">
+      <div class="text-secondary col-10">
+      Protocolo de respuesta a emergencias
+      </div>
+      <div class="col-2">
+      <a class="float-right" onclick="ModalAgregarProtocolo()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Agregar" >
+      <img width="20px" src="<?php echo RUTA_IMG_ICONOS."subir.png"; ?>">
+      </a>
+      </div>
     </div>
-
-  </div>
-
-<hr>
     <div id="DocumentoProtocolo"></div>
-      
-
-
-  </div>
-</div>
-   </div>
-
-<div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 mt-2 mb-2"> 
-   
-   <div class="card" style="border-radius: 0px;">
-  <div class="card-body" style="font-size: 1.3em;">
-    <div class="text-secondary">Teléfonos de emergencias</div>
-    <div class="text-right" style="margin-top: 10px;"><button type="button" class="btn btn-primary btn-sm" style="border-radius: 0px;" onclick="ModalTelefonos()" >Ver teléfonos</button></div>
-  </div>
-  
-</div>
-
-</div>
-
- </div>
-
- <hr>
-
- <div id="ProgramaAnual"></div>
-
     </div>
     </div>
     </div>
+
+    <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 mt-2 mb-2"> 
+      <div class="card border-0 rounded-0">
+      <div class="card-body" style="font-size: 1.3em;">
+      <div class="text-secondary">Teléfonos de emergencias</div>
+      <div class="text-right" style="margin-top: 10px;"><button type="button" class="btn btn-primary btn-sm" style="border-radius: 0px;" onclick="ModalTelefonos()" >Ver teléfonos</button></div>
+      </div>
     </div>
+    </div>
+
+    </div>
+
+    <div class="bg-white p-3">
+    <div id="ProgramaAnual"></div>
+    </div>
+
     </div>
 
   <div class="modal fade bd-example-modal-lg" id="myModalPolitica" data-backdrop="static">

@@ -2,6 +2,8 @@
 require('app/help.php');
 
 function ToRequisitos($id,$NGobierno,$con){
+  $ToReFin = 0; 
+  $TotalCmp = 0;
     $sql_programa_c = "SELECT * FROM rl_requisitos_legales_calendario
     WHERE id_estacion = '".$id."' AND nivel_gobierno = '".$NGobierno."' ";
     $result_programa_c = mysqli_query($con, $sql_programa_c);
@@ -46,6 +48,9 @@ function ToRequisitos($id,$NGobierno,$con){
     }
 
 function ToPorcentaje($id,$NGobierno,$con){
+
+  $ToReFin = 0;
+  $TotalCmp = 0;
     
     $sql_programa_c = "SELECT * FROM rl_requisitos_legales_calendario
     WHERE id_estacion = '".$id."' AND nivel_gobierno = '".$NGobierno."' ";

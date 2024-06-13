@@ -19,8 +19,8 @@ $estado = $array_ayuda['estado'];
   <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -500,40 +500,27 @@ function btnEditSRI(idSeguimiento){
     <?php require('public/componentes/header.menu.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-    
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
+    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
       <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
       </div>
-   
-
-    <!-- TITULO / ENCABEZADO -->
-    <div class="float-left"><h4>4. OBJETIVOS, METAS E INDICADORES</h4>
+      <div class="float-left"><h4>4. OBJETIVOS, METAS E INDICADORES</h4>
     </div>
-
     <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
     <a onclick="btnAyuda()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Ayuda" >
     <img src="<?php echo RUTA_IMG_ICONOS."info.png"; ?>">
     </a>
     </div>
-    </div>
-    
 
-    <div class="card-body">
-
+    <div class="mt-5">
     <div class="row">
     
     <!-- CARD OBJETIVO -->
      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2 mb-2"> 
-    <div class="card" style="border-radius: 0px;">
+    <div class="card bg-white border-0">
       <div class="card-body">
       <h4 class="card-title">OBJETIVO</h4>
-      <hr>
 
       <p style="font-size: 1.3em;">Brindar a nuestros clientes una experiencia inigualable al cargar combustible o recibir alguno de
               nuestros servicios en cualquiera de nuestras sucursales del grupo Admongas.
@@ -547,11 +534,10 @@ function btnEditSRI(idSeguimiento){
     <!-- CARD METAS -->
     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2 mb-2"> 
 
-    <div class="card" style="border-radius: 0px;">
+    <div class="card bg-white border-0">
       <div class="card-body">
       <h4 class="card-title">METAS</h4>
-      <hr>
-
+  
       <ul style="font-size: 1.2em;">
           <li>Asegurar el bienestar de nuestros empleados utilizando siempre los mejores estándares de calidad.</li>
           <li>Mantener en excelentes condiciones la estación de servicio contando con personal
@@ -565,17 +551,12 @@ function btnEditSRI(idSeguimiento){
     </div>
 
     </div>
+    </div>
 
-
-    <!-- CARD INDICADORES -->
-    <div class="row" style="margin-top: 20px;">
-    <div class="col-12 mb-2">
-
-    <div class="card" style="border-radius: 0px;">
+    
+    <div class="card border-0 rounded-0 mt-3">
     <div class="card-body">
     <h4 class="card-title">INDICADORES</h4>
-    <hr>
-
     <div class="row">
          
       <!-- Card - Capacitacion del Personal -->
@@ -620,83 +601,53 @@ function btnEditSRI(idSeguimiento){
     </div>
     </div>
     </div>
-    </div>
-    </div>
 
-    <hr>
 
     <div class="row mt-3">
 
       <!-- TABLA SEGUIMIENTO DE OBJETIVOS Y METAS -->
       
       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2 mb-3"> 
-
-      <div class="border">
-        <div class="p-3">
-
+        <div class="bg-white p-3">
         <div class="row">
-        
         <div class="col-8">
         <h5>Seguimiento de objetivos y metas</h5>
         </div>
-
         <div class="col-4">
         <a class="float-right" href="app/vistas/sasisopa/elemento4/seguimiento-objetivos-mestas-pdf.php" data-toggle="tooltip" data-placement="left" title="Descargar" >
         <img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>">
         </a>
-
         <a class="float-right mr-2" onclick="ModalSOM()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Agregar" >
           <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
           </a>
         </div>
-
-        </div>
-        <hr>
-    
+        </div>    
         <div id="ContenidoSOM"></div> 
         </div>
-        </div>
-
     </div>
 
       <!-- TABLA SEGUIMIENTO DE OBJETIVOS Y METAS -->
       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2 mb-3"> 
-        
-      <div class="border">
-      <div class="p-3">
-      <div class="row">
-          
+      <div class="bg-white p-3">
+      <div class="row">   
         <div class="col-8">
         <h5>Seguimiento y reporte de indicadores</h5>
         </div>
-          
         <div class="col-4">
           <a class="float-right" href="app/vistas/sasisopa/elemento4/seguimiento-reporte-indicadores-pdf.php" data-toggle="tooltip" data-placement="left" title="Descargar" >
           <img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>">
           </a>
-
           <a class="float-right mr-2" onclick="ModalSRI()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Agregar" >
           <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
           </a>
         </div>
         </div>
-        
-          <hr>
-
           <div id="ContenidoSRI"></div>
-
-        </div>
-        </div>
-      
+        </div>      
       </div>
     </div>
     </div>
 
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
 
   <div class="modal fade bd-example-modal-lg" id="ModalAyuda" data-backdrop="static">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">

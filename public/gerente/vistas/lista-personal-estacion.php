@@ -1,14 +1,6 @@
 <?php
 require('../../../app/help.php');
 
-if ($Session_EstadoUsuario == 0) {
- echo
- "
- <script type='text/javascript'>
- $('#ConfigAgregarUsuario').modal('show');
- </script>
- ";
-}
 
 if($_GET['categoria'] == 1){
 $sql_usuarios = "SELECT * FROM tb_usuarios WHERE id_gas = '".$Session_IDEstacion."' and id_puesto <> 1 ";
@@ -17,7 +9,6 @@ $sql_usuarios = "SELECT * FROM tb_usuarios WHERE id_gas = '".$Session_IDEstacion
 }if($_GET['categoria'] == 3){
 $sql_usuarios = "SELECT * FROM tb_usuarios WHERE id_gas = '".$Session_IDEstacion."' and id_puesto <> 1 and estatus = 1 ";
 }
-
 $result_usuarios = mysqli_query($con, $sql_usuarios);
 $numero_usuarios = mysqli_num_rows($result_usuarios);
 ?>
@@ -50,11 +41,10 @@ alertify.confirm('',
    complete: function(){
    },
    success:  function (response) {
-   ListaPersonal();
+   ListaPersonal(2);
    alertify.message('El usuario fue eliminado');
    }
    });
-
 
   },
   function(){

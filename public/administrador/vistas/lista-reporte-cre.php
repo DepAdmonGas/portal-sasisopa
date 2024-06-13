@@ -4,21 +4,28 @@ require('../../../app/help.php');
 $sql_reportecre = "SELECT * FROM re_reporte_cre_mes WHERE id_estacion = '".$_GET['idEstacion']."' and mes = '".$_GET['idMes']."' and year = '".$_GET['idYear']."' ";
 $result_reportecre = mysqli_query($con, $sql_reportecre);
 $numero_reportecre = mysqli_num_rows($result_reportecre);
-while($row_reportecre = mysqli_fetch_array($result_reportecre, MYSQLI_ASSOC)){
-$idReporteCre = $row_reportecre['id'];
+$row_reportecre = mysqli_fetch_array($result_reportecre, MYSQLI_ASSOC);
 
+$idReporteCre = $row_reportecre['id'];
 $Ffactura_uno = $row_reportecre['f_producto_uno'];
 $Ffactura_dos = $row_reportecre['f_producto_dos'];
 $Ffactura_tres = $row_reportecre['f_producto_tres'];
-
 $FIfactura_uno = $row_reportecre['fi_producto_uno'];
 $FIfactura_dos = $row_reportecre['fi_producto_dos'];
 $FIfactura_tres = $row_reportecre['fi_producto_tres'];
-
 $FFfactura_uno = $row_reportecre['ff_producto_uno'];
 $FFfactura_dos = $row_reportecre['ff_producto_dos'];
 $FFfactura_tres = $row_reportecre['ff_producto_tres'];
-}
+
+$TotalCompra1 = 0;
+$TotalVenta1 = 0;
+$TotalImportePesos1 = 0;
+$TotalCompra2 = 0;
+$TotalVenta2 = 0;
+$TotalImportePesos2 = 0;
+$TotalCompra3 = 0;
+$TotalVenta3 = 0;
+$TotalImportePesos3 = 0;
 ?>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -83,7 +90,7 @@ var parametros = {
 } 
 </script>
 <?php
-$sql_estaciones = "SELECT producto_uno, producto_dos, producto_tres FROM tb_estaciones WHERE id = '".$_GET['idEstacion']."' ";
+$sql_estaciones = "SELECT nombre, producto_uno, producto_dos, producto_tres FROM tb_estaciones WHERE id = '".$_GET['idEstacion']."' ";
 $result_estaciones = mysqli_query($con, $sql_estaciones);
 $numero_estaciones = mysqli_num_rows($result_estaciones);
 while($row_estaciones = mysqli_fetch_array($result_estaciones, MYSQLI_ASSOC)){

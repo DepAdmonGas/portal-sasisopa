@@ -44,7 +44,7 @@ if ($numero_recepcion > 0) {
 </div>
 
 <div class="mt-2" style="overflow-y: hidden;">
-<table class="table table-bordered table-sm">
+<table class="table table-bordered table-sm pb-0 mb-0">
 	<thead>
 		<tr>
 			<th class="align-middle text-center">Folio</th>

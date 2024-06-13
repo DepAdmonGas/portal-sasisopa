@@ -22,8 +22,8 @@ $estado = $array_ayuda['estado'];
   <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -194,187 +194,154 @@ window.location = "descargar-lista-asistencia/" + id;
     <?php require('public/componentes/header.menu.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-    
-
-  <!-- Encabezado -->
-
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
+    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
       <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-      </div>
-
+    </div>
     <div class="float-left">
       <h4>3. REQUISITOS LEGALES</h4>
     </div>
-
     <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
-
     <button type="button" class="btn btn-sm btn-secondary mr-2" onclick="RequisitosL()">Requisitos</button>
-
     <a onclick="btnAyuda()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Ayuda" >
     <img src="<?php echo RUTA_IMG_ICONOS."info.png"; ?>">
     </a>
     </div>
 
+    <div class="row mt-5">
+    <!-- CARD MUNICIPAL -->
+    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mt-1 mb-3 "> 
+    <div class="" >
+    <div class="card car-admin card-hover" style="cursor: pointer" onclick="BTNRequisito('municipal')">
+    <div class="card-body" style="margin-top: 20px;">
+    <div class="text-center text-secondary" style="font-size: 1.3em;">Municipal</div>
+    <?php
+    $ToPorMunicipal = $class_requisito_legal->ToPorcentaje($Session_IDEstacion,'Municipal');
+    $ToReqMunicipal = $class_requisito_legal->ToRequisitos($Session_IDEstacion,'Municipal');
+
+
+    echo "<div class='text-center text-primary font-weight-bold' style='font-size: 1.4em;margin-top: 20px;'>".round($ToPorMunicipal)." % </div>";
+
+    echo "<div class='text-right text-secondary' style='font-size: .8em;'>".$ToReqMunicipal['ToReFin']." de ".$ToReqMunicipal['ToRe']." Requisitos</div>";
+    ?>
+    </div>
+    </div>
+    </div>
     </div>
 
 
-<div class="card-body">
+    <!-- CARD ESTATAL -->
+    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mt-1 mb-3 "> 
+    <div class="" >
+    <div class="card car-admin card-hover" style="cursor: pointer" onclick="BTNRequisito('estatal')">
+    <div class="card-body" style="margin-top: 20px;">
+    <div class="text-center text-secondary" style="font-size: 1.3em;">Estatal</div>
+    <?php
+    $ToPorEstatal = $class_requisito_legal->ToPorcentaje($Session_IDEstacion,'Estatal');
+    $ToReqEstatal = $class_requisito_legal->ToRequisitos($Session_IDEstacion,'Estatal');
+    echo "<div class='text-center text-primary font-weight-bold' style='font-size: 1.4em;margin-top: 20px;'>".round($ToPorEstatal)." % </div>";
 
-<div class="row">
-
-<!-- CARD MUNICIPAL -->
-<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mt-1 mb-3 "> 
-<div class="" >
-<div class="card car-admin card-hover" style="cursor: pointer" onclick="BTNRequisito('municipal')">
-<div class="card-body" style="margin-top: 20px;">
-<div class="text-center text-secondary" style="font-size: 1.3em;">Municipal</div>
-<?php
-$ToPorMunicipal = $class_requisito_legal->ToPorcentaje($Session_IDEstacion,'Municipal');
-$ToReqMunicipal = $class_requisito_legal->ToRequisitos($Session_IDEstacion,'Municipal');
-
-
-echo "<div class='text-center text-primary font-weight-bold' style='font-size: 1.4em;margin-top: 20px;'>".round($ToPorMunicipal)." % </div>";
-
-echo "<div class='text-right text-secondary' style='font-size: .8em;'>".$ToReqMunicipal['ToReFin']." de ".$ToReqMunicipal['ToRe']." Requisitos</div>";
-?>
-</div>
-</div>
-</div>
-</div>
+    echo "<div class='text-right text-secondary' style='font-size: .8em;'>".$ToReqEstatal['ToReFin']." de ".$ToReqEstatal['ToRe']." Requisitos</div>";
+    ?>
+    </div>
+    </div>
+    </div>
+    </div>
 
 
-<!-- CARD ESTATAL -->
-<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mt-1 mb-3 "> 
-<div class="" >
-<div class="card car-admin card-hover" style="cursor: pointer" onclick="BTNRequisito('estatal')">
-<div class="card-body" style="margin-top: 20px;">
-<div class="text-center text-secondary" style="font-size: 1.3em;">Estatal</div>
-<?php
-$ToPorEstatal = $class_requisito_legal->ToPorcentaje($Session_IDEstacion,'Estatal');
-$ToReqEstatal = $class_requisito_legal->ToRequisitos($Session_IDEstacion,'Estatal');
-echo "<div class='text-center text-primary font-weight-bold' style='font-size: 1.4em;margin-top: 20px;'>".round($ToPorEstatal)." % </div>";
+    <!-- CARD FEDERAL -->
+    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mt-1 mb-3 ">  
+    <div class="" >
+    <div class="card car-admin card-hover" style="cursor: pointer" onclick="BTNRequisito('federal')">
+    <div class="card-body" style="margin-top: 20px;">
+    <div class="text-center text-secondary" style="font-size: 1.3em;">Federal</div>
+    <?php
+    $ToPorFederal = $class_requisito_legal->ToPorcentaje($Session_IDEstacion,'Federal');
+    $ToReqFederal = $class_requisito_legal->ToRequisitos($Session_IDEstacion,'Federal');
+    echo "<div class='text-center text-primary font-weight-bold' style='font-size: 1.4em;margin-top: 20px;'>".round($ToPorFederal)." % </div>";
 
-echo "<div class='text-right text-secondary' style='font-size: .8em;'>".$ToReqEstatal['ToReFin']." de ".$ToReqEstatal['ToRe']." Requisitos</div>";
-?>
-</div>
-</div>
-</div>
-</div>
-
-
-<!-- CARD FEDERAL -->
-<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mt-1 mb-3 ">  
-<div class="" >
-<div class="card car-admin card-hover" style="cursor: pointer" onclick="BTNRequisito('federal')">
-<div class="card-body" style="margin-top: 20px;">
-<div class="text-center text-secondary" style="font-size: 1.3em;">Federal</div>
-<?php
-$ToPorFederal = $class_requisito_legal->ToPorcentaje($Session_IDEstacion,'Federal');
-$ToReqFederal = $class_requisito_legal->ToRequisitos($Session_IDEstacion,'Federal');
-echo "<div class='text-center text-primary font-weight-bold' style='font-size: 1.4em;margin-top: 20px;'>".round($ToPorFederal)." % </div>";
-
-echo "<div class='text-right text-secondary' style='font-size: .8em;'>".$ToReqFederal['ToReFin']." de ".$ToReqFederal['ToRe']." Requisitos</div>";
-?>
-</div>
-</div>
-</div>
-</div>
+    echo "<div class='text-right text-secondary' style='font-size: .8em;'>".$ToReqFederal['ToReFin']." de ".$ToReqFederal['ToRe']." Requisitos</div>";
+    ?>
+    </div>
+    </div>
+    </div>
+    </div>
 
 
-<!-- CARD VARIOS -->
-<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mt-1 mb-3 ">  
-<div class="" >
-<div class="card car-admin card-hover" style="cursor: pointer" onclick="BTNRequisito('varios')">
-<div class="card-body" style="margin-top: 20px;">
-<div class="text-center text-secondary" style="font-size: 1.3em;">Varios</div>
-<?php
-$ToPorVarios = $class_requisito_legal->ToPorcentaje($Session_IDEstacion,'Varios');
-$ToReqVarios = $class_requisito_legal->ToRequisitos($Session_IDEstacion,'Varios');
-echo "<div class='text-center text-primary font-weight-bold' style='font-size: 1.4em;margin-top: 20px;'>".round($ToPorVarios)." % </div>";
+    <!-- CARD VARIOS -->
+    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mt-1 mb-3 ">  
+    <div class="" >
+    <div class="card car-admin card-hover" style="cursor: pointer" onclick="BTNRequisito('varios')">
+    <div class="card-body" style="margin-top: 20px;">
+    <div class="text-center text-secondary" style="font-size: 1.3em;">Varios</div>
+    <?php
+    $ToPorVarios = $class_requisito_legal->ToPorcentaje($Session_IDEstacion,'Varios');
+    $ToReqVarios = $class_requisito_legal->ToRequisitos($Session_IDEstacion,'Varios');
+    echo "<div class='text-center text-primary font-weight-bold' style='font-size: 1.4em;margin-top: 20px;'>".round($ToPorVarios)." % </div>";
 
-echo "<div class='text-right text-secondary' style='font-size: .8em;'>".$ToReqVarios['ToReFin']." de ".$ToReqVarios['ToRe']." Requisitos</div>";
-?>
-</div>
-</div>
-</div>
-</div>
+    echo "<div class='text-right text-secondary' style='font-size: .8em;'>".$ToReqVarios['ToReFin']." de ".$ToReqVarios['ToRe']." Requisitos</div>";
+    ?>
+    </div>
+    </div>
+    </div>
+    </div>
 
-</div>
+    </div>
 
-<?php
+    <?php
+    if($ToReqMunicipal['ToRe'] > 0){
+    $TM = 1; 
+    }else{
+    $TM = 0; 
+    }
 
-if($ToReqMunicipal['ToRe'] > 0){
-$TM = 1; 
-}else{
-$TM = 0; 
-}
+    if($ToReqEstatal['ToRe'] > 0){
+    $TE = 1; 
+    }else{
+    $TE = 0; 
+    }
 
-if($ToReqEstatal['ToRe'] > 0){
-$TE = 1; 
-}else{
-$TE = 0; 
-}
+    if($ToReqFederal['ToRe'] > 0){
+    $TF = 1; 
+    }else{
+    $TF = 0; 
+    }
 
-if($ToReqFederal['ToRe'] > 0){
-$TF = 1; 
-}else{
-$TF = 0; 
-}
+    if($ToReqVarios['ToRe'] > 0){
+    $TV = 1; 
+    }else{
+    $TV = 0; 
+    }
 
-if($ToReqVarios['ToRe'] > 0){
-$TV = 1; 
-}else{
-$TV = 0; 
-}
+    $divP = $TM + $TE + $TF + $TV;
 
-$divP = $TM + $TE + $TF + $TV;
+    $ToPorcentaje = $ToPorMunicipal + $ToPorEstatal + $ToPorFederal + $ToPorVarios;
 
-$ToPorcentaje = $ToPorMunicipal + $ToPorEstatal + $ToPorFederal + $ToPorVarios;
+    if($ToPorcentaje == 0 AND $divP == 0){
+    $Sicumple = 0;
+    $NoCumple = 100; 
+    }else{
+    $Sicumple = $ToPorcentaje / $divP;
+    $NoCumple = 100 - $Sicumple; 
+    }
 
-if($ToPorcentaje == 0 AND $divP == 0){
-$Sicumple = 0;
-$NoCumple = 100; 
-}else{
-$Sicumple = $ToPorcentaje / $divP;
-$NoCumple = 100 - $Sicumple; 
-}
+    ?>
+    <!-- PORCENTAJE DE CUMPLIMIENTO-->
+    <div class="bg-white p-3">
+    <label class="text-secondary" style="font-size: .8em">Porcentaje de cumplimiento general</label>
+    <div class="progress" style='font-size: .9em;height: 20px;'>
+    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: <?=$Sicumple;?>%" aria-valuenow="<?=$Sicumple;?>" aria-valuemin="0" aria-valuemax="100">Cumple <?=round($Sicumple);?> %</div>
+    <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: <?=$NoCumple;?>%" aria-valuenow="<?=$NoCumple;?>" aria-valuemin="0" aria-valuemax="100">No cumple <?=round($NoCumple);?> %</div>
+    </div>
+    </div>
 
-?>
-
-
-<!-- PORCENTAJE DE CUMPLIMIENTO-->
-<div class="col-12 mt-1" style="padding: 10px;margin-top: 20px;border: 1px solid #EFEFEF;">
-<label class="text-secondary" style="font-size: .8em">Porcentaje de cumplimiento general</label>
-<div class="progress" style='font-size: .9em;height: 20px;'>
-<div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: <?=$Sicumple;?>%" aria-valuenow="<?=$Sicumple;?>" aria-valuemin="0" aria-valuemax="100">Cumple <?=round($Sicumple);?> %</div>
-<div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: <?=$NoCumple;?>%" aria-valuenow="<?=$NoCumple;?>" aria-valuemin="0" aria-valuemax="100">No cumple <?=round($NoCumple);?> %</div>
-</div>
-</div>
-
-<hr>
-
-
-<!-- PORCENTAJE DE CUMPLIMIENTO-->
-<div class="row">
-<!-- Descarga de Calendario-->    
-<div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 mt-1 mb-3">  
-<div class="text-secondary">Calendario anual de renovacion de Requisitos Legales <a onclick="DescargarRequisitos()"><img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>"></a></div>
-</div>
-</div>
-  
-  <div class="row">
+    <div class="bg-white p-3 mt-3">
+    <div class="text-secondary">Calendario anual de renovacion de Requisitos Legales <a onclick="DescargarRequisitos()"><img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>"></a></div>
+    
+    <div class="row">
    <!-- Lista de Asistencia-->
-    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mt-2 mb-2">  
-    <div class="border">
-    <div class="p-3">
-
+    <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 mt-2 mb-2">  
       <div class="row">
 
       <div class="col-10">
@@ -382,28 +349,16 @@ $NoCumple = 100 - $Sicumple;
       </div>
             
       <div class="col-2">
-            <a class="float-right" onclick="btnAsistencia()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Crear" >
-            <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
-            </a>
+      <a class="float-right" onclick="btnAsistencia()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Crear" >
+      <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
+      </a>
       </div>
-
-            </div>
-          
-
-            <div id="DivListaAsistencia"></div>
-
-            </div>
-            
-          </div>
+      </div>        
+      <div id="DivListaAsistencia"></div>
     </div>
-     </div>
+     </div>  
+  </div>
 
-
-</div>
-
-    </div>
-    </div>
-    </div>
     </div>
 
     <div class="modal fade bd-example-modal-lg" id="myModalRequisitos" data-backdrop="static">
@@ -434,7 +389,6 @@ $NoCumple = 100 - $Sicumple;
           <label class="font-weight-bold" style="font-size: 1.1em">Responsables:</label>
           <p class="text-justify" style="font-size: 1.1em">Recuerda que es responsabilidad del <label class="text-danger font-weight-bold">Representante Técnico</label> (RT), <label class="text-danger font-weight-bold">Gerente de la Estación</label> y <label class="text-danger font-weight-bold">Departamento de Gestión</label> el actualizar aquellos requisitos legales que cuentes con vigencia.</p>
 
-
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnFinAyuda(<?=$id_ayuda;?>,<?=$estado;?>)">Aceptar</button>
@@ -442,7 +396,6 @@ $NoCumple = 100 - $Sicumple;
       </div>
     </div>
     </div>
-
 
   <script src="<?php echo RUTA_JS ?>bootstrap.min.js"></script>
   </body>

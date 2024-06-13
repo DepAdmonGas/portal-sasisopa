@@ -12,13 +12,13 @@ $diestado = $row_estaciones['di_estado'];
 $dimunicipio = $row_estaciones['di_municipio'];
 }
 
-if($_GET['NG'] == "Municipal"){
+if($_GET['NG'] == "municipal"){
 $NG = ' AND mun_alc_est = "'.$dimunicipio.'" ';
-}else if($_GET['NG'] == "Estatal"){
+}else if($_GET['NG'] == "estatal"){
 $NG = ' AND mun_alc_est = "'.$diestado.'" ';
-}else if($_GET['NG'] == "Federal"){
+}else if($_GET['NG'] == "federal"){
 $NG = '';
-}else if($_GET['NG'] == "Varios"){
+}else if($_GET['NG'] == "varios"){
 $NG = '';
 }
 

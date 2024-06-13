@@ -5,9 +5,21 @@ $sql_reportecre = "SELECT * FROM re_reporte_cre_mes WHERE id_estacion = '".$Sess
 $result_reportecre = mysqli_query($con, $sql_reportecre);
 $numero_reportecre = mysqli_num_rows($result_reportecre);
 
-while($row_reportecre = mysqli_fetch_array($result_reportecre, MYSQLI_ASSOC)){
+$row_reportecre = mysqli_fetch_array($result_reportecre, MYSQLI_ASSOC);
 $idReporteCre = $row_reportecre['id'];
-}
+
+$TP1VI = 0;
+$TP1VV = 0;
+$TP1VF = 0;
+$TP1VC = 0;
+$TP2VI = 0;
+$TP2VV = 0;
+$TP2VF = 0;
+$TP2VC = 0;
+$TP3VI = 0;
+$TP3VV = 0;
+$TP3VF = 0;
+$TP3VC = 0;
 
 ?>
 <script type="text/javascript">

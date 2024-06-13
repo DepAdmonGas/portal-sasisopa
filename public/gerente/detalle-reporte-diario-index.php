@@ -1,7 +1,10 @@
 <?php
 require('app/help.php');
 $idReporteCre = $idReporte;
-$fechaFormato = date("Y-m-d",$idFecha)
+$fechaFormato = date("Y-m-d",$idFecha);
+$tovolcompra1 = 0;
+$tovolcompra2 = 0;
+$tovolcompra3 = 0;
 ?>
 <html lang="es">
   <head>

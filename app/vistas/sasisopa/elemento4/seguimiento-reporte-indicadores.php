@@ -6,7 +6,7 @@ $result_capacitacion = mysqli_query($con, $sql_capacitacion);
 $numero_capacitacion = mysqli_num_rows($result_capacitacion);
 
 ?>
-<table class="table table-bordered table-striped table-sm">
+<table class="table table-bordered table-striped table-sm mb-0 pb-0">
 <thead>	
 <tr>
 <th class="text-center align-middle">#</th>

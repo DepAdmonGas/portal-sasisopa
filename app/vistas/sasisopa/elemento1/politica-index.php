@@ -15,17 +15,17 @@ $estado = $array_ayuda['estado'];
   <title>SASISOPA</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width initial-scale=1.0">
-  <link rel="shortcut icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
-  <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
-  <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
+  <link rel="shortcut icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
+  <link rel="apple-touch-icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>alertify.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>themes/default.rtl.css">
+  <link href="<?=RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?=RUTA_CSS?>componentes.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>bootstrap-select.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
-  <script type="text/javascript" src="<?php echo RUTA_JS ?>alertify.js"></script>
+  <script type="text/javascript" src="<?=RUTA_JS?>alertify.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
   <style media="screen">
@@ -38,6 +38,7 @@ $estado = $array_ayuda['estado'];
   z-index: 9999;
   background: url('imgs/iconos/load-img.gif') 50% 50% no-repeat rgb(249,249,249);
   }
+
   </style>
   <script type="text/javascript">
   $(document).ready(function(){
@@ -519,158 +520,101 @@ function EliminarAsistencia(id){
   </head>
   <body>
 
-    <div class="LoaderPage"></div>
-    <div class="fixed-top navbar-admin">
-    <?php require('public/componentes/header.menu.php'); ?>
-    </div>
+  <div class="LoaderPage"></div>
+  <div class="fixed-top navbar-admin">
+  <?php require('public/componentes/header.menu.php'); ?>
+  </div>
 
-    <div class="magir-top-principal">
+  <div class="magir-top-principal p-3">
 
-<div class="row no-gutters">
-
-<div class="col-12 col-sm-12">
-<div class="card adm-card" style="border: 0;">
-<div class="adm-car-title">
-
-<div class="float-left" style="padding-right: 20px;margin-top: 5px;">
+    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
       <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-      </div>
-    <div class="float-left"><h4>1. POLÍTICA</h4></div>
-    <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
-    <a onclick="btnAyuda()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Ayuda" >
-    <img src="<?php echo RUTA_IMG_ICONOS."info.png"; ?>">
-    </a>
     </div>
+    <div class="float-left"><h4>1. POLÍTICA</h4></div>
+
     <div class="float-right" style="margin-top: 6px;">
 
-    <a class="mr-2" onclick="btnDescargar(<?=$Session_IDEstacion;?>)" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Descargar 1. Politica" >
-    <img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>">
-    </a>
+      <a class="mr-2" onclick="btnDescargar(<?=$Session_IDEstacion;?>)" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Descargar 1. Politica" >
+      <img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>">
+      </a>
 
-    <a onclick="btnEditar()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Editar 1. Politica" >
-    <img src="<?php echo RUTA_IMG_ICONOS."editar.png"; ?>">
-    </a>
-    </div>
-      </div>
+      <a class="mr-2" onclick="btnEditar()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Editar 1. Politica" >
+      <img src="<?php echo RUTA_IMG_ICONOS."editar.png"; ?>">
+      </a>
 
-<div class="card-body">
-
-<div class="row">
-
-    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mt-2 mb-2">
-
-      <div class="card" style="border-radius: 0px;">
-      <div class="card-title" style="padding-left: 20px;padding-right: 20px;padding-top: 10px;padding-bottom: 0px;margin-bottom: 0px;">
-      <div class="float-left"><h5>Politica:</h5></div>
-      </div>
-      <div class="card-body text-justify" style="padding-left: 20px;padding-right: 20px;padding-top: 10px;padding-bottom: 10px;">
-      <p style="font-size: 1.1em;"><?=$Session_Politica;?></p>
-      </div>
-      </div>
-
+      <a onclick="btnAyuda()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Ayuda" >
+      <img src="<?php echo RUTA_IMG_ICONOS."info.png"; ?>">
+      </a>
     </div>
 
-    
+    <div class="row mt-5">
+
     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mt-2 mb-2">
-
-      <div class="card" style="border-radius: 0px;">
-      <div class="card-title" style="padding-left: 20px;padding-right: 20px;padding-top: 10px;padding-bottom: 0px;margin-bottom: 0px;">
-      <div class="float-left"><h5>Misión:</h5></div>
+      <div class="card border-0 rounded-0">
+      <div class="ml-4 mr-4 mt-4 mb-2"><h5>Politica:</h5></div>
+      <p class="ml-4 mr-4 text-justify" style="font-size: 1.1em;"><?=$Session_Politica;?></p>
       </div>
-      <div class="card-body" style="padding-left: 20px;padding-right: 20px;padding-top: 10px;padding-bottom: 10px;">
-      <p style="font-size: 1.1em;"><?=$Session_Mision;?></p>
-      </div>
-      </div>
-
     </div>
 
     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mt-2 mb-2">
-
-      <div class="card" style="border-radius: 0px;">
-      <div class="card-title" style="padding-left: 20px;padding-right: 20px;padding-top: 10px;padding-bottom: 0px;margin-bottom: 0px;">
-      <div class="float-left"><h5>Visión:</h5></div>
-      </div>
-      
-      <div class="card-body" style="padding-left: 20px;padding-right: 20px;padding-top: 10px;padding-bottom: 10px;">
-       <p style="font-size: 1.1em;"><?=$Session_Vision;?></p>
-      </div>
-      </div>
-
+      <div class="card border-0 rounded-0">
+      <div class="ml-4 mr-4 mt-4 mb-2"><h5>Misión:</h5></div>
+      <p class="ml-4 mr-4 text-justify" style="font-size: 1.1em;"><?=$Session_Mision;?></p>
       </div>
     </div>
 
+    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mt-2 mb-2">
+      <div class="card border-0 rounded-0">
+      <div class="ml-4 mr-4 mt-4 mb-2"><h5>Visión:</h5></div>
+      <p class="ml-4 mr-4 text-justify" style="font-size: 1.1em;"><?=$Session_Vision;?></p>
+      </div>
+    </div>
 
-      <hr>
+    </div>
 
-      <div class="row">
-         
+    <div class="row">
       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2 mb-2">
-            
-            <div class="border">
+      <div class="bg-white">
             <div class="p-3">
             
-            <div class="row">
-  
+            <div class="row">  
             <div class="col-10">
-              <h5>Fo.ADMONGAS.001 (Lista de comprobación)</h5>
+            <h5>Fo.ADMONGAS.001 (Lista de comprobación)</h5>
             </div>
-
             <div class="col-2">
-
             <a class="float-right" onclick="btnLista()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Crear" >
-           
             <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
             </a>
-
+            </div>           
             </div>
-            
-            </div>
- 
-        <div id="DivListaComprobacion"></div>
-
-          </div>
-            
+             <div id="DivListaComprobacion"></div>
           </div>
       </div>
+      </div>
 
-
-
-        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2 mb-2">
-          
- 
-          <div class="border">
-            <div class="p-3">
-            
- 
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2 mb-2">
+           
+          <div class="bg-white">
+            <div class="p-3">  
             <div class="row">
 
             <div class="col-10">
               <h5>Fo.ADMONGAS.010 (Registro de la atención y el seguimiento a la comunicación interna y externa.)</h5>
             </div>
-
             <div class="col-2">
-           
             <a class="float-right" onclick="btnAsistencia()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Crear" >
             <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
             </a>
+            </div>         
             </div>
-         
-         </div>
- 
-
-          <div id="DivListaAsistencia"></div>
-
-            </div>
-            
+            <div id="DivListaAsistencia"></div>
+            </div>            
           </div>
-        </div>
       </div>
 
     </div>
-    </div>
-    </div>
-    </div>
-    </div>
+
+  </div>
 
   <div class="modal fade bd-example-modal-lg" id="myModalPolitica" data-backdrop="static">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -714,10 +658,10 @@ function EliminarAsistencia(id){
 <div class="modal fade bd-example-modal-lg" id="myModalEditarPolitica" >
 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 <div class="modal-content" style="border-radius: 0px;border: 0px;">
- <div class="modal-header">
-   <h4 class="modal-title">Editar 1. POLITICA</h4>
-     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-   <span aria-hidden="true">&times;</span>
+<div class="modal-header">
+<h4 class="modal-title">Editar 1. POLITICA</h4>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
  </button>
  </div>
  <div class="modal-body">
@@ -739,7 +683,7 @@ function EliminarAsistencia(id){
 
  </div>
  <div class="modal-footer">
-   <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnActualizar()">Actualizar</button>
+ <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnActualizar()">Actualizar</button>
  </div>
 </div>
 </div>
@@ -748,12 +692,12 @@ function EliminarAsistencia(id){
 <div class="modal fade bd-example-modal-lg" id="myModalListaComprobacion" data-backdrop="static">
 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 <div class="modal-content" style="border-radius: 0px;border: 0px;">
- <div class="modal-header">
-   <h4 class="modal-title">Lista de comprobación</h4>
-     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-   <span aria-hidden="true">&times;</span>
- </button>
- </div>
+<div class="modal-header">
+<h4 class="modal-title">Lista de comprobación</h4>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
 
 <div class="modal-body">
 
@@ -888,7 +832,6 @@ function EliminarAsistencia(id){
     </div>
     </div>
 
-
-  <script src="<?php echo RUTA_JS ?>bootstrap.min.js"></script>
+  <script src="<?=RUTA_JS?>bootstrap.min.js"></script>
   </body>
   </html>

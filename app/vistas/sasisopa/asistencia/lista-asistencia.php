@@ -9,7 +9,7 @@ $numero_asistencia = mysqli_num_rows($lista_asistencia);
 
 ?>
 <div style="overflow-y: hidden;">
-<table class="table table-bordered table-striped table-sm">
+<table class="table table-bordered table-striped table-sm pb-0 mb-0">
 <thead>	
 <tr>
 <th class="text-center align-middle">#</th>

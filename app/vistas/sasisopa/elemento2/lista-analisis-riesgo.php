@@ -7,7 +7,7 @@ $numero = mysqli_num_rows($result);
 
 ?>
 <div style="overflow-y: hidden;">
-<table class="table table-bordered table-striped table-hover table-sm">
+<table class="table table-bordered table-striped table-hover table-sm mb-0 pb-0">
 <thead>
 <tr>
   <th class="text-center">#</th>

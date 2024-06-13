@@ -108,8 +108,8 @@ $numero = mysqli_num_rows($result);
   <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -177,120 +177,108 @@ $('#FechaInicio').css('border','2px solid #A52525');
     <?php require('public/componentes/header.menu.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
+        <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
+        </div>
+        <div class="float-left">
+        <h4>Formato Programa de auditorias (Internas y externas)</h4>
+        </div>
       </div>
-    
-
-    <!-- TITULO / ENCABEZADO -->
-    <div class="float-left">
-      <h4>Formato Programa de auditorias (Internas y externas)</h4>
     </div>
 
+    <div class="mt-4 bg-white p-3">
+
+    <div style="overflow-y: hidden;">
+    <table class="table table-bordered table-sm mb-0 pb-0" style="font-size: .9em;">
+    <tr>
+    <td class="text-center align-middle"><img class="text-center" src="<?php echo RUTA_IMG_LOGOS."Logo.png";?>" style="width: 200px;"></td>
+    <td colspan="2" class="text-center align-middle"><b>Formato Programa de auditorias (Internas y externas) </b></td>
+    <td class="text-center align-middle">Fo.ADMONGAS.023</td>
+    </tr>
+    <tr>
+    <td class="text-center align-middle">Realizado por: Nelly Estrada Garcia </td>
+    <td class="text-center align-middle">Revisado por: Eduardo Galicia Flores </td>
+    <td class="text-center align-middle">Autorizado por: <?=$Session_ApoderadoLegal;?> </td>
+    <td class="text-center align-middle">Fecha de autorizacion 01-Oct-2018</td>
+    </tr>
+    </table>
+    </div>
+
+    <div style="overflow-y: hidden;">
+    <div class="mt-3" id="DivContenido">
+
+    <div class="text-right mb-2">
+    <img src="<?php echo RUTA_IMG_ICONOS."lupa.png"; ?>" onclick="btnModal()">
+    <img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>" onclick="btnDescargar(<?=$fecha_year;?>,<?=$YearFin;?>)">
+    </div>
+
+    <table class="table table-bordered table-sm" style="">
+    <thead>
+    <tr>
+    <th class="text-center align-middle">Tipo de auditoria</th>
+    <th class="text-center align-middle">Responsable</th>
+    <th class="text-center align-middle">Periodicidad</th>
+
+    <?php
+    $TR = 0;
+    for ($i = $fecha_year; $i <= $YearFin; $i++) {
+    echo '<td class="text-center align-middle"><b>'.$i.'</b></td>';
+    $TR = $TR + 1;
+    }
+    ?>
+    </tr>
+    </thead>
+    <tbody>
+    <?php  
+
+    while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+    echo "<tr>";
+    echo '<td>'.$row['tipo_auditoria'].'</td>';
+    echo '<td>'.$row['responsable'].'</td>';
+    echo '<td>'.$row['periodicidad'].'</td>';
+
+    $ExplodeF = explode("-", $row['fecha']);
+    for ($mes = $fecha_year; $mes <= $YearFin; $mes++) {
+
+    if($row['tipo_auditoria'] == 'Interna'){
+
+    if($ExplodeF[0] == $mes){
+    $Color = 'table-primary';
+    $Titulo = nombremes($ExplodeF[1]);
+    }else{
+    $Color = ''; 
+    $Titulo = '';
+    }
+
+    }else if($row['tipo_auditoria'] == 'Externa'){
+
+    if($ExplodeF[0] == $mes){
+    $Color = 'table-success';
+    $Titulo = nombremes($ExplodeF[1]);
+    }else{
+    $Color = ''; 
+    $Titulo = '';
+    }
+
+    }
+    echo '<td class="text-center align-middle '.$Color.'">'.$Titulo.'</td>';
+    }
+    echo "</tr>";  
+    }
+    ?>
+    </tbody>
+    </table>
+    </div>
+    </div>
+
+      <div class="mt-2 text-center">
+      <small>*Las auditorias al SA se realizaran por personal interno de la empresa, que puede ser el gerente de la estación de servicio, el Representante legal, el departamento de gestión, entre otras y las auditorias externas se realizaran por un tercer acreditado (cada dos años de acuerdo a las DACG expendio de petrolíferos) ante la Agencia de Seguridad Energía y Ambiente, tercer acreditado que tendrá que tener vigente su autorización ante la Agencia y el personal podrá elegir. </small>
       </div>
-    <div class="card-body">
 
-<div class="mb-3" style="overflow-y: hidden;">
-<table class="table table-bordered table-sm" style="font-size: .9em;">
-<tr>
-<td class="text-center align-middle"><img class="text-center" src="<?php echo RUTA_IMG_LOGOS."Logo.png";?>" style="width: 200px;"></td>
-<td colspan="2" class="text-center align-middle"><b>Formato Programa de auditorias (Internas y externas) </b></td>
-<td class="text-center align-middle">Fo.ADMONGAS.023</td>
-</tr>
-<tr>
-<td class="text-center align-middle">Realizado por: Nelly Estrada Garcia </td>
-<td class="text-center align-middle">Revisado por: Eduardo Galicia Flores </td>
-<td class="text-center align-middle">Autorizado por: <?=$Session_ApoderadoLegal;?> </td>
-<td class="text-center align-middle">Fecha de autorizacion 01-Oct-2018</td>
-</tr>
-</table>
-</div>
-
-<div id="DivContenido">
-
-<div class="text-right mb-2">
-<img src="<?php echo RUTA_IMG_ICONOS."lupa.png"; ?>" onclick="btnModal()">
-<img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>" onclick="btnDescargar(<?=$fecha_year;?>,<?=$YearFin;?>)">
-</div>
-
-
-<table class="table table-bordered table-sm" style="">
-<thead>
-<tr>
-<th class="text-center align-middle">Tipo de auditoria</th>
-<th class="text-center align-middle">Responsable</th>
-<th class="text-center align-middle">Periodicidad</th>
-
-<?php
-$TR = 0;
-for ($i = $fecha_year; $i <= $YearFin; $i++) {
-echo '<td class="text-center align-middle"><b>'.$i.'</b></td>';
-$TR = $TR + 1;
-}
-
-?>
-
-</tr>
-</thead>
-<tbody>
-<?php  
-
-while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-echo "<tr>";
-echo '<td>'.$row['tipo_auditoria'].'</td>';
-echo '<td>'.$row['responsable'].'</td>';
-echo '<td>'.$row['periodicidad'].'</td>';
-
-$ExplodeF = explode("-", $row['fecha']);
-for ($mes = $fecha_year; $mes <= $YearFin; $mes++) {
-
-if($row['tipo_auditoria'] == 'Interna'){
-
-if($ExplodeF[0] == $mes){
-$Color = 'table-primary';
-$Titulo = nombremes($ExplodeF[1]);
-}else{
-$Color = ''; 
-$Titulo = '';
-}
-
-}else if($row['tipo_auditoria'] == 'Externa'){
-
-if($ExplodeF[0] == $mes){
-$Color = 'table-success';
-$Titulo = nombremes($ExplodeF[1]);
-}else{
-$Color = ''; 
-$Titulo = '';
-}
-
-}
-
-echo '<td class="text-center align-middle '.$Color.'">'.$Titulo.'</td>';
-
-}
-
-echo "</tr>";  
-}
-
-?>
-</tbody>
-</table>
-</div>
-
-<div class="mt-2 text-center">
-<small>*Las auditorias al SA se realizaran por personal interno de la empresa, que puede ser el gerente de la estación de servicio, el Representante legal, el departamento de gestión, entre otras y las auditorias externas se realizaran por un tercer acreditado (cada dos años de acuerdo a las DACG expendio de petrolíferos) ante la Agencia de Seguridad Energía y Ambiente, tercer acreditado que tendrá que tener vigente su autorización ante la Agencia y el personal podrá elegir. </small>
-</div>
-
-    </div>
-    </div>
-    </div>
     </div>
     </div>
 
@@ -299,19 +287,17 @@ echo "</tr>";
       <div class="modal-content" style="border-radius: 0px;border: 0px;">
         <div class="modal-header">
           <h4 class="modal-title">Buscar</h4>
-
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-  </button>
+            <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <div class="modal-body">
 
+          <div class="mb-2"><small class="text-secondary">Fecha inicio:</small></div>
+          <input class="form-control input-style rounded-0" type="date" id="FechaInicio">
 
-  <div class="mb-2"><small class="text-secondary">Fecha inicio:</small></div>
-  <input class="form-control input-style rounded-0" type="date" id="FechaInicio">
-
-    <div class="mb-2"><small class="text-secondary">Fecha termino:</small></div>
-  <input class="form-control input-style rounded-0" type="date" id="FechaTermino"> 
+          <div class="mb-2"><small class="text-secondary">Fecha termino:</small></div>
+          <input class="form-control input-style rounded-0" type="date" id="FechaTermino"> 
 
         </div>
         <div class="modal-footer">

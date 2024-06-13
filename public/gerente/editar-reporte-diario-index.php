@@ -44,6 +44,10 @@ $ppl = $_POST['imto'] / $_POST['voco'];
     alertify.message('Se agregó correctamente la información');
   </script>";
 }
+
+$tovolcompra1 = 0;
+$tovolcompra2 = 0;
+$tovolcompra3 = 0;
 ?>
 <html lang="es">
   <head>
@@ -645,7 +649,7 @@ function financial(x) {
             <td class="align-middle"><a onclick="deletPipa(<?=$idPipa;?>)" style="cursor:pointer"><img src="<?php echo RUTA_IMG_ICONOS."eliminar-red-16.png"; ?>"></a></td>
             <?php
             echo "</tr>";
-            $tovolcompra3 = $tovolcompra3 + $row_reportepipas1['volumen'];
+            $tovolcompra3 = $tovolcompra3 + $row_reportepipas3['volumen'];
           }
         }else{
           echo "<tr><td colspan='5' class='text-center text-secondary' style='font-size: .9em;'>No se encontró información</td></tr>";

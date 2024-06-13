@@ -9,7 +9,7 @@ $yearAnterior = $year - 1;
 $class_control_actividad_proceso->validaMesAnterior($Session_IDEstacion,$idReporte,$yearAnterior);
 ?>
 <!-- TABLA - APROBACION -->
-<div class="mb-2" style="overflow-y: hidden;">
+<div style="overflow-y: hidden;">
 
 <table class="table table-bordered table-sm">
         <tr style="font-size: 1.2em;">
@@ -26,8 +26,8 @@ $class_control_actividad_proceso->validaMesAnterior($Session_IDEstacion,$idRepor
       </table>
 </div>
 
-  <div class="mb-2" style="overflow-y: hidden;">
-  <table class="table table-bordered table-sm">
+  <div style="overflow-y: hidden;">
+  <table class="table table-bordered table-sm pb-0 mb-0">
         <tr class="table-primary">
           <td class="text-center font-weight-bold">#</td>
           <td class="text-center font-weight-bold">Equipo o instalación</td>

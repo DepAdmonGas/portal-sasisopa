@@ -2,31 +2,20 @@
 require('../../../../app/help.php');
 $idUsuario = $_GET['idUsuario'];
 ?> 
-<div class="border mt-3">
-<div class="p-3">
-
 <div class="row">
-
 <div class="col-12" style="font-size: 1.4em;">
 4. Experiencia laboral
 </div>
-
-
 <div class="col-10">
 <div class="mt-2 ml-3" style="font-size: 1.2em;">
 4.1 En otras empresas
 </div>
 </div>
-
-
 <div class="col-2 mt-2">
   <a class="float-right" onclick="ModalEL()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Agregar"><img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
 </a>
 </div>
-
 </div>
-
-<hr>
 
 <div style="overflow-y: hidden;">
 <table class="table table-bordered table-striped table-sm" style="margin-top: 10px;font-size: 1.2em;">
@@ -51,8 +40,6 @@ $idUsuario = $_GET['idUsuario'];
 </table>
 </div>
 
-</div>
-</div>
 
 
 

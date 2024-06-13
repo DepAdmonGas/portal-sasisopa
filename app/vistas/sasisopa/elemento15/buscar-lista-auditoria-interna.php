@@ -7,11 +7,9 @@ $class_auditoria = new Auditoria();
 $sql_auditoria = "SELECT * FROM tb_auditoria_interna WHERE id_estacion= '".$Session_IDEstacion."' ORDER BY id desc ";
 $result_auditoria = mysqli_query($con, $sql_auditoria);
 $numero_auditoria = mysqli_num_rows($result_auditoria);
-
 ?>
-
-<div class="mb-2" style="overflow-y: hidden;">
-<table class="table table-bordered table-striped table-hover table-sm">
+<div style="overflow-y: hidden;">
+<table class="table table-bordered table-striped table-hover table-sm pb-0 mb-0">
 <thead>
 <th class="text-center">#</th>
 <th class="text-center">Fecha</th>

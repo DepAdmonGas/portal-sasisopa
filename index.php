@@ -16,7 +16,7 @@ if ($partes_ruta[0] == 'portal-sasisopa')
 {
 if (count($partes_ruta) == 1)
 {
-$ruta_elegida = 'public/home/index.php';
+$ruta_elegida = $index_controlador->homeGerente();
 }else if(count($partes_ruta) == 2)
 {
 switch ($partes_ruta[1])
@@ -633,6 +633,11 @@ break;
     $GET_idModulo = $partes_ruta[3];
     $ruta_elegida = 'public/cursos/descargar-reconocimiento-modulo.php';
     }
+    else if ($partes_ruta[1] == 'descargar-programa-anual-mantenimiento') {
+      $GET_idRegistro = $partes_ruta[2];
+      $GET_idEstacion = $partes_ruta[3];
+      $ruta_elegida = 'public/administrador/descargar-programa-anual-mantenimiento.php';
+      }
 
   }else if(count($partes_ruta) == 5){
 
