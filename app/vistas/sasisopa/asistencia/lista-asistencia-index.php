@@ -2,6 +2,32 @@
 require('app/help.php');
 include_once "app/modelo/Asistencia.php";
 
+$class_asistencia = new Asistencia();
+$array_lista_asistencia = $class_asistencia->detalleAsistencia($GET_idRegistro);
+
+$fecha = $array_lista_asistencia['fecha'];
+$lugar = $array_lista_asistencia['lugar'];
+$tema = $array_lista_asistencia['tema'];
+$finalidad = $array_lista_asistencia['finalidad'];
+$encargado = $array_lista_asistencia['encargado'];
+$estado = $array_lista_asistencia['estado'];
+$punto_sasisopa = $array_lista_asistencia['punto_sasisopa'];
+$realizadopor = $array_lista_asistencia['realizadopor'];
+
+if($array_lista_asistencia['hora'] == "00:00:00"){
+$hora = $hora_del_dia;
+}else{
+$hora = $array_lista_asistencia['hora'];
+}
+
+if($realizadopor == 0){
+$titulo = "Fo.ADMONGAS.010 (Registro de la atención y el seguimiento a la comunicación interna y externa.)";
+$col = 'col-xl-12 col-lg-12';
+}else{
+$titulo = "Fo.SGM.001 Lista de asistencia";
+$col = 'col-xl-7 col-lg-7';
+}
+
 ?>
  
 <html lang="es">
@@ -17,6 +43,7 @@ include_once "app/modelo/Asistencia.php";
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
   <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -45,6 +72,7 @@ include_once "app/modelo/Asistencia.php";
 
   DivSelPersonal(<?=$GET_idRegistro;?>)
   ListaAsistencia(<?=$GET_idRegistro;?>)
+  ListaEvidencia(<?=$GET_idRegistro;?>)
 
   });
 
@@ -97,8 +125,6 @@ $.ajax({
  complete: function(){
  },
  success:  function (response) {
-
-  console.log(response)
 
 if(response == 1){
 alertify.message('Lista de asistencia fue creada correctamente');
@@ -214,6 +240,85 @@ $('#DivSelPersonal').load('../app/vistas/sasisopa/asistencia/select-asistencia-p
 function ListaAsistencia(id){
 $('#DivListaAsistencia').load('../app/vistas/sasisopa/asistencia/lista-asistencia-firma.php?idReporte=' + id); 
 }
+
+//----------------------------------------------------------------------------------------------------------------
+
+function ListaEvidencia(idRegistro){
+$('#ListaEvidencia').load('../app/vistas/sasisopa/asistencia/lista-asistencia-evidencia.php?id=' + idRegistro); 
+}
+
+function agregarEvidencia(idRegistro){
+
+var evidencia = document.getElementById("evidencia");
+var Fileevidencia = evidencia.files[0];
+var Pathevidencia = evidencia.value;
+var ext = $("#evidencia").val().split('.').pop();
+
+var data = new FormData();
+var url = '../app/vistas/sasisopa/asistencia/agregar-evidencia-lista-asistencia.php';
+
+if (ext == "PNG" || ext == "JPG" || ext == "JPEG" || 
+  ext == "png" || ext == "jpg" || ext == "jpeg") {
+$('#result').html('');
+
+data.append('idRegistro', idRegistro);
+data.append('Fileevidencia', Fileevidencia);
+
+  $.ajax({
+  url: url,
+  type: 'POST',
+  contentType: false,
+  data: data,
+  processData: false,
+  cache: false,
+  }).done(function(data){
+
+ListaEvidencia(idRegistro)
+evidencia.value = '';
+
+  });
+
+
+
+}else{
+$('#result').html('<small class="text-danger">Solo se aceptan imagenes</small>'); 
+}
+
+}
+
+function EliminarEvidencia(idReporte,id){
+  var parametros = {
+    "id" : id
+    };
+
+
+alertify.confirm('',
+function(){
+
+ $.ajax({
+     data:  parametros,
+     url:   '../app/vistas/sasisopa/asistencia/eliminar-lista-asistencia-evidencia.php',
+     type:  'post',
+     beforeSend: function() {
+     },
+     complete: function(){
+    
+     },
+     success:  function (response) {
+
+    if (response == 1) {
+    ListaEvidencia(idReporte)
+    }else{
+    alertify.error('Error al eliminar')
+}
+
+ }
+ });
+
+},
+function(){
+}).setHeader('Lista de asistencia').set({transition:'zoom',message: '¿Desea eliminar la evidencia de la lista de asistencia de la estación?',labels:{ok:'Aceptar', cancel: 'Cancelar'}}).show();
+}
   </script>
   </head>
   <body>
@@ -228,28 +333,9 @@ $('#DivListaAsistencia').load('../app/vistas/sasisopa/asistencia/lista-asistenci
     <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
     <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
     </div>
-    <div class="float-left"><h4>Fo.ADMONGAS.010 (Registro de la atención y el seguimiento a la comunicación interna y externa.)</h4></div>
+    <div class="float-left"><h4><?=$titulo;?></h4></div>
 
     <div class="row no-gutters mt-5 bg-white">
-    <?php  
-    
-    $class_asistencia = new Asistencia();
-    $array_lista_asistencia = $class_asistencia->detalleAsistencia($GET_idRegistro);
-
-    $fecha = $array_lista_asistencia['fecha'];
-    $lugar = $array_lista_asistencia['lugar'];
-    $tema = $array_lista_asistencia['tema'];
-    $finalidad = $array_lista_asistencia['finalidad'];
-    $encargado = $array_lista_asistencia['encargado'];
-    $estado = $array_lista_asistencia['estado'];
-
-    if($array_lista_asistencia['hora'] == "00:00:00"){
-    $hora = $hora_del_dia;
-    }else{
-    $hora = $array_lista_asistencia['hora'];
-    }
-
-    ?>
        
       <!-- Elemento 1-->
       <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 border-right p-3">      
@@ -324,19 +410,31 @@ $('#DivListaAsistencia').load('../app/vistas/sasisopa/asistencia/lista-asistenci
     <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 p-3"> 
     <div class="row">  
 
-    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-1 border-right"> 
+    <div class="<?=$col;?> col-md-12 col-sm-12 mb-1"> 
     <div id="DivSelPersonal"></div>
     <div class="text-right mt-2 mb-3">
     <button type="button" class="btn btn-sm btn-Primary rounded-0" onclick="btnGuardarFirma(<?=$GET_idRegistro;?>)">Agregar</button>
     </div>
+
+    <div id="DivListaAsistencia"></div>
     </div>         
 
-    <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 mt-2 "> 
+    <?php 
+      if($realizadopor != 0){
+      echo '<div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 mb-1 mb-2 border-left">';
+      echo '<h5>Evidencia</h5>';
+      echo '<small class="text-secondary">Agrega la evidencia del elemento lista de asistencia, un máximo de 3 imágenes</small>';
+      echo '<hr>';
+      echo '<div class="mt-0"><input type="file" id="evidencia"></div>';
+      echo '<div class="text-center p-2" id="result"></div>';
+      echo '<div class="mt-2 text-right"><button type="button" class="btn btn-sm btn-info rounded-0" onclick="agregarEvidencia('.$GET_idRegistro.')">Agregar evidencia</button></div>';
+      echo '<hr>';
+      echo '<div id="ListaEvidencia"></div>';
+      echo '</div>';
+      }
+      
+      ?>
 
-    <div style="height: 30em;overflow-x: hidden;overflow-y: scroll;">
-    <div id="DivListaAsistencia"></div>
-    </div>
-    </div>
     </div>
 
     </div>
@@ -350,7 +448,7 @@ $('#DivListaAsistencia').load('../app/vistas/sasisopa/asistencia/lista-asistenci
 
 
   <script src="<?php echo RUTA_JS ?>bootstrap.min.js"></script>
-
+  <script src="<?php echo RUTA_JS ?>bootstrap-select.js"></script>
 
   </body>
   </html>

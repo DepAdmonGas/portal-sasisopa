@@ -81,12 +81,14 @@ class ControlActividadProceso
         if ($numero == 1) {
         $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $idYearAnte = $row['id'];        
-        $this->CreaPrograma($idYearAnte, $id_reporte);
+        $this->CreaPrograma($id_estacion,$idYearAnte, $id_reporte);
         }
 
     }
 
-    function CreaPrograma($idYearAnte, $idReporte){
+    function CreaPrograma($id_estacion,$idYearAnte, $idReporte){
+
+        $year_anterior = $this->yearProgramaAnual($idYearAnte);
 
         $sql_mantenimiento_lista = "SELECT po_mantenimiento_lista.id, po_mantenimiento_lista.detalle, po_mantenimiento_lista.periodicidad, po_programa_anual_mantenimiento_detalle.id AS idreporte, po_programa_anual_mantenimiento_detalle.id_programa_fecha, po_programa_anual_mantenimiento_detalle.enero,po_programa_anual_mantenimiento_detalle.febrero,po_programa_anual_mantenimiento_detalle.marzo,po_programa_anual_mantenimiento_detalle.abril,po_programa_anual_mantenimiento_detalle.mayo,po_programa_anual_mantenimiento_detalle.junio,po_programa_anual_mantenimiento_detalle.julio,po_programa_anual_mantenimiento_detalle.agosto,po_programa_anual_mantenimiento_detalle.septiembre,po_programa_anual_mantenimiento_detalle.octubre,po_programa_anual_mantenimiento_detalle.noviembre,po_programa_anual_mantenimiento_detalle.diciembre FROM po_mantenimiento_lista INNER JOIN po_programa_anual_mantenimiento_detalle ON po_mantenimiento_lista.id = po_programa_anual_mantenimiento_detalle.id_mantenimiento WHERE po_programa_anual_mantenimiento_detalle.id_programa_fecha = '".$idYearAnte."' ";
         $result_mantenimiento_lista = mysqli_query($this->con, $sql_mantenimiento_lista);
@@ -114,7 +116,7 @@ class ControlActividadProceso
         
         if ($numero_programa == 0) {
         
-        if ($periodicidad == "Mensual" || $periodicidad == "Trimestral" || $periodicidad == "Cuatrimestral" || $periodicidad == "Semestral" || $periodicidad == "Anual" || $periodicidad == "Determinado por el Representante Legal") {
+        if ($periodicidad == "Semanal" || $periodicidad == "Mensual" || $periodicidad == "Trimestral" || $periodicidad == "Cuatrimestral" || $periodicidad == "Semestral" || $periodicidad == "Anual" || $periodicidad == "Determinado por el Representante Legal") {
         
         if ($enero == "0000-00-00") {
         $mes1 = "0000-00-00";
@@ -401,9 +403,27 @@ class ControlActividadProceso
         )";
         $this->sqlQuery($sql_insert2);
         
-        }        
-        }                
+        }           
+        }   
+
+        //---------------------------------------------------------------
+        //---------------------------------------------------------------
+        if ($periodicidad == "Semanal"){
+        $this->ultimaFechaSemanal($id_estacion,$idMantenimiento,$year_anterior);
         }
+
+        }
+        }
+
+        public function ultimaFechaSemanal($id_estacion,$idMantenimiento,$year_anterior){
+            $sql = "SELECT fecha FROM po_programa_anual_mantenimiento_calendario WHERE id_estacion = '".$id_estacion."' AND id_mantenimiento = '".$idMantenimiento."' AND YEAR(fecha) = '".$year_anterior."' ORDER BY fecha DESC LIMIT 1 ";
+            $result = mysqli_query($this->con, $sql);
+            $numero = mysqli_num_rows($result);	
+            if($numero > 0){
+            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+            $fecha = $row['fecha'];
+            $this->mantenimientoSemanal($id_estacion,$idMantenimiento,$fecha);
+            }
         }
 
         public function txtFecha($fecha){
@@ -489,7 +509,7 @@ class ControlActividadProceso
             return $row['periodicidad'];
         }
 
-        public function agregarEquipoInstalacion($id_reporte,$id,$fecha,$select){
+        public function agregarEquipoInstalacion($id_estacion,$id_reporte,$id,$fecha,$select){
 
             if ($id  != 43) {
                 $sql = "SELECT periodicidad FROM po_mantenimiento_lista WHERE id = '".$id."' ";
@@ -500,42 +520,85 @@ class ControlActividadProceso
                 $periodicidad = $select;
             }
 
-            $mes1 = $this->valida($periodicidad,$fecha,'01');
-            $mes2 = $this->valida($periodicidad,$fecha,'02');
-            $mes3 = $this->valida($periodicidad,$fecha,'03');
-            $mes4 = $this->valida($periodicidad,$fecha,'04');
-            $mes5 = $this->valida($periodicidad,$fecha,'05');
-            $mes6 = $this->valida($periodicidad,$fecha,'06');
-            $mes7 = $this->valida($periodicidad,$fecha,'07');
-            $mes8 = $this->valida($periodicidad,$fecha,'08');
-            $mes9 = $this->valida($periodicidad,$fecha,'09');
-            $mes10 = $this->valida($periodicidad,$fecha,'10');
-            $mes11 = $this->valida($periodicidad,$fecha,'11');
-            $mes12 = $this->valida($periodicidad,$fecha,'12');
+                $mes1 = $this->valida($periodicidad,$fecha,'01');
+                $mes2 = $this->valida($periodicidad,$fecha,'02');
+                $mes3 = $this->valida($periodicidad,$fecha,'03');
+                $mes4 = $this->valida($periodicidad,$fecha,'04');
+                $mes5 = $this->valida($periodicidad,$fecha,'05');
+                $mes6 = $this->valida($periodicidad,$fecha,'06');
+                $mes7 = $this->valida($periodicidad,$fecha,'07');
+                $mes8 = $this->valida($periodicidad,$fecha,'08');
+                $mes9 = $this->valida($periodicidad,$fecha,'09');
+                $mes10 = $this->valida($periodicidad,$fecha,'10');
+                $mes11 = $this->valida($periodicidad,$fecha,'11');
+                $mes12 = $this->valida($periodicidad,$fecha,'12');
+    
+                $sql_insert = "INSERT INTO po_programa_anual_mantenimiento_detalle (id_programa_fecha,id_mantenimiento,ultimafecha,enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre,estado)
+                VALUES (
+                '".$id_reporte."',
+                '".$id."',
+                '".$fecha."',
+                '".$mes1."',
+                '".$mes2."',
+                '".$mes3."',
+                '".$mes4."',
+                '".$mes5."',
+                '".$mes6."',
+                '".$mes7."',
+                '".$mes8."',
+                '".$mes9."',
+                '".$mes10."',
+                '".$mes11."',
+                '".$mes12."',
+                1
+                )";
+            
+            $this->sqlQuery($sql_insert);
 
-            $sql_insert = "INSERT INTO po_programa_anual_mantenimiento_detalle (id_programa_fecha,id_mantenimiento,ultimafecha,enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre,estado)
-            VALUES (
-            '".$id_reporte."',
-            '".$id."',
-            '".$fecha."',
-            '".$mes1."',
-            '".$mes2."',
-            '".$mes3."',
-            '".$mes4."',
-            '".$mes5."',
-            '".$mes6."',
-            '".$mes7."',
-            '".$mes8."',
-            '".$mes9."',
-            '".$mes10."',
-            '".$mes11."',
-            '".$mes12."',
-            1
-            )";
-
-            return $this->sqlQuery($sql_insert);
+            if($periodicidad == 'Semanal'){
+            $this->mantenimientoSemanal($id_estacion,$id,$fecha);
+            }
+            return true;
             $this->class_base_datos->desconectarBD($this->con);
 
+        }
+
+        public function mantenimientoSemanal($id_estacion,$id,$fecha){
+            for ($i = 1; $i <= 53; $i++) {         
+            $semana = date("Y-m-d",strtotime($fecha."+ $i week")); 
+            $validacion = $this->ValidaMantenimientoSemanal($id_estacion,$id,$semana);
+            if($validacion == 0){
+                $sql_insert = "INSERT INTO po_programa_anual_mantenimiento_calendario (id_estacion,id_mantenimiento, fecha)
+                VALUES (
+                '".$id_estacion."',
+                '".$id."',
+                '".$semana."'
+                )";        
+                $this->sqlQuery($sql_insert);
+            }
+            }
+            return true;
+        }
+
+       
+          public function buscaFechaSemanal($id_estacion,$id,$year,$mes){
+            $sql = "SELECT fecha FROM po_programa_anual_mantenimiento_calendario WHERE id_estacion = '".$id_estacion."' AND id_mantenimiento = '".$id."' AND YEAR(fecha) = '".$year."' AND MONTH(fecha) = '".$mes."' ORDER BY fecha DESC LIMIT 1 ";
+            $result = mysqli_query($this->con, $sql);
+            $numero = mysqli_num_rows($result);	
+            if($numero > 0){
+                $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                $fecha = $row['fecha'];
+            }else{
+                $fecha = '0000-00-00';
+            }
+            
+            return $fecha;
+          }
+
+        public function ValidaMantenimientoSemanal($id_estacion,$id,$fecha){
+            $sql = "SELECT id FROM po_programa_anual_mantenimiento_calendario WHERE id_estacion = '".$id_estacion."' AND id_mantenimiento  = '".$id."' AND fecha = '".$fecha."' ";
+            $result = mysqli_query($this->con, $sql);
+            return mysqli_num_rows($result);
         }
 
         public function getUltimoDiaMes($elAnio,$elMes) {
@@ -546,7 +609,11 @@ class ControlActividadProceso
 
             $newperiodo = strtolower($periodo);
             
-            if ($newperiodo == "mensual") {
+            if ($newperiodo == "semanal") {
+            
+            $resultado = "";
+                
+            }else if ($newperiodo == "mensual") {
             
             $formato_fecha = explode("-",$fecha);
             $dia = $formato_fecha[2];
@@ -2295,5 +2362,34 @@ class ControlActividadProceso
             return $this->sqlQuery($sql);
             $this->class_base_datos->desconectarBD($this->con);
         }
+
+    //------------------------------------------------------------------------------------------------
+
+    public function agregarDetectorHumo($id_estacion,$no_detector,$ubicacion){
+        $sql = "INSERT INTO tb_detector_humo (
+            id_estacion,
+            no_detector,
+            ubicacion,
+            estado
+            )
+            VALUES (
+            '".$id_estacion."',
+            '".$no_detector."',
+            '".$ubicacion."',
+            1
+            )";
+            return $this->sqlQuery($sql);
+            $this->class_base_datos->desconectarBD($this->con);
+    }
+
+    public function eliminarDetectorHumo($id){
+        
+        $sql = "UPDATE tb_detector_humo SET
+        estado = 0
+         WHERE id = '".$id."' ";
+        return $this->sqlQuery($sql);
+        $this->class_base_datos->desconectarBD($this->con);
+
+    }
 
 }

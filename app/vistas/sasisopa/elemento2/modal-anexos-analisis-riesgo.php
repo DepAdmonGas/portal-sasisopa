@@ -15,15 +15,13 @@ $result_anexo = mysqli_query($con, $sql_anexo);
 $numero_anexo = mysqli_num_rows($result_anexo);
 ?>
 
-        <div class="modal-header">
-          <h4 class="modal-title">Análisis de riesgo Anexos</h4>
-           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <div class="modal-header rounded-0 head-modal">
+          <h4 class="modal-title text-white">Análisis de riesgo Anexos</h4>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
 
-        <div class="border-bottom pb-2">
+        <div class="pb-2">
         <div class="font-weight-light" style="font-size: 1.2em;"><b>Fecha:</b> <?=$fecha;?></div>
         <div class="font-weight-light" style="font-size: 1.2em;"><b>Descripción:</b> <?=$descripcion;?></div>
         </div>

@@ -6,8 +6,8 @@ include_once "modelo/Cursos.php";
 include_once "modelo/Mantenimiento.php";
 //---------------------------------------
 include_once "modelo/Estacion.php";
-session_start();
 
+session_start();
 $ClassConexionBD = new ConexionBD();
 //--------------------------------------------------------------------------------------------
 $ClassMantenimiento = new Mantenimiento();
@@ -31,6 +31,8 @@ $ClassEstacion = new Estacion($Session_IDEstacion);
 $ClassEstacion->getNombreEstacion();
 $Session_Permisocre = $ClassEstacion->getPermisoCre();
 $Session_Razonsocial = $ClassEstacion->getRazonSocial();
+$Session_RFC = $ClassEstacion->getRFC();
+
 $Session_Direccion = $ClassEstacion->getDireccionCompleta();
 $Session_DiEstado = $ClassEstacion->getDireccionEstado();
 $Session_DiMunicipio = $ClassEstacion->getDireccionMunicipio();
@@ -51,11 +53,7 @@ $explodeUsuario = explode(" ", $session_nomusuario);
 $nombreCorto = $explodeUsuario[0]." ".$explodeUsuario[1];
 
 if ($Session_IDUsuarioBD == "") {
-unset($_SESSION);
-session_destroy();
-$ClassConexionBD->desconectarBD($con);
 header("Location:".PORTAL."");
-die();
 }
 
 //--------------------------------------------------------------------------------

@@ -9,17 +9,19 @@ require('app/help.php');
   <title>SASISOPA</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width initial-scale=1.0">
-  <link rel="shortcut icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
-  <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-  <script type="text/javascript" src="<?php echo RUTA_JS ?>alertify.js"></script>
+  <link rel="shortcut icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
+  <link rel="apple-touch-icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>alertify.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>themes/default.rtl.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS ?>bootstrap.css" />
+  <link rel="stylesheet" href="<?=RUTA_CSS?>componentes.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>bootstrap-select.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="<?=RUTA_JS?>alertify.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
@@ -83,23 +85,37 @@ $('#BuscarYear').css('border','2px solid #A52525');
 
     <div class="LoaderPage"></div>
     <div class="fixed-top navbar-admin">
-    <?php require('public/componentes/header.menu.php'); ?>
+    <?php require('app/vistas/componentes/navbar-perfil.php'); ?>
     </div>
 
     <div class="magir-top-principal p-3">
 
-    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-    <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
+    <!-- Inicio -->
+    <div class="float-end">
+    <div class="dropdown dropdown-sm d-inline ms-2">
+    <button type="button" class="btn dropdown-toggle btn-primary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="fa-solid fa-screwdriver-wrench"></i></span>
+    </button>
+    <ul class="dropdown-menu">
+    <li onclick="ModalBuscar()"><a class="dropdown-item c-pointer"> <i class="fa-solid fa-magnifying-glass"></i> Buscar</a></li>
+    </ul>
     </div>
-    <!-- TITULO / ENCABEZADO -->
-    <div class="float-left"><h4>Capacitación del personal</h4></div>
-    <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
-    <a onclick="ModalBuscar()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Buscar" >
-    <img src="<?php echo RUTA_IMG_ICONOS."buscar-icono.png"; ?>">
-    </a>
     </div>
+    <!-- Fin -->
 
-    <div class="mt-5">
+    <!-- Inicio -->
+    <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
+    <ol class="breadcrumb breadcrumb-caret">
+    <li class="breadcrumb-item text-primary c-pointer" onclick="window.history.go(-2);"><i class="fa-solid fa-house"></i> SASISOPA</li>
+    <li aria-current="page" class="breadcrumb-item c-pointer" onclick="regresarP()">4. OBJETIVOS, METAS E INDICADORES</li>
+    <li aria-current="page" class="breadcrumb-item active">Capacitación del personal</li>
+    </ol>
+    </div>
+    <!-- Fin -->
+
+    <h3>Capacitación del personal</h3>
+
+    <div class="mt-3">
     <div id="DivListaCapacitacion"></div>
     </div>
 
@@ -108,11 +124,9 @@ $('#BuscarYear').css('border','2px solid #A52525');
         <div class="modal fade bd-example-modal-lg" id="ModalBuscar" data-backdrop="static">
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
       <div class="modal-content" style="border-radius: 0px;border: 0px;">
-        <div class="modal-header">
-          <h5 class="modal-title">Buscar</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <div class="modal-header rounded-0 head-modal">
+          <h5 class="modal-title text-white">Buscar</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
 

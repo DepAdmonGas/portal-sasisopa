@@ -28,9 +28,9 @@ if ($idequipo == 44) {
         $Titulo = "Equipo:"; 
         }
         $resultado = "";
-        $resultado .= "<div style='border: 1px solid #DAD9D9;padding: 10px;margin-bottom: 20px;margin-top: 20px;font-family: Arial, Helvetica, sans-serif;'>";
-        $resultado .= "<div style='padding-bottom: 10px;border-bottom: 1px solid #DAD9D9;'>";
-        $resultado .= "<div style='font-size: 1.1em;'>".$Titulo." <b>".NombreEquipo($idequipo,$con)."</b></div>";
+        $resultado .= "<div style='margin-bottom: 10px;margin-top: 20px;font-family: Arial, Helvetica, sans-serif;'>";
+        $resultado .= "<div";
+        $resultado .= "<div style='font-size: 1.2em;'>".$Titulo." <b>".NombreEquipo($idequipo,$con)."</b></div>";
         $resultado .= "</div>";
        
         $resultado .= "<table class='table table-bordered table-sm mt-4' style='font-size: .7em;'>";
@@ -113,24 +113,8 @@ if ($idequipo == 44) {
         $resultado .= "<td class='align-middle text-center ".$estado."'>".$FechaHoraObservaciones['horafin']."</td>"; 
 
         $resultado .= "<td class='".$estado."' style='vertical-align: text-top;'>"; 
-        $resultado .= "<div>";
-        $resultado .= "<table class='table table-bordered table-sm'>";
-
-        $sqlD = "SELECT * FROM po_mantenimiento_verificar_detalle WHERE id_verificar = '".$idverificar."'";
-        $resultD = mysqli_query($con, $sqlD);
-        $numeroD = mysqli_num_rows($resultD);
-        while($rowD = mysqli_fetch_array($resultD, MYSQLI_ASSOC)){
-        $resultado .= "<tr ".$estado.">";
-        $resultado .= "<td class='".$estado."' style='text-align: center;vertical-align: text-top;'>".NombreVerificar($rowD['id_detalle'], $con)."</td>";
-        $resultado .= "<td class='".$estado."' style='text-align: center;vertical-align: text-top;'>".$rowD['resultado']."</td>";        
-        $resultado .= "</tr>"; 
-        }
-        
-        $resultado .= "</table>";
-        $resultado .= "</div>";
-
-
-        if($idequipo == 46){
+       
+        if($idequipo == 45){
 
             $resultado .= "<table class='table table-bordered table-sm p-0 m-0'>";
             $resultado .= "<tr>";
@@ -159,7 +143,47 @@ if ($idequipo == 44) {
 
             }
             $resultado .= "</table>";
-        }
+        }else if($idequipo == 48){
+
+          $resultado .= "<table class='table table-sm table-bordered pb-0 mb-0'>";
+          $resultado .= "<tr>";
+          $resultado .= "<th class='align-middle text-center'>Número</th>";
+          $resultado .= "<th class='align-middle text-center'>Ubicación</th>";
+          $resultado .= "<th class='align-middle text-center'>Revisión</th>";
+          $resultado .= "<th class='align-middle text-center'>Resultado</th>";
+          $resultado .= "</tr>";
+          $sql_detalle = "SELECT * FROM po_mantenimiento_detector_humo WHERE id_verificar = '".$idverificar."' ";
+          $result_detalle = mysqli_query($con, $sql_detalle);
+          $numero_detalle = mysqli_num_rows($result_detalle);			
+          while($row_detector = mysqli_fetch_array($result_detalle, MYSQLI_ASSOC)){
+          $detector = DetectorHumo($row_detector['id_detector'],$con);
+          $resultado .= "<tr>";
+          $resultado .= "<td class='align-middle text-center'>".$detector['nodetector']."</td>";
+          $resultado .= "<td class='align-middle'>".$detector['ubicacion']."</td>";
+          $resultado .= "<td class='align-middle'>".$row_detector['revision']."</td>";
+          $resultado .= "<td class='align-middle text-center'>".$row_detector['resultado']."</td>";
+          $resultado .= "</tr>";
+    
+          }
+          $resultado .= "</table>";
+  
+          }else{
+            $resultado .= "<div>";
+            $resultado .= "<table class='table table-bordered table-sm'>";
+    
+            $sqlD = "SELECT * FROM po_mantenimiento_verificar_detalle WHERE id_verificar = '".$idverificar."'";
+            $resultD = mysqli_query($con, $sqlD);
+            $numeroD = mysqli_num_rows($resultD);
+            while($rowD = mysqli_fetch_array($resultD, MYSQLI_ASSOC)){
+            $resultado .= "<tr ".$estado.">";
+            $resultado .= "<td class='".$estado."' style='text-align: center;vertical-align: text-top;'>".NombreVerificar($rowD['id_detalle'], $con)."</td>";
+            $resultado .= "<td class='".$estado."' style='text-align: center;vertical-align: text-top;'>".$rowD['resultado']."</td>";        
+            $resultado .= "</tr>"; 
+            }
+            
+            $resultado .= "</table>";
+            $resultado .= "</div>";
+          }
 
         $resultado .= "</td>"; 
 
@@ -204,6 +228,19 @@ $resultado .= "</tr>";
 return $resultado;
 }
 
+function DetectorHumo($idDetector,$con){
+
+  $sql_detalle = "SELECT no_detector, ubicacion FROM tb_detector_humo WHERE id = '".$idDetector."' ";
+  $result_detalle = mysqli_query($con, $sql_detalle);
+  $numero_detalle = mysqli_num_rows($result_detalle);			
+  $row_detalle = mysqli_fetch_array($result_detalle, MYSQLI_ASSOC);
+  $nodetector = $row_detalle['no_detector'];
+  $ubicacion = $row_detalle['ubicacion'];
+
+  $array = array('nodetector' => $nodetector, 'ubicacion' => $ubicacion);
+  return $array;
+
+}
 //--------------------------------------------------------------------------------------------------------------------
 
 function ContenidoEquipo2($Session_IDEstacion,$idequipo,$selyear,$selmes,$con){
@@ -217,9 +254,9 @@ $BuscarMes = " AND MONTH (fechacreacion) = ".$selmes;
 $BuscarMes = "";
 }
 
-        $resultado .= "<div style='border: 1px solid #DAD9D9;padding: 10px;margin-bottom: 20px;margin-top: 20px;font-family: Arial, Helvetica, sans-serif;'>";
-        $resultado .= "<div style='padding-bottom: 10px;border-bottom: 1px solid #DAD9D9;'>";
-        $resultado .= "<div style='font-size: 1.1em;'>Equipo: <b>".NombreEquipo($idequipo,$con)."</b></div>";
+        $resultado .= "<div style='margin-bottom: 10px;margin-top: 20px;font-family: Arial, Helvetica, sans-serif;'>";
+        $resultado .= "<div";
+        $resultado .= "<div style='font-size: 1.2em;'>Equipo: <b>".NombreEquipo($idequipo,$con)."</b></div>";
         $resultado .= "</div>";
        
         $resultado .= "<table class='table table-bordered table-sm' style='font-size: .7em;'>";
@@ -350,9 +387,9 @@ $BuscarMes = "";
 }
 
 
-        $resultado .= "<div style='border: 1px solid #DAD9D9;padding: 10px;margin-bottom: 20px;margin-top: 20px;font-family: Arial, Helvetica, sans-serif;'>";
-        $resultado .= "<div style='padding-bottom: 10px;border-bottom: 1px solid #DAD9D9;'>";
-        $resultado .= "<div style='font-size: 1.1em;'>Equipo: <b>".NombreEquipo($idequipo,$con)."</b></div>";
+        $resultado .= "<div style='margin-bottom: 10px;margin-top: 20px;font-family: Arial, Helvetica, sans-serif;'>";
+        $resultado .= "<div";
+        $resultado .= "<div style='font-size: 1.2em;'>Equipo: <b>".NombreEquipo($idequipo,$con)."</b></div>";
         $resultado .= "</div>";
 
         $sqlV = "SELECT * FROM po_mantenimiento_verificar WHERE id_estacion = '".$Session_IDEstacion."' AND id_equipo = '".$idequipo."' AND YEAR(fechacreacion) = '".$selyear."' $BuscarMes AND estado >= 1 ORDER BY folio asc ";
@@ -507,9 +544,9 @@ if ($idequipo == 44) {
         $Titulo = "Equipo:"; 
         }
 
-        $resultado .= "<div style='border: 1px solid #DAD9D9;padding: 10px;margin-bottom: 20px;margin-top: 20px;font-family: Arial, Helvetica, sans-serif;'>";
-        $resultado .= "<div style='padding-bottom: 10px;border-bottom: 1px solid #DAD9D9;'>";
-        $resultado .= "<div style='font-size: 1.1em;'>".$Titulo." <b>".NombreEquipo($idequipo,$con)."</b></div>";
+        $resultado .= "<div style='margin-bottom: 10px;margin-top: 20px;font-family: Arial, Helvetica, sans-serif;'>";
+        $resultado .= "<div>";
+        $resultado .= "<div style='font-size: 1.2em;'>".$Titulo." <b>".NombreEquipo($idequipo,$con)."</b></div>";
         $resultado .= "</div>";
        
         $resultado .= "<table class='table table-bordered table-sm mt-4' style='font-size: .7em;'>";
@@ -1008,7 +1045,7 @@ FROM po_mantenimiento_verificar
 INNER JOIN po_mantenimiento_lista ON po_mantenimiento_verificar.id_equipo = po_mantenimiento_lista.id
 WHERE po_mantenimiento_verificar.id_estacion = '".$Session_IDEstacion."' AND 
 YEAR(po_mantenimiento_verificar.fechacreacion) = '".$selyear."' $BuscarMes AND 
-po_mantenimiento_verificar.estado >= 1 
+po_mantenimiento_verificar.estado >= 1 AND po_mantenimiento_verificar.id_equipo <> 44
 GROUP BY po_mantenimiento_lista.id
 ORDER BY po_mantenimiento_lista.num_lista asc";
 $resultV = mysqli_query($con, $sqlV);

@@ -184,6 +184,12 @@ function rootentregas(){
   window.location.href = 'gestoria-entregas';
 }
 
+function BTNDocumentosSGM(idEstacion){
+
+window.location.href = 'gestoria-control-documental-sgm/' + idEstacion;
+
+}
+
   </script>
   </head>
   

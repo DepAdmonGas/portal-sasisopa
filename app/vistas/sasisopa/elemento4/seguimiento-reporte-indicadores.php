@@ -6,14 +6,12 @@ $result_capacitacion = mysqli_query($con, $sql_capacitacion);
 $numero_capacitacion = mysqli_num_rows($result_capacitacion);
 
 ?>
-<table class="table table-bordered table-striped table-sm mb-0 pb-0">
+<table id="tabla-seguimiento-reporte-indicadores" class="table table-bordered table-striped table-sm mb-0 pb-0">
 <thead>	
-<tr>
+<tr class="bg-primary text-white">
 <th class="text-center align-middle">#</th>
 <th class="text-center align-middle">Fecha</th>
-<th class="text-center align-middle"><img src="<?=RUTA_IMG_ICONOS;?>ojo.png"></th>
-<th class="text-center align-middle"><img src="<?=RUTA_IMG_ICONOS;?>editar.png"></th>
-<th class="text-center align-middle"><img src="<?=RUTA_IMG_ICONOS;?>eliminar.png"></th>
+<th class="text-center align-middle" width="35px"><i class="fas fa-ellipsis-v"></i></th>
 </tr>
 </thead>
 <tbody>
@@ -24,12 +22,20 @@ while($row_capacitacion = mysqli_fetch_array($result_capacitacion, MYSQLI_ASSOC)
 $id = $row_capacitacion['id'];
 
 echo "<tr>";
-echo "<td class='text-center'>".$num."</td>";
+echo "<td class='text-center fw-bold'>".$num."</td>";
 echo "<td class='text-center'>".FormatoFecha($row_capacitacion['fecha'])."</td>";
-
-echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."ojo.png' style='cursor: pointer;' onclick='ModalDSRI(".$id.")'></td>";
-echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."editar.png' style='cursor: pointer;' onclick='ModalEditSRI(".$id.")'></td>";
-echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."eliminar.png' style='cursor: pointer;' onclick='EliminarObjetivo(2,".$id.")'></td>";
+echo '<td class="text-center align-middle" width="20px" style="cursor: pointer;">
+  <div class="dropdown dropstart">
+  <a class="btn btn-sm btn-icon-only text-dropdown-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+  <i class="fas fa-ellipsis-v"></i>
+  </a>
+  <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+    <a class="dropdown-item" onclick="ModalDSRI('.$id.')"><i class="fa-regular fa-eye"></i> Detalle</a>
+    <a class="dropdown-item" onclick="ModalEditSRI('.$id.')"><i class="fa-regular fa-pen-to-square"></i> Editar</a>
+    <a class="dropdown-item" onclick="EliminarObjetivo(2,'.$id.')"><i class="fa-regular fa-trash-can"></i> Eliminar</a>
+  </div>
+  </div>
+  </td>';
 
 echo "</tr>";
 

@@ -13,6 +13,7 @@ $email = $row_usuarios['email'];
 $usuario = $row_usuarios['usuario'];
 $password = $row_usuarios['password'];
 $idpuesto = $row_usuarios['id_puesto'];
+$respoabilidad_sgm = $row_usuarios['respoabilidad_sgm'];
 
 $sql_puesto = "SELECT * FROM tb_puestos WHERE id = '$idpuesto' ";
 $result_puesto = mysqli_query($con, $sql_puesto);
@@ -55,6 +56,7 @@ function btnEditarPersonal(idUsuario){
   var EditNomUsuario = $('#EditNomUsuario').val();
   var EditPasswordOriginal = $('#EditPasswordOriginal').val();
   var EditPasswordCopia = $('#EditPasswordCopia').val();
+  var ResponsabilidadSGM = $('#ResponsabilidadSGM').val()
 
 
   var parametros = {
@@ -64,7 +66,8 @@ function btnEditarPersonal(idUsuario){
      "EditPuesto" : EditPuesto,
      "EditTelefono" : EditTelefono,
      "EditNomUsuario" : EditNomUsuario,
-     "EditPasswordOriginal" : EditPasswordOriginal
+     "EditPasswordOriginal" : EditPasswordOriginal,
+     "ResponsabilidadSGM" : ResponsabilidadSGM
     };
 
     alertify.confirm('',
@@ -172,6 +175,9 @@ function btnEditarPersonal(idUsuario){
    </div>
    </div>
    <div id="ResultEdit"></div>
+
+   <label class="text-secondary mt-2" style="font-size: .9em;">Grado de responsabilidad respecto al SGM:</label>
+  <input class="form-control input-style" type="text" id="ResponsabilidadSGM" placeholder="Grado de responsabilidad respecto al SGM" style="border-radius: 0px;" value="<?=$respoabilidad_sgm; ?>">
 
 </div>
 <div class="modal-footer">

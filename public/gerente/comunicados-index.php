@@ -37,6 +37,7 @@ require('app/help.php');
   $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
   $(".LoaderPage").fadeOut("slow");
+
   ListaComunicados();
  
   });
@@ -105,9 +106,6 @@ $('#detalle').css('border','2px solid #A52525');
 $('#temacomunicar').css('border','2px solid #A52525');
 }
 
-
-
-
     }
   </script>
   </head>
@@ -135,7 +133,6 @@ $('#temacomunicar').css('border','2px solid #A52525');
 
     </div>
 
-  
      <div class="modal fade bd-example-modal-lg" id="myModalNuevo" data-backdrop="static">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content" style="border-radius: 0px;border: 0px;">
@@ -176,8 +173,6 @@ $('#temacomunicar').css('border','2px solid #A52525');
 
       <label for="tipocomunicacion" class="text-secondary">Seleccionar archivo: </label>
       <input type="file" class="form-control" id="customFile" style="border-radius: 0px;font-size: .9em;">
-
-
 
 
         </div>

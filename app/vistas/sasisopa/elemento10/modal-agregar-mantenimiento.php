@@ -31,6 +31,7 @@ if ($result == 0) {
 <div class="pt-1 pb-1 text-secondary">Periodicidad:</div>
 <select class="form-control rounded-0" disabled id="Periodicidad">
 <option value="">Selecciona</option>
+<option value="Semanal">Semanal</option>
 <option value="Mensual">Mensual</option>
 <option value="Trimestral">Trimestral</option>
 <option value="Cuatrimestral">Cuatrimestral</option>

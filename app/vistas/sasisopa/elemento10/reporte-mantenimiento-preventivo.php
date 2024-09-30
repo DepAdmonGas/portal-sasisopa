@@ -69,7 +69,7 @@ FROM po_mantenimiento_verificar
 INNER JOIN po_mantenimiento_lista ON po_mantenimiento_verificar.id_equipo = po_mantenimiento_lista.id
 WHERE po_mantenimiento_verificar.id_estacion = '".$Session_IDEstacion."' AND 
 YEAR(po_mantenimiento_verificar.fechacreacion) = '".$selyear."' $BuscarMes AND 
-po_mantenimiento_verificar.estado >= 1 
+po_mantenimiento_verificar.estado >= 1 AND po_mantenimiento_verificar.id_equipo <> 44
 GROUP BY po_mantenimiento_lista.id
 ORDER BY po_mantenimiento_lista.num_lista asc";
 $resultV = mysqli_query($con, $sqlV);
@@ -144,18 +144,19 @@ $numerovd = mysqli_num_rows($resultvd);
 
 if ($numerovd > 0) {
 
-if ($idequipo == 44) {
+        if ($idequipo == 44) {
         $Titulo = "";
         }else{
         $Titulo = "Equipo:"; 
         }
+
         $resultado = "";
         $resultado .= "<div class='border p-2 mb-3'>";
         $resultado .= "<div class='border-bottom pb-2'>";
         $resultado .= "<div style='font-size: 1.2em;'>".$Titulo." <b>".NombreEquipo($idequipo,$con)."</b></div>";
         $resultado .= "</div>";
        
-        $resultado .= "<table class='table table-bordered table-sm p-0 m-0 mt-2'>";
+        $resultado .= "<table class='table table-bordered table-sm p-0 m-0 mt-2 pb-0 mb-0'>";
         $resultado .= "<thead>";
         $resultado .= "<tr>";
         $resultado .= "<th class='align-middle text-center'></th>";
@@ -221,7 +222,7 @@ if ($idequipo == 44) {
 
         $resultado .= "<td class='".$estado." text-center p-0'>"; 
         $resultado .= "<div>";        
-        $resultado .= "<table class='table table-sm p-0 m-0'>";
+        $resultado .= "<table class='table table-sm p-0 m-0 pb-0 mb-0'>";
 
         $sqlD = "SELECT * FROM po_mantenimiento_verificar_detalle WHERE id_verificar = '".$idverificar."'";
         $resultD = mysqli_query($con, $sqlD);
@@ -234,9 +235,9 @@ if ($idequipo == 44) {
         }        
         $resultado .= "</table>";
 
-        if($idequipo == 46){
+        if($idequipo == 45){
 
-            $resultado .= "<table class='table table-bordered table-sm p-0 m-0'>";
+            $resultado .= "<table class='table table-bordered table-sm p-0 m-0 pb-0 mb-0'>";
             $resultado .= "<tr>";
             $resultado .= "<th class='align-middle text-center'>Fecha</th>";
             $resultado .= "<th class='align-middle text-center'>Hora inicio</th>";
@@ -264,7 +265,31 @@ if ($idequipo == 44) {
             }
             $resultado .= "</table>";
 
-        }
+        }else if($idequipo == 48){
+
+	    	$resultado .= "<table class='table table-sm table-bordered pb-0 mb-0'>";
+	    	$resultado .= "<tr>";
+	    	$resultado .= "<th class='align-middle text-center'>Número</th>";
+	    	$resultado .= "<th class='align-middle text-center'>Ubicación</th>";
+	    	$resultado .= "<th class='align-middle text-center'>Revisión</th>";
+	    	$resultado .= "<th class='align-middle text-center'>Resultado</th>";
+	    	$resultado .= "</tr>";
+	    	$sql_detalle = "SELECT * FROM po_mantenimiento_detector_humo WHERE id_verificar = '".$idverificar."' ";
+			$result_detalle = mysqli_query($con, $sql_detalle);
+			$numero_detalle = mysqli_num_rows($result_detalle);			
+			while($row_detalle = mysqli_fetch_array($result_detalle, MYSQLI_ASSOC)){
+			$detector = DetectorHumo($row_detalle['id_detector'],$con);
+			$resultado .= "<tr>";
+			$resultado .= "<td class='align-middle text-center'>".$detector['nodetector']."</td>";
+			$resultado .= "<td class='align-middle'>".$detector['ubicacion']."</td>";
+			$resultado .= "<td class='align-middle'>".$row_detalle['revision']."</td>";
+			$resultado .= "<td class='align-middle text-center'>".$row_detalle['resultado']."</td>";
+			$resultado .= "</tr>";
+
+			}
+	    	$resultado .= "</table>";
+
+	    	}
 
         $resultado .= "</div>";
         $resultado .= "</td>"; 
@@ -287,6 +312,20 @@ if ($idequipo == 44) {
 
         return "<div class='text-center'><small>No se encontró información para mostrar</small></div>";
     }
+}
+
+function DetectorHumo($idDetector,$con){
+
+    $sql_detalle = "SELECT no_detector, ubicacion FROM tb_detector_humo WHERE id = '".$idDetector."' ";
+    $result_detalle = mysqli_query($con, $sql_detalle);
+    $numero_detalle = mysqli_num_rows($result_detalle);			
+    $row_detalle = mysqli_fetch_array($result_detalle, MYSQLI_ASSOC);
+    $nodetector = $row_detalle['no_detector'];
+    $ubicacion = $row_detalle['ubicacion'];
+
+    $array = array('nodetector' => $nodetector, 'ubicacion' => $ubicacion);
+    return $array;
+
 }
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -313,7 +352,7 @@ if ($numerovd > 0) {
         $resultado .= "<div style='font-size: 1.2em;'>Equipo: <b>".NombreEquipo($idequipo,$con)."</b></div>";
         $resultado .= "</div>";
        
-        $resultado .= "<table class='table table-bordered table-sm p-0 m-0 mt-2'>";
+        $resultado .= "<table class='table table-bordered table-sm p-0 m-0 mt-2 pb-0 mb-0'>";
         $resultado .= "<thead>";
         $resultado .= "<tr>";
         $resultado .= "<th class='align-middle text-center'></th>";
@@ -378,7 +417,7 @@ if ($numerovd > 0) {
 
         $resultado .= "<td class='".$estado." text-center'>"; 
         $resultado .= "<div>";
-        $resultado .= "<table class='table table-sm ".$estado."'>";
+        $resultado .= "<table class='table table-sm ".$estado." pb-0 mb-0'>";
 
         $resultado .= DetalleSublista($idverificar,$idequipo,$estado,$con);
         
@@ -471,7 +510,7 @@ if ($numerovd > 0) {
         $FPS = "";
         }        
 
-        $resultado .= "<table class='table table-bordered table-sm p-0 m-0 mt-2'>";
+        $resultado .= "<table class='table table-bordered table-sm p-0 m-0 mt-2 pb-0 mb-0'>";
         $resultado .= "<tr>";
         $resultado .= "<td class='".$estado." align-middle text-center' width='50px'><button type='button' class='btn btn-primary btn-sm' onclick='Evidencias(".$idverificar.")'>Evidencia</button></td>";
         $resultado .= "<td class='".$estado." align-middle text-center'>Folio: <b>".$folio."</b></td>";
@@ -482,7 +521,7 @@ if ($numerovd > 0) {
         $resultado .= "</tr>";
         $resultado .= "</table>";
 
-        $resultado .= "<table class='table table-bordered table-sm p-0 m-0'>";
+        $resultado .= "<table class='table table-bordered table-sm p-0 m-0 pb-0 mb-0'>";
         $resultado .= "<thead>";
         $resultado .= "<tr>";
         $resultado .= "<th class='".$estado." align-middle text-center'>No. De extintor</th>";
@@ -568,7 +607,7 @@ if ($idequipo == 44) {
         $resultado .= "<div style='font-size: 1.2em;'>".$Titulo." <b>".NombreEquipo($idequipo,$con)."</b></div>";
         $resultado .= "</div>";
        
-        $resultado .= "<table class='table table-bordered table-sm p-0 m-0 mt-2'>";
+        $resultado .= "<table class='table table-bordered table-sm p-0 m-0 mt-2 pb-0 mb-0'>";
         $resultado .= "<thead>";
         $resultado .= "<tr>";
         $resultado .= "<th class='align-middle text-center'></th>";
@@ -634,7 +673,7 @@ if ($idequipo == 44) {
 
         $resultado .= "<td class='".$estado." text-center p-0'>"; 
         $resultado .= "<div>";
-        $resultado .= "<table class='table table-sm p-0 m-0'>";
+        $resultado .= "<table class='table table-sm p-0 m-0 pb-0 mb-0'>";
 
         $sqlD = "SELECT * FROM po_mantenimiento_verificar_tanque WHERE id_verificar = '".$idverificar."'";
         $resultD = mysqli_query($con, $sqlD);

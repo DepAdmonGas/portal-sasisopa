@@ -8,16 +8,13 @@ $lista_asistencia = $class_asistencia->listaAsistencia($Session_IDEstacion,$idSa
 $numero_asistencia = mysqli_num_rows($lista_asistencia);
 
 ?>
-<div style="overflow-y: hidden;">
-<table class="table table-bordered table-striped table-sm pb-0 mb-0">
+<table id="lista-asistencia" class="table table-striped table-sm table-bordered table-hover">
 <thead>	
-<tr>
+<tr class="bg-primary text-white">
 <th class="text-center align-middle">#</th>
 <th class="text-center align-middle">Fecha</th>
 <th class="text-center align-middle">Hora</th>
-<th class="text-center align-middle"><img src="<?=RUTA_IMG_ICONOS;?>editar.png"></th>
-<th class="text-center align-middle"><img src="<?=RUTA_IMG_ICONOS;?>pdf.png"></th>
-<th class="text-center align-middle"><img src="<?=RUTA_IMG_ICONOS;?>eliminar.png"></th>
+<th class="text-center align-middle" width="35px"><i class="fas fa-ellipsis-v"></i></th>
 </tr>
 </thead>
 <tbody>
@@ -29,29 +26,34 @@ $id = $row['id'];
 $estado = $row['estado'];
 
 if($estado == 1){
-$trColor = "";
+$bgTable = "";
 }else{
-$trColor = "table-warning";
+$bgTable = 'style="background-color: #fbf8ce"';
 }
 
-echo "<tr class='".$trColor."'>";
-echo "<td class='text-center'>".$num."</td>";
+echo "<tr $bgTable>";
+echo "<td class='text-center fw-bold'>".$num."</td>";
 echo "<td class='text-center'>".FormatoFecha($row['fecha'])."</td>";
 echo "<td class='text-center'>".date('g:i a', strtotime($row['hora']))."</td>";
 
-echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."editar.png' style='cursor: pointer;' onclick='EditarAsistencia(".$id.")'></td>";
-echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."pdf.png' style='cursor: pointer;' onclick='DescargarAsistencia(".$id.")'></td>";
-echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."eliminar.png' style='cursor: pointer;' onclick='EliminarAsistencia(".$id.")'></td>";
+echo '<td class="text-center align-middle" width="20px" style="cursor: pointer;">
+  <div class="dropdown dropstart">
+  <a class="btn btn-sm btn-icon-only text-dropdown-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+  <i class="fas fa-ellipsis-v"></i>
+  </a>
+  <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+    <a class="dropdown-item" onclick="EditarAsistencia('.$id.')"><i class="fa-regular fa-pen-to-square"></i> Editar</a>
+    <a class="dropdown-item" onclick="DescargarAsistencia('.$id.')"><i class="fa-regular fa-file-pdf"></i> Descargar PDF</a>
+    <a class="dropdown-item" onclick="EliminarAsistencia('.$id.')"><i class="fa-regular fa-trash-can"></i> Eliminar</a>
+  </div>
+  </div>
+  </td>';
 
 echo "</tr>";
 
 $num = $num + 1;
 }
-}else{
-echo "<td colspan='8' class='text-center text-secondary' style='font-size: .8em;'>No se encontró información para mostrar</td>";
-
 }
 ?>	
 </tbody>
 </table>
-</div>

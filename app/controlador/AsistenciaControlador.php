@@ -7,7 +7,14 @@ $class_asistencia = new Asistencia();
 switch($_POST['accion']){
     
     case 'agregar-lista-asistencia':
-        echo $class_asistencia->agregarAsistencia($Session_IDEstacion,$Session_IDUsuarioBD,$_POST['PuntoSasisopa']); 
+
+        if(isset($_POST['herramienta']) && !empty($_POST['herramienta'])){
+            $herramienta = $_POST['herramienta'];
+        }else{
+            $herramienta = 1;
+        }
+
+        echo $class_asistencia->agregarAsistencia($Session_IDEstacion,$Session_IDUsuarioBD,$_POST['PuntoSasisopa'],$herramienta); 
     break;
     case 'eliminar-lista-asistencia':
         echo $class_asistencia->eliminarAsistencia($_POST['id']);

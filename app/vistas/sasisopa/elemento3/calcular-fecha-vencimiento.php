@@ -54,6 +54,16 @@ $Resultado = '<input type="date" class="form-control rounded-0" id="vencimiento"
 $fecha = date("Y-m-d",strtotime($fechaemision."+ 5 year"));	
 $Resultado = '<input type="date" class="form-control rounded-0" id="vencimiento" value="'.$fecha.'" />';
 
-}
+}else if($vigencia == "10 años"){
+
+    $fecha = date("Y-m-d",strtotime($fechaemision."+ 10 year"));	
+    $Resultado = '<input type="date" class="form-control rounded-0" id="vencimiento" value="'.$fecha.'" />';
+    
+}else if($vigencia == "30 años"){
+
+    $fecha = date("Y-m-d",strtotime($fechaemision."+ 30 year"));	
+    $Resultado = '<input type="date" class="form-control rounded-0" id="vencimiento" value="'.$fecha.'" />';
+    
+    }
 
 echo $Resultado;

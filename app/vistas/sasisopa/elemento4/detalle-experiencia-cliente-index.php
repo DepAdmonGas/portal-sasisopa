@@ -12,7 +12,6 @@ $row_encuesta = mysqli_fetch_array($result_encuesta, MYSQLI_ASSOC);
   $fecha = $explode[0];
   $hora = $explode[1];
 
-
 ?>
 <html lang="es">
   <head>
@@ -21,19 +20,21 @@ $row_encuesta = mysqli_fetch_array($result_encuesta, MYSQLI_ASSOC);
   <title>SASISOPA</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width initial-scale=1.0">
-  <link rel="shortcut icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
-  <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
-  <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-  <script type="text/javascript" src="<?php echo RUTA_JS ?>alertify.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link rel="shortcut icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
+  <link rel="apple-touch-icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>alertify.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>themes/default.rtl.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS ?>bootstrap.css" />
+  <link rel="stylesheet" href="<?=RUTA_CSS?>componentes.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>bootstrap-select.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="<?=RUTA_JS?>alertify.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <style media="screen">
   .LoaderPage {
   position: fixed;
@@ -138,31 +139,33 @@ google.charts.setOnLoadCallback(drawChart2);
 
     <div class="LoaderPage"></div>
     <div class="fixed-top navbar-admin">
-    <?php require('public/componentes/header.menu.php'); ?>
+    <?php require('app/vistas/componentes/navbar-perfil.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-      </div>
-    <div class="float-left"><h4>Reporte <?=FormatoFecha($fecha);?></h4></div>
+    <!-- Inicio -->
+    <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
+    <ol class="breadcrumb breadcrumb-caret">
+    <li class="breadcrumb-item text-primary c-pointer" onclick="window.history.go(-3);"><i class="fa-solid fa-house"></i> SASISOPA</li>
+    <li aria-current="page" class="breadcrumb-item active c-pointer" onclick="window.history.go(-2);">4. OBJETIVOS, METAS E INDICADORES</li>
+    <li aria-current="page" class="breadcrumb-item c-pointer" onclick="regresarP()">Experiencia del cliente</li>
+    <li aria-current="page" class="breadcrumb-item active">Reporte <?=FormatoFecha($fecha);?></li>
+    </ol>
     </div>
-    <div class="card-body">
+    <!-- Fin -->
 
+    <h3>Reporte <?=FormatoFecha($fecha);?></h3>
+    
+    <div class="bg-white p-2 mt-3">
       <div class="row">
         <div class="col-9">
 
-        <div class="card">
-        <div class="card-body text-center">
-          <div class="p-3 font-weight-bold" style="font-size: 1.2em;">Satisfacción del cliente</div>
+        <div class="">
+        <div class="p-3 fw-bold text-center" style="font-size: 1.2em;">Satisfacción del cliente</div>
         <div id="donutchart" style="height: 550px;"></div>
-        </div>
-        </div>        
+        </div>       
+
         </div>
         <div class="col-3">
 
@@ -172,8 +175,7 @@ google.charts.setOnLoadCallback(drawChart2);
 
         </div>
       </div>
-
-      <hr>
+    </div>
 
     
     <div class="row">
@@ -193,10 +195,10 @@ google.charts.setOnLoadCallback(drawChart2);
               $pregunta = $row_cuestionario['pregunta'];
               ?>
 
-              <div class="col-4">
-              <div class="card">
+              <div class="col-xl-4 col-lg-5 col-md-4 col-sm-12">
+              <div class="bg-white mt-4">
 
-                <div class="p-3 font-weight-bold"><?=$numPregunta.".- ".$pregunta;?></div>
+                <div class="p-3 fw-bold"><?=$numPregunta.".- ".$pregunta;?></div>
 
               <script type="text/javascript">
 
@@ -236,12 +238,6 @@ google.charts.setOnLoadCallback(drawChart2);
 
 
        
-    </div>
-
-    </div>
-    </div>
-    </div>
-    </div>
     </div>
 
     <script src="<?php echo RUTA_JS ?>bootstrap.min.js"></script>

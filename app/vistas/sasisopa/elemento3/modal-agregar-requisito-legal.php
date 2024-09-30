@@ -24,11 +24,9 @@ $('.selectize').selectize({
 sortField: 'text'
 });
 </script>
-  <div class="modal-header">
-  <h4 class="modal-title">Agregar requisito legal</h4>
-  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-  </button>
+  <div class="modal-header rounded-0 head-modal">
+  <h4 class="modal-title text-white">Agregar requisito legal</h4>
+  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
   </div>
   <div class="modal-body">
 
@@ -72,6 +70,8 @@ if($row['permiso'] == ""){$per = "";}else{$per = ", ".$row['permiso'];}
     <option value="Mejora continua">Mejora continua</option>
     <option value="3 años">3 años</option>
     <option value="5 años">5 años</option>
+    <option value="10 años">10 años</option>
+    <option value="30 años">30 años</option>
     </select>
   </div>
 </div>

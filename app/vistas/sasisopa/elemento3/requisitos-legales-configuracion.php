@@ -25,10 +25,10 @@ require('../../../../app/help.php');
     echo 
     '<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2 mb-1 p-2">   
     <div class="bg-white border-0">
-    <div class="p-2 bg-light">
-    <div class="float-left"><h5>'.$row['gobierno'].'</h5></div>
-    <div class="float-right">
-    <a onclick="ModalPermiso(\''.$row['gobierno']. '\')"><img src="'.RUTA_IMG_ICONOS.'agregar.png"></a>
+    <div class="p-3 bg-light">
+    <div class="float-start text-primary"><h5>'.$row['gobierno'].'</h5></div>
+    <div class="float-end">
+    <a class="c-pointer" onclick="ModalPermiso(\''.$row['gobierno']. '\')"><img src="'.RUTA_IMG_ICONOS.'agregar.png"></a>
     </div>
     <br>
     </div>

@@ -15,18 +15,22 @@ $estado = $array_ayuda['estado'];
   <title>SASISOPA</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width initial-scale=1.0">
-  <link rel="shortcut icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
-  <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-  <script type="text/javascript" src="<?php echo RUTA_JS ?>alertify.js"></script>
+  <link rel="shortcut icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
+  <link rel="apple-touch-icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>alertify.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>themes/default.rtl.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS ?>bootstrap.css" />
+  <link rel="stylesheet" href="<?=RUTA_CSS?>componentes.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>bootstrap-select.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="<?=RUTA_JS?>alertify.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.0.3/b-3.0.1/b-colvis-3.0.1/b-html5-3.0.1/b-print-3.0.1/datatables.min.css" rel="stylesheet">
 
    <style media="screen">
   .LoaderPage {
@@ -292,7 +296,20 @@ function(){
 //-----------------------------------------------------
 
  function SeguimientoReporteIndicador(){    
-  $('#ContenidoSRI').load('app/vistas/sasisopa/elemento4/seguimiento-reporte-indicadores.php');  
+  let targets = [1,2];
+  $('#ContenidoSRI').load('app/vistas/sasisopa/elemento4/seguimiento-reporte-indicadores.php', function() {
+  $('#tabla-seguimiento-reporte-indicadores').DataTable({
+    "language": {
+    "url": "<?=RUTA_JS?>es-ES.json"
+  },
+  "stateSave": true,
+    "lengthMenu": [15,35,45],
+    "columnDefs": [
+    { "orderable": false, "targets": targets },
+    { "searchable": false, "targets": targets }
+    ]
+  });
+  });  
   }
 
   function ModalSRI(){
@@ -497,48 +514,57 @@ function btnEditSRI(idSeguimiento){
 
     <div class="LoaderPage"></div>
     <div class="fixed-top navbar-admin">
-    <?php require('public/componentes/header.menu.php'); ?>
+    <?php require('app/vistas/componentes/navbar-perfil.php'); ?>
     </div>
 
     <div class="magir-top-principal p-3">
 
-    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-      </div>
-      <div class="float-left"><h4>4. OBJETIVOS, METAS E INDICADORES</h4>
+    <!-- Inicio -->
+    <div class="float-end">
+    <div class="dropdown dropdown-sm d-inline ms-2">
+    <button type="button" class="btn dropdown-toggle btn-primary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="fa-solid fa-screwdriver-wrench"></i></span>
+    </button>
+    <ul class="dropdown-menu">
+    <li onclick="btnAyuda()"><a class="dropdown-item c-pointer"> <i class="fa-regular fa-circle-question"></i> Ayuda</a></li>
+    </ul>
     </div>
-    <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
-    <a onclick="btnAyuda()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Ayuda" >
-    <img src="<?php echo RUTA_IMG_ICONOS."info.png"; ?>">
-    </a>
     </div>
+    <!-- Fin -->
 
-    <div class="mt-5">
+    <!-- Inicio -->
+    <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
+    <ol class="breadcrumb breadcrumb-caret">
+    <li class="breadcrumb-item text-primary c-pointer" onclick="regresarP()"><i class="fa-solid fa-house"></i> SASISOPA</li>
+    <li aria-current="page" class="breadcrumb-item active">4. OBJETIVOS, METAS E INDICADORES</li>
+    </ol>
+    </div>
+    <!-- Fin -->
+
+    <h3>4. OBJETIVOS, METAS E INDICADORES</h3>
+
+    <div class="mt-3">
     <div class="row">
     
     <!-- CARD OBJETIVO -->
      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2 mb-2"> 
-    <div class="card bg-white border-0">
-      <div class="card-body">
-      <h4 class="card-title">OBJETIVO</h4>
-
-      <p style="font-size: 1.3em;">Brindar a nuestros clientes una experiencia inigualable al cargar combustible o recibir alguno de
-              nuestros servicios en cualquiera de nuestras sucursales del grupo Admongas.
-      </p>
-
+     <div class="card border-0 rounded-0">
+      <div class="p-4">
+      <h4 class="text-primary">OBJETIVO</h4>
+      <p class="fw-light fs-5">Brindar a nuestros clientes una experiencia inigualable al cargar combustible o recibir alguno de
+              nuestros servicios en cualquiera de nuestras sucursales del grupo Admongas.</p>
       </div>
-    </div>
+      </div>
     </div>
 
 
     <!-- CARD METAS -->
     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2 mb-2"> 
-
-    <div class="card bg-white border-0">
-      <div class="card-body">
-      <h4 class="card-title">METAS</h4>
-  
-      <ul style="font-size: 1.2em;">
+    <div class="card border-0 rounded-0">
+      <div class="p-4">
+      <h4 class="text-primary">METAS</h4>
+      
+          <ul class="fw-light fs-5">
           <li>Asegurar el bienestar de nuestros empleados utilizando siempre los mejores estándares de calidad.</li>
           <li>Mantener en excelentes condiciones la estación de servicio contando con personal
           altamente capacitado tanto en operación como en mantenimiento.</li>
@@ -546,60 +572,53 @@ function btnEditSRI(idSeguimiento){
           <li>Cumplir con la legislación aplicable vigente.</li>
           </ul>
 
-        </div>
+      </div>
+      </div>
+    </div>
+
     </div>
     </div>
 
-    </div>
-    </div>
+    <h4 class="mt-3">INDICADORES</h4>
 
-    
-    <div class="card border-0 rounded-0 mt-3">
-    <div class="card-body">
-    <h4 class="card-title">INDICADORES</h4>
     <div class="row">
          
       <!-- Card - Capacitacion del Personal -->
-      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mt-2 mb-2"> 
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mt-2 mb-2"> 
 
         <div class="card card-hover" onclick="BtnCapacitacionPersonal()" style="border-radius: 0px;border-bottom: 2px solid #088AD9;cursor: pointer;">
         <div class="card-body">
           <div class="text-center" style="padding: 10px;"><img src="<?php echo RUTA_IMG_ICONOS."presentacion.png"; ?>"></div>
-          <div class="text-center font-weight-bold" style="font-size: 1.2em;">Capacitación del personal</div>
+          <div class="text-center fw-light fs-4">Capacitación del personal</div>
           </div>
           </div>
 
       </div>
 
-
       <!-- Card - Experiencia cliente -->
-      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mt-2 mb-2"> 
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mt-2 mb-2"> 
 
         <div class="card card-hover" onclick="BtnExpCliente()" style="border-radius: 0px;border-bottom: 2px solid #088AD9;cursor: pointer;">
          <div class="card-body">
           <div class="text-center" style="padding: 10px;"><img src="<?php echo RUTA_IMG_ICONOS."presentacion.png"; ?>"></div>
-          <div class="text-center font-weight-bold" style="font-size: 1.2em;">Experiencia del cliente</div>
+          <div class="text-center fw-light fs-4">Experiencia del cliente</div>
           </div>
            </div>
 
       </div>
 
-
       <!-- Card - Ventas -->
-      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mt-2 mb-2"> 
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mt-2 mb-2"> 
 
         <div class="card card-hover" onclick="BtnVentas()" style="border-radius: 0px;border-bottom: 2px solid #088AD9;cursor: pointer;">
         <div class="card-body">
           <div class="text-center" style="padding: 10px;"><img src="<?php echo RUTA_IMG_ICONOS."presentacion.png"; ?>"></div>
-        <div class="text-center font-weight-bold" style="font-size: 1.2em;">Ventas</div>
+        <div class="text-center  fw-light fs-4">Ventas</div>
         </div>
            </div>
 
       </div>
-         
-
-    </div>
-    </div>
+       
     </div>
 
 
@@ -611,35 +630,37 @@ function btnEditSRI(idSeguimiento){
         <div class="bg-white p-3">
         <div class="row">
         <div class="col-8">
-        <h5>Seguimiento de objetivos y metas</h5>
+        <h5 class="text-primary">Seguimiento de objetivos y metas</h5>
         </div>
         <div class="col-4">
-        <a class="float-right" href="app/vistas/sasisopa/elemento4/seguimiento-objetivos-mestas-pdf.php" data-toggle="tooltip" data-placement="left" title="Descargar" >
+        <a class="float-end" href="app/vistas/sasisopa/elemento4/seguimiento-objetivos-mestas-pdf.php" data-toggle="tooltip" data-placement="left" title="Descargar" >
         <img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>">
         </a>
-        <a class="float-right mr-2" onclick="ModalSOM()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Agregar" >
+        <a class="float-end me-2 c-cursor" onclick="ModalSOM()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Agregar" >
           <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
           </a>
         </div>
         </div>    
         <div id="ContenidoSOM"></div> 
         </div>
-    </div>
+      </div>
 
       <!-- TABLA SEGUIMIENTO DE OBJETIVOS Y METAS -->
       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2 mb-3"> 
       <div class="bg-white p-3">
       <div class="row">   
         <div class="col-8">
-        <h5>Seguimiento y reporte de indicadores</h5>
+        <h5 class="text-primary">Seguimiento y reporte de indicadores</h5>
         </div>
-        <div class="col-4">
-          <a class="float-right" href="app/vistas/sasisopa/elemento4/seguimiento-reporte-indicadores-pdf.php" data-toggle="tooltip" data-placement="left" title="Descargar" >
-          <img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>">
+        <div class="col-4">         
+
+          <a class="float-end" href="app/vistas/sasisopa/elemento4/seguimiento-reporte-indicadores-pdf.php" data-toggle="tooltip" data-placement="left" title="Descargar" >
+            <img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>">
           </a>
-          <a class="float-right mr-2" onclick="ModalSRI()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Agregar" >
-          <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
+          <a class="float-end me-2 c-cursor" onclick="ModalSRI()" >
+            <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>" data-toggle="tooltip" data-placement="left" title="Agregar">
           </a>
+
         </div>
         </div>
           <div id="ContenidoSRI"></div>
@@ -652,8 +673,8 @@ function btnEditSRI(idSeguimiento){
   <div class="modal fade bd-example-modal-lg" id="ModalAyuda" data-backdrop="static">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content" style="border-radius: 0px;border: 0px;">
-        <div class="modal-header">
-          <h4 class="modal-title">Bienvenido al elemento 4. OBJETIVOS, METAS E INDICADORES, del Sistema de Administración</h4>
+        <div class="modal-header rounded-0 head-modal">
+          <h4 class="modal-title text-white">Bienvenido al elemento 4. OBJETIVOS, METAS E INDICADORES, del Sistema de Administración</h4>
         </div>
         <div class="modal-body">
 
@@ -688,11 +709,9 @@ function btnEditSRI(idSeguimiento){
     <div class="modal fade bd-example-modal-lg" id="ModalSRI" data-backdrop="static">
 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 <div class="modal-content" style="border-radius: 0px;border: 0px;">
- <div class="modal-header">
-   <h4 class="modal-title">Seguimiento y reporte de indicadores</h4>
-     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-   <span aria-hidden="true">&times;</span>
- </button>
+ <div class="modal-header rounded-0 head-modal">
+   <h4 class="modal-title text-white">Seguimiento y reporte de indicadores</h4>
+   <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
  </div>
  <div class="modal-body">
 
@@ -728,14 +747,9 @@ function btnEditSRI(idSeguimiento){
 <div class="modal fade bd-example-modal-lg" id="ModalSOM" data-backdrop="static">
 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 <div class="modal-content" style="border-radius: 0px;border: 0px;">
- <div class="modal-header">
-   
-   <h4 class="modal-title">Seguimiento de objetivos y metas</h4>
-     
-     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-   <span aria-hidden="true">&times;</span>
-
- </button>
+ <div class="modal-header rounded-0 head-modal">   
+   <h4 class="modal-title text-white">Seguimiento de objetivos y metas</h4>
+   <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
  </div>
 
  <div class="modal-body">
@@ -885,5 +899,10 @@ function btnEditSRI(idSeguimiento){
 
 
   <script src="<?php echo RUTA_JS ?>bootstrap.min.js"></script>
+  <!---------- LIBRERIAS DEL DATATABLE ---------->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.0.3/b-3.0.1/b-colvis-3.0.1/b-html5-3.0.1/b-print-3.0.1/datatables.min.js"></script>
+  
   </body>
   </html>

@@ -3,8 +3,8 @@ require('../../../../app/help.php');
 include_once "../../../../app/modelo/ControlActividadProceso.php";
 $class_control_actividad_proceso = new ControlActividadProceso();
 
-$year = date("Y");
 $idReporte = $_GET['idReporte'];
+$year = $class_control_actividad_proceso->yearProgramaAnual($idReporte);
 $yearAnterior = $year - 1;
 $class_control_actividad_proceso->validaMesAnterior($Session_IDEstacion,$idReporte,$yearAnterior);
 ?>
@@ -46,66 +46,107 @@ $class_control_actividad_proceso->validaMesAnterior($Session_IDEstacion,$idRepor
           <td class="text-center align-middle"><img src="<?php echo RUTA_IMG_ICONOS."edit-black-16.png"; ?>"></td>
           <td class="text-center align-middle"><img src="<?php echo RUTA_IMG_ICONOS."eliminar-red-16.png"; ?>"></td>
         </tr>
-<?php
-$sql_mantenimiento_lista = "SELECT po_mantenimiento_lista.id, po_mantenimiento_lista.detalle, 
-po_programa_anual_mantenimiento_detalle.id AS idreporte, po_programa_anual_mantenimiento_detalle.id_programa_fecha, po_programa_anual_mantenimiento_detalle.enero,po_programa_anual_mantenimiento_detalle.febrero,po_programa_anual_mantenimiento_detalle.marzo,po_programa_anual_mantenimiento_detalle.abril,po_programa_anual_mantenimiento_detalle.mayo,po_programa_anual_mantenimiento_detalle.junio,po_programa_anual_mantenimiento_detalle.julio,po_programa_anual_mantenimiento_detalle.agosto,po_programa_anual_mantenimiento_detalle.septiembre,po_programa_anual_mantenimiento_detalle.octubre,po_programa_anual_mantenimiento_detalle.noviembre,po_programa_anual_mantenimiento_detalle.diciembre
-FROM po_mantenimiento_lista
-INNER JOIN po_programa_anual_mantenimiento_detalle
-ON po_mantenimiento_lista.id = po_programa_anual_mantenimiento_detalle.id_mantenimiento WHERE po_programa_anual_mantenimiento_detalle.id_programa_fecha = '".$idReporte."' ORDER BY po_mantenimiento_lista.id asc ";
+        <?php
+        $sql_mantenimiento_lista = "SELECT po_mantenimiento_lista.id, po_mantenimiento_lista.detalle, po_mantenimiento_lista.periodicidad, 
+        po_programa_anual_mantenimiento_detalle.id AS idreporte, po_programa_anual_mantenimiento_detalle.id_programa_fecha, po_programa_anual_mantenimiento_detalle.enero,po_programa_anual_mantenimiento_detalle.febrero,po_programa_anual_mantenimiento_detalle.marzo,po_programa_anual_mantenimiento_detalle.abril,po_programa_anual_mantenimiento_detalle.mayo,po_programa_anual_mantenimiento_detalle.junio,po_programa_anual_mantenimiento_detalle.julio,po_programa_anual_mantenimiento_detalle.agosto,po_programa_anual_mantenimiento_detalle.septiembre,po_programa_anual_mantenimiento_detalle.octubre,po_programa_anual_mantenimiento_detalle.noviembre,po_programa_anual_mantenimiento_detalle.diciembre
+        FROM po_mantenimiento_lista
+        INNER JOIN po_programa_anual_mantenimiento_detalle
+        ON po_mantenimiento_lista.id = po_programa_anual_mantenimiento_detalle.id_mantenimiento WHERE po_programa_anual_mantenimiento_detalle.id_programa_fecha = '".$idReporte."' ORDER BY po_mantenimiento_lista.id asc ";
         $result_mantenimiento_lista = mysqli_query($con, $sql_mantenimiento_lista);
         $numero_mantenimiento_lista = mysqli_num_rows($result_mantenimiento_lista);
         if ($numero_mantenimiento_lista > 0) {
 
         while($row_mantenimiento_lista = mysqli_fetch_array($result_mantenimiento_lista, MYSQLI_ASSOC)){
 
-        $txt_enero = $class_control_actividad_proceso->txtFecha($row_mantenimiento_lista['enero']);
-        $color_enero = $class_control_actividad_proceso->ColorTD($row_mantenimiento_lista['enero']);
-        $txt_color_enero = $class_control_actividad_proceso->txtColor($row_mantenimiento_lista['enero']);
-
-        $txt_febrero = $class_control_actividad_proceso->txtFecha($row_mantenimiento_lista['febrero']);
-        $color_febrero = $class_control_actividad_proceso->ColorTD($row_mantenimiento_lista['febrero']);
-        $txt_color_febrero = $class_control_actividad_proceso->txtColor($row_mantenimiento_lista['febrero']);
-
-        $txt_marzo = $class_control_actividad_proceso->txtFecha($row_mantenimiento_lista['marzo']);
-        $color_marzo = $class_control_actividad_proceso->ColorTD($row_mantenimiento_lista['marzo']);
-        $txt_color_marzo = $class_control_actividad_proceso->txtColor($row_mantenimiento_lista['marzo']);
-
-        $txt_abril = $class_control_actividad_proceso->txtFecha($row_mantenimiento_lista['abril']);
-        $color_abril = $class_control_actividad_proceso->ColorTD($row_mantenimiento_lista['abril']);
-        $txt_color_abril = $class_control_actividad_proceso->txtColor($row_mantenimiento_lista['abril']);
-
-        $txt_mayo = $class_control_actividad_proceso->txtFecha($row_mantenimiento_lista['mayo']);
-        $color_mayo = $class_control_actividad_proceso->ColorTD($row_mantenimiento_lista['mayo']);
-        $txt_color_mayo = $class_control_actividad_proceso->txtColor($row_mantenimiento_lista['mayo']);
-
-        $txt_junio = $class_control_actividad_proceso->txtFecha($row_mantenimiento_lista['junio']);
-        $color_junio = $class_control_actividad_proceso->ColorTD($row_mantenimiento_lista['junio']);
-        $txt_color_junio = $class_control_actividad_proceso->txtColor($row_mantenimiento_lista['junio']);
-
-        $txt_julio = $class_control_actividad_proceso->txtFecha($row_mantenimiento_lista['julio']);
-        $color_julio = $class_control_actividad_proceso->ColorTD($row_mantenimiento_lista['julio']);
-        $txt_color_julio = $class_control_actividad_proceso->txtColor($row_mantenimiento_lista['julio']);
-
-        $txt_agosto = $class_control_actividad_proceso->txtFecha($row_mantenimiento_lista['agosto']);
-        $color_agosto = $class_control_actividad_proceso->ColorTD($row_mantenimiento_lista['agosto']);
-        $txt_color_agosto = $class_control_actividad_proceso->txtColor($row_mantenimiento_lista['agosto']);
-      
-        $txt_septiembre = $class_control_actividad_proceso->txtFecha($row_mantenimiento_lista['septiembre']);
-        $color_septiembre = $class_control_actividad_proceso->ColorTD($row_mantenimiento_lista['septiembre']);
-        $txt_color_septiembre = $class_control_actividad_proceso->txtColor($row_mantenimiento_lista['septiembre']);
-
-        $txt_octubre = $class_control_actividad_proceso->txtFecha($row_mantenimiento_lista['octubre']);
-        $color_octubre = $class_control_actividad_proceso->ColorTD($row_mantenimiento_lista['octubre']);
-        $txt_color_octubre = $class_control_actividad_proceso->txtColor($row_mantenimiento_lista['octubre']);
-
-        $txt_noviembre = $class_control_actividad_proceso->txtFecha($row_mantenimiento_lista['noviembre']);
-        $color_noviembre = $class_control_actividad_proceso->ColorTD($row_mantenimiento_lista['noviembre']);
-        $txt_color_noviembre = $class_control_actividad_proceso->txtColor($row_mantenimiento_lista['noviembre']);
-
-        $txt_diciembre = $class_control_actividad_proceso->txtFecha($row_mantenimiento_lista['diciembre']);
-        $color_diciembre = $class_control_actividad_proceso->ColorTD($row_mantenimiento_lista['diciembre']);
-        $txt_color_diciembre = $class_control_actividad_proceso->txtColor($row_mantenimiento_lista['diciembre']);
+        if($row_mantenimiento_lista['periodicidad'] == 'Semanal'){
+        $enero = $class_control_actividad_proceso->buscaFechaSemanal($Session_IDEstacion,$row_mantenimiento_lista['id'],$year,1);
+        $febrero = $class_control_actividad_proceso->buscaFechaSemanal($Session_IDEstacion,$row_mantenimiento_lista['id'],$year,2);
+        $marzo = $class_control_actividad_proceso->buscaFechaSemanal($Session_IDEstacion,$row_mantenimiento_lista['id'],$year,3);
+        $abril = $class_control_actividad_proceso->buscaFechaSemanal($Session_IDEstacion,$row_mantenimiento_lista['id'],$year,4);
+        $mayo = $class_control_actividad_proceso->buscaFechaSemanal($Session_IDEstacion,$row_mantenimiento_lista['id'],$year,5);
+        $junio = $class_control_actividad_proceso->buscaFechaSemanal($Session_IDEstacion,$row_mantenimiento_lista['id'],$year,6);
+        $julio = $class_control_actividad_proceso->buscaFechaSemanal($Session_IDEstacion,$row_mantenimiento_lista['id'],$year,7);
+        $agosto = $class_control_actividad_proceso->buscaFechaSemanal($Session_IDEstacion,$row_mantenimiento_lista['id'],$year,8);
+        $septiembre = $class_control_actividad_proceso->buscaFechaSemanal($Session_IDEstacion,$row_mantenimiento_lista['id'],$year,9);
+        $octubre = $class_control_actividad_proceso->buscaFechaSemanal($Session_IDEstacion,$row_mantenimiento_lista['id'],$year,10);
+        $noviembre = $class_control_actividad_proceso->buscaFechaSemanal($Session_IDEstacion,$row_mantenimiento_lista['id'],$year,11);
+        $diciembre = $class_control_actividad_proceso->buscaFechaSemanal($Session_IDEstacion,$row_mantenimiento_lista['id'],$year,12);
         
+        $editar = '<img src="'.RUTA_IMG_ICONOS.'edit-black-16.png">';
+        $eliminar = '<a onclick="EliminarM('.$row_mantenimiento_lista['idreporte'].')" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Eliminar" >
+        <img src="'.RUTA_IMG_ICONOS.'eliminar-red-16.png">
+        </a>';        
+
+        }else{
+        $enero = $row_mantenimiento_lista['enero'];
+        $febrero = $row_mantenimiento_lista['febrero'];
+        $marzo = $row_mantenimiento_lista['marzo'];
+        $abril = $row_mantenimiento_lista['abril'];
+        $mayo = $row_mantenimiento_lista['mayo'];
+        $junio = $row_mantenimiento_lista['junio'];
+        $julio = $row_mantenimiento_lista['julio'];
+        $agosto = $row_mantenimiento_lista['agosto'];
+        $septiembre = $row_mantenimiento_lista['septiembre'];
+        $octubre = $row_mantenimiento_lista['octubre'];
+        $noviembre = $row_mantenimiento_lista['noviembre'];
+        $diciembre = $row_mantenimiento_lista['diciembre'];
+
+        $editar = '<a onclick="EditarM('.$row_mantenimiento_lista['idreporte'].')" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Editar" >
+        <img src="'.RUTA_IMG_ICONOS.'edit-black-16.png">
+        </a>';
+        $eliminar = '<a onclick="EliminarM('.$row_mantenimiento_lista['idreporte'].')" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Eliminar" >
+        <img src="'.RUTA_IMG_ICONOS.'eliminar-red-16.png">
+        </a>';
+        }
+
+        $txt_enero = $class_control_actividad_proceso->txtFecha($enero);
+        $color_enero = $class_control_actividad_proceso->ColorTD($enero);
+        $txt_color_enero = $class_control_actividad_proceso->txtColor($enero);
+
+        $txt_febrero = $class_control_actividad_proceso->txtFecha($febrero);
+        $color_febrero = $class_control_actividad_proceso->ColorTD($febrero);
+        $txt_color_febrero = $class_control_actividad_proceso->txtColor($febrero);
+
+        $txt_marzo = $class_control_actividad_proceso->txtFecha($marzo);
+        $color_marzo = $class_control_actividad_proceso->ColorTD($marzo);
+        $txt_color_marzo = $class_control_actividad_proceso->txtColor($marzo);
+
+        $txt_abril = $class_control_actividad_proceso->txtFecha($abril);
+        $color_abril = $class_control_actividad_proceso->ColorTD($abril);
+        $txt_color_abril = $class_control_actividad_proceso->txtColor($abril);
+
+        $txt_mayo = $class_control_actividad_proceso->txtFecha($mayo);
+        $color_mayo = $class_control_actividad_proceso->ColorTD($mayo);
+        $txt_color_mayo = $class_control_actividad_proceso->txtColor($mayo);
+
+        $txt_junio = $class_control_actividad_proceso->txtFecha($junio);
+        $color_junio = $class_control_actividad_proceso->ColorTD($junio);
+        $txt_color_junio = $class_control_actividad_proceso->txtColor($junio);
+
+        $txt_julio = $class_control_actividad_proceso->txtFecha($julio);
+        $color_julio = $class_control_actividad_proceso->ColorTD($julio);
+        $txt_color_julio = $class_control_actividad_proceso->txtColor($julio);
+
+        $txt_agosto = $class_control_actividad_proceso->txtFecha($agosto);
+        $color_agosto = $class_control_actividad_proceso->ColorTD($agosto);
+        $txt_color_agosto = $class_control_actividad_proceso->txtColor($agosto);
+      
+        $txt_septiembre = $class_control_actividad_proceso->txtFecha($septiembre);
+        $color_septiembre = $class_control_actividad_proceso->ColorTD($septiembre);
+        $txt_color_septiembre = $class_control_actividad_proceso->txtColor($septiembre);
+
+        $txt_octubre = $class_control_actividad_proceso->txtFecha($octubre);
+        $color_octubre = $class_control_actividad_proceso->ColorTD($octubre);
+        $txt_color_octubre = $class_control_actividad_proceso->txtColor($octubre);
+
+        $txt_noviembre = $class_control_actividad_proceso->txtFecha($noviembre);
+        $color_noviembre = $class_control_actividad_proceso->ColorTD($noviembre);
+        $txt_color_noviembre = $class_control_actividad_proceso->txtColor($noviembre);
+
+        $txt_diciembre = $class_control_actividad_proceso->txtFecha($diciembre);
+        $color_diciembre = $class_control_actividad_proceso->ColorTD($diciembre);
+        $txt_color_diciembre = $class_control_actividad_proceso->txtColor($diciembre);
+
         ?>
         <tr>
         <td class="align-middle"><?=$row_mantenimiento_lista['id'];?></td>
@@ -123,14 +164,10 @@ ON po_mantenimiento_lista.id = po_programa_anual_mantenimiento_detalle.id_manten
           <td class="align-middle text-center <?=$color_noviembre;?> <?=$txt_color_noviembre;?>" style="font-size: .8em;padding: 10px;"><?=$txt_noviembre;?></td>
           <td class="align-middle text-center <?=$color_diciembre;?> <?=$txt_color_diciembre;?>" style="font-size: .8em;padding: 10px;"><?=$txt_diciembre;?></td>
           <td class="align-middle text-center">
-             <a onclick="EditarM(<?=$row_mantenimiento_lista['idreporte'];?>)" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Agregar" >
-            <img src="<?php echo RUTA_IMG_ICONOS."edit-black-16.png"; ?>">
-            </a>
+            <?=$editar;?>
           </td>
           <td class="align-middle text-center">
-             <a onclick="EliminarM(<?=$row_mantenimiento_lista['idreporte'];?>)" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Agregar" >
-            <img src="<?php echo RUTA_IMG_ICONOS."eliminar-red-16.png"; ?>">
-            </a>
+             <?=$eliminar;?>
           </td>
         </tr>
         <?php

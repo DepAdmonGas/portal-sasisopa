@@ -1,4 +1,4 @@
-  function sizeWindow(){
+function sizeWindow(){
 
     if (screen.width <= 768){  
     //alert ("Pequeña") 

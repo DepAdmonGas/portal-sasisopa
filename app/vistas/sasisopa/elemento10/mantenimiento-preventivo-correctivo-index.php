@@ -269,6 +269,10 @@ function ModalBuscar(){
   function MantenimientoCorrectivo(){
     window.location.href = "mantenimiento-correctivo";
   }
+
+  function ConfiguracionDetectorHumo(){
+    window.location.href = "configuracion-detector-humo"; 
+  }
    </script>
   </head>
   <body>
@@ -294,87 +298,32 @@ function ModalBuscar(){
     </div>
     <div class="mt-5 p-3 bg-white">
 
-    <div class="text-right">
-    <button type="button" class="btn btn-primary btn-sm rounded-0 mt-2 mb-1" onclick="ConfiguracionExtintores()">Configuración de Extintores</button>
-    <button type="button" class="btn btn-primary btn-sm rounded-0  mt-1 ml-2" onclick="MantenimientoCorrectivo()">Mantenimiento Correctivo</button>
+    <div class="text-right mb-2">
+    <button type="button" class="btn btn-primary btn-sm rounded-0 mr-2" onclick="ConfiguracionDetectorHumo()">Configuración Detector de Humo</button>
+    <button type="button" class="btn btn-primary btn-sm rounded-0 mr-2" onclick="ConfiguracionExtintores()">Configuración de Extintores</button>
+    <button type="button" class="btn btn-primary btn-sm rounded-0" onclick="MantenimientoCorrectivo()">Mantenimiento Correctivo</button>
     </div>
-<?php
-/*
-$FechaEnero = "2023/09/04";
-$DateEnero = date("Y-m-d", strtotime($FechaEnero));
-$ClassMantenimiento->MantenimientoCalendario(6, $DateEnero, '08:00:00', $con);
-*/
+    <?php
+    /*
+     $ClassMantenimiento->MantenimientoSemanal(6, '2024-06-25', '08:00:00', $con);
+    $FechaEnero = "2023/09/04";
+    $DateEnero = date("Y-m-d", strtotime($FechaEnero));
+    $ClassMantenimiento->MantenimientoCalendario(6, $DateEnero, '08:00:00', $con);
 
-/*
-//-------------- ENERO ------------------------------------------------------
-for ($enero = 1; $enero <= 31; $enero++) {
-$FechaEnero = "2020/01/".$enero;
-$DateEnero = date("Y-m-d", strtotime($FechaEnero));
-$ClassMantenimiento->MantenimientoDia(1, $DateEnero, '08:00:00', $con);
-$ClassMantenimiento->MantenimientoCalendario(1, $DateEnero, '08:00:00', $con);
-}
-//----------------------------------------------------------------------------
-
-//-------------- FEBRERO ------------------------------------------------------
-for ($febrero = 1; $febrero <= 29; $febrero++) {
-$FechaFebrero = "2020/02/".$febrero;
-$DateFebrero = date("Y-m-d", strtotime($FechaFebrero));
-$ClassMantenimiento->MantenimientoDia(1, $DateFebrero, '08:00:00', $con);
-$ClassMantenimiento->MantenimientoCalendario(1, $DateFebrero, '08:00:00', $con);
-}
-//----------------------------------------------------------------------------
-
-//-------------- MARZO ------------------------------------------------------
-for ($marzo = 1; $marzo <= 31; $marzo++) {
-$FechaMarzo = "2020/03/".$marzo;
-$DateMarzo = date("Y-m-d", strtotime($FechaMarzo));
-$ClassMantenimiento->MantenimientoDia(1, $DateMarzo, '08:00:00', $con);
-$ClassMantenimiento->MantenimientoCalendario(1, $DateMarzo, '08:00:00', $con);
-}
-//----------------------------------------------------------------------------
-
-//-------------- ABRIL ------------------------------------------------------
-for ($abril = 1; $abril <= 30; $abril++) {
-$FechaAbril = "2020/04/".$abril;
-$DateAbril = date("Y-m-d", strtotime($FechaAbril));
-$ClassMantenimiento->MantenimientoDia(1, $DateAbril, '08:00:00', $con);
-$ClassMantenimiento->MantenimientoCalendario(1, $DateAbril, '08:00:00', $con);
-}
-//----------------------------------------------------------------------------
-
-//-------------- MAYO ------------------------------------------------------
-for ($mayo = 1; $mayo <= 31; $mayo++) {
-$FechaMayo = "2020/05/".$mayo;
-$DateMayo = date("Y-m-d", strtotime($FechaMayo));
-$ClassMantenimiento->MantenimientoDia(1, $DateMayo, '08:00:00', $con);
-$ClassMantenimiento->MantenimientoCalendario(1, $DateMayo, '08:00:00', $con);
-}
-//----------------------------------------------------------------------------
-
-//-------------- JUNIO ------------------------------------------------------
-for ($junio = 1; $junio <= 30; $junio++) {
-$FechaJunio = "2020/06/".$junio;
-$DateJunio = date("Y-m-d", strtotime($FechaJunio));
-$ClassMantenimiento->MantenimientoDia(1, $DateJunio, '08:00:00', $con);
-$ClassMantenimiento->MantenimientoCalendario(1, $DateJunio, '08:00:00', $con);
-}
-//----------------------------------------------------------------------------
-
-//-------------- JULIO ------------------------------------------------------
-for ($julio = 1; $julio <= 15; $julio++) {
-$FechaJulio = "2020/07/".$julio;
-$DateJulio = date("Y-m-d", strtotime($FechaJulio));
-$ClassMantenimiento->MantenimientoDia(1, $DateJulio, '08:00:00', $con);
-$ClassMantenimiento->MantenimientoCalendario(1, $DateJulio, '08:00:00', $con);
-}
-//----------------------------------------------------------------------------
-*/
-?>
-  <div id="DivContenido"></div>
-
+    //-------------- ENERO ------------------------------------------------------
+    for ($enero = 1; $enero <= 31; $enero++) {
+    $FechaEnero = "2020/01/".$enero;
+    $DateEnero = date("Y-m-d", strtotime($FechaEnero));
+    $ClassMantenimiento->MantenimientoDia(1, $DateEnero, '08:00:00', $con);
+    $ClassMantenimiento->MantenimientoSemanal(6, '2024-06-25', '08:00:00', $con);
+    $ClassMantenimiento->MantenimientoCalendario(1, $DateEnero, '08:00:00', $con);
+    }
+    //----------------------------------------------------------------------------
+    */
+    ?>
+    <div id="DivContenido"></div>
     </div>
-
-  </div>
+    </div>
 
   <div class="modal fade bd-example-modal-lg" id="ModalDetalle" >
   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">

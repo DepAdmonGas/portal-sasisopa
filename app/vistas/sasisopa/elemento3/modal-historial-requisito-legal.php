@@ -23,11 +23,9 @@ $requisoLegal = $row_programa_m['requisito_legal'];
 
 ?>
 
-  <div class="modal-header">
-  <h4 class="modal-title"><?=$requisoLegal;?></h4>
-  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-  </button>
+  <div class="modal-header rounded-0 head-modal">
+  <h4 class="modal-title text-white"><?=$requisoLegal;?></h4>
+  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
   </div>
   <div class="modal-body">
  
@@ -74,9 +72,9 @@ $requisitolegalpdf = $row_matriz['requisitolegalpdf'];
   $ext_acuse = pathinfo($acusepdf, PATHINFO_EXTENSION);
   
   if($ext_acuse == 'pdf'){
-   $imgPDFA = "<a target='_blank' href='../".$acusepdf."' ><img src='".RUTA_IMG_ICONOS."pdf-16.png'></a>"; 
+   $imgPDFA = "<a target='_blank' href='".SERVIDOR.$acusepdf."' ><img src='".RUTA_IMG_ICONOS."pdf-16.png'></a>"; 
  }else{
-  $imgPDFA = "<a target='_blank' href='../".$acusepdf."' ><img width='16px' src='".RUTA_IMG_ICONOS."descargar.png'></a>"; 
+  $imgPDFA = "<a target='_blank' href='".SERVIDOR.$acusepdf."' ><img width='16px' src='".RUTA_IMG_ICONOS."descargar.png'></a>"; 
  }
 
   }
@@ -87,9 +85,9 @@ $requisitolegalpdf = $row_matriz['requisitolegalpdf'];
 
      $ext_requisito = pathinfo($requisitolegalpdf, PATHINFO_EXTENSION);
   if($ext_requisito == 'pdf'){
-  $imgPDFRL = "<a target='_blank' href='../".$requisitolegalpdf."' ><img src='".RUTA_IMG_ICONOS."pdf-16.png'></a>";
+  $imgPDFRL = "<a target='_blank' href='".SERVIDOR.$requisitolegalpdf."' ><img src='".RUTA_IMG_ICONOS."pdf-16.png'></a>";
   }else{
-  $imgPDFRL = "<a target='_blank' href='../".$requisitolegalpdf."' ><img width='16px' src='".RUTA_IMG_ICONOS."descargar.png'></a>";
+  $imgPDFRL = "<a target='_blank' href='".SERVIDOR.$requisitolegalpdf."' ><img width='16px' src='".RUTA_IMG_ICONOS."descargar.png'></a>";
   }
 
   

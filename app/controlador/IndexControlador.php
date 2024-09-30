@@ -56,6 +56,7 @@ class IndexControlador{
     public function mantenimientoPreventivoCorrectivo(){return 'app/vistas/sasisopa/elemento10/mantenimiento-preventivo-correctivo-index.php';}
     public function descargarReporteMantenimientoPreventivo(){return 'app/vistas/sasisopa/elemento10/descargar-reporte-mantenimiento-preventivo.php';}
     public function configuracionExtintores(){return 'app/vistas/sasisopa/elemento10/configuracion-extintores-index.php';}
+    public function configuracionDetectorHumo(){return 'app/vistas/sasisopa/elemento10/configuracion-detector-humo-index.php';}
     public function mantenimientoCorrectivo(){return 'app/vistas/sasisopa/elemento10/mantenimiento-correctivo-index.php';}
     public function reporteMantenimientoCorrectivo(){return 'app/vistas/sasisopa/elemento10/reporte-mantenimiento-correctivo-index.php';}
     public function calibracionEquipos(){return 'app/vistas/sasisopa/elemento10/calibracion-equipos-index.php';}
@@ -113,4 +114,61 @@ class IndexControlador{
     public function nom035Politica(){return 'app/vistas/nom035/nom-035-politica-index.php';}
     public function nom035Acontecimientos(){return 'app/vistas/nom035/nom-035-acontecimientos-index.php';}
     public function nom035FactoresRiesgo(){return 'app/vistas/nom035/nom-035-factores-riesgo-index.php';}
+    //------------------------------------------------------------------------------------------------------------------------------------------------
+    public function sgmIndex(){return 'app/vistas/sgm/index.php';}
+    public function estructuraSistemaMedicion(){return 'app/vistas/sgm/punto1/index.php';}
+    public function descargarListaAsistenciaSgm(){return 'app/vistas/sgm/lista-asistencia/descargar-lista-asistencia-sgm.php';}
+    public function revisionSgmProcedimientoRegistro(){return 'app/vistas/sgm/revision-sgm-procedimientos-registros/revision-sgm-pocedimiento-registro.php';}
+    public function descargarRevisionSgmProcedimientoRegistro(){return 'app/vistas/sgm/revision-sgm-procedimientos-registros/descargar-revision-sgm-pocedimiento-registro.php';}
+    public function controlDocumentalSistemaGestionMedicion(){return 'app/vistas/sgm/punto2/index.php';}
+    public function descargarControlDocumentalSgm(){return 'app/vistas/sgm/punto2/descargar-control-documental-sgm.php';}
+    public function responsabilidadesDireccion(){return 'app/vistas/sgm/punto3/index.php';}
+    public function editarPoliticaSgm(){return 'app/vistas/sgm/punto3/editar-politica-sgm.php';}
+    public function establecimientoObjetivosEnfocadosCliente(){return 'app/vistas/sgm/punto4/index.php';}
+    public function seguimientoObjetivosIndicadores(){return 'app/vistas/sgm/punto4/seguimiento-objetivos-indicadores.php';}
+    public function descargarSeguimientoObjetivosIndicadores(){return 'app/vistas/sgm/punto4/descargar-seguimiento-objetivos-indicadores.php';}
+    public function normatividadAplicableMediciones(){return 'app/vistas/sgm/punto5/index.php';}
+    public function descargarInventarioNormatividadAplicable(){return 'app/vistas/sgm/punto5/descargar-inventario-normatividad-aplicable.php';}
+    public function requisitosLegalesSgm(){return 'app/vistas/sgm/punto5/requisitos-legales-sgm.php';}
+    public function descargarRequisitosLegalSgm(){return 'app/vistas/sgm/punto5/descargar-requisitos-legal-sgm.php';}
+    public function gestionRecursos(){return 'app/vistas/sgm/punto6/index.php';}
+    public function descargarResponsableSgm(){return 'app/vistas/sgm/punto6/descargar-responsable-sgm.php';}
+    public function listaPersonalSgm(){return 'app/vistas/sgm/punto6/lista-personal-sgm.php';}
+    public function descargarListaPersonalSgm(){return 'app/vistas/sgm/punto6/descargar-lista-personal-sgm.php';}
+    public function inventarioEquipoSgm(){return 'app/vistas/sgm/punto6/inventario-equipo-sgm.php';}
+    public function descargarInventarioEquipoSgm(){return 'app/vistas/sgm/punto6/descargar-inventario-equipo-sgm.php';}
+    public function evaluacionProveedorServicioSgm(){return 'app/vistas/sgm/punto6/evaluacion-proveedor-servicio-sgm.php';}
+    public function descargarOrdenServicioSgm(){return 'app/vistas/sgm/punto6/descargar-orden-servicio-sgm.php';}
+    public function descargarEvaluacionProveedoresSgm(){return 'app/vistas/sgm/punto6/descargar-evaluacion-proveedores-sgm.php';}
+    public function capacitacionInternaSgm(){return 'app/vistas/sgm/punto6/capacitacion-interna-sgm.php';}
+    public function descargarProgramaAnualCapacitacionInternaSgm(){return 'app/vistas/sgm/punto6/descargar-programa-anual-capacitacion-interna-sgm.php';}
+    public function descargarReconocimientoSgm(){return 'public/cursos/descargar-reconocimiento-sgm.php';}
+    public function capacitacionExternaSgm(){return 'app/vistas/sgm/punto6/capacitacion-externa-sgm.php';}
+    public function descargarProgramaAnualCapacitacionExternaSgm(){return 'app/vistas/sgm/punto6/descargar-programa-anual-capacitacion-externa-sgm.php';}
+    public function capacitacionInduccionSgm(){return 'app/vistas/sgm/punto6/capacitacion-induccion-sgm.php';}
+    public function descargarCapacitacionInduccionSgm(){return 'app/vistas/sgm/punto6/descargar-capacitacion-induccion-sgm.php';}
+
+    public function procesosMedicion(){return 'app/vistas/sgm/punto7/index.php';}
+    public function programaAnualCalibracionPatronesInstrumentosMedida(){return 'app/vistas/sgm/punto7/programa-anual-calibracion-patrones-instrumentos-medida.php';}
+    public function descargarProgramaAnualSgm(){return 'app/vistas/sgm/punto7/descargar-programa-anual-sgm.php';}
+    public function bitacoraCalibracionEquiposSgm(){return 'app/vistas/sgm/punto7/bitacora-calibracion-equipos-sgm.php';}
+    public function bitacoraCalibracionEquiposSgmEditar(){return 'app/vistas/sgm/punto7/bitacora-calibracion-equipos-sgm-editar.php';}
+    public function descargarBitacoraCalibracionEquiposSgm(){return 'app/vistas/sgm/punto7/descargar-bitacora-calibracion-equipos-sgm.php';}
+    public function programaAnualVerificacionEquipos(){return 'app/vistas/sgm/punto7/programa-anual-verificacion-equipos.php';}
+    public function bitacoraVerificacionEquipoMedicionSgm(){return 'app/vistas/sgm/punto7/bitacora-verificacion-equipo-medicion-sgm.php';}
+    public function bitacoraVerificacionEquipoMedicionSgmEditar(){return 'app/vistas/sgm/punto7/bitacora-verificacion-equipo-medicion-sgm-editar.php';}
+    public function descargarBitacoraVerificacionEquiposSgm(){return 'app/vistas/sgm/punto7/descargar-bitacora-verificacion-equipos-sgm.php';}
+
+    public function gestionRiesgosImpactanMedicion(){return 'app/vistas/sgm/punto8/index.php';}
+    public function establecimientoSeguimientoConfirmacionMetrologica(){return 'app/vistas/sgm/punto9/index.php';}
+    public function auditoriasInternasExternasAtencionHallazgos(){return 'app/vistas/sgm/punto10/index.php';}
+    public function planAuditoriaSgm(){return 'app/vistas/sgm/punto10/plan-auditoria-sgm.php';}
+    public function descargarPlanAuditoriaSgm(){return 'app/vistas/sgm/punto10/descargar-plan-auditoria-sgm.php';}
+    public function reporteHallazgosAuditoriaSgm(){return 'app/vistas/sgm/punto10/reporte-hallazgos-auditoria-sgm.php';}
+    public function descargarReporteHallazgosAuditoriaSgm(){return 'app/vistas/sgm/punto10/descargar-reporte-hallazgos-auditoria-sgm.php';}
+    public function planAtencionHallazgosSgm(){return 'app/vistas/sgm/punto10/plan-atencion-hallazgos-sgm.php';}
+    public function descargarPlanAtencionHallazgosSgm(){return 'app/vistas/sgm/punto10/descargar-plan-atencion-hallazgos-sgm.php';}
+    public function evaluacionCumplimientoObjetivosRevisionDireccion(){return 'app/vistas/sgm/punto11/index.php';}
+    public function descargarEvaluacionCumplimientoSgm(){return 'app/vistas/sgm/punto11/descargar-evaluacion-cumplimiento-sgm.php';}
+    
 }

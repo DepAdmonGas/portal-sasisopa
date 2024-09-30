@@ -20,18 +20,20 @@ $IdReporte = $class_objetivos_metas_indicadores->idEncuestas($Session_IDEstacion
   <title>SASISOPA</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width initial-scale=1.0">
-  <link rel="shortcut icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
-  <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-  <script type="text/javascript" src="<?php echo RUTA_JS ?>alertify.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link rel="shortcut icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
+  <link rel="apple-touch-icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>alertify.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>themes/default.rtl.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS ?>bootstrap.css" />
+  <link rel="stylesheet" href="<?=RUTA_CSS?>componentes.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>bootstrap-select.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="<?=RUTA_JS?>alertify.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
    <style media="screen">
   .LoaderPage {
@@ -323,28 +325,39 @@ function(){
     <div class="LoaderPage"></div>
     
     <div class="fixed-top navbar-admin">
-    <?php require('public/componentes/header.menu.php'); ?>
+    <?php require('app/vistas/componentes/navbar-perfil.php'); ?>
     </div>
 
     <div class="magir-top-principal p-3">
 
-    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-    <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-    </div>   
-    <!-- TITULO / ENCABEZADO -->
-    <div class="float-left">
-      <h4>Agregar experiencia del cliente</h4>
+    <!-- Inicio -->
+    <div class="float-end">
+    <div class="dropdown dropdown-sm d-inline ms-2">
+    <button type="button" class="btn dropdown-toggle btn-primary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="fa-solid fa-screwdriver-wrench"></i></span>
+    </button>
+    <ul class="dropdown-menu">
+    <li onclick="btnEliminar(<?=$IdReporte;?>)"><a class="dropdown-item c-pointer"> <i class="fa-regular fa-trash-can"></i> Eliminar</a></li>
+    <li onclick="btnAyuda()"><a class="dropdown-item c-pointer"> <i class="fa-regular fa-circle-question"></i> Ayuda</a></li>
+    </ul>
     </div>
-    <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
-    <a onclick="btnAyuda()" style="text-decoration: none;cursor: pointer;margin-right: 10px;" data-toggle="tooltip" data-placement="left" title="Ayuda" >
-    <img src="<?php echo RUTA_IMG_ICONOS."info.png"; ?>">
-    </a>
-    <a onclick="btnEliminar(<?=$IdReporte;?>)" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Eliminar Reporte" >
-    <img src="<?php echo RUTA_IMG_ICONOS."eliminar.png"; ?>">
-    </a>
     </div>
+    <!-- Fin -->
 
-    <div class="mt-5 bg-white p-3">
+    <!-- Inicio -->
+    <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
+    <ol class="breadcrumb breadcrumb-caret">
+    <li class="breadcrumb-item text-primary c-pointer" onclick="window.history.go(-3);"><i class="fa-solid fa-house"></i> SASISOPA</li>
+    <li aria-current="page" class="breadcrumb-item c-pointer active" onclick="window.history.go(-2);">4. OBJETIVOS, METAS E INDICADORES</li>
+    <li aria-current="page" class="breadcrumb-item c-pointer" onclick="regresarP()">Experiencia del cliente</li>
+    <li aria-current="page" class="breadcrumb-item active">Agregar experiencia del cliente</li>
+    </ol>
+    </div>
+    <!-- Fin -->
+
+    <h3>Agregar experiencia del cliente</h3>
+
+    <div class="mt-3 bg-white p-3">
     <?php
     $sql_encuestas = "SELECT fechacreacion FROM tb_encuentas_estacion WHERE id = '".$IdReporte."' ";
     $result_encuestas = mysqli_query($con, $sql_encuestas);
@@ -418,7 +431,7 @@ function(){
 
     <textarea class="form-control rounded-0" id="Comentario" rows="3" placeholder="Comentario"></textarea>
 
-    <button type="button" class="btn btn-info rounded-0 p-2 mt-2 mb-3" style="width: 100%;margin-top: 5px;" onclick="BtnAgregar(<?=$numero_cuestionario;?>,<?=$IdReporte;?>)">Agregar encuesta</button>
+    <button type="button" class="btn btn-info text-white rounded-0 p-2 mt-2 mb-3" style="width: 100%;margin-top: 5px;" onclick="BtnAgregar(<?=$numero_cuestionario;?>,<?=$IdReporte;?>)">Agregar encuesta</button>
 
   </div>
   
@@ -443,8 +456,8 @@ function(){
     <div class="modal fade bd-example-modal-lg" id="ModalAyuda" data-backdrop="static">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content" style="border-radius: 0px;border: 0px;">
-      <div class="modal-header">
-      <h4 class="modal-title">Agregar experiencia del cliente</h4>
+      <div class="modal-header rounded-0 head-modal">
+      <h4 class="modal-title text-white">Agregar experiencia del cliente</h4>
       </div>
       <div class="modal-body">
 

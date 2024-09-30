@@ -12,7 +12,7 @@ $id = $row_capacitacion['id'];
 
 <table class="table table-bordered table-sm table-hover pb-0 mb-0">
 <thead>	
-<tr>
+<tr class="bg-primary text-white">
 <th class="text-center align-middle">Fecha</th>
 <th class="text-center align-middle">Objetivo o meta</th>
 <th class="text-center align-middle">Nivel de cumplimiento</th>

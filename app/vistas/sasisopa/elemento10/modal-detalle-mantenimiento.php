@@ -107,9 +107,9 @@ $idMantenimiento = $_GET['idMantenimiento'];
 	    	$resultado .= "</table>";
 	    	$resultado .= "</div>";
 
-	    if($idequipo == 46){
+	    if($idequipo == 45){
 
-	    $resultado .= "<div class='overflow-y: hidden;'>";
+	        $resultado .= "<div class='overflow-y: hidden;'>";
 	    	$resultado .= "<table class='table table-sm table-bordered mt-2'>";
 	    	$resultado .= "<tr>";
 	    	$resultado .= "<th class='align-middle text-center'>Fecha</th>";
@@ -140,6 +140,33 @@ $idMantenimiento = $_GET['idMantenimiento'];
 	    	$resultado .= "</div>";
 
 	    }
+
+		if($idequipo == 48){
+
+	        $resultado .= "<div class='overflow-y: hidden;'>";
+	    	$resultado .= "<table class='table table-sm table-bordered mt-2'>";
+	    	$resultado .= "<tr>";
+	    	$resultado .= "<th class='align-middle text-center'>Número</th>";
+	    	$resultado .= "<th class='align-middle text-center'>Ubicación</th>";
+	    	$resultado .= "<th class='align-middle text-center'>Revisión</th>";
+	    	$resultado .= "<th class='align-middle text-center'>Resultado</th>";
+	    	$resultado .= "</tr>";
+	    	$sql_detalle = "SELECT * FROM po_mantenimiento_detector_humo WHERE id_verificar = '".$idMantenimiento."' ";
+			$result_detalle = mysqli_query($con, $sql_detalle);
+			$numero_detalle = mysqli_num_rows($result_detalle);			
+			while($row_detalle = mysqli_fetch_array($result_detalle, MYSQLI_ASSOC)){
+			$detector = DetectorHumo($row_detalle['id_detector'],$con);
+			$resultado .= "<tr>";
+			$resultado .= "<td class='align-middle text-center'>".$detector['nodetector']."</td>";
+			$resultado .= "<td class='align-middle'>".$detector['ubicacion']."</td>";
+			$resultado .= "<td class='align-middle'>".$row_detalle['revision']."</td>";
+			$resultado .= "<td class='align-middle text-center'>".$row_detalle['resultado']."</td>";
+			$resultado .= "</tr>";
+
+			}
+	    	$resultado .= "</table>";
+	    	$resultado .= "</div>";
+	    	}
 
 	    }else{
 
@@ -203,6 +230,20 @@ $idMantenimiento = $_GET['idMantenimiento'];
 	return $array;
 
     }
+
+	function DetectorHumo($idDetector,$con){
+
+		$sql_detalle = "SELECT no_detector, ubicacion FROM tb_detector_humo WHERE id = '".$idDetector."' ";
+		$result_detalle = mysqli_query($con, $sql_detalle);
+		$numero_detalle = mysqli_num_rows($result_detalle);			
+		$row_detalle = mysqli_fetch_array($result_detalle, MYSQLI_ASSOC);
+		$nodetector = $row_detalle['no_detector'];
+		$ubicacion = $row_detalle['ubicacion'];
+
+		$array = array('nodetector' => $nodetector, 'ubicacion' => $ubicacion);
+		return $array;
+
+	}
 
     //--------------------------------------------------------------------------------------------
 

@@ -25,12 +25,32 @@ class Asistencia
         $this->class_base_datos->desconectarBD($this->con);
     }
 
-    public function agregarAsistencia($id_estacion,$id_usuario,$punto_sasisopa){
+    public function agregarAsistencia($id_estacion,$id_usuario,$punto_sasisopa,$herramiento){
+
+        if($herramiento == 2){
+            $sql = "SELECT
+            sgm_autorizado.id_usuario,
+            sgm_autorizado.estado,
+            tb_usuarios.id_gas
+            FROM sgm_autorizado 
+            INNER JOIN tb_usuarios 
+            ON sgm_autorizado.id_usuario = tb_usuarios.id WHERE tb_usuarios.id_gas = '".$id_estacion."' AND sgm_autorizado.estado = 1 LIMIT 1";
+            $result = mysqli_query($this->con, $sql);
+            $numero = mysqli_num_rows($result);
+            if ($numero > 0) {
+            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+            $realizadopor = $row['id_usuario'];
+            }else{
+            $realizadopor = 0;
+            }
+            }else{
+            $realizadopor = 0;	
+            }
 
         $id_asistencia = $this->idAsistencia();
 
         $sql = "INSERT INTO tb_lista_asistencia (
-            id, id_estacion, id_usuario, punto_sasisopa, fecha, hora, lugar, tema, finalidad, encargado,estado
+            id, id_estacion, id_usuario, punto_sasisopa, fecha, hora, lugar, tema, finalidad, encargado,realizadopor,estado
             )
             VALUES (
             '".$id_asistencia."',
@@ -43,6 +63,7 @@ class Asistencia
             '',
             '',
             '',
+            '".$realizadopor."',
             0
             )";
 
@@ -95,7 +116,7 @@ class Asistencia
     }
 
     public function detalleAsistencia($id){
-        $sql = "SELECT fecha, hora, lugar, tema, finalidad, encargado, estado FROM tb_lista_asistencia WHERE id = '".$id."' ";
+        $sql = "SELECT fecha, hora, lugar, tema, finalidad, encargado, estado, punto_sasisopa, realizadopor FROM tb_lista_asistencia WHERE id = '".$id."' ";
         $result = mysqli_query($this->con, $sql);
         $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         return $row;
@@ -127,7 +148,7 @@ class Asistencia
 
     public function BuscarFirma($usuario){
         $Firma = "";
-        $sql = "SELECT firma FROM tb_usuarios WHERE nombre = '".$usuario."' ORDER BY id DESC LIMIT 1 ";
+        $sql = "SELECT firma FROM tb_usuarios WHERE nombre like '".$usuario."' AND estatus = 0 ORDER BY id DESC LIMIT 1 ";
         $result = mysqli_query($this->con, $sql);
         $numero = mysqli_num_rows($result);
         $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
@@ -214,9 +235,13 @@ class Asistencia
 
     public function agregarAsistenciaFirma($id_registro,$personal_firma){
 
-    $nombreUsuario = $this->nombreUsuario($personal_firma);
+        $cadena = implode(",", $personal_firma);
+        $array = explode(",", $cadena);
+
+        for ($i=0; $i < count($array) ; $i++) { 
+        $nombreUsuario = $this->nombreUsuario($array[$i]);
     
-    $sql_insert = "INSERT INTO tb_lista_asistencia_detalle (
+        $sql_insert = "INSERT INTO tb_lista_asistencia_detalle (
         id_lista_asistencia,
         usuario,
         puesto,
@@ -231,7 +256,10 @@ class Asistencia
         )";
 
         $val = $this->sqlQuery($sql_insert);
-        return $val;
+  
+        }
+
+        return true;
 
     }
 

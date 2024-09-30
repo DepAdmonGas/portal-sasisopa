@@ -1,37 +1,24 @@
 <?php
 require('app/help.php');
 
-/*
-   for ($i = 1; $i <= 31; $i++) {
+  /*
+      for ($i = 1; $i <= 17; $i++) {
 
-        $fecha_del_dia = '2023-01-'.$i;
+        $fecha_del_dia = '2024-09-'.$i;
         $hora_del_dia = '08:00:00';
+
+        $sql_estacion = "SELECT id, nombre FROM tb_estaciones WHERE numlista = 1 OR numlista = 2 OR numlista = 3 OR numlista = 4 OR numlista = 5 OR numlista = 6 OR numlista = 7 OR numlista = 8 OR numlista = 13 ";
+        $result_estacion = mysqli_query($con, $sql_estacion);
+        $numero_estacion = mysqli_num_rows($result_estacion);
+
+        while($row_estacion = mysqli_fetch_array($result_estacion, MYSQLI_ASSOC)){
      
-        //$ClassMantenimiento->MantenimientoDia(6, $fecha_del_dia, $hora_del_dia, $con);
-        $ClassMantenimiento->MantenimientoCalendario(6, $fecha_del_dia, $hora_del_dia, $con);
+        $ClassMantenimiento->MantenimientoDia($row_estacion['id'], $fecha_del_dia, $hora_del_dia, $con);
+        $ClassMantenimiento->MantenimientoCalendario($row_estacion['id'], $fecha_del_dia, $hora_del_dia, $con);
 
-      }
+        }
 
-    for ($i = 1; $i <= 28; $i++) {
-
-        $fecha_del_dia = '2023-02-'.$i;
-        $hora_del_dia = '08:00:00';
-     
-        //$ClassMantenimiento->MantenimientoDia(6, $fecha_del_dia, $hora_del_dia, $con);
-        $ClassMantenimiento->MantenimientoCalendario(6, $fecha_del_dia, $hora_del_dia, $con);
-
-      }
-
-      for ($i = 1; $i <= 27; $i++) {
-
-        $fecha_del_dia = '2023-03-'.$i;
-        $hora_del_dia = '08:00:00';
-     
-        //$ClassMantenimiento->MantenimientoDia(6, $fecha_del_dia, $hora_del_dia, $con);
-        $ClassMantenimiento->MantenimientoCalendario(6, $fecha_del_dia, $hora_del_dia, $con);
-
-      }
-
+        }
 */
 /*
 $folio = 1;

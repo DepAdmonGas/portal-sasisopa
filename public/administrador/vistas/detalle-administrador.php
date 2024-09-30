@@ -93,6 +93,7 @@ $idEstacion = $row_estaciones['id'];
       <button type="button" class="btn bg-secondary btn-sm mb-1 text-white" style="border-radius: 0;font-size: .7em;" onclick="BTNcambioprecio(<?=$idEstacion;?>)">Cambio precio <span class="badge badge-danger"><?=CambioPrecio($idEstacion,$con);?></span></button>
       <button type="button" class="btn bg-primary btn-sm mb-1 text-white" style="border-radius: 0;font-size: .7em;" onclick="BTNAnalisis(<?=$idEstacion;?>)">Análisis de riesgo</button>
       <button type="button" class="btn bg-info btn-sm mb-1 text-white" style="border-radius: 0;font-size: .7em;" onclick="BTNCalibracion(<?=$idEstacion;?>)">Calibración tanques</button>
+      <button type="button" class="btn btn-secondary btn-sm mb-1" style="border-radius: 0;font-size: .7em;" onclick="BTNDocumentosSGM(<?=$idEstacion;?>)">SGM (Documentos)</button>
     </div>
 
   </div>

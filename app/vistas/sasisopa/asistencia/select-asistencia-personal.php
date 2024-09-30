@@ -6,7 +6,12 @@ $idReporte = $_GET['idReporte'];
 $class_asistencia = new Asistencia();
 
 ?>
-       <select class="form-control rounded-0" id="PersonalFirma">
+ <script type="text/javascript">
+$('.selectpicker').selectpicker();
+</script>
+      
+    <div id="borderUsuario" style="border: 1px solid #DFDFDF;">
+       <select class="selectpicker" id="PersonalFirma" multiple title="Selecciona" data-width="100%">
        <option value="">Selecciona el personal</option>
         <?php
         $sql_lista = "SELECT id, nombre FROM tb_usuarios WHERE id_gas = '".$Session_IDEstacion."' AND  estatus = 0 ";
@@ -20,3 +25,4 @@ $class_asistencia = new Asistencia();
         }
         ?> 
       </select>
+    </div>

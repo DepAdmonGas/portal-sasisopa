@@ -4,7 +4,7 @@ include_once "app/modelo/ControlActividadProceso.php";
 require_once 'dompdf/autoload.inc.php';
 
 $class_control_actividad_proceso = new ControlActividadProceso();
-
+$year = $class_control_actividad_proceso->yearProgramaAnual($GET_idRegistro);
 use Dompdf\Dompdf;
 $dompdf = new Dompdf();
 
@@ -224,18 +224,49 @@ ON po_mantenimiento_lista.id = po_programa_anual_mantenimiento_detalle.id_manten
         $numero_mantenimiento_lista = mysqli_num_rows($result_mantenimiento_lista);                
 while($row_mantenimiento_lista = mysqli_fetch_array($result_mantenimiento_lista, MYSQLI_ASSOC)){
 
-$txt_enero = $class_control_actividad_proceso->txtFecha($row_mantenimiento_lista['enero']);
-$txt_febrero = $class_control_actividad_proceso->txtFecha($row_mantenimiento_lista['febrero']);
-$txt_marzo = $class_control_actividad_proceso->txtFecha($row_mantenimiento_lista['marzo']);
-$txt_abril = $class_control_actividad_proceso->txtFecha($row_mantenimiento_lista['abril']);
-$txt_mayo = $class_control_actividad_proceso->txtFecha($row_mantenimiento_lista['mayo']);
-$txt_junio = $class_control_actividad_proceso->txtFecha($row_mantenimiento_lista['junio']);
-$txt_julio = $class_control_actividad_proceso->txtFecha($row_mantenimiento_lista['julio']);
-$txt_agosto = $class_control_actividad_proceso->txtFecha($row_mantenimiento_lista['agosto']);
-$txt_septiembre = $class_control_actividad_proceso->txtFecha($row_mantenimiento_lista['septiembre']);
-$txt_octubre = $class_control_actividad_proceso->txtFecha($row_mantenimiento_lista['octubre']);
-$txt_noviembre = $class_control_actividad_proceso->txtFecha($row_mantenimiento_lista['noviembre']);
-$txt_diciembre = $class_control_actividad_proceso->txtFecha($row_mantenimiento_lista['diciembre']);
+  if($row_mantenimiento_lista['periodicidad'] == 'Semanal'){
+    $enero = $class_control_actividad_proceso->buscaFechaSemanal($Session_IDEstacion,$row_mantenimiento_lista['id'],$year,1);
+    $febrero = $class_control_actividad_proceso->buscaFechaSemanal($Session_IDEstacion,$row_mantenimiento_lista['id'],$year,2);
+    $marzo = $class_control_actividad_proceso->buscaFechaSemanal($Session_IDEstacion,$row_mantenimiento_lista['id'],$year,3);
+    $abril = $class_control_actividad_proceso->buscaFechaSemanal($Session_IDEstacion,$row_mantenimiento_lista['id'],$year,4);
+    $mayo = $class_control_actividad_proceso->buscaFechaSemanal($Session_IDEstacion,$row_mantenimiento_lista['id'],$year,5);
+    $junio = $class_control_actividad_proceso->buscaFechaSemanal($Session_IDEstacion,$row_mantenimiento_lista['id'],$year,6);
+    $julio = $class_control_actividad_proceso->buscaFechaSemanal($Session_IDEstacion,$row_mantenimiento_lista['id'],$year,7);
+    $agosto = $class_control_actividad_proceso->buscaFechaSemanal($Session_IDEstacion,$row_mantenimiento_lista['id'],$year,8);
+    $septiembre = $class_control_actividad_proceso->buscaFechaSemanal($Session_IDEstacion,$row_mantenimiento_lista['id'],$year,9);
+    $octubre = $class_control_actividad_proceso->buscaFechaSemanal($Session_IDEstacion,$row_mantenimiento_lista['id'],$year,10);
+    $noviembre = $class_control_actividad_proceso->buscaFechaSemanal($Session_IDEstacion,$row_mantenimiento_lista['id'],$year,11);
+    $diciembre = $class_control_actividad_proceso->buscaFechaSemanal($Session_IDEstacion,$row_mantenimiento_lista['id'],$year,12); 
+
+    }else{
+
+      $enero = $row_mantenimiento_lista['enero'];
+      $febrero = $row_mantenimiento_lista['febrero'];
+      $marzo = $row_mantenimiento_lista['marzo'];
+      $abril = $row_mantenimiento_lista['abril'];
+      $mayo = $row_mantenimiento_lista['mayo'];
+      $junio = $row_mantenimiento_lista['junio'];
+      $julio = $row_mantenimiento_lista['julio'];
+      $agosto = $row_mantenimiento_lista['agosto'];
+      $septiembre = $row_mantenimiento_lista['septiembre'];
+      $octubre = $row_mantenimiento_lista['octubre'];
+      $noviembre = $row_mantenimiento_lista['noviembre'];
+      $diciembre = $row_mantenimiento_lista['diciembre'];
+
+      }
+
+$txt_enero = $class_control_actividad_proceso->txtFecha($enero);
+$txt_febrero = $class_control_actividad_proceso->txtFecha($febrero);
+$txt_marzo = $class_control_actividad_proceso->txtFecha($marzo);
+$txt_abril = $class_control_actividad_proceso->txtFecha($abril);
+$txt_mayo = $class_control_actividad_proceso->txtFecha($mayo);
+$txt_junio = $class_control_actividad_proceso->txtFecha($junio);
+$txt_julio = $class_control_actividad_proceso->txtFecha($julio);
+$txt_agosto = $class_control_actividad_proceso->txtFecha($agosto);
+$txt_septiembre = $class_control_actividad_proceso->txtFecha($septiembre);
+$txt_octubre = $class_control_actividad_proceso->txtFecha($octubre);
+$txt_noviembre = $class_control_actividad_proceso->txtFecha($noviembre);
+$txt_diciembre = $class_control_actividad_proceso->txtFecha($diciembre);
 
 $contenid0 .= '<tr>
 <td class="align-middle">'.$row_mantenimiento_lista['detalle'].'</td>

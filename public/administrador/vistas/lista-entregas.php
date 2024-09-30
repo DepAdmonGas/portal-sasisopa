@@ -47,7 +47,7 @@ $Editar = '<img src="'.RUTA_IMG_ICONOS.'editar.png" onclick="Editar('.$row['id']
 $Eliminar = '<img src="'.RUTA_IMG_ICONOS.'eliminar.png" onclick="Eliminar('.$row['id'].')">';
 }else if($row['estatus'] == 2){
 $TbColor = 'table-success';
-$Editar = '<img class="grayscale" src="'.RUTA_IMG_ICONOS.'editar.png">';
+$Editar = '<img src="'.RUTA_IMG_ICONOS.'editar.png" onclick="Editar('.$row['id'].')">';
 $Eliminar = '<img class="grayscale" src="'.RUTA_IMG_ICONOS.'eliminar.png">';
 }
 

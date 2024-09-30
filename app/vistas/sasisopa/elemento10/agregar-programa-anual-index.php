@@ -129,6 +129,8 @@ var UltimaFecha = $('#UltimaFecha').val();
      complete: function(){
      },
      success:  function (response) {
+
+      console.log(response)
     alertify.message('Se agrego correctamente el mantenimiento');
     Programaanual();
     $('#ModalAgregar').modal('hide');

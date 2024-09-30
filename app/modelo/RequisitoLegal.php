@@ -436,6 +436,7 @@ class RequisitoLegal
                             octubre,
                             noviembre,
                             diciembre,
+                            categoria,
                             estado
                             )
                             VALUES (
@@ -457,6 +458,7 @@ class RequisitoLegal
                             '".$array['oct']."',
                             '".$array['nov']."',
                             '".$array['dic']."',
+                            '".$array['categoria']."',
                             1
                             )";
 

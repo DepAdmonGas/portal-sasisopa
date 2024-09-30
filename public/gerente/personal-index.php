@@ -85,6 +85,7 @@ require('app/help.php');
     var NomUsuario = $('#NomUsuario').val();
     var PasswordOriginal = $('#PasswordOriginal').val();
     var PasswordCopia = $('#PasswordCopia').val();
+    var FechaIngreso = $('#FechaIngreso').val();
 
     if (Nombres != "") {
     if (validateEmail(Email)) {
@@ -101,7 +102,8 @@ require('app/help.php');
          "Puesto" : Puesto,
          "Telefono" : Telefono,
          "NomUsuario" : NomUsuario,
-         "PasswordOriginal" : PasswordOriginal
+         "PasswordOriginal" : PasswordOriginal,
+         "FechaIngreso" : FechaIngreso
         };
 
   alertify.confirm('',
@@ -273,6 +275,9 @@ require('app/help.php');
               </div>
 
             </div>
+
+            <div><b>Fecha de Ingreso:</b></div>
+            <input type="date" class="form-control rounded-0 mb-3" placeholder="Fecha de ingreso" id="FechaIngreso">
 
         <div class="form-group">
        <select class="form-control" id="Puesto" placeholder="Puesto" style="border-radius: 0px;">

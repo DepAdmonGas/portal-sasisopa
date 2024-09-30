@@ -59,7 +59,8 @@ switch($_POST['accion']){
         "sep" => $_POST['sep'],
         "oct" => $_POST['oct'],
         "nov" => $_POST['nov'],
-        "dic" => $_POST['dic']);
+        "dic" => $_POST['dic'],
+        "categoria" => $_POST['categoria']);
 
         echo $class_requisito_legal->agregarDetalleRequisitoLegal($Session_IDEstacion,$array);
     break;

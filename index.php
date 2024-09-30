@@ -114,6 +114,9 @@ switch ($partes_ruta[1])
     case 'configuracion-extintores':
       $ruta_elegida = $index_controlador->configuracionExtintores();
     break;
+    case 'configuracion-detector-humo':
+      $ruta_elegida = $index_controlador->configuracionDetectorHumo();
+    break;
     case 'mantenimiento-correctivo':
       $ruta_elegida = $index_controlador->mantenimientoCorrectivo();
     break;
@@ -231,7 +234,109 @@ switch ($partes_ruta[1])
       $ruta_elegida = $index_controlador->nom035FactoresRiesgo();
     break;
     //---------------------------------------------------
-      
+    //---------------------------------------------------
+
+    //-----------------------SGM-------------------------
+    case 'sgm':
+      $ruta_elegida = $index_controlador->sgmIndex();
+    break;
+    case 'estructura-sistema-medicion':
+      $ruta_elegida = $index_controlador->estructuraSistemaMedicion();
+    break;
+    case 'control-documental-sistema-gestion-medicion':
+      $ruta_elegida = $index_controlador->controlDocumentalSistemaGestionMedicion();
+    break;
+    case 'descargar-control-documental-sgm':
+      $ruta_elegida = $index_controlador->descargarControlDocumentalSgm();
+    break;
+    case 'responsabilidades-direccion':
+      $ruta_elegida = $index_controlador->responsabilidadesDireccion();
+    break;
+    case 'editar-politica-sgm':
+      $ruta_elegida = $index_controlador->editarPoliticaSgm();
+    break;
+    case 'establecimiento-objetivos-enfocados-cliente':
+      $ruta_elegida = $index_controlador->establecimientoObjetivosEnfocadosCliente();
+    break;
+    case 'normatividad-aplicable-mediciones':
+      $ruta_elegida = $index_controlador->normatividadAplicableMediciones();
+    break;
+    case 'requisitos-legales-sgm':
+      $ruta_elegida = $index_controlador->requisitosLegalesSgm();
+    break;
+    case 'descargar-inventario-normatividad-aplicable':
+      $ruta_elegida = $index_controlador->descargarInventarioNormatividadAplicable();
+    break;
+    case 'descargar-requisitos-legal-sgm':
+      $ruta_elegida = $index_controlador->descargarRequisitosLegalSgm();
+    break;
+    case 'gestion-recursos':
+      $ruta_elegida = $index_controlador->gestionRecursos();
+    break;
+    case 'lista-personal-sgm':
+      $ruta_elegida = $index_controlador->listaPersonalSgm();
+    break;
+    case 'descargar-lista-personal-sgm':
+      $ruta_elegida = $index_controlador->descargarListaPersonalSgm();
+    break;
+    case 'inventario-equipo-sgm':
+      $ruta_elegida = $index_controlador->inventarioEquipoSgm();
+    break;
+    case 'descargar-inventario-equipo-sgm':
+      $ruta_elegida = $index_controlador->descargarInventarioEquipoSgm();
+    break;
+    case 'evaluacion-proveedor-servicio-sgm':
+      $ruta_elegida = $index_controlador->evaluacionProveedorServicioSgm();
+    break;
+    case 'capacitacion-interna-sgm':
+      $ruta_elegida = $index_controlador->capacitacionInternaSgm();
+    break;
+    case 'descargar-programa-anual-capacitacion-interna-sgm':
+      $ruta_elegida = $index_controlador->descargarProgramaAnualCapacitacionInternaSgm();
+    break;
+    case 'capacitacion-externa-sgm':
+      $ruta_elegida = $index_controlador->capacitacionExternaSgm();
+    break;
+    case 'descargar-programa-anual-capacitacion-externa-sgm':
+      $ruta_elegida = $index_controlador->descargarProgramaAnualCapacitacionExternaSgm();
+    break;
+    case 'capacitacion-induccion-sgm':
+      $ruta_elegida = $index_controlador->capacitacionInduccionSgm();
+    break;
+    case 'descargar-capacitacion-induccion-sgm':
+      $ruta_elegida = $index_controlador->descargarCapacitacionInduccionSgm();
+    break;
+    case 'procesos-medicion':
+      $ruta_elegida = $index_controlador->procesosMedicion();
+    break;
+    case 'programa-anual-calibracion-patrones-instrumentos-medida':
+      $ruta_elegida = $index_controlador->programaAnualCalibracionPatronesInstrumentosMedida();
+    break;
+    case 'bitacora-calibracion-equipos-sgm':
+      $ruta_elegida = $index_controlador->bitacoraCalibracionEquiposSgm();
+    break;
+    case 'programa-anual-verificacion-equipos':
+      $ruta_elegida = $index_controlador->programaAnualVerificacionEquipos();
+    break;
+    case 'bitacora-verificacion-equipo-medicion-sgm':
+      $ruta_elegida = $index_controlador->bitacoraVerificacionEquipoMedicionSgm();
+    break;
+    case 'gestion-riesgos-impactan-medicion':
+      $ruta_elegida = $index_controlador->gestionRiesgosImpactanMedicion();
+    break;
+    case 'establecimiento-seguimiento-confirmacion-metrologica':
+      $ruta_elegida = $index_controlador->establecimientoSeguimientoConfirmacionMetrologica();
+    break;
+    case 'auditorias-internas-externas-atencion-hallazgos':
+      $ruta_elegida = $index_controlador->auditoriasInternasExternasAtencionHallazgos();
+    break;
+    case 'evaluacion-cumplimiento-objetivos-revision-direccion':
+      $ruta_elegida = $index_controlador->evaluacionCumplimientoObjetivosRevisionDireccion();
+    break;
+    
+    //---------------------------------------------------
+    //---------------------------------------------------
+    
 case 'perfil':
 $ruta_elegida = 'public/perfil/perfil-index.php';
 break;	 
@@ -293,8 +398,6 @@ case 'bitacora-recepcion-descargar-producto':
 $ruta_elegida = 'public/sasisopa/bitacora-recepcion-descargar-producto-index.php';
 break;
 //-----------------------------------------------------------------
-
-
 
 
 case 'cambio-precio':
@@ -449,6 +552,92 @@ break;
     }
     //-------------------------------------------------
     //-------------------------------------------------
+    //------------------- SGM -------------------------
+    else if ($partes_ruta[1] == 'descargar-lista-asistencia-sgm') {
+    $GET_idRegistro = $partes_ruta[2];
+    $ruta_elegida = $index_controlador->descargarListaAsistenciaSgm();
+    }
+    else if ($partes_ruta[1] == 'revision-sgm-procedimiento-registro') {
+    $GET_idRegistro = $partes_ruta[2];
+    $ruta_elegida = $index_controlador->revisionSgmProcedimientoRegistro();
+    }
+    else if ($partes_ruta[1] == 'descargar-revision-sgm-procedimiento-registro') {
+    $GET_idRegistro = $partes_ruta[2];
+    $ruta_elegida = $index_controlador->descargarRevisionSgmProcedimientoRegistro();
+    }
+    else if ($partes_ruta[1] == 'seguimiento-objetivos-indicadores') {
+    $GET_idRegistro = $partes_ruta[2];
+    $ruta_elegida = $index_controlador->seguimientoObjetivosIndicadores();
+    }
+    else if ($partes_ruta[1] == 'descargar-seguimiento-objetivos-indicadores') {
+    $GET_idRegistro = $partes_ruta[2];
+    $ruta_elegida = $index_controlador->descargarSeguimientoObjetivosIndicadores();
+    }
+    else if ($partes_ruta[1] == 'plan-auditoria-sgm') {
+    $GET_idRegistro = $partes_ruta[2];
+    $ruta_elegida = $index_controlador->planAuditoriaSgm();
+    }
+    else if ($partes_ruta[1] == 'descargar-plan-auditoria-sgm') {
+    $GET_idRegistro = $partes_ruta[2];
+    $ruta_elegida = $index_controlador->descargarPlanAuditoriaSgm();
+    }
+    else if ($partes_ruta[1] == 'reporte-hallazgos-auditoria-sgm') {
+    $GET_idRegistro = $partes_ruta[2];
+    $ruta_elegida = $index_controlador->reporteHallazgosAuditoriaSgm();
+    }
+    else if ($partes_ruta[1] == 'descargar-reporte-hallazgos-auditoria-sgm') {
+    $GET_idRegistro = $partes_ruta[2];
+    $ruta_elegida = $index_controlador->descargarReporteHallazgosAuditoriaSgm();
+    }
+    else if ($partes_ruta[1] == 'plan-atencion-hallazgos-sgm') {
+    $GET_idRegistro = $partes_ruta[2];
+    $ruta_elegida = $index_controlador->planAtencionHallazgosSgm();
+    }
+    else if ($partes_ruta[1] == 'descargar-plan-atencion-hallazgos-sgm') {
+    $GET_idRegistro = $partes_ruta[2];
+    $ruta_elegida = $index_controlador->descargarPlanAtencionHallazgosSgm();
+    }
+    else if ($partes_ruta[1] == 'descargar-evaluacion-cumplimiento-sgm') {
+    $GET_idRegistro = $partes_ruta[2];
+    $ruta_elegida = $index_controlador->descargarEvaluacionCumplimientoSgm();
+    }
+    else if ($partes_ruta[1] == 'bitacora-calibracion-equipos-sgm') {
+    $GET_idRegistro = $partes_ruta[2];
+    $ruta_elegida = $index_controlador->bitacoraCalibracionEquiposSgmEditar();
+    }
+    else if ($partes_ruta[1] == 'descargar-bitacora-calibracion-equipos-sgm') {
+      $GET_idRegistro = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->descargarBitacoraCalibracionEquiposSgm();
+    }
+    else if ($partes_ruta[1] == 'descargar-responsable-sgm') {
+      $GET_idRegistro = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->descargarResponsableSgm();
+    }
+    else if ($partes_ruta[1] == 'descargar-orden-servicio-sgm') {
+      $GET_idRegistro = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->descargarOrdenServicioSgm();
+    }
+    else if ($partes_ruta[1] == 'descargar-evaluacion-proveedores-sgm') {
+      $GET_idRegistro = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->descargarEvaluacionProveedoresSgm();
+    }
+    else if ($partes_ruta[1] == 'descargar-reconocimiento-sgm') {
+      $GET_idCalendario = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->descargarReconocimientoSgm();
+    }
+    else if ($partes_ruta[1] == 'bitacora-verificacion-equipo-medicion-sgm') {
+      $GET_idRegistro = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->bitacoraVerificacionEquipoMedicionSgmEditar();
+    }
+    else if ($partes_ruta[1] == 'descargar-bitacora-verificacion-equipos-sgm') {
+      $GET_idRegistro = $partes_ruta[2];
+      $ruta_elegida = $index_controlador->descargarBitacoraVerificacionEquiposSgm();
+    }
+    
+
+    //--------------------------------------------------
+    //--------------------------------------------------
+    
         
     else if ($partes_ruta[1] == '1-politica-asistencia') {
     $GET_idRegistro = $partes_ruta[2];
@@ -558,6 +747,10 @@ break;
     $GET_ID = $partes_ruta[2];
     $ruta_elegida = 'public/administrador/gestoria-entregas-descargar.php';
     }
+    else if ($partes_ruta[1] == 'gestoria-control-documental-sgm') {
+      $GET_idEstacion = $partes_ruta[2];
+      $ruta_elegida = 'public/administrador/gestoria-control-documental-sgm.php';
+      }
   }else if(count($partes_ruta) == 4){
     //---------------------------- SASISOPA --------------------------------
     //----------------------------------------------------------------------
@@ -585,6 +778,15 @@ break;
       }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
+    //-------------------------- SGM ----------------------------------------
+
+    else if ($partes_ruta[1] == 'descargar-programa-anual-sgm') {
+      $GET_idYear = $partes_ruta[2];
+      $GET_idFormato = $partes_ruta[3];
+      $ruta_elegida = $index_controlador->descargarProgramaAnualSgm();
+    }
+
+    //---------------------------------------------------------------------------
     else if ($partes_ruta[1] == 'detalle-reporte-diario'){
     $idReporte = $partes_ruta[2];
     $idFecha = $partes_ruta[3];

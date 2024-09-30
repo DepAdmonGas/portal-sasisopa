@@ -19,15 +19,17 @@ $estado = $array_ayuda['estado'];
   <link rel="apple-touch-icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
   <link rel="stylesheet" href="<?=RUTA_CSS?>alertify.css">
   <link rel="stylesheet" href="<?=RUTA_CSS?>themes/default.rtl.css">
-  <link href="<?=RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?=RUTA_CSS ?>bootstrap.css" />
   <link rel="stylesheet" href="<?=RUTA_CSS?>componentes.css">
   <link rel="stylesheet" href="<?=RUTA_CSS?>bootstrap-select.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
   <script type="text/javascript" src="<?=RUTA_JS?>alertify.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.0.3/b-3.0.1/b-colvis-3.0.1/b-html5-3.0.1/b-print-3.0.1/datatables.min.css" rel="stylesheet">
   <style media="screen">
   .LoaderPage {
   position: fixed;
@@ -38,7 +40,6 @@ $estado = $array_ayuda['estado'];
   z-index: 9999;
   background: url('imgs/iconos/load-img.gif') 50% 50% no-repeat rgb(249,249,249);
   }
-
   </style>
   <script type="text/javascript">
   $(document).ready(function(){
@@ -177,7 +178,20 @@ window.location = "descargar-politica/" + id;
 //----------------------- Fo.ADMONGAS.001 (Lista de comprobación)
 //---------------------------------------------------------------
 function ListaComprobacion(){
-$('#DivListaComprobacion').load('app/vistas/sasisopa/elemento1/politica-lista-comprobacion.php');  
+  let targets = [1,2];
+$('#DivListaComprobacion').load('app/vistas/sasisopa/elemento1/politica-lista-comprobacion.php', function() {
+  $('#table_comprobacion').DataTable({
+    "language": {
+    "url": "<?=RUTA_JS?>es-ES.json"
+  },
+  "stateSave": true,
+    "lengthMenu": [15,35,45],
+    "columnDefs": [
+    { "orderable": false, "targets": targets },
+    { "searchable": false, "targets": targets }
+    ]
+  });
+  });  
 }
 
 function btnLista(){
@@ -452,7 +466,20 @@ window.location = "descargar-lista-comprobacion/" + id;
 //------------------------- LISTA ASISTENCIA --------------------
 //---------------------------------------------------------------
 function ListaAsistencia(idSasisopa){
-$('#DivListaAsistencia').load('app/vistas/sasisopa/asistencia/lista-asistencia.php?idSasisopa=' + idSasisopa); 
+  let targets = [1,2,3];
+$('#DivListaAsistencia').load('app/vistas/sasisopa/asistencia/lista-asistencia.php?idSasisopa=' + idSasisopa, function() {
+  $('#lista-asistencia').DataTable({
+    "language": {
+    "url": "<?=RUTA_JS?>es-ES.json"
+  },
+  "stateSave": true,
+    "lengthMenu": [15,35,45],
+    "columnDefs": [
+    { "orderable": false, "targets": targets },
+    { "searchable": false, "targets": targets }
+    ]
+  });
+  }); 
 } 
 
 function EditarAsistencia(id){
@@ -522,105 +549,121 @@ function EliminarAsistencia(id){
 
   <div class="LoaderPage"></div>
   <div class="fixed-top navbar-admin">
-  <?php require('public/componentes/header.menu.php'); ?>
+  <?php require('app/vistas/componentes/navbar-perfil.php'); ?>
   </div>
 
   <div class="magir-top-principal p-3">
 
-    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-    </div>
-    <div class="float-left"><h4>1. POLÍTICA</h4></div>
+  <!-- Inicio -->
+  <div class="float-end">
+  <div class="dropdown dropdown-sm d-inline ms-2">
+  <button type="button" class="btn dropdown-toggle btn-primary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+  <i class="fa-solid fa-screwdriver-wrench"></i></span>
+  </button>
+  <ul class="dropdown-menu">
+  <li onclick="btnAyuda()"><a class="dropdown-item c-pointer"> <i class="fa-regular fa-circle-question"></i> Ayuda</a></li>
+  <li onclick="btnEditar()"><a class="dropdown-item c-pointer"> <i class="fa-regular fa-pen-to-square"></i> Editar 1. Politica</a></li>
+  <li onclick="btnDescargar(<?=$Session_IDEstacion;?>)"><a class="dropdown-item c-pointer"> <i class="fa-regular fa-circle-down"></i> Descargar 1. Politica</a></li>
+  </ul>
+  </div>
+  </div>
+  <!-- Fin -->
 
-    <div class="float-right" style="margin-top: 6px;">
+  <!-- Inicio -->
+  <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
+  <ol class="breadcrumb breadcrumb-caret">
+  <li class="breadcrumb-item text-primary c-pointer" onclick="regresarP()"><i class="fa-solid fa-house"></i> SASISOPA</li>
+  <li aria-current="page" class="breadcrumb-item active">1. POLÍTICA</li>
+  </ol>
+  </div>
+  <!-- Fin -->
 
-      <a class="mr-2" onclick="btnDescargar(<?=$Session_IDEstacion;?>)" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Descargar 1. Politica" >
-      <img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>">
-      </a>
+  <h3>1. POLÍTICA</h3>
 
-      <a class="mr-2" onclick="btnEditar()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Editar 1. Politica" >
-      <img src="<?php echo RUTA_IMG_ICONOS."editar.png"; ?>">
-      </a>
+    <div class="row mt-3">
 
-      <a onclick="btnAyuda()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Ayuda" >
-      <img src="<?php echo RUTA_IMG_ICONOS."info.png"; ?>">
-      </a>
-    </div>
-
-    <div class="row mt-5">
-
-    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mt-2 mb-2">
+    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
       <div class="card border-0 rounded-0">
-      <div class="ml-4 mr-4 mt-4 mb-2"><h5>Politica:</h5></div>
-      <p class="ml-4 mr-4 text-justify" style="font-size: 1.1em;"><?=$Session_Politica;?></p>
+      <div class="p-4">
+      <h4 class="text-primary">Politica:</h4>
+      <p class="fw-light fs-5"><?=$Session_Politica;?></p>
+      </div>
       </div>
     </div>
 
     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mt-2 mb-2">
       <div class="card border-0 rounded-0">
-      <div class="ml-4 mr-4 mt-4 mb-2"><h5>Misión:</h5></div>
-      <p class="ml-4 mr-4 text-justify" style="font-size: 1.1em;"><?=$Session_Mision;?></p>
+      <div class="p-3">
+      <h4 class="text-primary">Misión:</h4>
+      <p class="fw-light fs-5"><?=$Session_Mision;?></p>
+      </div>
       </div>
     </div>
 
     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mt-2 mb-2">
       <div class="card border-0 rounded-0">
-      <div class="ml-4 mr-4 mt-4 mb-2"><h5>Visión:</h5></div>
-      <p class="ml-4 mr-4 text-justify" style="font-size: 1.1em;"><?=$Session_Vision;?></p>
+      <div class="p-3">
+      <h4 class="text-primary">Visión:</h4>
+      <p class="fw-light fs-5"><?=$Session_Vision;?></p>
+      </div>
       </div>
     </div>
 
     </div>
 
-    <div class="row">
-      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2 mb-2">
+    <div class="row mt-4">
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2">
       <div class="bg-white">
             <div class="p-3">
             
             <div class="row">  
-            <div class="col-10">
-            <h5>Fo.ADMONGAS.001 (Lista de comprobación)</h5>
+            <div class="col-11">
+            <h5 class="text-primary">Fo.ADMONGAS.001 (Lista de comprobación)</h5>
             </div>
-            <div class="col-2">
-            <a class="float-right" onclick="btnLista()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Crear" >
+            <div class="col-1 text-end">
+            <a onclick="btnLista()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Crear" >
             <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
             </a>
             </div>           
             </div>
+
              <div id="DivListaComprobacion"></div>
           </div>
       </div>
       </div>
 
-      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2 mb-2">
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2">
            
           <div class="bg-white">
             <div class="p-3">  
             <div class="row">
 
-            <div class="col-10">
-              <h5>Fo.ADMONGAS.010 (Registro de la atención y el seguimiento a la comunicación interna y externa.)</h5>
+            <div class="col-11">
+            <h5 class="text-primary">Fo.ADMONGAS.010 (Registro de la atención y el seguimiento a la comunicación interna y externa.)</h5>
             </div>
-            <div class="col-2">
-            <a class="float-right" onclick="btnAsistencia()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Crear" >
+            <div class="col-1 text-end">
+            <a class="" onclick="btnAsistencia()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Crear" >
             <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
             </a>
-            </div>         
+            </div> 
+
             </div>
             <div id="DivListaAsistencia"></div>
             </div>            
           </div>
+
       </div>
 
     </div>
 
   </div>
 
+
   <div class="modal fade bd-example-modal-lg" id="myModalPolitica" data-backdrop="static">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content" style="border-radius: 0px;border: 0px;">
-        <div class="modal-header">
-          <h4 class="modal-title">Bienvenido al elemento 1. POLITICA, del Sistema de Administración</h4>
+        <div class="modal-header rounded-0 head-modal">
+          <h4 class="modal-title text-white">Bienvenido al elemento 1. POLITICA, del Sistema de Administración</h4>
         </div>
         <div class="modal-body">
 
@@ -658,11 +701,9 @@ function EliminarAsistencia(id){
 <div class="modal fade bd-example-modal-lg" id="myModalEditarPolitica" >
 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 <div class="modal-content" style="border-radius: 0px;border: 0px;">
-<div class="modal-header">
-<h4 class="modal-title">Editar 1. POLITICA</h4>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
- </button>
+<div class="modal-header rounded-0 head-modal">
+<h4 class="modal-title text-white">Editar 1. POLITICA</h4>
+<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
  </div>
  <div class="modal-body">
 
@@ -692,11 +733,10 @@ function EliminarAsistencia(id){
 <div class="modal fade bd-example-modal-lg" id="myModalListaComprobacion" data-backdrop="static">
 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 <div class="modal-content" style="border-radius: 0px;border: 0px;">
-<div class="modal-header">
-<h4 class="modal-title">Lista de comprobación</h4>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
+
+<div class="modal-header rounded-0 head-modal">
+<h4 class="modal-title text-white">Lista de comprobación</h4>
+<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 
 <div class="modal-body">
@@ -833,5 +873,10 @@ function EliminarAsistencia(id){
     </div>
 
   <script src="<?=RUTA_JS?>bootstrap.min.js"></script>
+    <!---------- LIBRERIAS DEL DATATABLE ---------->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.0.3/b-3.0.1/b-colvis-3.0.1/b-html5-3.0.1/b-print-3.0.1/datatables.min.js"></script>
+  
   </body>
   </html>

@@ -129,7 +129,92 @@ $this->InsertDetalle($idEstacion, $IdMantenimiento, $IdEquipo, $con);
 }
 
 }
+//--------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------
 
+function MantenimientoSemanal($idEstacion, $fecha_del_dia, $hora_del_dia, $con){
+
+  $sql_equipo = "SELECT
+  po_mantenimiento_lista.id,
+  po_mantenimiento_lista.num_lista,
+  po_mantenimiento_lista.detalle,
+  po_mantenimiento_lista.periodicidad,
+  po_programa_anual_mantenimiento_calendario.fecha
+  FROM po_mantenimiento_lista 
+  INNER JOIN po_programa_anual_mantenimiento_calendario 
+  ON po_mantenimiento_lista.id = po_programa_anual_mantenimiento_calendario.id_mantenimiento 
+  WHERE po_programa_anual_mantenimiento_calendario.id_estacion = '".$idEstacion."' AND po_programa_anual_mantenimiento_calendario.fecha = '".$fecha_del_dia."' ";
+  $result_equipo = mysqli_query($con, $sql_equipo);
+  $numero_equipo = mysqli_num_rows($result_equipo);
+  while($row_equipo = mysqli_fetch_array($result_equipo, MYSQLI_ASSOC)){
+
+    $IdEquipo = $row_equipo['id'];
+    $ValidaEquipo = $this->ValidaEquipo($idEstacion, $IdEquipo, $fecha_del_dia, $con);
+
+    if ($ValidaEquipo == 0) {
+      $IdMantenimiento = $this->IdMantenimiento($con);
+      $NumeroFolio = $this->Folio($idEstacion, $IdEquipo, $fecha_del_dia, $con);
+
+      $sql_insert = "INSERT INTO po_mantenimiento_verificar (
+      id,
+      folio,
+      id_estacion,
+      id_equipo,
+      fechacreacion,
+      horacreacion,
+      estado
+      )
+      VALUES 
+      (
+      '".$IdMantenimiento."',
+      '".$NumeroFolio."',
+      '".$idEstacion."',
+      '".$IdEquipo."',
+      '".$fecha_del_dia."',
+      '".$hora_del_dia."',
+      0
+      )";
+
+      if (mysqli_query($con, $sql_insert)) {
+        if($IdEquipo == 48){
+          $this->InsertDetalleDetectorHumo($IdMantenimiento, $idEstacion, $con);
+        }else{
+          $this->InsertDetalle($idEstacion, $IdMantenimiento, $IdEquipo, $con); 
+        }
+      }
+    }
+
+  }
+  
+}
+
+function InsertDetalleDetectorHumo($IdMantenimiento, $idEstacion, $con){
+
+  $sql = "SELECT id FROM tb_detector_humo 
+  WHERE id_estacion = '".$idEstacion."' AND estado = 1 ";
+  $result = mysqli_query($con, $sql);
+  $numero = mysqli_num_rows($result);
+
+  while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+  $idDetector = $row['id'];
+
+  $sql_insert = "INSERT INTO po_mantenimiento_detector_humo (
+  id_verificar,
+  id_detector,
+  revision,
+  resultado
+  )
+  VALUES 
+  ('".$IdMantenimiento."','".$idDetector."','Revisión auditiva (Emisión de sonido)',''),
+  ('".$IdMantenimiento."','".$idDetector."','Revisión visual (Emisión de luz indicadora)',''),
+  ('".$IdMantenimiento."','".$idDetector."','¿El funcionamiento del detector es el óptimo?',''),
+  ('".$IdMantenimiento."','".$idDetector."','¿Requiere cambio de batería?','')";
+  mysqli_query($con, $sql_insert);
+  }
+
+ }
+//--------------------------------------------------------------------
+//--------------------------------------------------------------------
 function InsertDetalle($idEstacion,$IdMantenimiento, $IdEquipo, $con){
 
    $sql_equipo = "SELECT id FROM po_mantenimiento_detalle WHERE id_lista = '".$IdEquipo."'";
@@ -139,7 +224,7 @@ function InsertDetalle($idEstacion,$IdMantenimiento, $IdEquipo, $con){
    while($row_equipo = mysqli_fetch_array($result_equipo, MYSQLI_ASSOC)){
    $ID = $row_equipo['id'];
 
-   if($IdEquipo == 46){
+   if($IdEquipo == 45){
    $Resultado = $this->ValidaVaDe($idEstacion,$IdEquipo,$ID,$con);
    }else{
     $Resultado = "";
@@ -246,41 +331,41 @@ if ($ValidaEquipo == 0) {
   $IdMantenimiento = $this->IdMantenimiento($con);
   $NumeroFolio = $this->Folio($idEstacion, $idmantenimiento, $fecha_del_dia, $con);
 
-$sql_insert = "INSERT INTO po_mantenimiento_verificar (
-id,
-folio,
-id_estacion,
-id_equipo,
-fechacreacion,
-horacreacion,
-estado
-)
-VALUES 
-(
-'".$IdMantenimiento."',
-'".$NumeroFolio."',
-'".$idEstacion."',
-'".$idmantenimiento."',
-'".$fecha_del_dia."',
-'".$hora_del_dia."',
-0
-)";
+  $sql_insert = "INSERT INTO po_mantenimiento_verificar (
+  id,
+  folio,
+  id_estacion,
+  id_equipo,
+  fechacreacion,
+  horacreacion,
+  estado
+  )
+  VALUES 
+  (
+  '".$IdMantenimiento."',
+  '".$NumeroFolio."',
+  '".$idEstacion."',
+  '".$idmantenimiento."',
+  '".$fecha_del_dia."',
+  '".$hora_del_dia."',
+  0
+  )";
 
-if (mysqli_query($con, $sql_insert)) {
+  if (mysqli_query($con, $sql_insert)) {
 
-if ($idmantenimiento == 20) {
-$this->InsertDetalleExtintor($IdMantenimiento, $idEstacion, $con); 
-}else if ($idmantenimiento == 46){
-$this->InsertDetalle($idEstacion, $IdMantenimiento, $idmantenimiento, $con);
-$this->InsertDetalleHermeticidad($IdMantenimiento, $idEstacion, $con); 
-}else{
-$this->InsertDetalle($idEstacion, $IdMantenimiento, $idmantenimiento, $con); 
-}
+  if ($idmantenimiento == 20) {
+  $this->InsertDetalleExtintor($IdMantenimiento, $idEstacion, $con); 
+  }else if ($idmantenimiento == 46){
+  $this->InsertDetalle($idEstacion, $IdMantenimiento, $idmantenimiento, $con);
+  $this->InsertDetalleHermeticidad($IdMantenimiento, $idEstacion, $con); 
+  }else{
+  $this->InsertDetalle($idEstacion, $IdMantenimiento, $idmantenimiento, $con); 
+  }
 
-} 
-}
-}
-}
+  } 
+  }
+  }
+  }
 
   function InsertDetalleExtintor($IdMantenimiento, $idEstacion, $con){
 

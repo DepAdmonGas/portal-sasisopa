@@ -12,7 +12,7 @@ switch($_POST['accion']){
         echo $class_control_actividad_proceso->buscarPeriodicidad($_POST['idselect']);
     break;
     case 'agregar-equipo-instalacion':
-        echo $class_control_actividad_proceso->agregarEquipoInstalacion($_POST['idreporte'],$_POST['id'],$_POST['fecha'],$_POST['select']);
+        echo $class_control_actividad_proceso->agregarEquipoInstalacion($Session_IDEstacion,$_POST['idreporte'],$_POST['id'],$_POST['fecha'],$_POST['select']);
     break;
     case 'eliminar-equipo-instalacion':
         echo $class_control_actividad_proceso->eliminarEquipoInstalacion($_POST['id']);
@@ -189,14 +189,14 @@ switch($_POST['accion']){
     case 'eliminar-bitacora-quincenal':      
         echo $class_control_actividad_proceso->eliminarBitacoraQuincenal($_POST['id']);
     break;
-    
+    //-------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------
+    case 'agregar-detector-humo':
+        echo $class_control_actividad_proceso->agregarDetectorHumo($Session_IDEstacion,$_POST['NoDetector'],$_POST['Ubicacion']);
+    break;
+    case 'eliminar-detector-humo':      
+        echo $class_control_actividad_proceso->eliminarDetectorHumo($_POST['id']);
+    break;
 
     }
     
-    
-
-
-
-
-
-

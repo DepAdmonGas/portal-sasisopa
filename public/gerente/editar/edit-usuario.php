@@ -18,7 +18,8 @@ telefono = '".$_POST['EditTelefono']."',
 email = '".$_POST['EditEmail']."',
 id_puesto = '".$_POST['EditPuesto']."',
 usuario = '".$_POST['EditNomUsuario']."',
-password = '".$_POST['EditPasswordOriginal']."'
+password = '".$_POST['EditPasswordOriginal']."',
+respoabilidad_sgm = '".$_POST['ResponsabilidadSGM']."'
  WHERE id= '".$_POST['EditidUsuario']."' ";
 mysqli_query($con, $sql);
 mysqli_close($con);
