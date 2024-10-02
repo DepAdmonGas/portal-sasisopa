@@ -14,11 +14,9 @@ $numero_capacitacion = mysqli_num_rows($result_capacitacion);
 
 
 ?>
-<div class="modal-header">
-   <h4 class="modal-title">TRABAJADORES</h4>
-     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-   <span aria-hidden="true">&times;</span>
- </button>
+<div class="modal-header rounded-0 head-modal">
+   <h4 class="modal-title text-white">TRABAJADORES</h4>
+   <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
  </div>
  <div class="modal-body">
 

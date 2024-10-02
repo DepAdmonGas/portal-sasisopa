@@ -10,8 +10,8 @@ $idUsuario = $_GET['idUsuario'];
 </div>
 </div>
 
-<div class="col-2">
-<a class="float-right" onclick="ModalFA()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Agregar"><img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>"></a>
+<div class="col-2 text-end">
+<a onclick="ModalFA()" style="cursor: pointer;"><img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>"></a>
 </div>
 
 </div>

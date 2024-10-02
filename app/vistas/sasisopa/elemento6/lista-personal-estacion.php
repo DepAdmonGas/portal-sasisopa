@@ -12,18 +12,16 @@ $numero_usuarios = mysqli_num_rows($result_usuarios);
 <?php if ($numero_usuarios > 0) {
 ?>
 
-<div class="mb-2" style="overflow-y: hidden;">
-<table class="table table-bordered table-striped table-hover table-sm pb-0 mb-0" style="font-size: .9em;">
+<table class="table table-bordered table-striped table-hover table-sm pb-0 mb-0" id="tabla-perfil-personal">
 <thead>
-<tr>
+<tr class="bg-primary text-white">
   <th class="text-center">#</th>
   <th class="text-center">Nombre Usuario</th>
   <th class="text-center">Puesto</th>
   <th class="text-center">Telefono</th>
   <th class="text-center">Email</th>
   <th class="text-center">Cumplimiento</th>
-  <th class="text-center"><img src="<?=RUTA_IMG_ICONOS;?>pdf-16.png"></th>
-  <th class="text-center"><img src="<?=RUTA_IMG_ICONOS;?>ojo-black-16.png"></th>
+  <th class="text-center align-middle" width="35px"><i class="fas fa-ellipsis-v"></i></th>
 </tr>
 </thead>
 <tbody>
@@ -68,17 +66,22 @@ echo "<td class='text-center'>".$puesto."</td>";
 echo "<td class='text-center'>".$telefono."</td>";
 echo "<td class='text-center'>".$email."</td>";
 echo "<td class='text-center align-middle font-weight-bold ".$textStyle."'>".$formatporcentaje."%</td>";
+echo '<td class="text-center align-middle" width="20px" style="cursor: pointer;">
+  <div class="dropdown dropstart">
+  <a class="btn btn-sm btn-icon-only text-dropdown-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+  <i class="fas fa-ellipsis-v"></i>
+  </a>
+  <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+    <a class="dropdown-item" onclick="VerFicha('.$idusuario.')"><i class="fa-regular fa-eye"></i> Ficha personal</a>
+    <a class="dropdown-item" onclick="FichaPersonal('.$idusuario.')"><i class="fa-regular fa-file-pdf"></i> Descargar PDF</a>
+  </div>
+  </div>
+  </td>';
 
-echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."pdf-16.png' style='cursor: pointer;' data-toggle='tooltip' data-placement='left' title='Ficha del usuario' onclick='FichaPersonal(".$idusuario.")'></td>";
-
-echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."ojo-black-16.png' style='cursor: pointer;' data-toggle='tooltip' data-placement='left' title='Ver ficha del usuario' onclick='VerFicha(".$idusuario.")'></td>";
 echo "</tr>";
 }
 ?>
 </tbody>
 </table>
-</div>
-<?php }else{
-  echo "<div class='text-secondary text-center' >No se encontraron usuarios almacenados en la estación de servicio.</div>";
-} ?>
+<?php }?>
 

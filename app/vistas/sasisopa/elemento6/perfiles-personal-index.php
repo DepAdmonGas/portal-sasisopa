@@ -1,6 +1,5 @@
 <?php
 require('app/help.php');
-
 ?>
 <html lang="es">
   <head>
@@ -9,20 +8,22 @@ require('app/help.php');
   <title>SASISOPA</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width initial-scale=1.0">
-  <link rel="shortcut icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
-  <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-  <script type="text/javascript" src="<?php echo RUTA_JS ?>alertify.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link rel="shortcut icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
+  <link rel="apple-touch-icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>alertify.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>themes/default.rtl.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS ?>bootstrap.css" />
+  <link rel="stylesheet" href="<?=RUTA_CSS?>componentes.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>bootstrap-select.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-      <style media="screen">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="<?=RUTA_JS?>alertify.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.0.3/b-3.0.1/b-colvis-3.0.1/b-html5-3.0.1/b-print-3.0.1/datatables.min.css" rel="stylesheet">
+  <style media="screen">
   .LoaderPage {
   position: fixed;
   left: 0px;
@@ -44,7 +45,20 @@ require('app/help.php');
   }
 
   function ListaPersonal(){
-    $('#DivPersonal').load('app/vistas/sasisopa/elemento6/lista-personal-estacion.php');
+    let targets = [6];
+  $('#DivPersonal').load('app/vistas/sasisopa/elemento6/lista-personal-estacion.php', function() {
+  $('#tabla-perfil-personal').DataTable({
+    "language": {
+    "url": "<?=RUTA_JS?>es-ES.json"
+  },
+  "stateSave": true,
+    "lengthMenu": [20,40,50],
+    "columnDefs": [
+    { "orderable": false, "targets": targets },
+    { "searchable": false, "targets": targets }
+    ]
+  });
+  });  
   }
 
   function FichaPersonal(idUsuario){
@@ -52,34 +66,51 @@ require('app/help.php');
   }
 
   function VerFicha(idUsuario){
-    window.location.href = "ficha-personal/"+idUsuario;
-    }
+  window.location.href = "ficha-personal/"+idUsuario;
+  }
 
   function btnDescargar(){
   window.location = "descargar-ficha-personal-reporte";
   }
+
   </script>
   </head>
   <body>
 
     <div class="LoaderPage"></div>
     <div class="fixed-top navbar-admin">
-    <?php require('public/componentes/header.menu.php'); ?>
+    <?php require('app/vistas/componentes/navbar-perfil.php'); ?>
     </div>
 
     <div class="magir-top-principal p-3">
 
-    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-    <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-    </div>
-    <div class="float-left"><h4>PERFILES DEL PERSONAL</h4></div>
-    <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
-    <a onclick="btnDescargar()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Descargar" >
-    <img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>">
-    </a>
-    </div>
+      <!-- Inicio -->
+      <div class="float-end">
+      <div class="dropdown dropdown-sm d-inline ms-2">
+      <button type="button" class="btn dropdown-toggle btn-primary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="fa-solid fa-screwdriver-wrench"></i></span>
+      </button>
+      <ul class="dropdown-menu">
+      <li onclick="btnDescargar()"><a class="dropdown-item c-pointer"> <i class="fa-regular fa-circle-down"></i> Descargar perfiles del personal</a></li>
+      </ul>
+      </div>
+      </div>
+      <!-- Fin -->
 
-    <div class="bg-white mt-5 p-3">
+      <!-- Inicio -->
+      <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
+      <ol class="breadcrumb breadcrumb-caret">
+      <li class="breadcrumb-item text-primary c-pointer" onclick="window.history.go(-2);"><i class="fa-solid fa-house"></i> SASISOPA</li>
+      <li aria-current="page" class="breadcrumb-item c-pointer" onclick="regresarP()">6. COMPETENCIA DEL PERSONAL, CAPACITACIÓN Y ENTRENAMIENTO</li>
+      <li aria-current="page" class="breadcrumb-item active">PERFILES DEL PERSONAL</li>
+      </ol>
+      </div>
+      <!-- Fin -->
+
+      <h3>PERFILES DEL PERSONAL</h3>
+
+
+    <div class="bg-white mt-3 p-3">
     <div id="DivPersonal"></div>
     </div>
 
@@ -87,5 +118,10 @@ require('app/help.php');
 
 
   <script src="<?php echo RUTA_JS ?>bootstrap.min.js"></script>
+  <!---------- LIBRERIAS DEL DATATABLE ---------->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.0.3/b-3.0.1/b-colvis-3.0.1/b-html5-3.0.1/b-print-3.0.1/datatables.min.js"></script>
+
   </body>
   </html>

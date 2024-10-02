@@ -11,8 +11,8 @@ $idUsuario = $_GET['idUsuario'];
 4.1 En otras empresas
 </div>
 </div>
-<div class="col-2 mt-2">
-  <a class="float-right" onclick="ModalEL()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Agregar"><img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
+<div class="col-2 mt-2 text-end">
+  <a onclick="ModalEL()" style="cursor: pointer;"><img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
 </a>
 </div>
 </div>

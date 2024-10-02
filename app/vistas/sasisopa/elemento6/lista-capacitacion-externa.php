@@ -7,20 +7,16 @@ $numero_capacitacion = mysqli_num_rows($result_capacitacion);
 
 ?>
 
-<div style="overflow-y: hidden;">
-<table class="table table-bordered table-striped table-sm pb-0 mb-0">
+<table class="table table-bordered table-striped table-sm" id="table-capacitacion-externa">
 <thead>	
-<tr class="table-primary">
+<tr class="bg-primary text-white">
 <th class="text-center align-middle">#</th>
 <th class="text-center align-middle">Curso</th>
 <th class="text-center align-middle">Fecha programada</th>
 <th class="text-center align-middle">Duración</th>
 <th class="text-center align-middle">Instructor</th>
 <th class="text-center align-middle">Fecha real</th>
-<th class="text-center align-middle"><img src="<?=RUTA_IMG_ICONOS;?>edit-black-16.png"></th>
-<th class="text-center align-middle"><img width="16" src="<?=RUTA_IMG_ICONOS;?>funciones-responsabilidad.png"></th>
-<th class="text-center align-middle"><img width="16" src="<?=RUTA_IMG_ICONOS;?>pdf.png"></th>
-<th class="text-center align-middle"><img width="16" src="<?=RUTA_IMG_ICONOS;?>eliminar.png"></th>
+<th class="text-center align-middle" width="35px"><i class="fas fa-ellipsis-v"></i></th>
 </tr>
 </thead>
 <tbody>
@@ -42,19 +38,26 @@ echo "<td class='text-center'>".FormatoFecha($row_capacitacion['fecha_programada
 echo "<td class='text-center'>".$row_capacitacion['duracion']." ".$row_capacitacion['duraciondetalle']."</td>";
 echo "<td class='text-center'>".$row_capacitacion['instructor']."</td>";
 echo "<td class='text-center'>".$fechareal."</td>";
-echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."edit-black-16.png' style='cursor: pointer;' onclick='Editar(".$id.")'></td>";
-echo "<td class='text-center align-middle' width='30'><img width='16' src='".RUTA_IMG_ICONOS."funciones-responsabilidad.png' style='cursor: pointer;' onclick='Personal(".$id.")'></td>";
-echo "<td class='text-center align-middle' width='30'><img width='16' src='".RUTA_IMG_ICONOS."pdf.png' style='cursor: pointer;' onclick='DescargarRegistro(".$id.")'></td>";
-echo "<td class='text-center align-middle' width='30'><img width='16' src='".RUTA_IMG_ICONOS."eliminar.png' style='cursor: pointer;' onclick='EliminarRegistro(".$id.")'></td>";
+
+echo '<td class="text-center align-middle" width="20px" style="cursor: pointer;">
+  <div class="dropdown dropstart">
+  <a class="btn btn-sm btn-icon-only text-dropdown-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+  <i class="fas fa-ellipsis-v"></i>
+  </a>
+  <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+    <a class="dropdown-item" onclick="Editar('.$id.')"><i class="fa-regular fa-pen-to-square"></i> Editar</a>
+    <a class="dropdown-item" onclick="Personal('.$id.')"><i class="fa-solid fa-users"></i> Trabajadores</a>
+    <a class="dropdown-item" onclick="DescargarRegistro('.$id.')"><i class="fa-regular fa-file-pdf"></i> Descargar PDF</a>
+    <a class="dropdown-item" onclick="EliminarRegistro('.$id.')"><i class="fa-regular fa-trash-can"></i> Eliminar</a>
+  </div>
+  </div>
+  </td>';
+
 echo "</tr>";
 
 $num = $num + 1;
 }
-}else{
-echo "<td colspan='10' class='text-center text-secondary' style='font-size: .8em;'>No se encontró información para mostrar</td>";
-
 }
 ?>	
 </tbody>
 </table>
-</div>

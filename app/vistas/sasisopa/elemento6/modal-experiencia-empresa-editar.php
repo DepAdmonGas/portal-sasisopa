@@ -12,11 +12,9 @@ require ('../../../../app/help.php');
 
 
 ?>
-      <div class="modal-header">
-        <h5 class="modal-title">Editar Experiencia laboral</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div class="modal-header rounded-0 head-modal">
+        <h5 class="modal-title text-white">Editar Experiencia laboral</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
 
@@ -48,7 +46,7 @@ require ('../../../../app/help.php');
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-radius: 0px;border: 0px;">Cancelar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="border-radius: 0px;border: 0px;">Cancelar</button>
         <button type="button" class="btn btn-primary" style="border-radius: 0px;border: 0px;" onclick="BtnEditarEE(<?=$_GET['idUsuario'];?>,<?=$_GET['id'];?>)">Editar</button>
       </div>
       

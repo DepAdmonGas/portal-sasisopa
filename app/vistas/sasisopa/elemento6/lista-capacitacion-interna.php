@@ -17,11 +17,9 @@ $tituloTema = $row_modulo['titulo'];
 }
 
 ?>
-<div class="modal-header">
-   <h4 class="modal-title">CAPACITACIÓN INTERNA</h4>
-     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-   <span aria-hidden="true">&times;</span>
- </button>
+<div class="modal-header rounded-0 head-modal">
+   <h4 class="modal-title text-white">CAPACITACIÓN INTERNA</h4>
+   <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
  </div>
  <div class="modal-body">
 
@@ -34,6 +32,7 @@ $tituloTema = $row_modulo['titulo'];
 <th class="text-center">Fecha Programada</th>
 <th class="text-center">Fecha Real</th>
 <th class="text-center">Resultado</th>
+<th class="text-center"></th>
 <th class="text-center"></th>
 </tr>
 </thead>

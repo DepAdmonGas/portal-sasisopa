@@ -9,8 +9,8 @@ $idUsuario = $_GET['idUsuario'];
 2. Datos de familiares
 </div>
 </div>
-<div class="col-2">
-  <a class="float-right" onclick="AgregarDatos()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Agregar">
+<div class="col-2 text-end">
+  <a onclick="AgregarDatos()" style="cursor: pointer;">
   <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
 </a>
 </div>

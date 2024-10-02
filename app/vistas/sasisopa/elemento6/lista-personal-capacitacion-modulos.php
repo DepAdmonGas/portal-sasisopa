@@ -13,20 +13,13 @@ $result_usuarios = mysqli_query($con, $sql_usuarios);
 $numero_usuarios = mysqli_num_rows($result_usuarios);
 
 ?>
-<script type="text/javascript">
-$(document).ready(function(){
-$('[data-toggle="tooltip"]').tooltip();
-});
-
-</script>
-<div class="text-center p-2"><h4><?=$tituloTema;?></h4></div>
+<div class="text-center text-primary"><h4><?=$tituloTema;?></h4></div>
 <?php if ($numero_usuarios > 0) {
 ?>
 
-<div class="mb-2" style="overflow-y: hidden;">
-<table class="table table-bordered table-striped table-hover table-sm pb-0 mb-0" style="font-size: .9em;">
+<table id="table-capacitacion-interna" class="table table-bordered table-striped table-hover table-sm" style="font-size: .9em;">
 <thead>
-<tr>
+<tr class="bg-primary text-white">
   <th class="text-center">#</th>
   <th class="text-center">Nombre Usuario</th>
   <th class="text-center">Puesto</th>
@@ -34,6 +27,7 @@ $('[data-toggle="tooltip"]').tooltip();
   <th class="text-center">Email</th>
   <th class="text-center">Fecha Programada</th>
   <th class="text-center">Resultado</th>
+  <th class="text-center align-middle" width="35px"><i class="fas fa-ellipsis-v"></i></th>
 </tr>
 </thead>
 <tbody>
@@ -45,7 +39,6 @@ $telefono = $row_usuarios['telefono'];
 $email = $row_usuarios['email'];
 $usuario = $row_usuarios['usuario'];
 $idpuesto = $row_usuarios['id_puesto'];
-
 
 $FechaProgramada = $class_cursos->FechaProgramada($idusuario,$idTema,$fecha_year);
 
@@ -69,11 +62,10 @@ $title = "<b class='text-danger'>".$calificacion."% Malo</b>";
 $title = "<b>S/I</b>";
 }
 
-
 if ($row_usuarios['estatus'] == 0) {
-$estadoimg = "<img src='".RUTA_IMG_ICONOS."activo.png' style='cursor: pointer;' data-toggle='tooltip' data-placement='right' title='Usuario activo'>";
+$estadoimg = "<img src='".RUTA_IMG_ICONOS."activo.png' style='cursor: pointer;'>";
 }else if ($row_usuarios['estatus'] == 1) {
-$estadoimg = "<img src='".RUTA_IMG_ICONOS."noactivo.png' style='cursor: pointer;' data-toggle='tooltip' data-placement='right' title='Usuario cancelado'>";
+$estadoimg = "<img src='".RUTA_IMG_ICONOS."noactivo.png' style='cursor: pointer;'>";
 }
 
 $sql_puesto = "SELECT tipo_puesto FROM tb_puestos WHERE id = '$idpuesto' ";
@@ -91,14 +83,24 @@ echo "<td class='text-center'>".$telefono."</td>";
 echo "<td class='text-center'>".$email."</td>";
 echo "<td class='text-center'><b>".$FechaProgramada['fechaprogramada']."</b></td>";
 echo "<td class='text-center'>".$title."</td>";
-echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."tiempo.png' style='cursor: pointer;' data-toggle='tooltip' data-placement='left' title='Programar Fecha' onclick='ProgramarFecha(".$idModulo.",".$idTema.",".$idusuario.")'></td>";
-echo "<td class='text-center align-middle' width='30'><img width='16' src='".RUTA_IMG_ICONOS."contenido.png' style='cursor: pointer;' data-toggle='tooltip' data-placement='left' title='Fechas Programadas' onclick='ListaFechas(".$idModulo.",".$idTema.",".$idusuario.")'></td>";
+
+echo '<td class="text-center align-middle" width="20px" style="cursor: pointer;">
+  <div class="dropdown dropstart">
+  <a class="btn btn-sm btn-icon-only text-dropdown-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+  <i class="fas fa-ellipsis-v"></i>
+  </a>
+  <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+    <a class="dropdown-item" onclick="ProgramarFecha('.$idModulo.','.$idTema.','.$idusuario.')"><i class="fa-regular fa-clock"></i> Programar curso</a>
+    <a class="dropdown-item" onclick="ListaFechas('.$idModulo.','.$idTema.','.$idusuario.')"><i class="fa-regular fa-file-lines"></i> Cursos programados</a>
+  </div>
+  </div>
+  </td>';
+
 echo "</tr>";
 }
 ?>
 </tbody>
 </table>
-</div>
 <?php }else{
   echo "<div class='text-secondary text-center' >No se encontró información para mostrar.</div>";
 } ?>

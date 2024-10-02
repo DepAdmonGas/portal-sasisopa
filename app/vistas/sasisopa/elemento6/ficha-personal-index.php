@@ -8,20 +8,20 @@ require('app/help.php');
   <title>SASISOPA</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width initial-scale=1.0">
-  <link rel="shortcut icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
-  <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-  <script type="text/javascript" src="<?php echo RUTA_JS ?>alertify.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link rel="shortcut icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
+  <link rel="apple-touch-icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>alertify.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>themes/default.rtl.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS ?>bootstrap.css" />
+  <link rel="stylesheet" href="<?=RUTA_CSS?>componentes.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>bootstrap-select.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-  <script type="text/javascript" src="<?php echo RUTA_JS ?>signature_pad.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="<?=RUTA_JS?>alertify.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <style media="screen">
   .LoaderPage {
   position: fixed;
@@ -699,22 +699,28 @@ $(".LoaderPage").show();
   <body>
     <div class="LoaderPage"></div>
     <div class="fixed-top navbar-admin">
-    <?php require('public/componentes/header.menu.php'); ?>
+    <?php require('app/vistas/componentes/navbar-perfil.php'); ?>
     </div>
 
     <div class="magir-top-principal p-3">
 
-    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-    <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-    </div>    
-    <div class="float-left">
-    <h4>FICHA DEL PERSONAL</h4>
-    </div>
-    <div class="float-right">
-    <div style="margin-top: 10px;"><a onclick="FichaPersonal(<?=$GET_idUsuario;?>)"><img src="<?=RUTA_IMG_ICONOS;?>archivo.png"></a></div>
-    </div>
+      <!-- Inicio -->
+      <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
+      <ol class="breadcrumb breadcrumb-caret">
+      <li class="breadcrumb-item text-primary c-pointer" onclick="window.history.go(-2);"><i class="fa-solid fa-house"></i> SASISOPA</li>
+      <li aria-current="page" class="breadcrumb-item c-pointer" onclick="regresarP()">6. COMPETENCIA DEL PERSONAL, CAPACITACIÓN Y ENTRENAMIENTO</li>
+      <li aria-current="page" class="breadcrumb-item active">FICHA DEL PERSONAL</li>
+      </ol>
+      </div>
+      <!-- Fin -->
 
-    <div class="bg-white mt-5 p-3">
+      <div class="float-end">
+      <div class="c-pointer"><a onclick="FichaPersonal(<?=$GET_idUsuario;?>)"><img src="<?=RUTA_IMG_ICONOS;?>archivo.png"></a></div>
+      </div>
+
+      <h3>FICHA DEL PERSONAL</h3>
+
+    <div class="bg-white mt-4 p-3">
 
     <div id="DivDatosPersonales"></div>
     <div id="DivDatosFamiliares"></div>
@@ -749,11 +755,9 @@ $(".LoaderPage").show();
     <div class="modal fade" id="ModalAgregarDatosF" >
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content" style="border-radius: 0px;border: 0px;">
-      <div class="modal-header">
-        <h5 class="modal-title">Datos de familiares</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div class="modal-header rounded-0 head-modal">
+        <h5 class="modal-title text-white">Datos de familiares</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
 
@@ -783,7 +787,7 @@ $(".LoaderPage").show();
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-radius: 0px;border: 0px;">Cancelar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="border-radius: 0px;border: 0px;">Cancelar</button>
         <button type="button" class="btn btn-primary" style="border-radius: 0px;border: 0px;" onclick="BtnADF(<?=$GET_idUsuario;?>)">Agregar</button>
       </div>
     </div>
@@ -793,11 +797,9 @@ $(".LoaderPage").show();
 <div class="modal fade" id="ModalFA" >
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content" style="border-radius: 0px;border: 0px;">
-      <div class="modal-header">
-        <h5 class="modal-title">Formación académica</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div class="modal-header rounded-0 head-modal">
+        <h5 class="modal-title text-white">Formación académica</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
 
@@ -818,7 +820,7 @@ $(".LoaderPage").show();
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-radius: 0px;border: 0px;">Cancelar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="border-radius: 0px;border: 0px;">Cancelar</button>
         <button type="button" class="btn btn-primary" style="border-radius: 0px;border: 0px;" onclick="BtnAFA(<?=$GET_idUsuario;?>)">Agregar</button>
       </div>
     </div>
@@ -828,11 +830,9 @@ $(".LoaderPage").show();
 <div class="modal fade" id="ModalEL" >
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content" style="border-radius: 0px;border: 0px;">
-      <div class="modal-header">
-        <h5 class="modal-title">Experiencia laboral</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div class="modal-header rounded-0 head-modal">
+        <h5 class="modal-title text-white">Experiencia laboral</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
 
@@ -843,7 +843,7 @@ $(".LoaderPage").show();
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-radius: 0px;border: 0px;">Cancelar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="border-radius: 0px;border: 0px;">Cancelar</button>
         <button type="button" class="btn btn-primary" style="border-radius: 0px;border: 0px;" onclick="BtnAEL(<?=$GET_idUsuario;?>)">Agregar</button>
       </div>
     </div>
@@ -853,11 +853,9 @@ $(".LoaderPage").show();
 <div class="modal fade" id="ModalEE" >
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content" style="border-radius: 0px;border: 0px;">
-      <div class="modal-header">
-        <h5 class="modal-title">Experiencia laboral</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div class="modal-header rounded-0 head-modal">
+        <h5 class="modal-title text-white">Experiencia laboral</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
 
@@ -889,7 +887,7 @@ $(".LoaderPage").show();
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-radius: 0px;border: 0px;">Cancelar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="border-radius: 0px;border: 0px;">Cancelar</button>
         <button type="button" class="btn btn-primary" style="border-radius: 0px;border: 0px;" onclick="BtnEE(<?=$GET_idUsuario;?>)">Agregar</button>
       </div>
     </div>
