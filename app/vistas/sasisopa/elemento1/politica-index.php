@@ -21,7 +21,6 @@ $estado = $array_ayuda['estado'];
   <link rel="stylesheet" href="<?=RUTA_CSS?>themes/default.rtl.css">
   <link rel="stylesheet" href="<?=RUTA_CSS ?>bootstrap.css" />
   <link rel="stylesheet" href="<?=RUTA_CSS?>componentes.css">
-  <link rel="stylesheet" href="<?=RUTA_CSS?>bootstrap-select.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

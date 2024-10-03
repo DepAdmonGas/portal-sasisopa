@@ -105,6 +105,7 @@ if($TotalPendientes > 0){
 
   $(document).ready(function($){
   $(".LoaderPage").fadeOut("slow");
+  localStorage.clear();
   PuntosSasisopa()
   });
 

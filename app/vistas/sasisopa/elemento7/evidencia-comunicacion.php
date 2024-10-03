@@ -16,19 +16,17 @@ $(document).ready(function(){
 </script>
 
  
-<div class="modal-header">
+<div class="modal-header rounded-0 head-modal">
 
-<h5 class="modal-title"><?=$temac;?></h5>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
+<h5 class="modal-title text-white"><?=$temac;?></h5>
+<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 
 <div class="modal-body">
 
 <h6>Evidencia:</h6>
 <input type="file" id="FileEvidencia">
-<div class="text-right">
+<div class="text-end">
 <button type="button" class="btn btn-primary btn-sm" style="border-radius: 0px;" onclick="AgregarEvidencia(<?=$_GET['idcomunicado'];?>)">Agregar evidencia</button>
 </div>
 <div id="result"></div>

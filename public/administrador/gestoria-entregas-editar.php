@@ -25,7 +25,7 @@ require('app/help.php');
     $numero = mysqli_num_rows($result);
     while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
     $Estacion = $row['estacion'];
-    $direccion = $Estacion['direccion'];
+    //$direccion = $Estacion['direccion'];
     $destinatario = $row['destinatario'];
     $fecha = $row['fecha'];
     $estatus = $row['estatus'];
@@ -36,8 +36,6 @@ require('app/help.php');
     $numeroLista = mysqli_num_rows($resultLista);
 
     $Documento = Documentos($GET_ID, $con);
-
-    
 
 ?>
 <html lang="es">
@@ -155,7 +153,8 @@ require('app/help.php');
     }
 
     function Eliminar(idEntrega,id){
-  
+
+ 
     alertify.confirm('',
     function(){
 

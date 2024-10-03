@@ -44,12 +44,10 @@ $(document).ready(function(){
 </script>
 
  
-<div class="modal-header">
+<div class="modal-header rounded-0 head-modal">
 
-<h5 class="modal-title"><?=$temac;?></h5>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
+<h5 class="modal-title text-white"><?=$temac;?></h5>
+<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 
 <div class="modal-body">
@@ -111,7 +109,7 @@ $result_puestos = mysqli_query($con, $sql_puestos);
 while($row_puestos = mysqli_fetch_array($result_puestos, MYSQLI_ASSOC)){
 $puesto = $row_puestos['tipo_puesto'];
 ?>
-<span class="badge badge-pill badge-primary" style="font-size: .8em;"><?=$puesto;?></span>
+<span class="badge rounded-pill bg-primary" style="font-size: .8em;"><?=$puesto;?></span>
 <?php
 }
 }

@@ -24,7 +24,7 @@ $numero_comunicado = mysqli_num_rows($result_comunicado);
 </table>
 </div>
 
-<div class="text-right mb-2">
+<div class="text-end mb-2">
     <?php if($_GET['Year'] != 0){ ?>
     <a class="mr-2" onclick="DescargarCompleto(<?=$_GET['Year']?>,<?=$Session_IDEstacion;?>,0)" style="cursor: pointer;">
     Reporte completo
@@ -44,10 +44,10 @@ $numero_comunicado = mysqli_num_rows($result_comunicado);
     </a>
 </div>
 
-<div class="" style="overflow-y: hidden;">
-<table class="table table-bordered table-striped table-sm pb-0 mb-0" style="font-size: .9em;">
+
+<table class="table table-bordered table-striped table-sm pb-0 mb-0" style="font-size: .9em;" id="table-comunicacion-participacion-consulta">
 <thead>	
-<tr class="table-primary">
+<tr class="bg-primary text-white">
 <th class="text-center align-middle">No.</th>
 <th class="text-center align-middle">Fecha</th>
 <th class="text-center align-middle">Tema a comunicar</th>
@@ -55,10 +55,7 @@ $numero_comunicado = mysqli_num_rows($result_comunicado);
 <th class="text-center align-middle">Tipo de comunicación</th>
 <th class="text-center align-middle">Material utilizado para la comunicación</th>
 <th class="text-center align-middle">Seguimiento de la comunicación</th>
-<th class="text-center align-middle"><img src="<?=RUTA_IMG_ICONOS;?>subir.png" /></th>
-<th class="text-center align-middle"><img src="<?=RUTA_IMG_ICONOS;?>pdf.png" /></th>
-<th class="text-center align-middle"><img src="<?=RUTA_IMG_ICONOS;?>editar.png" /></th>
-<th class="text-center align-middle"><img src="<?=RUTA_IMG_ICONOS;?>eliminar.png" /></th>
+<th class="text-center align-middle" width="35px"><i class="fas fa-ellipsis-v"></i></th>
 </tr>
 </thead>
 <tbody>
@@ -68,9 +65,9 @@ while($row_comunicado = mysqli_fetch_array($result_comunicado, MYSQLI_ASSOC)){
 $nomencargado = $row_comunicado['nombre'];
 
 if($row_comunicado['asistencia'] == 0){
-$Descargar = "<img src='".RUTA_IMG_ICONOS."pdf.png' style='cursor: pointer;' onclick='Descargar(".$_GET['Year'].",0,".$row_comunicado['id'].")'>";
+$Descargar = '<a class="dropdown-item" onclick="Descargar('.$_GET['Year'].',0,'.$row_comunicado['id'].')"><i class="fa-regular fa-file-pdf"></i> Descargar PDF</a>';
 }else{
-$Descargar = "<img src='".RUTA_IMG_ICONOS."pdf.png' style='cursor: pointer;' onclick='DescargarAsistencia(".$row_comunicado['asistencia'].")'>";  
+$Descargar = '<a class="dropdown-item" onclick="DescargarAsistencia('.$row_comunicado['asistencia'].')"><i class="fa-regular fa-file-pdf"></i> Descargar PDF</a>';  
 }
 
 echo "<tr style='cursor: pointer'>";
@@ -81,18 +78,26 @@ echo "<td class='text-center align-middle' onclick='BtnDetalle(".$row_comunicado
 echo "<td class='text-center align-middle' onclick='BtnDetalle(".$row_comunicado['id'].")'>".$row_comunicado['tipo_comunicacion']."</td>";
 echo "<td class='text-center align-middle' onclick='BtnDetalle(".$row_comunicado['id'].")'>".$row_comunicado['material']."</td>";
 echo "<td class='text-center align-middle' onclick='BtnDetalle(".$row_comunicado['id'].")'>".$row_comunicado['seguimiento']."</td>";
-echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."subir.png' style='cursor: pointer;' onclick='ModalEvidencia(".$row_comunicado['id'].")'></td>";
-echo "<td class='text-center align-middle' width='30'>".$Descargar."</td>";
-echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."editar.png' style='cursor: pointer;' onclick='Editar(".$row_comunicado['id'].")'></td>";
-echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."eliminar.png' style='cursor: pointer;' onclick='Eliminar(".$row_comunicado['id'].")'></td>";
+
+echo '<td class="text-center align-middle" width="20px" style="cursor: pointer;">
+  <div class="dropdown dropstart">
+  <a class="btn btn-sm btn-icon-only text-dropdown-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+  <i class="fas fa-ellipsis-v"></i>
+  </a>
+  <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+  <a class="dropdown-item" onclick="ModalEvidencia('.$row_comunicado['id'].')"><i class="fa-regular fa-file-zipper"></i> Evidencia</a>
+  <a class="dropdown-item" onclick="Editar('.$row_comunicado['id'].')"><i class="fa-regular fa-pen-to-square"></i> Editar</a>
+  '.$Descargar.'
+  <a class="dropdown-item" onclick="Eliminar('.$row_comunicado['id'].')"><i class="fa-regular fa-trash-can"></i> Eliminar</a>
+  </div>
+  </div>
+  </td>';
+
 echo "</tr>";
 }
-}else{
-echo "<td colspan='10' class='text-center text-secondary' style='font-size: .8em;'>No se encontro comunicacion interna o externa</td>";
 }
 ?>
 </tbody>
 </table>
-</div>
 
 	 					 		 		 	

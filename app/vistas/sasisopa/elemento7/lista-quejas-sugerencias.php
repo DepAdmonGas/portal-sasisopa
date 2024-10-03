@@ -6,14 +6,12 @@ $result_capacitacion = mysqli_query($con, $sql_capacitacion);
 $numero_capacitacion = mysqli_num_rows($result_capacitacion);
 
 ?>
-<div style="overflow-y: hidden;">
-<table class="table table-bordered table-striped table-sm pb-0 mb-0">
+<table class="table table-bordered table-striped table-sm pb-0 mb-0" id="table-quejas-sugerencias">
 <thead>	
-<tr>
+<tr class="bg-primary text-white">
 <th class="text-center align-middle">#</th>
 <th class="text-center align-middle">Fecha</th>
-<th class="text-center align-middle" width="30"><img src="<?=RUTA_IMG_ICONOS;?>pdf.png"></th>
-<th class="text-center align-middle" width="30"><img src="<?=RUTA_IMG_ICONOS;?>eliminar.png"></th>
+<th class="text-center align-middle" width="35px"><i class="fas fa-ellipsis-v"></i></th>
 </tr>
 </thead>
 <tbody>
@@ -26,17 +24,23 @@ $id = $row_capacitacion['id'];
 echo "<tr>";
 echo "<td class='text-center'>".$num."</td>";
 echo "<td class='text-center'>".FormatoFecha($row_capacitacion['fecha'])."</td>";
-echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."pdf.png' style='cursor: pointer;' onclick='DescargarQS(".$id.")'></td>";
-echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."eliminar.png' style='cursor: pointer;' onclick='EliminarQS(".$id.")'></td>";
+echo '<td class="text-center align-middle" width="20px" style="cursor: pointer;">
+  <div class="dropdown dropstart">
+  <a class="btn btn-sm btn-icon-only text-dropdown-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+  <i class="fas fa-ellipsis-v"></i>
+  </a>
+  <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+    <a class="dropdown-item" onclick="DescargarQS('.$id.')"><i class="fa-regular fa-file-pdf"></i> Descargar PDF</a>
+    <a class="dropdown-item" onclick="EliminarQS('.$id.')"><i class="fa-regular fa-trash-can"></i> Eliminar</a>
+  </div>
+  </div>
+  </td>';
 
 echo "</tr>";
 
 $num = $num + 1;
 }
-}else{
-echo "<td colspan='4' class='text-center text-secondary' style='font-size: .8em;'>No se encontró información para mostrar</td>";
 }
 ?>
 </tbody>
 </table>
-</div>

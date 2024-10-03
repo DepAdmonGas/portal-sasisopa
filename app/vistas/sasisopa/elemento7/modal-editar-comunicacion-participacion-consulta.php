@@ -41,17 +41,14 @@ for ($i=0; $i < count($Explode); $i++) {
 array_push($array, $Explode[$i]);
 }
 
-
 ?>
 <script type="text/javascript">
   $('#Editdirigidoa').selectpicker('refresh');
 </script>
-<div class="modal-header">
-<h4 class="modal-title">Editar registro de la atención y el seguimiento a la comunicación interna y externa.
+<div class="modal-header rounded-0 head-modal">
+<h4 class="modal-title text-white">Editar registro de la atención y el seguimiento a la comunicación interna y externa.
 </h4>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
+<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
 
@@ -118,7 +115,7 @@ array_push($array, $Explode[$i]);
       
       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2"> 
            <label for="seguimientocomunicacion" class="text-secondary" >Seguimiento de la comunicación:</label>
-            <select class="form-control" id="Editseguimientocomunicacion" style="border-radius: 0px;border: 1px solid #DFDFDF;background: #FAFAFA;font-size: 1em;color: #C7C7C7;">
+            <select class="form-control" id="Editseguimientocomunicacion" style="border-radius: 0px;border: 1px solid #DFDFDF;background: #FAFAFA;font-size: 1em;color: #131313;">
             <option value="<?=$Seguimiento;?>"><?=$Seguimiento;?></option>
             <option value="Correo electrónico">Correo electrónico</option>
             <option value="Vía telefónica">Vía telefónica</option>
@@ -128,6 +125,6 @@ array_push($array, $Explode[$i]);
 
 </div>
 <div class="modal-footer">
-<button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-radius: 0px;">Cancelar</button>
+<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="border-radius: 0px;">Cancelar</button>
 <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnEditar(<?=$idReporte;?>)">Editar</button>
 </div>

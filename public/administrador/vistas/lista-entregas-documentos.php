@@ -13,25 +13,25 @@ $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
 
 function Estacion($idEstacion, $con){
-    $sql = "SELECT permisocre,razonsocial,direccioncompleta FROM tb_estaciones WHERE id = '".$idEstacion."'";
-    $result = mysqli_query($con, $sql);
-    $numero = mysqli_num_rows($result);
-    while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-    $razonsocial = $row['razonsocial'];
-    $direccion = $row['direccioncompleta'];
-    }
-    $return = array('razonsocial' => $razonsocial, 'direccion' => $direccion);
-    return $return;
-    }
+  $sql = "SELECT permisocre,razonsocial,direccioncompleta FROM tb_estaciones WHERE id = '".$idEstacion."'";
+  $result = mysqli_query($con, $sql);
+  $numero = mysqli_num_rows($result);
+  while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+  $razonsocial = $row['razonsocial'];
+  $direccion = $row['direccioncompleta'];
+  }
+  $return = array('razonsocial' => $razonsocial, 'direccion' => $direccion);
+  return $return;
+  }
 
-    function Documentos($idEntrega, $con){
-        $sql = "SELECT id_entrega, id_estacion FROM a_entregas_documentos WHERE id_entrega = '".$idEntrega."' GROUP BY id_estacion";
-        $result = mysqli_query($con, $sql);
-        $numero = mysqli_num_rows($result);
-        return $numero;
-        }
+function Documentos($idEntrega, $con){
+  $sql = "SELECT id_entrega, id_estacion FROM tb_entregas_documentos WHERE id_entrega = '".$idEntrega."' GROUP BY id_estacion";
+  $result = mysqli_query($con, $sql);
+  $numero = mysqli_num_rows($result);
+  return $numero;
+  }
 
-    $Documento = Documentos($_GET['id'], $con);
+$Documento = Documentos($_GET['id'], $con);
 
 ?>
 <table class="table table-bordered table-striped table-hover table-sm mt-2">
@@ -93,3 +93,4 @@ echo "<tr><td colspan='6' class='text-secondary text-center' >No se encontró in
 ?>
 </tbody> 
 </table>
+
