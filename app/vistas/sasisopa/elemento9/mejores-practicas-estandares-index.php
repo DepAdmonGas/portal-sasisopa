@@ -15,19 +15,19 @@ $estado = $array_ayuda['estado'];
   <title>SASISOPA</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width initial-scale=1.0">
-  <link rel="shortcut icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
-  <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-  <script type="text/javascript" src="<?php echo RUTA_JS ?>alertify.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link rel="shortcut icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
+  <link rel="apple-touch-icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>alertify.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>themes/default.rtl.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS ?>bootstrap.css" />
+  <link rel="stylesheet" href="<?=RUTA_CSS?>componentes.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="<?=RUTA_JS?>alertify.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <style media="screen">
   .LoaderPage {
   position: fixed;
@@ -323,34 +323,48 @@ function(){
 
     <div class="LoaderPage"></div>
     <div class="fixed-top navbar-admin">
-    <?php require('public/componentes/header.menu.php'); ?>
+    <?php require('app/vistas/componentes/navbar-perfil.php'); ?>
     </div>
 
     <div class="magir-top-principal p-3">
 
-    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-    <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-    </div>
-    <div class="float-left"><h4>9. MEJORES PRÁCTICAS Y ESTÁNDARES</h4></div>
-    <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
-    <a onclick="btnAyuda()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Ayuda" >
-    <img src="<?php echo RUTA_IMG_ICONOS."info.png"; ?>">
-    </a>
-    </div>
+  <!-- Inicio -->
+  <div class="float-end">
+  <div class="dropdown dropdown-sm d-inline ms-2">
+  <button type="button" class="btn dropdown-toggle btn-primary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+  <i class="fa-solid fa-screwdriver-wrench"></i></span>
+  </button>
+  <ul class="dropdown-menu">
+  <li onclick="btnAyuda()"><a class="dropdown-item c-pointer"> <i class="fa-regular fa-circle-question"></i> Ayuda</a></li>
+  </ul>
+  </div>
+  </div>
+  <!-- Fin -->
 
-    <div class="row mt-5">        
+  <!-- Inicio -->
+  <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
+  <ol class="breadcrumb breadcrumb-caret">
+  <li class="breadcrumb-item text-primary c-pointer" onclick="regresarP()"><i class="fa-solid fa-house"></i> SASISOPA</li>
+  <li aria-current="page" class="breadcrumb-item active">9. MEJORES PRÁCTICAS Y ESTÁNDARES</li>
+  </ol>
+  </div>
+  <!-- Fin -->
+
+  <h3>9. MEJORES PRÁCTICAS Y ESTÁNDARES</h3>
+
+    <div class="row mt-3">        
 
       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2 mb-2">            
             <div class="bg-white p-3">          
             <div class="row">  
             <div class="col-10">
-              <h5>Diseño y construcción</h5>
+              <h5 class="text-primary">Diseño y construcción</h5>
             </div>
             <div class="col-2">
-             <a class="float-right" onclick="btnDisenoConstruccion()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Crear" >
+             <a class="float-end" onclick="btnDisenoConstruccion()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Crear" >
             <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
             </a>
-            <a class="float-right mr-2" onclick="DescargarDC()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Crear" >           
+            <a class="float-end mr-2" onclick="DescargarDC()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Crear" >           
             <img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>">
             </a>
             </div>            
@@ -359,19 +373,17 @@ function(){
           </div>
       </div>
 
-
-
         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2 mb-2">
             <div class="bg-white p-3">
             <div class="row">
             <div class="col-10">
-              <h5>Operación y Mantenimiento</h5>
+              <h5 class="text-primary">Operación y Mantenimiento</h5>
             </div>
             <div class="col-2">
-            <a class="float-right" onclick="btnOperacionMantenimiento()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Crear" >
+            <a class="float-end" onclick="btnOperacionMantenimiento()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Crear" >
             <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
             </a>
-            <a class="float-right mr-2" onclick="DescargarOM()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Descargar" >           
+            <a class="float-end mr-2" onclick="DescargarOM()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Descargar" >           
             <img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>">
             </a>
             </div>         
@@ -386,8 +398,8 @@ function(){
       <div class="modal fade bd-example-modal-lg" id="ModalMejoresPracticas" data-backdrop="static">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content" style="border-radius: 0px;border: 0px;">
-        <div class="modal-header">
-          <h4 class="modal-title">Bienvenido al elemento 9 MEJORES PRÁCTICAS Y ESTÁNDARES</h4>
+        <div class="modal-header rounded-0 head-modal">
+          <h4 class="modal-title text-white">Bienvenido al elemento 9 MEJORES PRÁCTICAS Y ESTÁNDARES</h4>
         </div>
         <div class="modal-body">
 
@@ -423,11 +435,9 @@ function(){
     <div class="modal fade bd-example-modal-lg" id="myModal" data-backdrop="static">
 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 <div class="modal-content" style="border-radius: 0px;border: 0px;">
- <div class="modal-header">
-   <h4 class="modal-title">Operación y Mantenimiento</h4>
-     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-   <span aria-hidden="true">&times;</span>
- </button>
+ <div class="modal-header rounded-0 head-modal">
+   <h4 class="modal-title text-white">Operación y Mantenimiento</h4>
+   <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
  </div>
 
 <div class="modal-body">
@@ -453,11 +463,9 @@ function(){
     <div class="modal fade bd-example-modal-lg" id="ModalDC" data-backdrop="static">
 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 <div class="modal-content" style="border-radius: 0px;border: 0px;">
- <div class="modal-header">
-   <h4 class="modal-title">Diseño y construcción</h4>
-     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-   <span aria-hidden="true">&times;</span>
- </button>
+ <div class="modal-header rounded-0 head-modal">
+   <h4 class="modal-title text-white">Diseño y construcción</h4>
+   <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
  </div>
 
 <div class="modal-body">
