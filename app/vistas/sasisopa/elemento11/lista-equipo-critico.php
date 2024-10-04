@@ -1,17 +1,17 @@
 <?php
 require('../../../../app/help.php');
 ?>
-<div style="overflow-y: hidden;">
-<table class="table table-bordered table-striped table-hover table-sm mt-3 pb-0 mb-0" style="font-size: .9em;">
+<table class="table table-bordered table-striped table-hover table-sm" style="font-size: .9em;" id="table-equipo-critico">
 <thead>
+<tr class="bg-primary text-white">
 <th class="text-center">#</th>	
 <th>Nombre equipo</th>
 <th>Marca y Modelo</th>
 <th>Función</th>
 <th>Fecha de instalación</th>
 <th>Tiempo de vida</th>
-<th width="16">Manual</th>
-<th width="16"><img src="<?=RUTA_IMG_ICONOS;?>eliminar-red-16.png"></th>
+<th class="text-center align-middle" width="35px"><i class="fas fa-ellipsis-v"></i></th>
+</tr>
 </thead>
 <tbody>
 <?php 
@@ -36,15 +36,22 @@ $manual = $row_equipo['manual'];
 <td class="align-middle"><?=$funciones;?></td>
 <td class="align-middle"><?=FormatoFecha($fechainstalacion);?></td>
 <td class="align-middle"><?=$tiempovida;?> años</td>
-<td class="text-center align-middle"><a target="_BLANK" href="<?=$manual;?>"><img width="16px" src="<?=RUTA_IMG_ICONOS;?>pdf-16.png"></a></td>
-<td class="text-center align-middle" width="16" style="cursor: pointer" onclick="ModalEliminar(<?=$id;?>)"><a><img src="<?=RUTA_IMG_ICONOS;?>eliminar-red-16.png"></a></td>
+<td class="text-center align-middle" width="20px" style="cursor: pointer;">
+  <div class="dropdown dropstart">
+  <a class="btn btn-sm btn-icon-only text-dropdown-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+  <i class="fas fa-ellipsis-v"></i>
+  </a>
+  <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+    <a class="dropdown-item" target="_BLANK" href="<?=$manual;?>"><i class="fa-regular fa-file-pdf"></i> Descargar Manual</a>
+    <a class="dropdown-item" onclick="ModalEliminar(<?=$id;?>)"><i class="fa-regular fa-trash-can"></i> Eliminar</a>
+  </div>
+  </div>
+  </td>
+
 </tr>
 <?php
 }
-}else{
-echo "<tr><td colspan='8' class='text-center'><small>No se encontró información para mostrar</small></td></tr>";	
 }
 ?>	
 </tbody>
 </table>
-</div>
