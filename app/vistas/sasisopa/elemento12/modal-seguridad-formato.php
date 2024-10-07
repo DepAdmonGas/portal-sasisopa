@@ -28,12 +28,10 @@ $justificacion = $row_lista['justificacion'];
 
 $formato_14 = $class_seguridad_contratistas->formato14($_GET['id']);
 ?>
-<div class="modal-header">
-<h4 class="modal-title">Fo. ADMONGAS.014
+<div class="modal-header rounded-0 head-modal">
+<h4 class="modal-title text-white">Fo. ADMONGAS.014
 </h4>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
+<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
 

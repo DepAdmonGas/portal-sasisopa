@@ -52,9 +52,16 @@ $sql = "SELECT * FROM tb_usuarios WHERE id = '".$idpersonal."' ";
 $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
 $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-$nombre = $row['nombre'];
-$puesto = Puesto($row['id_puesto'],$con);
-$segurosocial = $row['seguro_social'];
+if($numero >= 1){
+  $nombre = $row['nombre'];
+  $puesto = Puesto($row['id_puesto'],$con);
+  $segurosocial = $row['seguro_social'];
+}else{
+  $nombre = '';
+  $puesto = '';
+  $segurosocial = '';
+}
+
 $array = array('nombre' => $nombre, 'puesto' => $puesto, 'segurosocial' => $segurosocial);
 return $array;
 }
@@ -68,11 +75,9 @@ $tipoPuesto = $row['tipo_puesto'];
 return $tipoPuesto;
 }
 ?>
-<div class="modal-header">
-<h4 class="modal-title"> Autorizacion para realizar trabajos peligrosos</h4>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
+<div class="modal-header rounded-0 head-modal">
+<h4 class="modal-title text-white"> Autorizacion para realizar trabajos peligrosos</h4>
+<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
 
@@ -177,8 +182,8 @@ No. De Seguro:
 
 </div>
 
-<div class="text-right mt-2">
-<button type="button" class="btn btn-info" style="border-radius: 0px;" onclick="btnGPersonal(1,<?=$idFormato;?>,<?=$id;?>)">Agregar</button>
+<div class="text-end mt-2">
+<button type="button" class="btn btn-info text-white" style="border-radius: 0px;" onclick="btnGPersonal(1,<?=$idFormato;?>,<?=$id;?>)">Agregar</button>
 </div>
 
 <table class="table table-bordered table-sm mt-2">
@@ -224,8 +229,8 @@ echo '<option value="'.$row['id'].'">'.$row['nombre'].'</option>';
 ?>
 </select>
 </div>
-<div class="col-2">
-<button type="button" class="btn btn-info" style="border-radius: 0px;" onclick="btnGPersonal(2,<?=$idFormato;?>,<?=$id;?>)">Agregar</button>
+<div class="col-2 text-end">
+<button type="button" class="btn btn-info text-white" style="border-radius: 0px;" onclick="btnGPersonal(2,<?=$idFormato;?>,<?=$id;?>)">Agregar</button>
 </div>
 </div>
 

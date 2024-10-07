@@ -18,9 +18,15 @@ return $nombre;
 }
 
 ?>
-<div style="overflow-y: hidden;">
-<table class="table table-bordered table-striped table-hover table-sm pb-0 mb-0">
+<div class="text-end mb-3">
+<a class="mr-2" onclick="btnAgregar()" style="cursor: pointer;">
+<img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
+</a>
+</div>
+
+<table class="table table-bordered table-striped table-hover table-sm mb-0 pb-0" id="table-seguridad-contratistas">
 <thead>
+<tr>
 <th class="text-center">Folio</th>
 <th class="align-middle">Fecha</th>
 <th class="align-middle">Solicitante</th>
@@ -31,6 +37,7 @@ return $nombre;
 <th class="align-middle text-center" colspan="2">Carta responsiva</th>
 <th class="align-middle" width="24px"><img src="<?php echo RUTA_IMG_ICONOS."editar.png"; ?>"></th>
 <th class="align-middle" width="24px"><img src="<?php echo RUTA_IMG_ICONOS."eliminar.png"; ?>"></th>
+</tr>
 </thead>
 <tbody>
 <?php 
@@ -70,10 +77,7 @@ $estado = '<span class="badge badge-success">Finalizado</span>';
 </tr>
 <?php        
 }
-}else{
-echo "<tr><td colspan='14' class='text-center'><small>No se encontró información para mostrar</small></td></tr>";	
 }
 ?>
 </tbody>
 </table>
-</div>
