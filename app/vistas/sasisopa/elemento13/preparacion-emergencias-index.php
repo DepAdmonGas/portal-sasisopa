@@ -19,20 +19,22 @@ $estado = $array_ayuda['estado'];
   <title>SASISOPA</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width initial-scale=1.0">
-  <link rel="shortcut icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
-  <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-  <script type="text/javascript" src="<?php echo RUTA_JS ?>alertify.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link rel="shortcut icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
+  <link rel="apple-touch-icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>alertify.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>themes/default.rtl.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS ?>bootstrap.css" />
+  <link rel="stylesheet" href="<?=RUTA_CSS?>componentes.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-      <style media="screen">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>bootstrap-select.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="<?=RUTA_JS?>alertify.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <style media="screen">
   .LoaderPage {
   position: fixed;
   left: 0px;
@@ -41,7 +43,7 @@ $estado = $array_ayuda['estado'];
   height: 100%;
   z-index: 9999;
   background: url('imgs/iconos/load-img.gif') 50% 50% no-repeat rgb(249,249,249);
-}
+  }
   </style>
   <script type="text/javascript">
   $(document).ready(function(){
@@ -690,35 +692,46 @@ $('#BuscarYear').css('border','2px solid #A52525');
 
     <div class="LoaderPage"></div>
     <div class="fixed-top navbar-admin">
-    <?php require('public/componentes/header.menu.php'); ?>
+    <?php require('app/vistas/componentes/navbar-perfil.php'); ?>
     </div>
 
     <div class="magir-top-principal p-3">
-    <div class="row">
-    <div class="col-12">
-    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-    <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-    </div>
-    <div class="float-left"><h4>13. PREPARACIÓN Y RESPUESTA A EMERGENCIAS</h4></div>
-    <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
-    <a onclick="btnAyuda()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Ayuda" >
-    <img src="<?php echo RUTA_IMG_ICONOS."info.png"; ?>">
-    </a>
-    </div>
-    </div>
-    </div>
 
-    <div class="row mt-2">
+    <!-- Inicio -->
+    <div class="float-end">
+    <div class="dropdown dropdown-sm d-inline ms-2">
+    <button type="button" class="btn dropdown-toggle btn-primary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="fa-solid fa-screwdriver-wrench"></i></span>
+    </button>
+    <ul class="dropdown-menu">
+    <li onclick="btnAyuda()"><a class="dropdown-item c-pointer"> <i class="fa-regular fa-circle-question"></i> Ayuda</a></li>
+    </ul>
+    </div>
+    </div>
+    <!-- Fin -->
+
+    <!-- Inicio -->
+    <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
+    <ol class="breadcrumb breadcrumb-caret">
+    <li class="breadcrumb-item text-primary c-pointer" onclick="regresarP()"><i class="fa-solid fa-house"></i> SASISOPA</li>
+    <li aria-current="page" class="breadcrumb-item active">13. PREPARACIÓN Y RESPUESTA A EMERGENCIAS</li>
+    </ol>
+    </div>
+    <!-- Fin -->
+
+    <h3>13. PREPARACIÓN Y RESPUESTA A EMERGENCIAS</h3>
+
+    <div class="row mt-3">
 
     <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 mt-2 mb-2"> 
     <div class="card border-0 rounded-0" >
     <div class="card-body" style="font-size: 1.3em;">
     <div class="row">
-      <div class="text-secondary col-10">
+      <div class="text-primary col-10">
       Protocolo de respuesta a emergencias
       </div>
       <div class="col-2">
-      <a class="float-right" onclick="ModalAgregarProtocolo()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Agregar" >
+      <a class="float-end" onclick="ModalAgregarProtocolo()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Agregar" >
       <img width="20px" src="<?php echo RUTA_IMG_ICONOS."subir.png"; ?>">
       </a>
       </div>
@@ -731,8 +744,8 @@ $('#BuscarYear').css('border','2px solid #A52525');
     <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 mt-2 mb-2"> 
       <div class="card border-0 rounded-0">
       <div class="card-body" style="font-size: 1.3em;">
-      <div class="text-secondary">Teléfonos de emergencias</div>
-      <div class="text-right" style="margin-top: 10px;"><button type="button" class="btn btn-primary btn-sm" style="border-radius: 0px;" onclick="ModalTelefonos()" >Ver teléfonos</button></div>
+      <div class="text-primary">Teléfonos de emergencias</div>
+      <div class="text-end" style="margin-top: 10px;"><button type="button" class="btn btn-primary btn-sm" style="border-radius: 0px;" onclick="ModalTelefonos()" >Ver teléfonos</button></div>
       </div>
     </div>
     </div>
@@ -748,8 +761,8 @@ $('#BuscarYear').css('border','2px solid #A52525');
   <div class="modal fade bd-example-modal-lg" id="myModalPolitica" data-backdrop="static">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content" style="border-radius: 0px;border: 0px;">
-        <div class="modal-header">
-          <h4 class="modal-title">Bienvenido al elemento 13. PREPARACIÓN Y RESPUESTA A EMERGENCIAS, del Sistema de Administración</h4>
+        <div class="modal-header rounded-0 head-modal">
+          <h4 class="modal-title text-white">Bienvenido al elemento 13. PREPARACIÓN Y RESPUESTA A EMERGENCIAS, del Sistema de Administración</h4>
         </div>
         <div class="modal-body">
 
@@ -790,8 +803,8 @@ $('#BuscarYear').css('border','2px solid #A52525');
     </div>
     </div>
 
-  <script src="<?php echo RUTA_JS ?>bootstrap.min.js"></script>
-  <script src="<?php echo RUTA_JS ?>bootstrap-select.js"></script>
+    <script src="<?=RUTA_JS?>bootstrap.min.js"></script>
+    <script src="<?=RUTA_JS?>bootstrap-select.min.js"></script>
   </body>
   </html>
 <?php

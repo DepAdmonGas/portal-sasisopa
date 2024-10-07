@@ -1,10 +1,9 @@
 <?php
 require('../../../../app/help.php');
 ?>
-<div class="modal-header">
-<h4 class="modal-title">Agregar protocolo de respuesta a emergencias</h4>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<div class="modal-header rounded-0 head-modal">
+<h4 class="modal-title text-white">Agregar protocolo de respuesta a emergencias</h4>
+<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
 
@@ -16,7 +15,7 @@ require('../../../../app/help.php');
 
 <div id="result"></div>
 <hr>
-<div class="text-right">
+<div class="text-end">
 <button type="button" class="btn btn-primary rounded-0" onclick="BTNAgregarProtocolo()">Agregar</button>
 </div>
 

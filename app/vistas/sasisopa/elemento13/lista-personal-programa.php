@@ -17,10 +17,9 @@ $('#NombrePersonal').selectpicker('refresh');
 
 });
 </script>
-<div class="modal-header">
-<h4 class="modal-title">Personal que asiste</h4>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<div class="modal-header rounded-0 head-modal">
+<h4 class="modal-title text-white">Personal que asiste</h4>
+<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
 
@@ -52,8 +51,10 @@ $('#NombrePersonal').selectpicker('refresh');
 <div class="mb-2" style="overflow-y: hidden;">
 <table class="table table-bordered table-striped table-hover table-sm mt-2">
 <thead>
+<tr class="bg-primary text-white">
 <th>Nombre completo</th>
-<th></th>
+<th class="text-center align-middle"><i class="fa-regular fa-trash-can"></i></th>
+</tr>
 </thead>
 <tbody>
 <?php
@@ -63,7 +64,7 @@ $idPersonal = $row_programa['id'];
 
 echo "<tr>";
 echo "<td>".$row_programa['nombre']."</td>";
-echo "<td class='text-center align-middle'width='20px' style='cursor: pointer;'><img src='".RUTA_IMG_ICONOS."eliminar-red-16.png' onclick='eliminarpersonal(".$idPrograma.",".$idPersonal.")'></td>";
+echo "<td class='text-center align-middle' width='20px' style='cursor: pointer;'><a onclick='eliminarpersonal(".$idPrograma.",".$idPersonal.")'><i class='fa-regular fa-trash-can'></i></a></td>";
 echo "</tr>";
 
 }

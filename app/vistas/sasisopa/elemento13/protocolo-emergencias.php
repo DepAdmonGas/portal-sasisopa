@@ -6,15 +6,15 @@ $result_protocolo = mysqli_query($con, $sql_protocolo);
 $numero_protocolo = mysqli_num_rows($result_protocolo);
 
 ?>
-
-<div style="overflow-y: hidden;">
 <table class="table table-bordered table-striped table-hover table-sm mt-2">
 <thead>
+<tr class="bg-primary text-white">
 <th class="text-center align-middle">Fecha elaboración</th>
 <th class="text-center align-middle" width="50px" style="font-size: .8em;">PDF</th>
 <th class="text-center align-middle" width="50px" style="font-size: .8em;">Anexo</th>
 <th class="text-center align-middle" width="50px" style="font-size: .8em;">Editar</th>
 <th class="text-center align-middle" width="50px" style="font-size: .8em;">Eliminar</th>
+<tr>
 </thead>	
 <tbody>
 <?php
@@ -42,7 +42,6 @@ echo "<tr><td colspan='4' class='text-center'><small>No se encontró informació
 ?>
 </tbody>
 </table>
-</div>
 
 <?php
 //------------------
