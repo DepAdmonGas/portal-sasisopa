@@ -26,7 +26,7 @@ return $nombre;
 
 <table class="table table-bordered table-striped table-hover table-sm mb-0 pb-0" id="table-seguridad-contratistas">
 <thead>
-<tr>
+<tr class="bg-primary text-white">
 <th class="text-center">Folio</th>
 <th class="align-middle">Fecha</th>
 <th class="align-middle">Solicitante</th>
@@ -35,8 +35,7 @@ return $nombre;
 <th class="align-middle text-center" colspan="2">Fo.ADMONGAS.014</th>
 <th class="align-middle text-center" colspan="2">Fo.ADMONGAS.015</th>
 <th class="align-middle text-center" colspan="2">Carta responsiva</th>
-<th class="align-middle" width="24px"><img src="<?php echo RUTA_IMG_ICONOS."editar.png"; ?>"></th>
-<th class="align-middle" width="24px"><img src="<?php echo RUTA_IMG_ICONOS."eliminar.png"; ?>"></th>
+<th class="text-center align-middle" width="35px"><i class="fas fa-ellipsis-v"></i></th>
 </tr>
 </thead>
 <tbody>
@@ -72,8 +71,18 @@ $estado = '<span class="badge badge-success">Finalizado</span>';
 <td class="align-middle text-center" width="100px"><a onclick="CartaResponsiva(<?=$id;?>)"><img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>"></a></td>
 <td class="align-middle text-center" width="100px"><?=$class_seguridad_contratistas->cartaResponsiva($id);?></td>
 
-<td class="align-middle text-center"><a onclick="ModalEditar(<?=$id;?>)"><img src="<?php echo RUTA_IMG_ICONOS."editar.png"; ?>"></a></td>
-<td class="align-middle text-center"><a onclick="Eliminar(<?=$id;?>)"><img src="<?php echo RUTA_IMG_ICONOS."eliminar.png"; ?>"></a></td>
+<td class="text-center align-middle" width="20px" style="cursor: pointer;">
+  <div class="dropdown dropstart">
+  <a class="btn btn-sm btn-icon-only text-dropdown-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+  <i class="fas fa-ellipsis-v"></i>
+  </a>
+  <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+    <a class="dropdown-item" onclick="ModalEditar(<?=$id;?>)"><i class="fa-regular fa-pen-to-square"></i> Editar</a>
+    <a class="dropdown-item" onclick="Eliminar(<?=$id;?>)"><i class="fa-regular fa-trash-can"></i> Eliminar</a>
+  </div>
+  </div>
+  </td>
+
 </tr>
 <?php        
 }
