@@ -13,31 +13,30 @@ $fecha = $row_comunicado['fecha'];
 $dirigidoa = $row_comunicado['dirigidoa'];
 $archivo = $row_comunicado['archivo'];
 if ($archivo != "") {
-$img_archivo = "<a href='".$archivo."' download style='cursor:pointer;' data-toggle='tooltip' data-placement='right' title='Descargar archivo'><img src='".RUTA_IMG_ICONOS."documento.png'></a>";
+$img_archivo = "<a href='".$archivo."' download style='cursor:pointer;' data-toggle='tooltip' data-placement='right' title='Descargar archivo'><img src='".RUTA_IMG_ICONOS."pdf.png'></a>";
 }else{
 $img_archivo = "";
 }
 
 }
 ?>
-<div class="modal-header">
-<h5 class="modal-title"><?=$temac;?></h5>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
-</div>
+<div class="modal-header rounded-0 head-modal">
+  <h4 class="modal-title text-white"><?=$temac;?></h4>
+  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+
 <div class="modal-body">
 
 <div class="row">
 <div class="col-6">
 <div style="border: 1px solid #F7F7F7;padding: 10px;">
-<div class="text-secondary" style="font-size: .9em;">Fecha:</div>	
-<b><?=FormatoFecha($fecha);?></b>
+<div class="fw-bold" style="font-size: .9em;">Fecha:</div>	
+<?=FormatoFecha($fecha);?>
 </div>
 </div>
 <div class="col-6">
 <div style="border: 1px solid #F7F7F7;padding: 10px;">
-<div class="text-secondary" style="font-size: .9em;">Dirigido a:</div>
+<div class="fw-bold" style="font-size: .9em;">Dirigido a:</div>
 <?php 
 $separacadena = explode(",", $dirigidoa);
 for ($i=0; $i < count($separacadena) ; $i++) { 
@@ -46,7 +45,7 @@ $result_puestos = mysqli_query($con, $sql_puestos);
 while($row_puestos = mysqli_fetch_array($result_puestos, MYSQLI_ASSOC)){
 $puesto = $row_puestos['tipo_puesto'];
 ?>
-<span class="badge badge-pill badge-primary" style="font-size: .8em;"><?=$puesto;?></span>
+<span style="font-size: .8em;"><?=$puesto;?></span>
 <?php
 }
 }
@@ -56,10 +55,10 @@ $puesto = $row_puestos['tipo_puesto'];
 </div>
 <hr>
 <div class="row">
-<div class="col-11"><label class="text-secondary" style="font-size: .9em;">Detalle:</label></div>
+<div class="col-11"><label class="fw-bold" style="font-size: .9em;">Detalle:</label></div>
 <div class="col-1 text-center"><?=$img_archivo;?></div>
 </div>
-<div style="border: 1px solid #F7F7F7;padding: 10px;font-size: 1.1em;">
+<div class="mt-2" style="border: 1px solid #F7F7F7;padding: 10px;font-size: 1.1em;">
 <?=$detalle;?>
 </div>
 </div>

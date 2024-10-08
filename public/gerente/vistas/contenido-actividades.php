@@ -25,7 +25,7 @@ return $array;
 
 <div class="card rounded-0">
 <div class="card-body">
-<h5><?=FormatoFecha($CalenDate);?></h5>
+<h5 class="text-secondary"><?=FormatoFecha($CalenDate);?></h5>
 <?php 
 
 if ($numero > 0) {
