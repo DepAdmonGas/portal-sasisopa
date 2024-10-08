@@ -22,7 +22,7 @@ return 1;
   </div>
       <div class="modal-body">
       
-      <div class="fw-bold text-secondary">ACTIVIDAD:</div>
+      <div class="fw-bold">Actividad:</div>
       <select class="form-control rounded-0 mt-2" id="Actividad">
       <option value="">Seleccione</option>
       <?php 
@@ -41,7 +41,7 @@ return 1;
    	?>
       </select>
 
-      <div class="fw-bold text-secondary mt-2">FECHA:</div>
+      <div class="fw-bold mt-2">Fecha:</div>
       <input type="date" class="form-control rounded-0 mt-2" id="Fecha">
 
       </div>

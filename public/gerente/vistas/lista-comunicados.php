@@ -29,7 +29,7 @@ if ($numero_comunicado > 0) {
 while($row_comunicado = mysqli_fetch_array($result_comunicado, MYSQLI_ASSOC)){
 $separacadena = explode(",", $row_comunicado['dirigidoa']);
 echo "<tr style='cursor: pointer' onclick='BtnDetalle(".$row_comunicado['id'].")'>";
-echo "<td class='text-center'>".$row_comunicado['id_comunicado']."</td>";
+echo "<td class='text-center fw-bold'>".$row_comunicado['id_comunicado']."</td>";
 echo "<td class='text-center'>".FormatoFecha($row_comunicado['fecha'])."</td>";
 echo "<td class='text-center'>".$row_comunicado['tema']."</td>";
 echo "<td class='text-center'>".substr($row_comunicado['detalle'],0,50)."</td>";
@@ -40,7 +40,7 @@ $result_puestos = mysqli_query($con, $sql_puestos);
 while($row_puestos = mysqli_fetch_array($result_puestos, MYSQLI_ASSOC)){
 $puesto = $row_puestos['tipo_puesto'];
 ?>
-<span class="badge badge-pill badge-primary" style="font-size: .8em;"><?=$puesto;?></span>
+<span style="font-size: .8em;"><?=$puesto;?></span>
 <?php
 }
 }

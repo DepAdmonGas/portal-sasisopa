@@ -38,22 +38,22 @@ return $array;
 
 <div class="modal-body">
  
-<small class="text-secondary mt-3 fw-bold">Fecha:</small>
+<small class="mt-3 fw-bold">Fecha:</small>
 <div class="fs-5 fw-light border p-2 mt-2 mb-2">
 <?=FormatoFecha($fecha);?>
 </div>
 
-<small class="text-secondary mt-3 fw-bold">Folio:</small>
+<small class="mt-3 fw-bold">Folio:</small>
 <div class="fs-5 fw-light border p-2 mt-2 mb-2">
 <b>00<?=$folio;?></b>
 </div>
 
-<small class="text-secondary mt-3 fw-bold">Actividad:</small>
+<small class="mt-3 fw-bold">Actividad:</small>
 <div class="fs-5 fw-light border p-2 mt-2 mb-2">
 <?=$formato;?> <?=$Actividad;?>
 </div>
 
-<small class="text-secondary mt-3 fw-bold">Periodicidad:</small>
+<small class="mt-3 fw-bold">Periodicidad:</small>
 <div class="fs-5 fw-light border p-2 mt-2 mb-2">
 <?=$Periodicidad;?>
 </div>

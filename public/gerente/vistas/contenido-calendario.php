@@ -137,7 +137,7 @@ function generar_calendario($idEstacion, $month, $year, $lang, $con)
   <div class="card-body">
     <div class="row">
       <div class="col-11">
-        <h5 class="text-normal"><?= nombremes($Mes) . ' ' . $Year; ?></h5>
+        <h5 class="text-secondary"><?= nombremes($Mes) . ' ' . $Year; ?></h5>
       </div>
       <div class="col-1 text-end">
         <a onclick="Modal(<?= $idEstacion; ?>)" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Agregar">

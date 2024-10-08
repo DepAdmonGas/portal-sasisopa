@@ -167,12 +167,12 @@ $('#DivModalActividad').load('../public/gerente/vistas/modal-detalle-actividad.p
   <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
   <ol class="breadcrumb breadcrumb-caret">
   <li class="breadcrumb-item text-primary c-pointer" onclick="regresarP()"><i class="fa-solid fa-house"></i> SASISOPA</li>
-  <li aria-current="page" class="breadcrumb-item active">Editar Calendario</li>
+  <li aria-current="page" class="breadcrumb-item active">EDITAR CALENDARIO</li>
   </ol>
   </div>
   <!-- Fin -->
 
-  <h3>Editar Calendario</h3>
+  <h3>EDITAR CALENDARIO</h3>
 
     </div>
 
