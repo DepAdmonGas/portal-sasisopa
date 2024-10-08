@@ -110,7 +110,7 @@ if (TelefonoF != "") {
 <div class="col-11"><h5>2. Datos de familiares</h5> </div>
 
 <div class="col-1">
-<img class="float-end pointer" src="<?=RUTA_IMG_ICONOS."agregar.png";?>" onclick="modalDatosF()">
+<img class="float-end pointer" src="<?=RUTA_IMG_ICONOS."agregar.png";?>" onclick="modalDatosF()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Agregar">
 </div>
 </div>
 
