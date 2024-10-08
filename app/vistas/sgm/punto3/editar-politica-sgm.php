@@ -21,21 +21,19 @@ $fecha = $row['fecha'];
   <title>SGM</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width initial-scale=1.0">
-  <link rel="shortcut icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
-  <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-  <script type="text/javascript" src="<?php echo RUTA_JS ?>alertify.js"></script>
-  <script type="text/javascript" src="<?php echo RUTA_JS ?>signature_pad.js"></script>
-   <script type="text/javascript" src="<?php echo RUTA_JS ?>jquery.min.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link rel="shortcut icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
+  <link rel="apple-touch-icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>alertify.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>themes/default.rtl.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS ?>bootstrap.css" />
+  <link rel="stylesheet" href="<?=RUTA_CSS?>componentes.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="<?=RUTA_JS?>alertify.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
   <style media="screen">
   .LoaderPage {
@@ -46,7 +44,7 @@ $fecha = $row['fecha'];
   height: 100%; 
   z-index: 9999;
   background: white;
-  background: url('imgs/iconos/load-index-img.gif') 50% 50% no-repeat rgb(255,255,255);
+  background: url('imgs/iconos/load-img.gif') 50% 50% no-repeat rgb(249,249,249);
   }
   </style>
   <script type="text/javascript">
@@ -114,37 +112,30 @@ $fecha = $row['fecha'];
     <div class="LoaderPage"></div>
 
     <div class="fixed-top navbar-admin">
-    <?php require('public/componentes/header.menu.php'); ?>
+    <?php require('app/vistas/componentes/navbar-perfil.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-     
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-      </div>
-    <div class="float-left"><h4>Editar Politica</h4></div>
+    <!-- Inicio -->
+    <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
+    <ol class="breadcrumb breadcrumb-caret">
+    <li class="breadcrumb-item text-primary c-pointer" onclick="regresarP()"><i class="fa-solid fa-house"></i> SGM</li>
+    <li aria-current="page" class="breadcrumb-item active">3. Responsabilidades de la direccion</li>
+    </ol>
     </div>
-   
-    <div class="card-body">
+    <!-- Fin -->
+    <h3>Editar Politica</h3>
 
-      <h6>*Fecha:</h6>
-      <input class="form-control rounded-0" style="width: 15%;margin-bottom: 15px;" type="date" id="fecha" value="<?=$fecha;?>">
+    <div class="bg-white mt-3 p-3">
 
+     <h6>*Fecha:</h6>
+     <input class="form-control rounded-0" style="width: 15%;margin-bottom: 15px;" type="date" id="fecha" value="<?=$fecha;?>">
      <div style="height: 300px;font-size: 1em;" id="editor"><?=$politica;?></div>
+     <div class="text-end mt-3">
+     <button type="button" class="btn btn-primary rounded-0" onclick="editarPolitica()" >Guardar Politica</button>
+     </div>
 
-     <div class="text-right mt-3">
-      <button type="button" class="btn btn-primary rounded-0" onclick="editarPolitica()" >Guardar Politica</button>
-      </div>
-
-    </div>
-
-    </div>
-    </div>
     </div>
     </div>
   </body>

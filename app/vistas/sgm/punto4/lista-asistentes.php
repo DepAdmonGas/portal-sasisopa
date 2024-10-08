@@ -45,17 +45,17 @@ $('.selectpicker').selectpicker();
             </select>
             </div>
 
-      <div class="text-right mb-2">
-      <button type="button" class="btn btn-sm btn-Primary rounded-0 mt-3" onclick="btnGuardarFirma(<?=$idRegistro;?>)">Agregar asistente</button>
+      <div class="text-end mb-2">
+      <button type="button" class="btn btn-sm btn-success rounded-0 mt-3" onclick="btnGuardarFirma(<?=$idRegistro;?>)">Agregar asistente</button>
       </div>
 
       <table class="table table-bordered table-sm">
       <thead> 
-      <tr>
+      <tr class="bg-primary text-white">
       <th class="text-center align-middle">#</th>
       <th class="text-center align-middle">Nombre</th>
       <th class="text-center align-middle">Firma</th>
-      <th class="text-center align-middle"></th>
+      <th class="text-center align-middle"><i class="fa-regular fa-trash-can"></i></th>
       </tr>
       </thead>
       <tbody>
@@ -77,7 +77,7 @@ $('.selectpicker').selectpicker();
       echo "<td class=' align-middle'>".$nombre."</td>";
       echo $firma;
 
-      echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."eliminar.png' style='cursor: pointer;' onclick='EliminarAsistente(".$idRegistro.",".$id.")'></td>";
+      echo "<td class='text-center align-middle c-pointer' width='30'><a onclick='EliminarAsistente(".$idRegistro.",".$id.")'><i class='fa-regular fa-trash-can'></i></a></td>";
 
       echo "</tr>";
 

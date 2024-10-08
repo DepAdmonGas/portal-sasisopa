@@ -31,7 +31,7 @@ require('app/help.php');
   height: 100%; 
   z-index: 9999;
   background: white;
-  background: url('imgs/iconos/load-index-img.gif') 50% 50% no-repeat rgb(255,255,255);
+  background: url('imgs/iconos/load-img.gif') 50% 50% no-repeat rgb(249,249,249);
   }
   </style>
   <script type="text/javascript">
