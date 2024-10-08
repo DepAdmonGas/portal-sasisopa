@@ -194,7 +194,7 @@ function generar_calendario($idEstacion,$month,$year,$lang,$con){
   <h5 ><?=nombremes($Mes).' '.$Year;?></h5>
   </div>
 
-<div class="col-2">
+<div class="col-2" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Editar">
 <img class="text-center pointer float-end" src="<?php echo RUTA_IMG_ICONOS."editar.png";?>" onclick="EditarCalendario('<?=$Session_IDEstacion;?>')">
 </div>
   </div> 
