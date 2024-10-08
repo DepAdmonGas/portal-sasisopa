@@ -145,7 +145,7 @@ function BtnGcambios(){
 <div class="row">
 <div class="col-12">
 
-<a class="float-end pointer" onclick="editarUsuario()" >
+<a class="float-end pointer" onclick="editarUsuario()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Editar">
 <img src="<?php echo RUTA_IMG_ICONOS."editar.png"; ?>">
 </a>
 
@@ -191,7 +191,7 @@ function BtnGcambios(){
     <div class="modal-content" style="border-radius: 0px;border: 0px;">
       <div class="modal-header">
         <h5 class="modal-title">Editar Usuario o Contraseña</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
 

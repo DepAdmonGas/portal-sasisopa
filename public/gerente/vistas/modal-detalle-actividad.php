@@ -31,32 +31,30 @@ $array = array('formato' => $formato, 'Actividad' => $actividad,
 return $array;
 }
 ?>
-
-      <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-      </button>
-      </div>
+<div class="modal-header rounded-0 head-modal">
+  <h4 class="modal-title text-white">Detalle Actividad</h4>
+  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
 
 <div class="modal-body">
  
-<small class="text-secondary mt-3">Fecha:</small>
-<div class="fs-5 fw-light border p-2 mt-2">
+<small class="text-secondary mt-3 fw-bold">Fecha:</small>
+<div class="fs-5 fw-light border p-2 mt-2 mb-2">
 <?=FormatoFecha($fecha);?>
 </div>
 
-<small class="text-secondary mt-3">Folio:</small>
-<div class="fs-5 fw-light border p-2 mt-2">
+<small class="text-secondary mt-3 fw-bold">Folio:</small>
+<div class="fs-5 fw-light border p-2 mt-2 mb-2">
 <b>00<?=$folio;?></b>
 </div>
 
-<small class="text-secondary mt-3">Actividad:</small>
-<div class="fs-5 fw-light border p-2 mt-2">
+<small class="text-secondary mt-3 fw-bold">Actividad:</small>
+<div class="fs-5 fw-light border p-2 mt-2 mb-2">
 <?=$formato;?> <?=$Actividad;?>
 </div>
 
-<small class="text-secondary mt-3">Periodicidad:</small>
-<div class="fs-5 fw-light border p-2 mt-2">
+<small class="text-secondary mt-3 fw-bold">Periodicidad:</small>
+<div class="fs-5 fw-light border p-2 mt-2 mb-2">
 <?=$Periodicidad;?>
 </div>
 

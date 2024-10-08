@@ -91,7 +91,7 @@ function EliminarEL(id){
 
 
 <div class="col-2 mt-2">
-  <a class="float-right" onclick="ModalEL()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Agregar">
+  <a class="float-right" onclick="ModalEL()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Agregar">
     <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
   </a>
 </div>

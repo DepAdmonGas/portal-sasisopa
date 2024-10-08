@@ -97,7 +97,7 @@ function eliminarFormacionA(id){
 <div class="col-11"><h5>3. Formación académica</h5> </div>
 
 <div class="col-1">
-<img class="float-end pointer" src="<?=RUTA_IMG_ICONOS."agregar.png";?>" onclick="modalFormacionA()">
+<img class="float-end pointer" src="<?=RUTA_IMG_ICONOS."agregar.png";?>" onclick="modalFormacionA()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Agregar">
 </div>
 </div> 
 

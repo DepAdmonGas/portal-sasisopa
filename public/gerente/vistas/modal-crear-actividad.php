@@ -16,16 +16,13 @@ return 1;
 
 }
 ?>
-
-      <div class="modal-header">
-      <h5 class="modal-title" id="staticBackdropLabel">Agregar actividades</h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-      </button>
-      </div>
+<div class="modal-header rounded-0 head-modal">
+  <h4 class="modal-title text-white">Agregar Actividades</h4>
+  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
       <div class="modal-body">
       
-      <div class="fs-6 text-secondary">Actividad:</div>
+      <div class="fw-bold text-secondary">ACTIVIDAD:</div>
       <select class="form-control rounded-0 mt-2" id="Actividad">
       <option value="">Seleccione</option>
       <?php 
@@ -44,11 +41,10 @@ return 1;
    	?>
       </select>
 
-      <div class="fs-6 text-secondary mt-2">Fecha:</div>
+      <div class="fw-bold text-secondary mt-2">FECHA:</div>
       <input type="date" class="form-control rounded-0 mt-2" id="Fecha">
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary rounded-0" data-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-primary rounded-0" onclick="AgregarActividad(<?=$idEstacion;?>)">Agregar actividad</button>
       </div>
