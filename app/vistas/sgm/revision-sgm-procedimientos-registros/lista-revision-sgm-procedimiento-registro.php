@@ -9,15 +9,13 @@ $numero_capacitacion = mysqli_num_rows($result_capacitacion);
 
 ?>
 
-<div style="overflow-y: hidden;">
-<table class="table table-bordered table-striped table-sm pb-0 mb-0">
+<table class="table table-bordered table-striped table-sm" id="table-procedimientos-registros">
 <thead>	
-<tr>
+<tr class="bg-primary text-white">
 <th class="text-center align-middle">#</th>
 <th class="text-center align-middle">Fecha</th>
 <th class="text-center align-middle">Hora</th>
-<th class="text-center align-middle"></th>
-
+<th class="text-center align-middle" width="35px"><i class="fas fa-ellipsis-v"></i></th>
 </tr>
 </thead>
 <tbody>
@@ -31,27 +29,32 @@ $estado = $row_capacitacion['estado'];
 if($estado == 1){
 $trColor = "";
 }else{
-$trColor = "table-warning";
+$trColor = 'style="background-color: #fbf8ce"';
 }
 
-echo "<tr class='".$trColor."'>";
-echo "<td class='text-center'>".$num."</td>";
+echo "<tr ".$trColor.">";
+echo "<td class='text-center fw-bold'>".$num."</td>";
 echo "<td class='text-center'>".FormatoFecha($row_capacitacion['fecha'])."</td>";
 echo "<td class='text-center'>".date('g:i a', strtotime($row_capacitacion['hora']))."</td>";
 
-echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."editar.png' style='cursor: pointer;' onclick='EditarRevision(".$id.")'></td>";
-echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."pdf.png' style='cursor: pointer;' onclick='DescargarRevision(".$id.")'></td>";
-echo "<td class='text-center align-middle' width='30'><img src='".RUTA_IMG_ICONOS."eliminar.png' style='cursor: pointer;' onclick='EliminarRevision(".$id.")'></td>";
+echo '<td class="text-center align-middle" width="20px" style="cursor: pointer;">
+  <div class="dropdown dropstart">
+  <a class="btn btn-sm btn-icon-only text-dropdown-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+  <i class="fas fa-ellipsis-v"></i>
+  </a>
+  <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+    <a class="dropdown-item" onclick="EditarRevision('.$id.')"><i class="fa-regular fa-pen-to-square"></i> Editar</a>
+    <a class="dropdown-item" onclick="DescargarRevision('.$id.')"><i class="fa-regular fa-file-pdf"></i> Descargar PDF</a>
+    <a class="dropdown-item" onclick="EliminarRevision('.$id.')"><i class="fa-regular fa-trash-can"></i> Eliminar</a>
+  </div>
+  </div>
+  </td>';
 
 echo "</tr>";
 
 $num = $num + 1;
 }
-}else{
-echo "<td colspan='6' class='text-center text-secondary' style='font-size: .8em;'>No se encontró información para mostrar</td>";
-
 }
 ?>	
 </tbody>
 </table>
-</div>
