@@ -320,11 +320,9 @@ window.location = "descargar-seguimiento-objetivos-indicadores/" + id;
     <div class="modal fade bd-example-modal-lg" id="myModal" data-backdrop="static">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content border-0 rounded-0">
-      <div class="modal-header">
-      <h4 class="modal-title">Ayuda</h4>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-      </button>
+      <div class="modal-header rounded-0 head-modal">
+      <h4 class="modal-title text-white">Ayuda</h4>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
         <div class="modal-body">
 

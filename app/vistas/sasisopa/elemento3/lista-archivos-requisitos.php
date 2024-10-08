@@ -68,7 +68,7 @@ if ($numero_programa_c != 0) {
     <th class="text-center align-middle">Requisito Legal</th>
     <th class="text-center align-middle">% Cumplimiento</th>
     <th class="text-center align-middle">Renovación</th>
-    <th class="text-center align-middle" ></th>
+    <th class="text-center align-middle" ><i class="fas fa-ellipsis-v"></i></th>
   </tr>
   </thead>
   <tbody>

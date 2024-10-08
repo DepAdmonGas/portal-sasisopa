@@ -12,17 +12,18 @@ require('app/help.php');
   <link rel="apple-touch-icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
   <link rel="stylesheet" href="<?=RUTA_CSS?>alertify.css">
   <link rel="stylesheet" href="<?=RUTA_CSS?>themes/default.rtl.css">
-  <link href="<?=RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?=RUTA_CSS ?>bootstrap.css" />
   <link rel="stylesheet" href="<?=RUTA_CSS?>componentes.css">
-  <link rel="stylesheet" href="<?=RUTA_CSS?>bootstrap-select.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>selectize.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
   <script type="text/javascript" src="<?=RUTA_JS?>alertify.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.0.3/b-3.0.1/b-colvis-3.0.1/b-html5-3.0.1/b-print-3.0.1/datatables.min.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" ></script>
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>selectize.css">
   <style media="screen">
   .LoaderPage {
   position: fixed;
@@ -32,7 +33,7 @@ require('app/help.php');
   height: 100%; 
   z-index: 9999;
   background: white;
-  background: url('imgs/iconos/load-index-img.gif') 50% 50% no-repeat rgb(255,255,255);
+  background: url('imgs/iconos/load-img.gif') 50% 50% no-repeat rgb(249,249,249);
   }
   </style>
   <script type="text/javascript">
@@ -49,7 +50,20 @@ require('app/help.php');
   }
 
 function ListaRequisitos(){
-  $('#DivContenido').load('app/vistas/sgm/punto5/lista-archivos-requisitos.php?NGobierno=federal&sistema=SGM');   
+  let targets = [5,6,9];
+  $('#DivContenido').load('app/vistas/sgm/punto5/lista-archivos-requisitos.php?NGobierno=federal&sistema=SGM', function() {
+  $('#table-requisitos-legales').DataTable({
+    "language": {
+    "url": "<?=RUTA_JS?>es-ES.json"
+  },
+  "stateSave": true,
+    "lengthMenu": [15,35,45],
+    "columnDefs": [
+    { "orderable": false, "targets": targets },
+    { "searchable": false, "targets": targets }
+    ]
+  });
+  });     
   } 
 
   function ModalNuevo(NG){
@@ -607,33 +621,26 @@ function(){
     <div class="LoaderPage"></div>
 
     <div class="fixed-top navbar-admin">
-    <?php require('public/componentes/header.menu.php'); ?>
+    <?php require('app/vistas/componentes/navbar-perfil.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-     
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
+     <!-- Inicio -->
+     <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
+      <ol class="breadcrumb breadcrumb-caret">
+      <li class="breadcrumb-item text-primary c-pointer" onclick="window.history.go(-2);"><i class="fa-solid fa-house"></i> SGM</li>
+      <li aria-current="page" class="breadcrumb-item active c-pointer" onclick="regresarP()">5. Normatividad aplicable a mediciones</li>
+      <li aria-current="page" class="breadcrumb-item">Requisitos Legales</li>
+      </ol>
       </div>
-    <div class="float-left"><h4>Requisitos Legales</h4></div>
-    <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
-    <a onclick="ModalNuevo('Federal')" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Agregar"><img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>"></a>
-    </div>
-    </div>
-   
-    <div class="card-body">
+      <!-- Fin -->
 
-    <div id="DivContenido"></div>
+      <h3>Requisitos Legales</h3>
 
-    </div>
-    </div>
-    </div>
-    </div>
+      <div class="bg-white p-3 mt-3">
+      <div id="DivContenido"></div>
+      <div>
     </div>
 
  
@@ -647,6 +654,10 @@ function(){
   </div>
  
   <script src="<?php echo RUTA_JS ?>bootstrap.min.js"></script>
+  <!---------- LIBRERIAS DEL DATATABLE ---------->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.0.3/b-3.0.1/b-colvis-3.0.1/b-html5-3.0.1/b-print-3.0.1/datatables.min.js"></script>
   </body>
   </html>
 

@@ -94,8 +94,7 @@ $numero_programa_c = mysqli_num_rows($result_programa_c);
 
 if ($numero_programa_c != 0) {
 ?>
-<div style="overflow-y: hidden;">
-<table class="table table-bordered table-sm">
+<table class="table table-bordered table-sm" id="table-requisitos-legales">
   <thead>
   <tr class="bg-primary text-white">
     <th class="text-center align-middle">Dependencia</th>
@@ -107,7 +106,8 @@ if ($numero_programa_c != 0) {
     <th class="text-center align-middle">Requisito Legal</th>
     <th class="text-center align-middle">% Cumplimiento</th>
     <th class="text-center align-middle">Renovación</th>
-    <th class="text-center align-middle" colspan="4"></th> 
+    <th class="text-center align-middle"><i class="fas fa-ellipsis-v"></i></th>
+     
   </tr>
   </thead>
   <tbody>
@@ -288,10 +288,21 @@ $Renovacion = trim($ArrayRenovacion, ',');
   echo "<td class='text-center align-middle' id='td7-".$idre."'>".$imgPDFRL."</td>";
   echo "<td class='text-center align-middle'><b>".$UltimaA['cumplimiento']."</b></td>";
   echo "<td class='text-center align-middle'><small>".$Renovacion."</small></td>";
-  echo "<td class='text-center align-middle'width='20px' style='cursor: pointer;'><img src='".RUTA_IMG_ICONOS."ojo-black-16.png' onclick='Detalle(".$idre.")'></td>";
-  echo '<td class="text-center align-middle" width="20px" style="cursor: pointer;"><img src="'.RUTA_IMG_ICONOS.'edit-black-16.png" onclick="editar('.$idre.',\''.$title.'\')"></td>';
-  echo "<td class='text-center align-middle'width='20px' style='cursor: pointer;'><img src='".RUTA_IMG_ICONOS."lista.png' onclick='listaReq(".$idre.")'></td>";
-  echo "<td class='text-center align-middle'width='20px' style='cursor: pointer;'><img src='".RUTA_IMG_ICONOS."img-no.png' onclick='EliminarRL(".$idre.")'></td>";
+  
+  echo '<td class="text-center align-middle" width="20px" style="cursor: pointer;">
+  <div class="dropdown">
+  <a class="btn btn-sm btn-icon-only text-dropdown-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+  <i class="fas fa-ellipsis-v"></i>
+  </a>
+  <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+    <a class="dropdown-item" onclick="Detalle('.$idre.')"><i class="fa-regular fa-eye"></i> Detalle</a>
+    <a class="dropdown-item" onclick="editar('.$idre.',\''.$title.'\')"><i class="fa-regular fa-pen-to-square"></i> Editar</a>
+    <a class="dropdown-item" onclick="listaReq('.$idre.')"><i class="fa-regular fa-file-lines"></i> Historial</a>
+    <a class="dropdown-item" onclick="EliminarRL('.$idre.')"><i class="fa-regular fa-trash-can"></i> Eliminar</a>
+  </div>
+  </div>
+  </td>';
+
   echo "</tr>";
 
   $TotalCmp = $TotalCmp + $UltimaA['toCumpli'];
@@ -299,7 +310,6 @@ $Renovacion = trim($ArrayRenovacion, ',');
   ?>
 </tbody>
 </table>
-</div>
 
 <?php
 $Sicumple = $TotalCmp / $numero_programa_c;
@@ -315,7 +325,5 @@ $NoCumple = 100 - $Sicumple;
 </div>
 
 <?php 
-}else{
-echo "<div class='text-center text-secondary' style='font-size: .8em;' >No se encontró información</div>";
 }
 ?>
