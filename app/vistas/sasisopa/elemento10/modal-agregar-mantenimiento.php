@@ -17,7 +17,7 @@ $numero_mantenimiento_lista = mysqli_num_rows($result_mantenimiento_lista);
 while($row_mantenimiento_lista = mysqli_fetch_array($result_mantenimiento_lista, MYSQLI_ASSOC)){
 $id = $row_mantenimiento_lista['id'];
 
-$result = $class_control_actividad_proceso->Comprobar($idReporte,$id,$con);
+$result = $class_control_actividad_proceso->Comprobar($idReporte,$id);
 
 if ($result == 0) {
 ?>

@@ -37,8 +37,8 @@ $archivo = $rowTema['archivo'];
   <link rel="shortcut icon" href="<?=RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="apple-touch-icon" href="<?=RUTA_IMG_ICONOS ?>/icono-web.png">
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link href="<?=RUTA_CSS2;?>bootstrap.min.css" rel="stylesheet" />
-  <link href="<?=RUTA_CSS2;?>navbar-general.min.css" rel="stylesheet" />
+  <link href="<?=RUTA_CSS?>bootstrap.min.css" rel="stylesheet" />
+  <link href="<?=RUTA_CSS?>navbar-general.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
   <script type="text/javascript" src="<?php echo RUTA_JS ?>alertify.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
@@ -195,7 +195,7 @@ echo '</div>';
   <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
   
 
-  <script src="<?=RUTA_JS2 ?>bootstrap.min.js"></script>
+  <script src="<?=RUTA_JS ?>bootstrap.min.js"></script>
 
  
   </body>

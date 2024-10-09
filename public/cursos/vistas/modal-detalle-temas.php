@@ -60,10 +60,12 @@ $NumTema = $row1['num_tema'];
 $titulo = $row1['titulo'];
 }*/
 ?>
-<div class="modal-header">
-<h5 class="modal-title">Modulo <?=$TituloModulo;?></h5>
-<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+<div class="modal-header" style="background: #215d98">
+  <h4 class="modal-title text-white">Modulo <?=$TituloModulo;?></h4>
+  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
+
 <div class="modal-body"> 
 <h5>Tema <?=$TituloTema;?></h5>
 
