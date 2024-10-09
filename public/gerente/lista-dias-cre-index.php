@@ -15,18 +15,18 @@ $idReporteCre = $row_reportecre['id'];
   <title>SASISOPA</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width initial-scale=1.0">
-  <link rel="shortcut icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
-  <link rel="apple-touch-icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
-  <link rel="stylesheet" href="<?=RUTA_CSS?>alertify.css">
-  <link rel="stylesheet" href="<?=RUTA_CSS?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?=RUTA_CSS ?>bootstrap.css" />
-  <link rel="stylesheet" href="<?=RUTA_CSS?>componentes.css">
+  <link rel="shortcut icon" href="<?= RUTA_IMG_ICONOS ?>/icono-web.png">
+  <link rel="apple-touch-icon" href="<?= RUTA_IMG_ICONOS ?>/icono-web.png">
+  <link rel="stylesheet" href="<?= RUTA_CSS ?>alertify.css">
+  <link rel="stylesheet" href="<?= RUTA_CSS ?>themes/default.rtl.css">
+  <link rel="stylesheet" href="<?= RUTA_CSS ?>bootstrap.css" />
+  <link rel="stylesheet" href="<?= RUTA_CSS ?>componentes.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
-  <script type="text/javascript" src="<?=RUTA_JS?>alertify.js"></script>
+  <script type="text/javascript" src="<?= RUTA_JS ?>alertify.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.0.3/b-3.0.1/b-colvis-3.0.1/b-html5-3.0.1/b-print-3.0.1/datatables.min.css" rel="stylesheet">
   <style media="screen">
@@ -71,28 +71,28 @@ $idReporteCre = $row_reportecre['id'];
 
   <div class="magir-top-principal p-3">
 
-  <div class="float-end">
-  <div class="dropdown dropdown-sm d-inline ms-2">
-  <button type="button" class="btn dropdown-toggle btn-primary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-  <i class="fa-solid fa-screwdriver-wrench"></i></span>
-  </button>
-  <ul class="dropdown-menu">
-  <li onclick="Agregar()"><a class="dropdown-item c-pointer"> <i class="fa-regular fa-plus"></i> Agregar</a></li>
-  <li><a href="../../public/gerente/vistas/descargar-reporte-estadistico-diario.php?idMes=<?= $idMes; ?>&idYear=<?= $idYear; ?>" class="dropdown-item c-pointer"> <i class="fa-solid fa-file-pdf"></i> Descargar</a></li>
-  </ul>
-  </div>
-  </div>
-  <!-- Fin -->
+    <div class="float-end">
+      <div class="dropdown dropdown-sm d-inline ms-2">
+        <button type="button" class="btn dropdown-toggle btn-primary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa-solid fa-screwdriver-wrench"></i></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li onclick="Agregar()"><a class="dropdown-item c-pointer"> <i class="fa-regular fa-plus"></i> Agregar</a></li>
+          <li><a href="../../public/gerente/vistas/descargar-reporte-estadistico-diario.php?idMes=<?= $idMes; ?>&idYear=<?= $idYear; ?>" class="dropdown-item c-pointer"> <i class="fa-solid fa-file-pdf"></i> Descargar</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- Fin -->
 
-  <!-- Inicio -->
-  <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
-  <ol class="breadcrumb breadcrumb-caret">
-  <li class="breadcrumb-item text-primary c-pointer" onclick="regresarP()"><i class="fa-solid fa-house"></i> SASISOPA</li>
-  <li aria-current="page" class="breadcrumb-item active">Reporte Diario <?php echo nombremes($idMes) . " " . $idYear; ?></li>
-  </ol>
-  </div>
-  <!-- Fin -->
-  <h3>Reporte Diario <?php echo nombremes($idMes) . " " . $idYear; ?></h3>
+    <!-- Inicio -->
+    <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
+      <ol class="breadcrumb breadcrumb-caret">
+        <li class="breadcrumb-item text-primary c-pointer" onclick="regresarP()"><i class="fa-solid fa-chevron-left"></i> REPORTE ESTADISTICO DE LA CRE <?= $idYear ?></li>
+        <li aria-current="page" class="breadcrumb-item active">Reporte Diario <?php echo nombremes($idMes) . " " . $idYear; ?></li>
+      </ol>
+    </div>
+    <!-- Fin -->
+    <h3>Reporte Diario <?php echo nombremes($idMes) . " " . $idYear; ?></h3>
 
     <div class="mt-2 p-3 bg-white">
       <div id="DivReporteEstadistico"></div>
