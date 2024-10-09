@@ -253,15 +253,16 @@ if ($numero_reportenum > 0) {
             $numero_mensaje = mysqli_num_rows($result_mensaje);
 
             if ($numero_mensaje == 0) {
-              $toMensajes = "";
+              $Nuevo = "";
             } else {
               $toMensajes = $numero_mensaje;
+              $Nuevo = '<div class="position-absolute" style="up: 1px;"><span class="badge bg-danger text-white rounded-circle"><span class="fw-bold" style="font-size: 7px;">'.$toMensajes.' </span></span></div>';
             }
 
             ?>
-            <td width="40px" class="text-center align-middle">
+            <td class="text-center align-middle">
               <a onclick="mensaje(<?= $IDfecha; ?>,<?= $idReporteCre; ?>,<?= $numero_mensaje; ?>)" style="cursor: pointer;" data-toggle="tooltip" data-placement="bottom" title="Mensaje">
-                <div><span class="badge badge-pill badge-primary" id="totalMensajes" style="font-size: .5em;margin-right: 5px; color: red;"><?= $toMensajes; ?></span>
+                <div><span class="badge badge-pill badge-primary" id="totalMensajes" style="font-size: .5em;margin-right: 5px; color: red;"><?= $Nuevo; ?></span>
                 <img src="<?php echo RUTA_IMG_ICONOS . "mensaje-black-16.png"; ?>"></div>
               </a>
             </td>
@@ -282,26 +283,26 @@ if ($numero_reportenum > 0) {
         echo '<tr>';
         if ($Session_ProductoUno != "") {
           echo '<td><b>TOTAL:</b></td>
-<td class="text-center"><b>' . $TP1VI . '</b></td>
-<td class="text-center"><b>' . $TP1VV . '</b></td>
-<td class="text-center"><b>' . $TP1VF . '</b></td>
-<td class="text-center"><b>' . $TP1VC . '</b></td>';
+                  <td class="text-center"><b>' . $TP1VI . '</b></td>
+                  <td class="text-center"><b>' . $TP1VV . '</b></td>
+                  <td class="text-center"><b>' . $TP1VF . '</b></td>
+                  <td class="text-center"><b>' . $TP1VC . '</b></td>';
         }
 
         if ($Session_ProductoDos != "") {
           echo '<td></td>
-  <td class="text-center"><b>' . $TP2VI . '</b></td>
-  <td class="text-center"><b>' . $TP2VV . '</b></td>
-  <td class="text-center"><b>' . $TP2VF . '</b></td>
-  <td class="text-center"><b>' . $TP2VC . '</b></td>';
+                <td class="text-center"><b>' . $TP2VI . '</b></td>
+                <td class="text-center"><b>' . $TP2VV . '</b></td>
+                <td class="text-center"><b>' . $TP2VF . '</b></td>
+                <td class="text-center"><b>' . $TP2VC . '</b></td>';
         }
 
         if ($Session_ProductoTres != "") {
           echo '<td></td>
-  <td class="text-center"><b>' . $TP3VI . '</b></td>
-  <td class="text-center"><b>' . $TP3VV . '</b></td>
-  <td class="text-center"><b>' . $TP3VF . '</b></td>
-  <td class="text-center"><b>' . $TP3VC . '</b></td>';
+                <td class="text-center"><b>' . $TP3VI . '</b></td>
+                <td class="text-center"><b>' . $TP3VV . '</b></td>
+                <td class="text-center"><b>' . $TP3VF . '</b></td>
+                <td class="text-center"><b>' . $TP3VC . '</b></td>';
         }
 
         echo '</tr>';

@@ -1782,7 +1782,7 @@ class ControlActividadProceso
       public function editarCalibracionEquipoDispensario($contenido,$id,$input){
 
         if($input == 1){
-            $ValidaFecha = $this->ValidaFecha($contenido,$id,$con);
+            $ValidaFecha = $this->ValidaFecha($contenido,$id);
             if($ValidaFecha == 1){            
             $sql = "UPDATE tb_calibracion_equipos SET
             fecha = '".$contenido."'
