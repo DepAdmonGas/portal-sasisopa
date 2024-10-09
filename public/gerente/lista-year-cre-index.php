@@ -87,7 +87,7 @@ require('app/help.php');
     <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
       <ol class="breadcrumb breadcrumb-caret">
         <li class="breadcrumb-item text-primary c-pointer" onclick="history.go(-2)"><i class="fa-solid fa-chevron-left"></i> SASISOPA</li>
-        <li aria-current="page" class="breadcrumb-item active text-primary c-pointer" onclick="history.go(-1)">REPORTE ESTADÍSTICO DE LA CRE</li>
+        <li aria-current="page" class="breadcrumb-item active text-secondary">REPORTE ESTADÍSTICO DE LA CRE</li>
         <li aria-current="page" class="breadcrumb-item active"><?= $idYear ?></li>
       </ol>
     </div>
