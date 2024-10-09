@@ -199,7 +199,7 @@ while ($row_reportecre = mysqli_fetch_array($result_reportecre, MYSQLI_ASSOC)) {
     <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
       <ol class="breadcrumb breadcrumb-caret">
         <li class="breadcrumb-item text-primary c-pointer" onclick="regresarP()"><i class="fa-solid fa-chevron-left"></i> REPORTE ESTADÍSTICO DE LA CRE</li>
-        <li aria-current="page" class="breadcrumb-item active text-SECONDARY c-pointer">FACTURAS DE PRODUCTOS</li>
+        <li aria-current="page" class="breadcrumb-item active text-SECONDARY c-pointer">FACTURAS DE PRODUCTOS <?= $idYear ?></li>
       </ol>
     </div>
     <!-- Fin -->
@@ -250,7 +250,7 @@ while ($row_reportecre = mysqli_fetch_array($result_reportecre, MYSQLI_ASSOC)) {
         echo "<div style='overflow-y: hidden;'>";
         echo "<table class='table table-sm table-bordered table-striped'>";
         echo "<tr>";
-        echo "<td class='text-center font-weight-bold' style='font-size: 1em;' colspan='" . $countProductos . "'>Inicio de mes</td>";
+        echo "<td class='text-center font-weight-bold' style='font-size: 1em;' colspan='" . $countProductos . "'>Inicio de mes</td><td></td>";
         echo "</tr>";
         echo "<tr>";
         if ($Session_ProductoUno != "") {
@@ -264,12 +264,12 @@ while ($row_reportecre = mysqli_fetch_array($result_reportecre, MYSQLI_ASSOC)) {
         }
         echo "<td class='align-middle text-center' width='20px' data-toggle='tooltip' data-placement='left' title='Agregar' onclick='editarModal(" . $idP . ",1)'><img src='" . RUTA_IMG_ICONOS . "mas-verde-16.png' style='cursor: pointer;'></td>";
         echo "</tr>";
-
+        
         echo "<tr>";
 
         if ($Session_ProductoUno != "") {
           if ($row_reporte['f_producto_uno'] == "") {
-      ?>
+          ?>
             <td class="align-middle text-center">
               <img src="<?php echo RUTA_IMG_ICONOS . "eliminar-red-16.png"; ?>">
             </td>
@@ -314,7 +314,7 @@ while ($row_reportecre = mysqli_fetch_array($result_reportecre, MYSQLI_ASSOC)) {
           <?php
           }
         }
-
+        echo "<td></td>";
         echo "</table>";
         echo "</div>";
         echo "</div>";
@@ -326,7 +326,7 @@ while ($row_reportecre = mysqli_fetch_array($result_reportecre, MYSQLI_ASSOC)) {
         echo "<div style='overflow-y: hidden;'>";
         echo "<table class='table table-sm table-bordered table-striped'>";
         echo "<tr>";
-        echo "<td class='text-center font-weight-bold' style='font-size: 1em;' colspan='" . $countProductos . "'>Mediados de mes</td>";
+        echo "<td class='text-center font-weight-bold' style='font-size: 1em;' colspan='" . $countProductos . "'>Mediados de mes</td><td></td>";
         echo "</tr>";
         echo "<tr>";
         if ($Session_ProductoUno != "") {
@@ -389,6 +389,7 @@ while ($row_reportecre = mysqli_fetch_array($result_reportecre, MYSQLI_ASSOC)) {
           <?php
           }
         }
+        echo "<td></td>";
         echo "</tr>";
 
         echo "</table>";
@@ -400,7 +401,7 @@ while ($row_reportecre = mysqli_fetch_array($result_reportecre, MYSQLI_ASSOC)) {
         echo "<div style='overflow-y: hidden;'>";
         echo "<table class='table table-sm table-bordered table-striped'>";
         echo "<tr>";
-        echo "<td class='text-center font-weight-bold' style='font-size: 1em;' colspan='" . $countProductos . "'>Final de mes</td>";
+        echo "<td class='text-center font-weight-bold' style='font-size: 1em;' colspan='" . $countProductos . "'>Final de mes</td><td></td>";
         echo "</tr>";
         echo "<tr>";
         if ($Session_ProductoUno != "") {
@@ -462,6 +463,7 @@ while ($row_reportecre = mysqli_fetch_array($result_reportecre, MYSQLI_ASSOC)) {
       <?php
           }
         }
+        echo "<td></td>";
         echo "</tr>";
         echo "</table>";
         echo "</div>";
