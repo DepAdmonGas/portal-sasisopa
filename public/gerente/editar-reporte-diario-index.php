@@ -350,7 +350,7 @@ $tovolcompra3 = 0;
     <!-- Inicio -->
     <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
       <ol class="breadcrumb breadcrumb-caret">
-        <li class="breadcrumb-item text-primary c-pointer" onclick="regresarP()"><i class="fa-solid fa-chevron-left"></i> REPORTE ESTADISTICO DE LA CRE</li>
+        <li class="breadcrumb-item text-primary c-pointer" onclick="regresarP()"><i class="fa-solid fa-chevron-left"></i> REPORTE DIARIO</li>
         <li aria-current="page" class="breadcrumb-item active">EDITAR REPORTE DIARIO <?= strtoupper(FormatoFecha($fechaFormato)); ?></li>
       </ol>
     </div>
