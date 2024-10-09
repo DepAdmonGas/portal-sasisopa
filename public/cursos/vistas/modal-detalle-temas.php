@@ -71,9 +71,9 @@ $titulo = $row1['titulo'];
 
 <table class="table table-sm table-striped">
 	<thead>
-		<tr>
-			<th>Fecha</th>
-			<th>Resultado</th>
+		<tr class="bg-primary text-white">
+			<th class="text-center">Fecha</th>
+			<th class="text-center">Resultado</th>
 			<th class="text-center">Reconocimiento</th>
 		</tr>
 	</thead>
@@ -108,8 +108,8 @@ $titulo = $row1['titulo'];
 		}
 
 	echo '<tr>
-	<td class="align-middle">'.FormatoFecha($row['fecha_programada']).'</td>
-	<td class="'.$Color.' align-middle"><b>'.$Titulo.'</b></td>
+	<td class="align-middle text-center">'.FormatoFecha($row['fecha_programada']).'</td>
+	<td class="'.$Color.' align-middle text-center"><b>'.$Titulo.'</b></td>
 	<td class="text-center">'.$PDF.'</td>
 	</tr>';
 	}
