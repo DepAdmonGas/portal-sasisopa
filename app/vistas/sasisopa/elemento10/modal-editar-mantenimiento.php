@@ -62,11 +62,9 @@ ON po_mantenimiento_lista.id = po_programa_anual_mantenimiento_detalle.id_manten
         $diciembremin = date("Y-m-d",strtotime($diciembre."- 30 days")); 
 
 ?>
-<div class="modal-header">
-<h4 class="modal-title"><?=$detalle;?></h4>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
+<div class="modal-header rounded-0 head-modal">
+<h4 class="modal-title text-white"><?=$detalle;?></h4>
+<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 
 <div class="modal-body">
@@ -77,7 +75,7 @@ ON po_mantenimiento_lista.id = po_programa_anual_mantenimiento_detalle.id_manten
 
 <div class="card" style="border-radius: 0px;">
 <div class="card-title  border-bottom bg-light" style="padding-left: 20px;padding-right: 20px;padding-top: 10px;padding-bottom: 10px;margin-bottom: 0px;">
-<div class="text-center">Enero</div>
+<div class="text-center fw-bold">Enero</div>
 </div>
       
 <div class="card-body" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
@@ -89,7 +87,7 @@ ON po_mantenimiento_lista.id = po_programa_anual_mantenimiento_detalle.id_manten
 <div class="col-xl-4 col-lg-4 col-md-6 col-6 mb-3 font-weight-bold text-center">
 <div class="card" style="border-radius: 0px;">
 <div class="card-title  border-bottom bg-light" style="padding-left: 20px;padding-right: 20px;padding-top: 10px;padding-bottom: 10px;margin-bottom: 0px;">
-<div class="text-center">Febrero</div>
+<div class="text-center fw-bold">Febrero</div>
 </div>
       
 <div class="card-body" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
@@ -101,7 +99,7 @@ ON po_mantenimiento_lista.id = po_programa_anual_mantenimiento_detalle.id_manten
 <div class="col-xl-4 col-lg-4 col-md-6 col-6 mb-3 font-weight-bold text-center">
 <div class="card" style="border-radius: 0px;">
 <div class="card-title  border-bottom bg-light" style="padding-left: 20px;padding-right: 20px;padding-top: 10px;padding-bottom: 10px;margin-bottom: 0px;">
-<div class="text-center">Marzo</div>
+<div class="text-center fw-bold">Marzo</div>
 </div>
    
 <div class="card-body" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
@@ -113,7 +111,7 @@ ON po_mantenimiento_lista.id = po_programa_anual_mantenimiento_detalle.id_manten
 <div class="col-xl-4 col-lg-4 col-md-6 col-6 mb-3 font-weight-bold text-center">
 <div class="card" style="border-radius: 0px;">
 <div class="card-title  border-bottom bg-light" style="padding-left: 20px;padding-right: 20px;padding-top: 10px;padding-bottom: 10px;margin-bottom: 0px;">
-<div class="text-center">Abril</div>
+<div class="text-center fw-bold">Abril</div>
 </div>
       
 <div class="card-body" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
@@ -125,7 +123,7 @@ ON po_mantenimiento_lista.id = po_programa_anual_mantenimiento_detalle.id_manten
 <div class="col-xl-4 col-lg-4 col-md-6 col-6 mb-3 font-weight-bold text-center">
 <div class="card" style="border-radius: 0px;">
 <div class="card-title  border-bottom bg-light" style="padding-left: 20px;padding-right: 20px;padding-top: 10px;padding-bottom: 10px;margin-bottom: 0px;">
-<div class="text-center">Mayo</div>
+<div class="text-center fw-bold">Mayo</div>
 </div>
       
 <div class="card-body" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
@@ -137,7 +135,7 @@ ON po_mantenimiento_lista.id = po_programa_anual_mantenimiento_detalle.id_manten
 <div class="col-xl-4 col-lg-4 col-md-6 col-6 mb-3 font-weight-bold text-center">
 <div class="card" style="border-radius: 0px;">
 <div class="card-title  border-bottom bg-light" style="padding-left: 20px;padding-right: 20px;padding-top: 10px;padding-bottom: 10px;margin-bottom: 0px;">
-<div class="text-center">Junio</div>
+<div class="text-center fw-bold">Junio</div>
 </div>
       
 <div class="card-body" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
@@ -149,7 +147,7 @@ ON po_mantenimiento_lista.id = po_programa_anual_mantenimiento_detalle.id_manten
 <div class="col-xl-4 col-lg-4 col-md-6 col-6 mb-3 font-weight-bold text-center">
 <div class="card" style="border-radius: 0px;">
 <div class="card-title  border-bottom bg-light" style="padding-left: 20px;padding-right: 20px;padding-top: 10px;padding-bottom: 10px;margin-bottom: 0px;">
-<div class="text-center">Julio</div>
+<div class="text-center fw-bold">Julio</div>
 </div>
       
 <div class="card-body" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
@@ -161,7 +159,7 @@ ON po_mantenimiento_lista.id = po_programa_anual_mantenimiento_detalle.id_manten
 <div class="col-xl-4 col-lg-4 col-md-6 col-6 mb-3 font-weight-bold text-center">
 <div class="card" style="border-radius: 0px;">
 <div class="card-title  border-bottom bg-light" style="padding-left: 20px;padding-right: 20px;padding-top: 10px;padding-bottom: 10px;margin-bottom: 0px;">
-<div class="text-center">Agosto</div>
+<div class="text-center fw-bold">Agosto</div>
 </div>
       
 <div class="card-body" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
@@ -173,7 +171,7 @@ ON po_mantenimiento_lista.id = po_programa_anual_mantenimiento_detalle.id_manten
 <div class="col-xl-4 col-lg-4 col-md-6 col-6 mb-3 font-weight-bold text-center">
 <div class="card" style="border-radius: 0px;">
 <div class="card-title  border-bottom bg-light" style="padding-left: 20px;padding-right: 20px;padding-top: 10px;padding-bottom: 10px;margin-bottom: 0px;">
-<div class="text-center">Septiembre</div>
+<div class="text-center fw-bold">Septiembre</div>
 </div>
       
 <div class="card-body" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
@@ -185,7 +183,7 @@ ON po_mantenimiento_lista.id = po_programa_anual_mantenimiento_detalle.id_manten
 <div class="col-xl-4 col-lg-4 col-md-6 col-6 mb-3 font-weight-bold text-center">
 <div class="card" style="border-radius: 0px;">
 <div class="card-title  border-bottom bg-light" style="padding-left: 20px;padding-right: 20px;padding-top: 10px;padding-bottom: 10px;margin-bottom: 0px;">
-<div class="text-center">Octubre</div>
+<div class="text-center fw-bold">Octubre</div>
 </div>
       
 <div class="card-body" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
@@ -197,7 +195,7 @@ ON po_mantenimiento_lista.id = po_programa_anual_mantenimiento_detalle.id_manten
 <div class="col-xl-4 col-lg-4 col-md-6 col-6 mb-3 font-weight-bold text-center">
 <div class="card" style="border-radius: 0px;">
 <div class="card-title  border-bottom bg-light" style="padding-left: 20px;padding-right: 20px;padding-top: 10px;padding-bottom: 10px;margin-bottom: 0px;">
-<div class="text-center">Noviembre</div>
+<div class="text-center fw-bold">Noviembre</div>
 </div>
       
 <div class="card-body" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
@@ -209,7 +207,7 @@ ON po_mantenimiento_lista.id = po_programa_anual_mantenimiento_detalle.id_manten
 <div class="col-xl-4 col-lg-4 col-md-6 col-6 mb-3 font-weight-bold text-center">
 <div class="card" style="border-radius: 0px;">
 <div class="card-title  border-bottom bg-light" style="padding-left: 20px;padding-right: 20px;padding-top: 10px;padding-bottom: 10px;margin-bottom: 0px;">
-<div class="text-center">Diciembre</div>
+<div class="text-center fw-bold">Diciembre</div>
 </div>
       
 <div class="card-body" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
@@ -222,6 +220,5 @@ ON po_mantenimiento_lista.id = po_programa_anual_mantenimiento_detalle.id_manten
 </div>
 
 <div class="modal-footer">
-<button type="button" class="btn btn-secondary" style="-radius: 0px;" data-dismiss="modal">Cancelar</button>
 <button type="button" class="btn btn-primary" style="-radius: 0px;" onclick="BtnEditarPrograma(<?=$idReporte;?>)">Aceptar</button>
 </div>
