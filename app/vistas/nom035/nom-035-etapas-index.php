@@ -108,7 +108,7 @@ require('app/help.php');
                 <div class="p-3 cont-puntos mb-3">
                   <div class="titulo-punto">1. Política</div>
 
-                  <div class="text-right mt-3">
+                  <div class="text-end mt-3">
                     <button type="button" class="btn btn-primary rounded-0" onclick="Politica()">Entrar</button>
                   </div>
 
@@ -119,7 +119,7 @@ require('app/help.php');
                 <div class="rounded-0 p-3 cont-puntos mb-3">
                   <div class="titulo-punto">2. Acontecimientos traumáticos severos</div>
 
-                  <div class="text-right mt-3">
+                  <div class="text-end mt-3">
                     <button type="button" class="btn btn-primary rounded-0" onclick="Acontecimientos()">Entrar</button>
                   </div>
                 </div>
@@ -129,7 +129,7 @@ require('app/help.php');
                 <div class="rounded-0 p-3 cont-puntos mb-3">
                   <div class="titulo-punto">3. Resultados ATS</div>
 
-                  <div class="text-right mt-3">
+                  <div class="text-end mt-3">
                     <button type="button" class="btn btn-light rounded-0">Entrar</button>
                   </div>
                 </div>
@@ -154,7 +154,7 @@ require('app/help.php');
                 <div class="p-3 cont-puntos mb-3">
                   <div class="titulo-punto">1. Factores de riesgo psicosocial</div>
 
-                  <div class="text-right mt-3">
+                  <div class="text-end mt-3">
                     <button type="button" class="btn btn-primary rounded-0" onclick="FactoresRS()">Entrar</button>
                   </div>
 
@@ -165,7 +165,7 @@ require('app/help.php');
                 <div class="rounded-0 p-3 cont-puntos mb-3">
                   <div class="titulo-punto">2. Resultados FRP</div>
 
-                  <div class="text-right mt-3">
+                  <div class="text-end mt-3">
                     <button type="button" class="btn btn-light rounded-0">Entrar</button>
                   </div>
 
@@ -175,7 +175,7 @@ require('app/help.php');
                 <div class="rounded-0 p-3 cont-puntos mb-3">
                   <div class="titulo-punto">3. Mejora continua</div>
 
-                  <div class="text-right mt-3">
+                  <div class="text-end mt-3">
                     <button type="button" class="btn btn-light rounded-0">Entrar</button>
                   </div>
                 </div>
@@ -185,7 +185,7 @@ require('app/help.php');
                 <div class="rounded-0 p-3 cont-puntos mb-3">
                   <div class="titulo-punto">3. Medidas de mitigación</div>
 
-                  <div class="text-right mt-3">
+                  <div class="text-end mt-3">
                     <button type="button" class="btn btn-light rounded-0">Entrar</button>
                   </div>
                 </div>

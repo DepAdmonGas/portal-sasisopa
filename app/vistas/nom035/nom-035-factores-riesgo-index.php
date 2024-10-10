@@ -80,13 +80,14 @@ require('app/help.php');
     <!-- Inicio -->
     <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
       <ol class="breadcrumb breadcrumb-caret">
-        <li class="breadcrumb-item text-primary c-pointer" onclick="regresarP()"><i class="fa-solid fa-chevron-left"></i>NOM-035</li>
-        <li aria-current="page" class="breadcrumb-item active">NOM-035 (FACTORES DE RIESGO PSICOSOCIAL)</li>
+      <li class="breadcrumb-item text-primary c-pointer" onclick="window.history.go(-2)"><i class="fa-solid fa-house"></i>SASISOPA</li>
+        <li aria-current="page" class="breadcrumb-item c-pointer" onclick="regresarP()">NOM-035</li>
+        <li aria-current="page" class="breadcrumb-item active">FACTORES DE RIESGO PSICOSOCIAL</li>
       </ol>
     </div>
     <!-- Fin -->
 
-    <h3>NOM-035 (FACTORES DE RIESGO PSICOSOCIAL)</h3>
+    <h3>FACTORES DE RIESGO PSICOSOCIAL</h3>
 
 
 
@@ -99,7 +100,7 @@ require('app/help.php');
 
           <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 mb-3 ">
 
-            <div class="border p-3" style="font-size: 1.2em">
+            <div class="p-1" style="font-size: 1.2em">
 
               <b>¿Qué son los factores de riesgo psicosocial?</b></br>
 

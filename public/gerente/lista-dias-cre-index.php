@@ -87,12 +87,13 @@ $idReporteCre = $row_reportecre['id'];
     <!-- Inicio -->
     <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
       <ol class="breadcrumb breadcrumb-caret">
-        <li class="breadcrumb-item text-primary c-pointer" onclick="regresarP()"><i class="fa-solid fa-chevron-left"></i> REPORTE ESTADISTICO DE LA CRE <?= $idYear ?></li>
-        <li aria-current="page" class="breadcrumb-item active">Reporte Diario <?php echo nombremes($idMes) . " " . $idYear; ?></li>
+        <li class="breadcrumb-item text-primary c-pointer" onclick="window.history.go(-3)"><i class="fa-solid fa-house"></i> SASISOPA</li>
+        <li aria-current="page" class="breadcrumb-item c-pointer" onclick="window.history.go(-2)"><?= $idYear ?></li>
+        <li aria-current="page" class="breadcrumb-item active C-POINTER" onclick="regresarP()"><?= strtoupper(nombremes($idMes))?></li>
       </ol>
     </div>
     <!-- Fin -->
-    <h3>Reporte Diario <?php echo nombremes($idMes) . " " . $idYear; ?></h3>
+    <h3>REPORTE DIARIO <?php echo strtoupper(nombremes($idMes)) . " " . $idYear; ?></h3>
 
     <div class="mt-2 p-3 bg-white">
       <div id="DivReporteEstadistico"></div>
