@@ -471,7 +471,7 @@ if ($TotalPendientes > 0) {
 
           <table class="table table-bordered table-striped table-sm">
             <thead>
-              <tr>
+              <tr class="bg-primary text-white">
                 <th class="text-center align-middle">#</th>
                 <th class="text-center align-middle">Versión</th>
                 <th class="text-center align-middle" width="16px"><img src="<?= RUTA_IMG_ICONOS . "pdf.png"; ?>"></th>

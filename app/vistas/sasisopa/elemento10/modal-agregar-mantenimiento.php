@@ -7,7 +7,7 @@ $idReporte = $_GET['idReporte'];
 $Year = $_GET['Year'];
 
 ?>
-<div class="pt-1 pb-1 text-secondary">Equipo o instalación: </div>
+<div class="pt-1 pb-1 fw-bold">Equipo o instalación: </div>
 <select class="form-control rounded-0" id="Selectequipo" onchange="SelectEquipo(this)">
 <option value="">Selecciona</option>   
 <?php 
@@ -17,7 +17,7 @@ $numero_mantenimiento_lista = mysqli_num_rows($result_mantenimiento_lista);
 while($row_mantenimiento_lista = mysqli_fetch_array($result_mantenimiento_lista, MYSQLI_ASSOC)){
 $id = $row_mantenimiento_lista['id'];
 
-$result = $class_control_actividad_proceso->Comprobar($idReporte,$id,$con);
+$result = $class_control_actividad_proceso->Comprobar($idReporte,$id);
 
 if ($result == 0) {
 ?>
@@ -28,7 +28,7 @@ if ($result == 0) {
 ?>
 </select>
 
-<div class="pt-1 pb-1 text-secondary">Periodicidad:</div>
+<div class="pt-1 pb-1 fw-bold">Periodicidad:</div>
 <select class="form-control rounded-0" disabled id="Periodicidad">
 <option value="">Selecciona</option>
 <option value="Semanal">Semanal</option>
@@ -40,5 +40,5 @@ if ($result == 0) {
 <option value="Bianual">Bianual</option> 
 </select>
 
-<div class="pt-1 pb-1 text-secondary">Ultima fecha:</div>
+<div class="pt-1 pb-1 fw-bold">Ultima fecha:</div>
 <input type="date" id="UltimaFecha" class="form-control rounded-0" max="<?=$Year;?>-12-31" disabled>

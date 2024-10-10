@@ -430,7 +430,7 @@ class ControlActividadProceso
             $resultado = "";
             if($fecha != "0000-00-00"){
             $formato_fecha = explode("-",$fecha);
-            $resultado = "<b>".$formato_fecha[2]."</b>.".substr(nombremes($formato_fecha[1]),0,3).".".substr($formato_fecha[0],-2,2);
+            $resultado = "".$formato_fecha[2].".".substr(nombremes($formato_fecha[1]),0,3).".".substr($formato_fecha[0],-2,2);
             }
             return $resultado;
             }
@@ -439,7 +439,8 @@ class ControlActividadProceso
             $fecha_del_dia = date("Y-m-d");
             
             if($fecha == "0000-00-00"){
-            $resultado = "table-secondary";
+            //$resultado = "table-secondary";
+            $resultado = 'style="background-color: #D3D3D3;"';
             }else{
             
             $nuevafecha = strtotime ( '-3 day' , strtotime ($fecha)) ;
@@ -447,17 +448,21 @@ class ControlActividadProceso
             
             if ($fecha_del_dia == $fecha) 
             {
-            $resultado = "table-danger";
+            //$resultado = "table-danger";
+            $resultado = 'style="background-color: #ffb6af"';
             }
             else if ($fecha_del_dia > $fecha) 
             {
-            $resultado = "table-success";  
+            //$resultado = "table-success";  
+            $resultado = 'style="background-color: #b0f2c2"';
             }
             else if ($fecha_del_dia >= $nuevafecha) 
             {
-            $resultado = "table-warning";  
+            //$resultado = "table-warning";  
+            $resultado = 'style="background-color: #fcfcda"';
             }else{
-              $resultado = "table-active";
+              //$resultado = "table-active";
+              $resultado = 'style="background-color: #cfe2ff"';
             }
             
             }
@@ -1777,7 +1782,7 @@ class ControlActividadProceso
       public function editarCalibracionEquipoDispensario($contenido,$id,$input){
 
         if($input == 1){
-            $ValidaFecha = $this->ValidaFecha($contenido,$id,$con);
+            $ValidaFecha = $this->ValidaFecha($contenido,$id);
             if($ValidaFecha == 1){            
             $sql = "UPDATE tb_calibracion_equipos SET
             fecha = '".$contenido."'

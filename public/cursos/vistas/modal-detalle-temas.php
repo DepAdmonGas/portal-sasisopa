@@ -60,18 +60,20 @@ $NumTema = $row1['num_tema'];
 $titulo = $row1['titulo'];
 }*/
 ?>
-<div class="modal-header">
-<h5 class="modal-title">Modulo <?=$TituloModulo;?></h5>
-<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+<div class="modal-header" style="background: #215d98">
+  <h4 class="modal-title text-white">Modulo <?=$TituloModulo;?></h4>
+  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
+
 <div class="modal-body"> 
 <h5>Tema <?=$TituloTema;?></h5>
 
 <table class="table table-sm table-striped">
 	<thead>
-		<tr>
-			<th>Fecha</th>
-			<th>Resultado</th>
+		<tr class="bg-primary text-white">
+			<th class="text-center">Fecha</th>
+			<th class="text-center">Resultado</th>
 			<th class="text-center">Reconocimiento</th>
 		</tr>
 	</thead>
@@ -106,8 +108,8 @@ $titulo = $row1['titulo'];
 		}
 
 	echo '<tr>
-	<td class="align-middle">'.FormatoFecha($row['fecha_programada']).'</td>
-	<td class="'.$Color.' align-middle"><b>'.$Titulo.'</b></td>
+	<td class="align-middle text-center">'.FormatoFecha($row['fecha_programada']).'</td>
+	<td class="'.$Color.' align-middle text-center"><b>'.$Titulo.'</b></td>
 	<td class="text-center">'.$PDF.'</td>
 	</tr>';
 	}
