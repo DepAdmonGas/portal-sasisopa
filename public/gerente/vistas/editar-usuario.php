@@ -13,7 +13,7 @@ $email = $row_usuarios['email'];
 $usuario = $row_usuarios['usuario'];
 $password = $row_usuarios['password'];
 $idpuesto = $row_usuarios['id_puesto'];
-$respoabilidad_sgm = $row_usuarios['respoabilidad_sgm'];
+$respoabilidad_sgm = $row_usuarios['responsabilidad_sgm'];
 
 $sql_puesto = "SELECT * FROM tb_puestos WHERE id = '$idpuesto' ";
 $result_puesto = mysqli_query($con, $sql_puesto);
@@ -181,6 +181,5 @@ function btnEditarPersonal(idUsuario){
 
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-radius: 0px;">Cancelar</button>
   <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="btnEditarPersonal(<?=$idUsuario;?>)">Guardar Cambios</button>
 </div>

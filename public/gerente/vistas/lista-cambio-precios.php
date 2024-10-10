@@ -10,7 +10,7 @@ $numero_precio = mysqli_num_rows($result_precio);
 ?>
 
 <div style="overflow-y: hidden;">
-<table class="table table-bordered table-striped table-sm table-hover">
+<table id="table_precios" class="table table-bordered table-striped table-sm table-hover">
 <thead>	
 <tr>
 <th class="text-center align-middle">#</th>
@@ -19,7 +19,7 @@ $numero_precio = mysqli_num_rows($result_precio);
 <th class="text-center align-middle">G Super</th>
 <th class="text-center align-middle">G Premium</th>
 <th class="text-center align-middle">G Diesel</th>
-<th class="text-center align-middle"></th>
+<td class='text-center font font-weight-bold align-middle' width='20px'><img src='<?=RUTA_IMG_ICONOS?>eliminar-red-16.png'></td>
 <th class="text-center align-middle"></th>
 </tr>
 </thead>
