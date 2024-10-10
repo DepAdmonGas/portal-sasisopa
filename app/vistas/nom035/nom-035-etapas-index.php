@@ -99,14 +99,14 @@ require('app/help.php');
 
       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
 
-        <div class="card rounded-0">
+        <div class="card rounded-0 border-0">
           <div class="card-body">
-            <h5 class="card-title border-bottom pb-3">Etapa 1</h5>
+            <h4 class="text-primary pb-3">Etapa 1</h4>
 
             <div class="row">
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-2">
                 <div class="p-3 cont-puntos mb-3">
-                  <div class="titulo-punto">1. Política</div>
+                  <div class="text-secondary">1. Política</div>
 
                   <div class="text-end mt-3">
                     <button type="button" class="btn btn-primary rounded-0" onclick="Politica()">Entrar</button>
@@ -117,7 +117,7 @@ require('app/help.php');
 
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-2">
                 <div class="rounded-0 p-3 cont-puntos mb-3">
-                  <div class="titulo-punto">2. Acontecimientos traumáticos severos</div>
+                  <div class="text-secondary">2. Acontecimientos traumáticos severos</div>
 
                   <div class="text-end mt-3">
                     <button type="button" class="btn btn-primary rounded-0" onclick="Acontecimientos()">Entrar</button>
@@ -127,7 +127,7 @@ require('app/help.php');
 
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-2">
                 <div class="rounded-0 p-3 cont-puntos mb-3">
-                  <div class="titulo-punto">3. Resultados ATS</div>
+                  <div class="text-secondary">3. Resultados ATS</div>
 
                   <div class="text-end mt-3">
                     <button type="button" class="btn btn-light rounded-0">Entrar</button>
@@ -145,14 +145,14 @@ require('app/help.php');
       <div class="col-xl-6 col-lg-6 col-md-12 col-12 mb-3">
 
 
-        <div class="card rounded-0">
+        <div class="card rounded-0 border-0">
           <div class="card-body">
-            <h5 class="card-title border-bottom pb-3">Etapa 2</h5>
+            <h4 class="text-primary border-bottom pb-3">Etapa 2</h4>
 
             <div class="row">
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-2">
                 <div class="p-3 cont-puntos mb-3">
-                  <div class="titulo-punto">1. Factores de riesgo psicosocial</div>
+                  <div class="text-secondary">1. Factores de riesgo psicosocial</div>
 
                   <div class="text-end mt-3">
                     <button type="button" class="btn btn-primary rounded-0" onclick="FactoresRS()">Entrar</button>
@@ -163,7 +163,7 @@ require('app/help.php');
 
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-2">
                 <div class="rounded-0 p-3 cont-puntos mb-3">
-                  <div class="titulo-punto">2. Resultados FRP</div>
+                  <div class="text-secondary">2. Resultados FRP</div>
 
                   <div class="text-end mt-3">
                     <button type="button" class="btn btn-light rounded-0">Entrar</button>
@@ -173,7 +173,7 @@ require('app/help.php');
               </div>
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-2">
                 <div class="rounded-0 p-3 cont-puntos mb-3">
-                  <div class="titulo-punto">3. Mejora continua</div>
+                  <div class="text-secondary">3. Mejora continua</div>
 
                   <div class="text-end mt-3">
                     <button type="button" class="btn btn-light rounded-0">Entrar</button>
@@ -183,7 +183,7 @@ require('app/help.php');
 
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-2">
                 <div class="rounded-0 p-3 cont-puntos mb-3">
-                  <div class="titulo-punto">3. Medidas de mitigación</div>
+                  <div class="text-secondary">3. Medidas de mitigación</div>
 
                   <div class="text-end mt-3">
                     <button type="button" class="btn btn-light rounded-0">Entrar</button>
