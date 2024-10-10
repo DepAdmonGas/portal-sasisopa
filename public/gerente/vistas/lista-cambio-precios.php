@@ -10,16 +10,16 @@ $numero_precio = mysqli_num_rows($result_precio);
 ?>
 
 <div style="overflow-y: hidden;">
-<table class="table table-bordered table-striped table-sm table-hover">
+<table id="table_precios" class="table table-bordered table-striped table-sm table-hover">
 <thead>	
-<tr>
+<tr class="bg-primary text-white">
 <th class="text-center align-middle">#</th>
 <th class="text-center align-middle">Fecha</th>
 <th class="text-center align-middle">Hora</th>
 <th class="text-center align-middle">G Super</th>
 <th class="text-center align-middle">G Premium</th>
 <th class="text-center align-middle">G Diesel</th>
-<th class="text-center align-middle"></th>
+<td class="text-center align-middle"></td>
 <th class="text-center align-middle"></th>
 </tr>
 </thead>
