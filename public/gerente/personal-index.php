@@ -240,7 +240,7 @@ require('app/help.php');
     <div class="float-end">
       <div>
         <div class="btn-group dropleft">
-          <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button class="btn btn-primary btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Usuarios
           </button>
           <div class="dropdown-menu">
