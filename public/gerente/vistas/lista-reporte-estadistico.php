@@ -261,7 +261,7 @@ if ($numero_reportenum > 0) {
 
             ?>
             <td class="text-center align-middle">
-              <a onclick="mensaje(<?= $IDfecha; ?>,<?= $idReporteCre; ?>,<?= $numero_mensaje; ?>)" style="cursor: pointer;" data-toggle="tooltip" data-placement="bottom" title="Mensaje">
+              <a onclick="mensaje(<?= $IDfecha; ?>,<?= $idReporteCre; ?>,<?= $numero_mensaje; ?>)" style="cursor: pointer;">
                 <div><span class="badge badge-pill badge-primary" id="totalMensajes" style="font-size: .5em;margin-right: 5px; color: red;"><?= $Nuevo; ?></span>
                 <img src="<?php echo RUTA_IMG_ICONOS . "mensaje-black-16.png"; ?>"></div>
               </a>
@@ -304,7 +304,7 @@ if ($numero_reportenum > 0) {
                 <td class="text-center"><b>' . $TP3VF . '</b></td>
                 <td class="text-center"><b>' . $TP3VC . '</b></td>';
         }
-
+        echo '<td colspan = 3></td>';
         echo '</tr>';
         ?>
       </tbody>
