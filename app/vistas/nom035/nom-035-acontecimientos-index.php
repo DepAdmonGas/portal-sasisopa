@@ -58,7 +58,7 @@ require('app/help.php');
 
     });
 
-    function regresarP(id) {
+    function regresarP() {
       window.history.back();
     }
 
@@ -135,160 +135,160 @@ require('app/help.php');
     <!-- Inicio -->
     <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
       <ol class="breadcrumb breadcrumb-caret">
-        <li class="breadcrumb-item text-primary c-pointer" onclick="regresarP()"><i class="fa-solid fa-chevron-left"></i>NOM-035</li>
-        <li aria-current="page" class="breadcrumb-item active">NOM-035 (ACONTECIMIENTOS TRAUMÁTICOS SEVEROS)</li>
+        <li class="breadcrumb-item text-primary c-pointer" onclick="window.history.go(-2)"><i class="fa-solid fa-house"></i>SASISOPA</li>
+        <li aria-current="page" class="breadcrumb-item C-POINTER" onclick="regresarP()">NOM-035</li>
+        <li aria-current="page" class="breadcrumb-item active">ACONTECIMIENTOS TRAUMÁTICOS SEVEROS</li>
+
       </ol>
     </div>
     <!-- Fin -->
 
-    <h3>NOM-035 (ACONTECIMIENTOS TRAUMÁTICOS SEVEROS)</h3>
+    <h3>ACONTECIMIENTOS TRAUMÁTICOS SEVEROS</h3>
 
-    <div class="card ">
+    <div class="card rounded-0 card-body">
 
-      <div class="card-body">
-
-        <?php
-        $sql_a_c = "SELECT archivo FROM tb_nom_035_archivos WHERE id_estacion = '" . $Session_IDEstacion . "' AND categoria = 'Acontecimientos-t-s' AND nom_archivo = 'acontecimientos-cuestionario' ORDER BY id desc LIMIT 1";
-        $result_a_c = mysqli_query($con, $sql_a_c);
-        $numero_a_c = mysqli_num_rows($result_a_c);
-        if ($numero_a_c > 0) {
-          while ($row_a_c = mysqli_fetch_array($result_a_c, MYSQLI_ASSOC)) {
-            $acontecimiento_c = $row_a_c['archivo'];
-            $imgcuestionario = '<a target="_BLANK" href="' . $acontecimiento_c . '"><img src="' . RUTA_IMG_ICONOS . 'pdf.png"></a>';
-          }
-        } else {
-          $imgcuestionario = '<img src="' . RUTA_IMG_ICONOS . 'sin-archivo.png">';
+      <?php
+      $sql_a_c = "SELECT archivo FROM tb_nom_035_archivos WHERE id_estacion = '" . $Session_IDEstacion . "' AND categoria = 'Acontecimientos-t-s' AND nom_archivo = 'acontecimientos-cuestionario' ORDER BY id desc LIMIT 1";
+      $result_a_c = mysqli_query($con, $sql_a_c);
+      $numero_a_c = mysqli_num_rows($result_a_c);
+      if ($numero_a_c > 0) {
+        while ($row_a_c = mysqli_fetch_array($result_a_c, MYSQLI_ASSOC)) {
+          $acontecimiento_c = $row_a_c['archivo'];
+          $imgcuestionario = '<a target="_BLANK" href="' . $acontecimiento_c . '"><img src="' . RUTA_IMG_ICONOS . 'pdf.png"></a>';
         }
+      } else {
+        $imgcuestionario = '<img src="' . RUTA_IMG_ICONOS . 'sin-archivo.png">';
+      }
 
-        $sql_a_ts = "SELECT archivo FROM tb_nom_035_archivos WHERE id_estacion = '" . $Session_IDEstacion . "' AND categoria = 'Acontecimientos-t-s' AND nom_archivo = 'acontecimientos-triptico' ORDER BY id desc LIMIT 1";
-        $result_a_ts = mysqli_query($con, $sql_a_ts);
-        $numero_a_ts = mysqli_num_rows($result_a_ts);
-        if ($numero_a_ts > 0) {
-          while ($row_a_ts = mysqli_fetch_array($result_a_ts, MYSQLI_ASSOC)) {
-            $acontecimiento_ts = $row_a_ts['archivo'];
-            $imgtriptico = '<a target="_BLANK" href="' . $acontecimiento_ts . '"><img src="' . RUTA_IMG_ICONOS . 'pdf.png"></a>';
-          }
-        } else {
-          $imgtriptico = '<img src="' . RUTA_IMG_ICONOS . 'sin-archivo.png">';
+      $sql_a_ts = "SELECT archivo FROM tb_nom_035_archivos WHERE id_estacion = '" . $Session_IDEstacion . "' AND categoria = 'Acontecimientos-t-s' AND nom_archivo = 'acontecimientos-triptico' ORDER BY id desc LIMIT 1";
+      $result_a_ts = mysqli_query($con, $sql_a_ts);
+      $numero_a_ts = mysqli_num_rows($result_a_ts);
+      if ($numero_a_ts > 0) {
+        while ($row_a_ts = mysqli_fetch_array($result_a_ts, MYSQLI_ASSOC)) {
+          $acontecimiento_ts = $row_a_ts['archivo'];
+          $imgtriptico = '<a target="_BLANK" href="' . $acontecimiento_ts . '"><img src="' . RUTA_IMG_ICONOS . 'pdf.png"></a>';
         }
+      } else {
+        $imgtriptico = '<img src="' . RUTA_IMG_ICONOS . 'sin-archivo.png">';
+      }
 
-        $sql_aa = "SELECT archivo FROM tb_nom_035_archivos WHERE id_estacion = '" . $Session_IDEstacion . "' AND categoria = 'Acontecimientos-t-s' AND nom_archivo = 'acontecimientos-acuerdo' ORDER BY id desc LIMIT 1";
-        $result_aa = mysqli_query($con, $sql_aa);
-        $numero_aa = mysqli_num_rows($result_aa);
-        if ($numero_aa > 0) {
-          while ($row_aa = mysqli_fetch_array($result_aa, MYSQLI_ASSOC)) {
-            $acontecimientoa = $row_aa['archivo'];
-            $imgacuerdo = '<a target="_BLANK" href="' . $acontecimientoa . '"><img src="' . RUTA_IMG_ICONOS . 'pdf.png"></a>';
-          }
-        } else {
-          $imgacuerdo = '<img src="' . RUTA_IMG_ICONOS . 'sin-archivo.png">';
+      $sql_aa = "SELECT archivo FROM tb_nom_035_archivos WHERE id_estacion = '" . $Session_IDEstacion . "' AND categoria = 'Acontecimientos-t-s' AND nom_archivo = 'acontecimientos-acuerdo' ORDER BY id desc LIMIT 1";
+      $result_aa = mysqli_query($con, $sql_aa);
+      $numero_aa = mysqli_num_rows($result_aa);
+      if ($numero_aa > 0) {
+        while ($row_aa = mysqli_fetch_array($result_aa, MYSQLI_ASSOC)) {
+          $acontecimientoa = $row_aa['archivo'];
+          $imgacuerdo = '<a target="_BLANK" href="' . $acontecimientoa . '"><img src="' . RUTA_IMG_ICONOS . 'pdf.png"></a>';
         }
+      } else {
+        $imgacuerdo = '<img src="' . RUTA_IMG_ICONOS . 'sin-archivo.png">';
+      }
 
-        $sql_rc = "SELECT archivo FROM tb_nom_035_archivos WHERE id_estacion = '" . $Session_IDEstacion . "' AND categoria = 'Acontecimientos-t-s' AND nom_archivo = 'acontecimientos-resultado-cuestionario' ORDER BY id desc LIMIT 1";
-        $result_rc = mysqli_query($con, $sql_rc);
-        $numero_rc = mysqli_num_rows($result_rc);
-        if ($numero_rc > 0) {
-          while ($row_rc = mysqli_fetch_array($result_rc, MYSQLI_ASSOC)) {
-            $acontecimientorc = $row_rc['archivo'];
-            $imgresultadocuestionario = '<a target="_BLANK" href="' . $acontecimientorc . '"><img src="' . RUTA_IMG_ICONOS . 'pdf.png"></a>';
-          }
-        } else {
-          $imgresultadocuestionario = '<img src="' . RUTA_IMG_ICONOS . 'sin-archivo.png">';
+      $sql_rc = "SELECT archivo FROM tb_nom_035_archivos WHERE id_estacion = '" . $Session_IDEstacion . "' AND categoria = 'Acontecimientos-t-s' AND nom_archivo = 'acontecimientos-resultado-cuestionario' ORDER BY id desc LIMIT 1";
+      $result_rc = mysqli_query($con, $sql_rc);
+      $numero_rc = mysqli_num_rows($result_rc);
+      if ($numero_rc > 0) {
+        while ($row_rc = mysqli_fetch_array($result_rc, MYSQLI_ASSOC)) {
+          $acontecimientorc = $row_rc['archivo'];
+          $imgresultadocuestionario = '<a target="_BLANK" href="' . $acontecimientorc . '"><img src="' . RUTA_IMG_ICONOS . 'pdf.png"></a>';
         }
+      } else {
+        $imgresultadocuestionario = '<img src="' . RUTA_IMG_ICONOS . 'sin-archivo.png">';
+      }
 
 
-        ?>
+      ?>
 
-        <div class="row">
+      <div class="row">
 
-          <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 mb-3">
+        <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 mb-3">
 
-            <div class="border p-3" style="font-size: 1.2em">
-              <b>¿Qué son los acontecimientos traumáticos severos?</b></br>
-              Son aquellos sucesos que se presentan de manera repentina y que, por su gravedad pueden ocasionar daños a las instalaciones o al personal.
-              <div class="border-top mt-2 mb-2"></div>
+          <div class="p-1" style="font-size: 1.2em">
+            <b>¿Qué son los acontecimientos traumáticos severos?</b></br>
+            Son aquellos sucesos que se presentan de manera repentina y que, por su gravedad pueden ocasionar daños a las instalaciones o al personal.
+            <div class="border-top mt-2 mb-2"></div>
 
-              <b>¿Cuándo se debe aplicar la Guía I?</b></br>
+            <b>¿Cuándo se debe aplicar la Guía I?</b></br>
 
-              Al menos un mes después de que ocurra un acontecimiento traumático severo
-              <div class="border-top mt-2 mb-2"></div>
-              <b>¿A quién se aplica la Guía I?</b></br>
+            Al menos un mes después de que ocurra un acontecimiento traumático severo
+            <div class="border-top mt-2 mb-2"></div>
+            <b>¿A quién se aplica la Guía I?</b></br>
 
-              Se aplica a los trabajadores involucrados en el acontecimiento
-              <div class="border-top mt-2 mb-2"></div>
-              </br>
-              <b>IMPORTANTE</b>
-              </br>
-              Ten en cuenta que cada pregunta habla de los efectos de los eventos traumáticos severos ocurridos en tus actividades laborales.
-            </div>
-          </div>
-
-
-          <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12">
-
-            <div style="overflow-y: hidden;">
-
-              <table class="table table-bordered table-striped table-sm">
-                <tr>
-                  <td class="align-middle"><b>Guía I. Cuestionario para identificar a los trabajadores que fueron sujetos a acontecimientos traumáticos severos (II.1)</b></td>
-                  <td class="align-middle text-center" width="24" id="td31"><?= $imgcuestionario; ?></td>
-                </tr>
-                <tr>
-                  <td class="align-middle"><b>Tríptico Acontecimientos traumáticos severos</b></td>
-                  <td class="align-middle text-center" width="24" id="td32"><?= $imgtriptico; ?></td>
-                </tr>
-                <tr>
-                  <td class="align-middle"><b>Formato Acuerdo de conformidad</b></td>
-                  <td class="align-middle text-center" width="24" id="td33"><?= $imgacuerdo; ?></td>
-                </tr>
-              </table>
-            </div>
-
-
-
-
-
-            <div class="text-center mb-3">
-              <hr>
-              <small>¡Nota! Escanea los resultados de los cuestionarios y guárdalo para su descarga.</small>
-            </div>
-
-            <div style="overflow-y: hidden;">
-              <table class="table table-bordered table-striped table-sm">
-                <tr>
-                  <td class="align-middle text-center"><b>Resultado de los cuestionarios</b></td>
-                  <td>
-                    <div class="form-inline">
-
-                      <div class="form-group">
-
-                        <div class="row">
-
-                          <div class="col-12 mt-3 mb-3" align="center">
-                            <input type="file" style="font-size: .8em;" id="RCuestionario">
-                          </div>
-                        </div>
-
-                        <div class="col-12" align="center">
-                          <button type="submit" class="btn btn-secondary btn-sm rounded-0" onclick="BTNarchivo(8)">Agregar PDF</button>
-                        </div>
-
-                      </div>
-
-
-                    </div>
-                  </td>
-                  <td class="align-middle text-center" width="24" id="td38"><?= $imgresultadocuestionario; ?></td>
-                </tr>
-              </table>
-            </div>
-
-
-
-
+            Se aplica a los trabajadores involucrados en el acontecimiento
+            <div class="border-top mt-2 mb-2"></div>
+            </br>
+            <b>IMPORTANTE</b>
+            </br>
+            Ten en cuenta que cada pregunta habla de los efectos de los eventos traumáticos severos ocurridos en tus actividades laborales.
           </div>
         </div>
+
+
+        <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12">
+
+          <div style="overflow-y: hidden;">
+
+            <table class="table table-bordered table-striped table-sm">
+              <tr>
+                <td class="align-middle"><b>Guía I. Cuestionario para identificar a los trabajadores que fueron sujetos a acontecimientos traumáticos severos (II.1)</b></td>
+                <td class="align-middle text-center" width="24" id="td31"><?= $imgcuestionario; ?></td>
+              </tr>
+              <tr>
+                <td class="align-middle"><b>Tríptico Acontecimientos traumáticos severos</b></td>
+                <td class="align-middle text-center" width="24" id="td32"><?= $imgtriptico; ?></td>
+              </tr>
+              <tr>
+                <td class="align-middle"><b>Formato Acuerdo de conformidad</b></td>
+                <td class="align-middle text-center" width="24" id="td33"><?= $imgacuerdo; ?></td>
+              </tr>
+            </table>
+          </div>
+
+
+
+
+
+          <div class="text-center mb-3">
+            <hr>
+            <small>¡Nota! Escanea los resultados de los cuestionarios y guárdalo para su descarga.</small>
+          </div>
+
+          <div style="overflow-y: hidden;">
+            <table class="table table-bordered table-striped table-sm">
+              <tr>
+                <td class="align-middle text-center"><b>Resultado de los cuestionarios</b></td>
+                <td>
+                  <div class="form-inline">
+
+                    <div class="form-group">
+
+                      <div class="row">
+
+                        <div class="col-12 mt-3 mb-3" align="center">
+                          <input type="file" style="font-size: .8em;" id="RCuestionario">
+                        </div>
+                      </div>
+
+                      <div class="col-12" align="center">
+                        <button type="submit" class="btn btn-secondary btn-sm rounded-0" onclick="BTNarchivo(8)">Agregar PDF</button>
+                      </div>
+
+                    </div>
+
+
+                  </div>
+                </td>
+                <td class="align-middle text-center" width="24" id="td38"><?= $imgresultadocuestionario; ?></td>
+              </tr>
+            </table>
+          </div>
+
+
+
+
+        </div>
       </div>
+
     </div>
 
 
