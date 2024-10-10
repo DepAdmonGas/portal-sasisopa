@@ -12,14 +12,16 @@ require('app/help.php');
   <link rel="apple-touch-icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
   <link rel="stylesheet" href="<?=RUTA_CSS?>alertify.css">
   <link rel="stylesheet" href="<?=RUTA_CSS?>themes/default.rtl.css">
-  <link href="<?=RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?=RUTA_CSS ?>bootstrap.css" />
   <link rel="stylesheet" href="<?=RUTA_CSS?>componentes.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
   <script type="text/javascript" src="<?=RUTA_JS?>alertify.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.0.3/b-3.0.1/b-colvis-3.0.1/b-html5-3.0.1/b-print-3.0.1/datatables.min.css" rel="stylesheet">
   <style media="screen">
   .LoaderPage {
   position: fixed;
@@ -174,42 +176,39 @@ require('app/help.php');
     <div class="LoaderPage"></div>
 
     <div class="fixed-top navbar-admin">
-    <?php require('public/componentes/header.menu.php'); ?>
+    <?php require('app/vistas/componentes/navbar-perfil.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-     
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
+      <!-- Inicio -->
+      <div class="float-end">
+      <div class="dropdown dropdown-sm d-inline ms-2">
+      <button type="button" class="btn dropdown-toggle btn-primary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="fa-solid fa-screwdriver-wrench"></i></span>
+      </button>
+      <ul class="dropdown-menu">
+      <li onclick="modalNuevo(<?=$fecha_year;?>,14)"><a class="dropdown-item c-pointer"> <i class="fa-solid fa-plus"></i> Agregar</a></li>
+      <li onclick="modalBuscar(15)"><a class="dropdown-item c-pointer"> <i class="fa-solid fa-magnifying-glass"></i> Buscar</a></li>
+      </ul>
       </div>
-    <div class="float-left"><h4>Programa anual de verificación de equipos</h4></div>
-    <div class="float-right">
+      </div>
+      <!-- Fin -->
 
-     <a class="mr-2" onclick="modalBuscar(15)" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Buscar" >
-    <img src="<?php echo RUTA_IMG_ICONOS."buscar-icono.png"; ?>">
-    </a> 
+      <!-- Inicio -->
+      <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
+      <ol class="breadcrumb breadcrumb-caret">
+      <li class="breadcrumb-item text-primary c-pointer" onclick="window.history.go(-2);"><i class="fa-solid fa-house"></i> SGM</li>
+      <li aria-current="page" class="breadcrumb-item c-pointer" onclick="regresarP()">7. Procesos de medición</li>
+      <li aria-current="page" class="breadcrumb-item active">Programa anual de verificación de equipos</li>
+      </ol>
+      </div>
+      <!-- Fin -->
 
-    <a class="" onclick="modalNuevo(<?=$fecha_year;?>,15)" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Agregar" >
-    <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
-    </a> 
+      <h3>Programa anual de verificación de equipos</h3>
 
-    </div>
-    </div>
-   
-    <div class="card-body">
+      <div class="bg-white mt-3 p-3"><div id="ListaProgramaAnual"></div></div>
 
-      <div id="ListaProgramaAnual"></div>
-
-    </div>
-    
-    </div>
-    </div>
-    </div>
     </div>
 
     <div class="modal fade bd-example-modal-lg" id="modalPrincipal" data-backdrop="static">
@@ -221,6 +220,10 @@ require('app/help.php');
     </div>
  
   <script src="<?php echo RUTA_JS ?>bootstrap.min.js"></script>
+  <!---------- LIBRERIAS DEL DATATABLE ---------->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.0.3/b-3.0.1/b-colvis-3.0.1/b-html5-3.0.1/b-print-3.0.1/datatables.min.js"></script>
   </body>
   </html>
 

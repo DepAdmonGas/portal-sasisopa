@@ -151,14 +151,15 @@ equipoBitacora($GET_idRegistro,$programaAnual['idestacion'],$programaAnual['nomb
   <link rel="apple-touch-icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
   <link rel="stylesheet" href="<?=RUTA_CSS?>alertify.css">
   <link rel="stylesheet" href="<?=RUTA_CSS?>themes/default.rtl.css">
-  <link href="<?=RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?=RUTA_CSS ?>bootstrap.css" />
   <link rel="stylesheet" href="<?=RUTA_CSS?>componentes.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
   <script type="text/javascript" src="<?=RUTA_JS?>alertify.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
   <style media="screen">
   .LoaderPage {
   position: fixed;
@@ -246,141 +247,134 @@ equipoBitacora($GET_idRegistro,$programaAnual['idestacion'],$programaAnual['nomb
     <div class="LoaderPage"></div>
 
     <div class="fixed-top navbar-admin">
-    <?php require('public/componentes/header.menu.php'); ?>
+    <?php require('app/vistas/componentes/navbar-perfil.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-     
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-      </div>
-    <div class="float-left"><h4>Bitácora la para la calibración de equipos</h4></div>
+    <!-- Inicio -->
+    <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
+    <ol class="breadcrumb breadcrumb-caret">
+    <li class="breadcrumb-item text-primary c-pointer" onclick="window.history.go(-3);"><i class="fa-solid fa-house"></i> SGM</li>
+    <li aria-current="page" class="breadcrumb-item c-pointer" onclick="regresarP(-2)">7. Procesos de medición</li>
+    <li aria-current="page" class="breadcrumb-item c-pointer" onclick="regresarP()">Bitácora la para la calibración de equipos</li>
+    <li aria-current="page" class="breadcrumb-item active">Editar</li>
+    </ol>
     </div>
-   
-    <div class="card-body">
+    <!-- Fin -->
 
-      <table class="table table-bordered table-sm">
-        <tbody>
-          <tr>
-            <td class="align-middle" width="700"><b>Fecha:</b></td>
-            <td class="p-0 m-0"><input type="date" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,1)" value="<?=$fecha;?>"></td>
-          </tr>
-          <tr>
-            <td class="align-middle" width="700"><b>Hora:</b></td>
-            <td class="p-0 m-0"><input type="time" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,2)" value="<?=$hora;?>"></td>
-          </tr>
-          <tr>
-            <td class="align-middle" width="700"><b>Nombre del equipo a calibrar:</b></td>
-            <td class="align-middle p-2"><?=$nombreequipo;?></td>
-          </tr>
-          <tr>
-            <td class="align-middle" width="700"><b>Marca:</b></td>
-            <td class="p-0 m-0"><input type="text" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,4)" value="<?=$marca;?>"></td>
-          </tr>
-          <tr>
-            <td class="align-middle" width="700"><b>Capacidad:</b></td>
-            <td class="p-0 m-0"><input type="text" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,5)" value="<?=$capacidad;?>"></td>
-          </tr>
-          <tr>
-            <td class="align-middle" width="700"><b>Producto que almacena:</b></td>
-            <td class="p-0 m-0"><input type="text" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,6)" value="<?=$almacena;?>"></td>
-          </tr>
-          <tr>
-            <td class="align-middle" width="700"><b>Nombre del laboratorio o unidad de verificación encargada de la calibración:</b></td>
-            <td class="p-0 m-0"><input type="text" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,7)" value="<?=$nombre_laboratorio;?>"></td>
-          </tr>
-          <tr>
-            <td class="align-middle" width="700"><b>No de acreditación o aprobación:</b></td>
-            <td class="p-0 m-0"><input type="text" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,8)" value="<?=$no_acreditacion;?>"></td>
-          </tr>
-          <tr>
-            <td class="align-middle" width="700"><b>Método utilizado para la calibración:</b></td>
-            <td class="p-0 m-0"><input type="text" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,9)" value="<?=$metodo_calibracion;?>"></td>
-          </tr>
-        </tbody>
-      </table>
+    <h3>Bitácora la para la calibración de equipos</h3>
 
-      <h5>Descripción de patrones utilizados</h5>
+    <div class="bg-white p-3 mt-3">
 
-      <table class="table table-bordered table-sm">
-        <tbody>
-          <tr>
-            <td class="align-middle" width="700"><b>Nombre del patrón</b></td>
-            <td class="p-0 m-0"><input type="text" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,10)" value="<?=$nombre_patron;?>"></td>
-          </tr>
-          <tr>
-            <td class="align-middle" width="700"><b>Marca y modelo y serie</b></td>
-            <td class="p-0 m-0"><input type="text" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,11)" value="<?=$marca_modelo_serie;?>"></td>
-          </tr>
-          <tr>
-            <td class="align-middle" width="700"><b>Resolución</b></td>
-            <td class="p-0 m-0"><input type="text" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,12)" value="<?=$resolucion;?>"></td>
-          </tr>
-          <tr>
-            <td class="align-middle" width="700"><b>Incertidumbre</b></td>
-            <td class="p-0 m-0"><input type="text" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,13)" value="<?=$incertidumbre;?>"></td>
-          </tr>
-          <tr>
-            <td class="align-middle" width="700"><b>Vigencia de su certificado de calibración</b></td>
-            <td class="p-0 m-0"><input type="text" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,14)" value="<?=$vigencia_certificado;?>"></td>
-          </tr>
-        </tbody>
-      </table>
+<table class="table table-bordered table-sm">
+  <tbody>
+    <tr>
+      <td class="align-middle" width="700"><b>Fecha:</b></td>
+      <td class="p-0 m-0"><input type="date" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,1)" value="<?=$fecha;?>"></td>
+    </tr>
+    <tr>
+      <td class="align-middle" width="700"><b>Hora:</b></td>
+      <td class="p-0 m-0"><input type="time" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,2)" value="<?=$hora;?>"></td>
+    </tr>
+    <tr>
+      <td class="align-middle" width="700"><b>Nombre del equipo a calibrar:</b></td>
+      <td class="align-middle p-2"><?=$nombreequipo;?></td>
+    </tr>
+    <tr>
+      <td class="align-middle" width="700"><b>Marca:</b></td>
+      <td class="p-0 m-0"><input type="text" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,4)" value="<?=$marca;?>"></td>
+    </tr>
+    <tr>
+      <td class="align-middle" width="700"><b>Capacidad:</b></td>
+      <td class="p-0 m-0"><input type="text" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,5)" value="<?=$capacidad;?>"></td>
+    </tr>
+    <tr>
+      <td class="align-middle" width="700"><b>Producto que almacena:</b></td>
+      <td class="p-0 m-0"><input type="text" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,6)" value="<?=$almacena;?>"></td>
+    </tr>
+    <tr>
+      <td class="align-middle" width="700"><b>Nombre del laboratorio o unidad de verificación encargada de la calibración:</b></td>
+      <td class="p-0 m-0"><input type="text" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,7)" value="<?=$nombre_laboratorio;?>"></td>
+    </tr>
+    <tr>
+      <td class="align-middle" width="700"><b>No de acreditación o aprobación:</b></td>
+      <td class="p-0 m-0"><input type="text" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,8)" value="<?=$no_acreditacion;?>"></td>
+    </tr>
+    <tr>
+      <td class="align-middle" width="700"><b>Método utilizado para la calibración:</b></td>
+      <td class="p-0 m-0"><input type="text" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,9)" value="<?=$metodo_calibracion;?>"></td>
+    </tr>
+  </tbody>
+</table>
 
-      <table class="table table-bordered table-sm">
-        <thead>
-          <th>Equipo o Instrumento</th>
-          <th>Identificacion</th>
-          <th>Resultado</th>
-        </thead>
-        <tbody>
-          <?php 
+<h5>Descripción de patrones utilizados</h5>
 
-          $sql_equipo = "SELECT
-          sgm_bitacora_calibracion_equipo_detalle.id,
-          sgm_bitacora_calibracion_equipo_detalle.id_equipo,
-          sgm_bitacora_calibracion_equipo_detalle.resultado,
-          sgm_inventario_equipo.nombre,
-          sgm_inventario_equipo.identificacion
-          FROM sgm_bitacora_calibracion_equipo_detalle 
-          INNER JOIN sgm_inventario_equipo 
-          ON sgm_bitacora_calibracion_equipo_detalle.id_equipo = sgm_inventario_equipo.id
-           WHERE sgm_bitacora_calibracion_equipo_detalle.id_programa = '".$GET_idRegistro."' ";
-          $result_equipo = mysqli_query($con, $sql_equipo);
-          $numero_equipo = mysqli_num_rows($result_equipo);
-          while($row_equipo = mysqli_fetch_array($result_equipo, MYSQLI_ASSOC)){
+<table class="table table-bordered table-sm">
+  <tbody>
+    <tr>
+      <td class="align-middle" width="700"><b>Nombre del patrón</b></td>
+      <td class="p-0 m-0"><input type="text" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,10)" value="<?=$nombre_patron;?>"></td>
+    </tr>
+    <tr>
+      <td class="align-middle" width="700"><b>Marca y modelo y serie</b></td>
+      <td class="p-0 m-0"><input type="text" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,11)" value="<?=$marca_modelo_serie;?>"></td>
+    </tr>
+    <tr>
+      <td class="align-middle" width="700"><b>Resolución</b></td>
+      <td class="p-0 m-0"><input type="text" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,12)" value="<?=$resolucion;?>"></td>
+    </tr>
+    <tr>
+      <td class="align-middle" width="700"><b>Incertidumbre</b></td>
+      <td class="p-0 m-0"><input type="text" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,13)" value="<?=$incertidumbre;?>"></td>
+    </tr>
+    <tr>
+      <td class="align-middle" width="700"><b>Vigencia de su certificado de calibración</b></td>
+      <td class="p-0 m-0"><input type="text" class="form-control border-0" onchange="EditarBitacora(this,<?=$id_bitacora;?>,14)" value="<?=$vigencia_certificado;?>"></td>
+    </tr>
+  </tbody>
+</table>
 
-          echo '<tr>
-          <td>'.$row_equipo['nombre'].'</td>
-          <td>'.$row_equipo['identificacion'].'</td>
-          <td class="p-0 m-0"><input type="text" class="form-control border-0" onchange="EditarBitacora(this,'.$row_equipo['id'].',15)" value="'.$row_equipo['resultado'].'"></td>
-          </tr>';
+<table class="table table-bordered table-sm">
+  <thead>
+    <th>Equipo o Instrumento</th>
+    <th>Identificacion</th>
+    <th>Resultado</th>
+  </thead>
+  <tbody>
+    <?php 
 
-          }
+    $sql_equipo = "SELECT
+    sgm_bitacora_calibracion_equipo_detalle.id,
+    sgm_bitacora_calibracion_equipo_detalle.id_equipo,
+    sgm_bitacora_calibracion_equipo_detalle.resultado,
+    sgm_inventario_equipo.nombre,
+    sgm_inventario_equipo.identificacion
+    FROM sgm_bitacora_calibracion_equipo_detalle 
+    INNER JOIN sgm_inventario_equipo 
+    ON sgm_bitacora_calibracion_equipo_detalle.id_equipo = sgm_inventario_equipo.id
+     WHERE sgm_bitacora_calibracion_equipo_detalle.id_programa = '".$GET_idRegistro."' ";
+    $result_equipo = mysqli_query($con, $sql_equipo);
+    $numero_equipo = mysqli_num_rows($result_equipo);
+    while($row_equipo = mysqli_fetch_array($result_equipo, MYSQLI_ASSOC)){
 
+    echo '<tr>
+    <td>'.$row_equipo['nombre'].'</td>
+    <td>'.$row_equipo['identificacion'].'</td>
+    <td class="p-0 m-0"><input type="text" class="form-control border-0" onchange="EditarBitacora(this,'.$row_equipo['id'].',15)" value="'.$row_equipo['resultado'].'"></td>
+    </tr>';
 
-          ?>
+    }
+    ?>
+  </tbody>
+</table>
 
-        </tbody>
-      </table>
+<div class="text-end">
+<button type="button" class="btn btn-primary rounded-0" onclick="Finalizar(1,<?=$GET_idRegistro;?>,16)">Finalizar bitacora</button>
+</div>
 
-  <div class="text-right">
-  <button type="button" class="btn btn-primary rounded-0" onclick="Finalizar(1,<?=$GET_idRegistro;?>,16)">Finalizar bitacora</button>
   </div>
-
-    </div>
-    
-    </div>
-    </div>
-    </div>
-    </div>
-
-
+  </div>
  
   <script src="<?php echo RUTA_JS ?>bootstrap.min.js"></script>
   </body>

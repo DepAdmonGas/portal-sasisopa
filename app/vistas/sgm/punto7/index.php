@@ -12,14 +12,15 @@ require('app/help.php');
   <link rel="apple-touch-icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
   <link rel="stylesheet" href="<?=RUTA_CSS?>alertify.css">
   <link rel="stylesheet" href="<?=RUTA_CSS?>themes/default.rtl.css">
-  <link href="<?=RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?=RUTA_CSS ?>bootstrap.css" />
   <link rel="stylesheet" href="<?=RUTA_CSS?>componentes.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
   <script type="text/javascript" src="<?=RUTA_JS?>alertify.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
   <style media="screen">
   .LoaderPage {
   position: fixed;
@@ -70,70 +71,73 @@ require('app/help.php');
     <div class="LoaderPage"></div>
 
     <div class="fixed-top navbar-admin">
-    <?php require('public/componentes/header.menu.php'); ?>
+    <?php require('app/vistas/componentes/navbar-perfil.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-     
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
+     <!-- Inicio -->
+      <div class="float-end">
+      <div class="dropdown dropdown-sm d-inline ms-2">
+      <button type="button" class="btn dropdown-toggle btn-primary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="fa-solid fa-screwdriver-wrench"></i></span>
+      </button>
+      <ul class="dropdown-menu">
+      <li onclick="btnAyuda()"><a class="dropdown-item c-pointer"> <i class="fa-regular fa-circle-question"></i> Ayuda</a></li>
+      </ul>
       </div>
-    <div class="float-left"><h4>7. Procesos de medición</h4></div>
+      </div>
+      <!-- Fin -->
 
-    <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
-    <a onclick="btnAyuda()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Ayuda" >
-    <img src="<?php echo RUTA_IMG_ICONOS."info.png"; ?>">
-    </a> 
-    </div>
-    </div>
-   
-    <div class="card-body">
+      <!-- Inicio -->
+      <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
+      <ol class="breadcrumb breadcrumb-caret">
+      <li class="breadcrumb-item text-primary c-pointer" onclick="regresarP()"><i class="fa-solid fa-house"></i> SGM</li>
+      <li aria-current="page" class="breadcrumb-item active">7. Procesos de medición</li>
+      </ol>
+      </div>
+      <!-- Fin -->
+
+      <h3>7. Procesos de medición</h3>
+
+      <div class="mt-3">
 
       <div class="row">
         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-         <div class="bg-primary p-3 text-white" onclick="ProgramaAnualCalibracion()">
+        <div class="bg-primary p-3 text-white" onclick="ProgramaAnualCalibracion()">
           <h5>1. Programa anual de calibración de patrones e instrumentos de medida</h5>
-         </div>
+        </div>
         </div>
 
         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
           <div class="bg-info p-3 text-white" onclick="BitacoraCalibracionEquipos()">
           <h5>2.  Bitácora la para la calibración de equipos </h5>
-         </div>
+        </div>
         </div>
 
         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
           <div class="bg-primary p-3 text-white" onclick="ProgramaAnualVerificacionEquipo()">
           <h5>3.  Programa anual de verificación de equipos</h5>
-         </div>
+        </div>
         </div>
 
         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
           <div class="bg-info p-3 text-white" onclick="BitacoraVerificacionEquipo()">
           <h5>4.  Bitácora para la verificación de equipos de medicion</h5>
-         </div>
+        </div>
         </div>
       </div>
 
-    </div>
-    </div>
-    </div>
-    </div>
+      </div>
+
     </div>
 
         <div class="modal fade bd-example-modal-lg" id="myModal" >
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content" style="border-radius: 0px;border: 0px;">
-        <div class="modal-header">
-          <h4 class="modal-title">Ayuda</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <div class="modal-header rounded-0 head-modal">
+          <h4 class="modal-title text-white">Ayuda</h4>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
 

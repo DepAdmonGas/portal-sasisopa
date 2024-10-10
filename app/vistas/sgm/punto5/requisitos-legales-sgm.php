@@ -630,8 +630,8 @@ function(){
      <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
       <ol class="breadcrumb breadcrumb-caret">
       <li class="breadcrumb-item text-primary c-pointer" onclick="window.history.go(-2);"><i class="fa-solid fa-house"></i> SGM</li>
-      <li aria-current="page" class="breadcrumb-item active c-pointer" onclick="regresarP()">5. Normatividad aplicable a mediciones</li>
-      <li aria-current="page" class="breadcrumb-item">Requisitos Legales</li>
+      <li aria-current="page" class="breadcrumb-item c-pointer" onclick="regresarP()">5. Normatividad aplicable a mediciones</li>
+      <li aria-current="page" class="breadcrumb-item active">Requisitos Legales</li>
       </ol>
       </div>
       <!-- Fin -->
