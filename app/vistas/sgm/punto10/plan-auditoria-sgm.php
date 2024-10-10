@@ -88,20 +88,20 @@ $realizadopor = $row['realizadopor'];
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>SGM</title>
-  <meta name="description" content="">
   <meta name="viewport" content="width=device-width initial-scale=1.0">
   <link rel="shortcut icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
   <link rel="apple-touch-icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
   <link rel="stylesheet" href="<?=RUTA_CSS?>alertify.css">
   <link rel="stylesheet" href="<?=RUTA_CSS?>themes/default.rtl.css">
-  <link href="<?=RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?=RUTA_CSS ?>bootstrap.css" />
   <link rel="stylesheet" href="<?=RUTA_CSS?>componentes.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
   <script type="text/javascript" src="<?=RUTA_JS?>alertify.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
   <style media="screen">
   .LoaderPage {
   position: fixed;
@@ -467,160 +467,159 @@ function GuardarAuxiliar(id){
     <div class="LoaderPage"></div>
 
     <div class="fixed-top navbar-admin">
-    <?php require('public/componentes/header.menu.php'); ?>
+    <?php require('app/vistas/componentes/navbar-perfil.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-     
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
+      <!-- Inicio -->
+      <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
+      <ol class="breadcrumb breadcrumb-caret">
+      <li class="breadcrumb-item text-primary c-pointer" onclick="window.history.go(-2);"><i class="fa-solid fa-house"></i> SGM</li>
+      <li aria-current="page" class="breadcrumb-item c-pointer" onclick="regresarP()">10. Auditorias, Internas, externas y Atención de hallazgos</li>
+      <li aria-current="page" class="breadcrumb-item active">Plan de Auditori</li>
+      </ol>
       </div>
-    <div class="float-left"><h4>Plan de Auditoria</h4></div>
-    </div>
-   
-    <div class="card-body">
+      <!-- Fin -->
 
-      <table class="table table-bordered table-sm mb-0">
-        <tbody>
-          <tr class="bg-secondary text-white">
-            <td colspan="3"><b>I. DATOS GENERALES DEL PERMISIONARIO</b></td>
-          </tr>
-          <tr>
-            <td class="align-middle bg-light">NOMBRE, DENOMINACIÓN O RAZÓN SOCIAL:</td>
-            <td class="align-middle bg-light">Permiso CRE:</td>
-            <td class="align-middle bg-light">FECHA DE ELABORACIÓN:</td>
-          </tr>
-          <tr>
-            <td class="align-middle bg-light"><?=$Session_Razonsocial;?></td>
-            <td class="align-middle bg-light"><?=$Session_Permisocre;?></td>
-            <td class="p-0 m-0"><input type="date" class="form-control border-0" value="<?=$fecha;?>" onchange="Editar(this,<?=$id;?>,1)"></td>
-          </tr>
-          <tr>
-            <td class="align-middle bg-light">NOMBRE DEL DIRECTOR (ALTA DIRECCIÓN):</td>
-            <td colspan="2" class="p-0 m-0"><input type="text" class="form-control border-0" value="<?=$nom_director;?>" onkeyup="Editar(this,<?=$id;?>,2)"></td>
-          </tr>
+      <h3>Plan de Auditori</h3>
 
-          <tr>
-            <td class="align-middle bg-light">NOMBRE DEL(LOS) RESPONSABLE DEL SGM</td>
-            <td colspan="2" class="p-0 m-0">
-               <div id="ListaPersonalResponsable"></div>
-            </td>
-          </tr>
+      <div class="bg-white p-3 mt-3">
 
-           <tr>
-            <td class="align-middle bg-light">UBICACIÓN DE LA INSTALACIÓN</td>
-            <td colspan="2" class="p-0 m-0"><input type="text" class="form-control border-0" value="<?=$ubicacion_instalacion;?>" onkeyup="Editar(this,<?=$id;?>,3)"></td>
-          </tr>
-        </tbody>
-      </table>
+<table class="table table-bordered table-sm mb-0">
+  <tbody>
+    <tr class="bg-secondary text-white">
+      <td colspan="3"><b>I. DATOS GENERALES DEL PERMISIONARIO</b></td>
+    </tr>
+    <tr>
+      <td class="align-middle bg-light">NOMBRE, DENOMINACIÓN O RAZÓN SOCIAL:</td>
+      <td class="align-middle bg-light">Permiso CRE:</td>
+      <td class="align-middle bg-light">FECHA DE ELABORACIÓN:</td>
+    </tr>
+    <tr>
+      <td class="align-middle bg-light"><?=$Session_Razonsocial;?></td>
+      <td class="align-middle bg-light"><?=$Session_Permisocre;?></td>
+      <td class="p-0 m-0"><input type="date" class="form-control border-0" value="<?=$fecha;?>" onchange="Editar(this,<?=$id;?>,1)"></td>
+    </tr>
+    <tr>
+      <td class="align-middle bg-light">NOMBRE DEL DIRECTOR (ALTA DIRECCIÓN):</td>
+      <td colspan="2" class="p-0 m-0"><input type="text" class="form-control border-0" value="<?=$nom_director;?>" onkeyup="Editar(this,<?=$id;?>,2)"></td>
+    </tr>
 
-      <div class="text-right mt-3 mb-3"><a onclick="modalEquipo(<?=$id;?>,1)" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Agregar registro"><img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>"></a></div>
+    <tr>
+      <td class="align-middle bg-light">NOMBRE DEL(LOS) RESPONSABLE DEL SGM</td>
+      <td colspan="2" class="p-0 m-0">
+         <div id="ListaPersonalResponsable"></div>
+      </td>
+    </tr>
 
-      <div id="ListaAuditor"></div>
+     <tr>
+      <td class="align-middle bg-light">UBICACIÓN DE LA INSTALACIÓN</td>
+      <td colspan="2" class="p-0 m-0"><input type="text" class="form-control border-0" value="<?=$ubicacion_instalacion;?>" onkeyup="Editar(this,<?=$id;?>,3)"></td>
+    </tr>
+  </tbody>
+</table>
 
-      <div class="text-right mt-3 mb-3"><a onclick="modalEquipo(<?=$id;?>,2)" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Agregar registro"><img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>"></a></div>
+<div class="text-end mt-3 mb-3"><a onclick="modalEquipo(<?=$id;?>,1)" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Agregar registro"><img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>"></a></div>
 
-      <div id="ListaAuxiliar"></div>
+<div id="ListaAuditor"></div>
 
-          <table class="table table-sm table-bordered mb-0">
-            <tbody>
-           <tr class="bg-secondary text-white">
-            <td colspan="3"><b>IV Auditoria</b></td>
-          </tr>
+<div class="text-end mt-3 mb-3"><a onclick="modalEquipo(<?=$id;?>,2)" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Agregar registro"><img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>"></a></div>
 
-          <tr>
-            <td colspan="3" class="bg-light">OBJETIVOS DE LA AUDITORÍA.</td>
-          </tr>
-          <tr>
-            <td colspan="3" class="p-0 m-0"><textarea class="form-control border-0 rounded-0" onkeyup="Editar(this,<?=$id;?>,4)"><?=$objetivo_auditoria;?></textarea></td>
-          </tr>
+<div id="ListaAuxiliar"></div>
 
-          <tr>
-            <td colspan="3" class="bg-light">ALCANCE DE LA AUDITORÍA. </td>
-          </tr>
-          <tr>
-            <td colspan="3" class="p-0 m-0"><textarea class="form-control border-0 rounded-0" onkeyup="Editar(this,<?=$id;?>,5)"><?=$alcance_auditoria;?></textarea></td>
-          </tr>
+    <table class="table table-sm table-bordered mb-0">
+      <tbody>
+     <tr class="bg-secondary text-white">
+      <td colspan="3"><b>IV Auditoria</b></td>
+    </tr>
 
-          <tr>
-            <td colspan="3" class="bg-light">FECHA PROGRAMADA DE AUDITORIA</td>
-          </tr>
-          <tr>
-            <td class="p-0 m-0"><input type="date" class="form-control border-0" value="<?=$fecha_programada;?>" onchange="Editar(this,<?=$id;?>,6)"></td>
-          </tr>
+    <tr>
+      <td colspan="3" class="bg-light">OBJETIVOS DE LA AUDITORÍA.</td>
+    </tr>
+    <tr>
+      <td colspan="3" class="p-0 m-0"><textarea class="form-control border-0 rounded-0" onkeyup="Editar(this,<?=$id;?>,4)"><?=$objetivo_auditoria;?></textarea></td>
+    </tr>
 
-          <tr>
-            <td colspan="3" class="bg-light">SITIO</td>
-          </tr>
-          <tr>
-            <td colspan="3" class="p-0 m-0"><input type="text" class="form-control border-0" value="<?=$sitio;?>" onchange="Editar(this,<?=$id;?>,7)"></td>
-          </tr>
+    <tr>
+      <td colspan="3" class="bg-light">ALCANCE DE LA AUDITORÍA. </td>
+    </tr>
+    <tr>
+      <td colspan="3" class="p-0 m-0"><textarea class="form-control border-0 rounded-0" onkeyup="Editar(this,<?=$id;?>,5)"><?=$alcance_auditoria;?></textarea></td>
+    </tr>
 
-          <tr>
-            <td colspan="3" class="bg-light">MÉTODOS DE AUDITORÍA:</td>
-          </tr>
-          <tr>
-            <td colspan="3" class="p-0 m-0"><textarea class="form-control border-0 rounded-0" onkeyup="Editar(this,<?=$id;?>,8)"><?=$metodo_auditoria;?></textarea></td>
-          </tr>
+    <tr>
+      <td colspan="3" class="bg-light">FECHA PROGRAMADA DE AUDITORIA</td>
+    </tr>
+    <tr>
+      <td class="p-0 m-0"><input type="date" class="form-control border-0" value="<?=$fecha_programada;?>" onchange="Editar(this,<?=$id;?>,6)"></td>
+    </tr>
 
-          <tr>
-            <td colspan="3" class="bg-light">AJUSTES AL PLAN:</td>
-          </tr>
-           <tr>
-            <td colspan="3" class="p-0 m-0"><textarea class="form-control border-0 rounded-0" onkeyup="Editar(this,<?=$id;?>,9)"><?=$ajuste_plan;?></textarea></td>
-          </tr>
+    <tr>
+      <td colspan="3" class="bg-light">SITIO</td>
+    </tr>
+    <tr>
+      <td colspan="3" class="p-0 m-0"><input type="text" class="form-control border-0" value="<?=$sitio;?>" onchange="Editar(this,<?=$id;?>,7)"></td>
+    </tr>
 
-          <tr>
-            <td colspan="3" class="bg-light">ASIGNACIÓN DE RECURSOS APROPIADOS PARA LAS ÁREAS CRÍTICAS, CUANDO APLIQUE:</td>
-          </tr>
-           <tr>
-            <td colspan="3" class="p-0 m-0"><textarea class="form-control border-0 rounded-0" onkeyup="Editar(this,<?=$id;?>,10)"><?=$asignacion_recursos;?></textarea></td>
-          </tr>
+    <tr>
+      <td colspan="3" class="bg-light">MÉTODOS DE AUDITORÍA:</td>
+    </tr>
+    <tr>
+      <td colspan="3" class="p-0 m-0"><textarea class="form-control border-0 rounded-0" onkeyup="Editar(this,<?=$id;?>,8)"><?=$metodo_auditoria;?></textarea></td>
+    </tr>
 
-          <tr>
-            <td colspan="3" class="bg-light">PREPARATIVOS LOGÍSTICOS Y DE COMUNICACIONES (Requisitos para el ingreso a las instalaciones, medidas de seguridad, números de emergencia, lugar de reunión de apertura, lugar de reunión de cierre, transporte y otros requerimientos del Equipo Auditor, como hospedaje, alimentos, entre otros):</td>
-          </tr>
-           <tr>
-            <td colspan="3" class="p-0 m-0"><textarea class="form-control border-0 rounded-0" onkeyup="Editar(this,<?=$id;?>,11)"><?=$preparativos_logisticos;?></textarea></td>
-          </tr>
+    <tr>
+      <td colspan="3" class="bg-light">AJUSTES AL PLAN:</td>
+    </tr>
+     <tr>
+      <td colspan="3" class="p-0 m-0"><textarea class="form-control border-0 rounded-0" onkeyup="Editar(this,<?=$id;?>,9)"><?=$ajuste_plan;?></textarea></td>
+    </tr>
 
-          <tr>
-            <td colspan="3" class="bg-light">ACCIONES DE SEGUIMIENTO A PARTIR DE LA INFORMACIÓN GENERADA EN AUDITORÍAS PREVIAS.</td>
-          </tr>
-           <tr>
-            <td colspan="3" class="p-0 m-0"><textarea class="form-control border-0 rounded-0" onkeyup="Editar(this,<?=$id;?>,12)"><?=$acciones;?></textarea></td>
-          </tr>
+    <tr>
+      <td colspan="3" class="bg-light">ASIGNACIÓN DE RECURSOS APROPIADOS PARA LAS ÁREAS CRÍTICAS, CUANDO APLIQUE:</td>
+    </tr>
+     <tr>
+      <td colspan="3" class="p-0 m-0"><textarea class="form-control border-0 rounded-0" onkeyup="Editar(this,<?=$id;?>,10)"><?=$asignacion_recursos;?></textarea></td>
+    </tr>
 
-        </tbody>
-      </table>
+    <tr>
+      <td colspan="3" class="bg-light">PREPARATIVOS LOGÍSTICOS Y DE COMUNICACIONES (Requisitos para el ingreso a las instalaciones, medidas de seguridad, números de emergencia, lugar de reunión de apertura, lugar de reunión de cierre, transporte y otros requerimientos del Equipo Auditor, como hospedaje, alimentos, entre otros):</td>
+    </tr>
+     <tr>
+      <td colspan="3" class="p-0 m-0"><textarea class="form-control border-0 rounded-0" onkeyup="Editar(this,<?=$id;?>,11)"><?=$preparativos_logisticos;?></textarea></td>
+    </tr>
 
-      <div class="text-right mt-3 mb-3"><a onclick="modalAgenda(<?=$id;?>)" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Agregar registro"><img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>"></a></div>
+    <tr>
+      <td colspan="3" class="bg-light">ACCIONES DE SEGUIMIENTO A PARTIR DE LA INFORMACIÓN GENERADA EN AUDITORÍAS PREVIAS.</td>
+    </tr>
+     <tr>
+      <td colspan="3" class="p-0 m-0"><textarea class="form-control border-0 rounded-0" onkeyup="Editar(this,<?=$id;?>,12)"><?=$acciones;?></textarea></td>
+    </tr>
 
-      <table class="table table-sm table-bordered mb-0">
-        <tbody>
-          <tr>
-            <td colspan="4" class="bg-secondary text-white"><b>V. AGENDA.</b><br>
-            <small>Nota: Elaborar una Agenda para cada sitio a ser auditado.</small>
-            </td>
-          </tr>
-        </tbody>        
-      </table>
-      <div id="ListaAgenda"></div>
+    </tbody>
+  </table>
+
+  <div class="text-end mt-3 mb-3"><a onclick="modalAgenda(<?=$id;?>)" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Agregar registro"><img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>"></a></div>
+
+  <table class="table table-sm table-bordered mb-0">
+    <tbody>
+      <tr>
+        <td colspan="4" class="bg-secondary text-white"><b>V. AGENDA.</b><br>
+        <small>Nota: Elaborar una Agenda para cada sitio a ser auditado.</small>
+        </td>
+      </tr>
+    </tbody>        
+  </table>
+  <div id="ListaAgenda"></div>
 
 
-            <div class="text-right">
-        <button class="btn btn-primary" onclick="Finalizar()">Finalizar Plan de Auditoria</button>      
-      </div>
+        <div class="text-end">
+    <button class="btn btn-primary" onclick="Finalizar()">Finalizar Plan de Auditoria</button>      
+  </div>
 
-    </div>
-    </div>
-    </div>
-    </div>
+  </div>
+
     </div>
 
     <div class="modal fade bd-example-modal-lg" id="modalPrincipal" >

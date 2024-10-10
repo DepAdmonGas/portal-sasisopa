@@ -23,9 +23,9 @@ $result_lista = mysqli_query($con, $sql_lista);
 return $numero_lista = mysqli_num_rows($result_lista);
 }
 ?>
-<table class="table table-bordered table-striped table-hover table-sm">
+<table class="table table-bordered table-striped table-hover table-sm mb-0 pb-0">
 <thead>
-<tr>
+<tr class="bg-primary text-white">
   <th class="text-center align-middle">#</th>
   <th class="text-center align-middle">Año</th>
   <th class="text-center align-middle" colspan="2" width="300px">Fo.SGM.018 Plan de Auditoria</th>

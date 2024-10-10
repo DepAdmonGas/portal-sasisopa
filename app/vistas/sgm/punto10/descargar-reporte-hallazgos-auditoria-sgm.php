@@ -11,11 +11,16 @@ function usuario($usuario,$con){
   ON tb_usuarios.id_puesto = tb_puestos.id WHERE tb_usuarios.id = '".$usuario."' ";
     $result = mysqli_query($con, $sql);
     $numero = mysqli_num_rows($result);
+    if($numero >= 1){
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
     $Nombre = $row['nombre'];
     $puesto = $row['tipo_puesto'];
     $firma = $row['firma'];
-  
+    }else{
+    $Nombre = '';
+    $puesto = '';
+    $firma = '';
+    }
     $array = array('nombre' => $Nombre, 'puesto' => $puesto, 'firma' => $firma);
     return $array;
     }
@@ -25,7 +30,7 @@ $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
 $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 $id = $row['id'];
-$fecha = $row['fecha'];
+$fecha = ($row['fecha'] == '0000-00-00') ?  'S/I' : FormatoFecha($row['fecha']);
 $fecha_ubicacion = $row['fecha_ubicacion'];
 $objetivo_auditoria = $row['objetivo_auditoria'];
 $alcance_auditoria = $row['alcance_auditoria'];
@@ -36,10 +41,11 @@ $conclusiones = $row['conclusiones'];
 $lugar_fecha = $row['lugar_fecha'];
 $auditor_lider = $row['auditor_lider'];
 $responsable_sgm = $row['responsable_sgm'];
-$realizadopor = usuario($row['realizadopor'],$con);
 
+$realizadopor = usuario($row['realizadopor'],$con);
 $nom_auditor = usuario($auditor_lider,$con);
 $nom_responsable = usuario($responsable_sgm, $con);
+
 
 use Dompdf\Dompdf;
 $dompdf = new Dompdf();
@@ -221,82 +227,82 @@ $contenid0 .= '<body';
 
 $contenid0 .= '<div>';
 
-      $contenid0 .= '<table class="table table-bordered">';
-      $contenid0 .= '<tbody>';
-      $contenid0 .= '<tr>';
-      $contenid0 .= '<td class="align-middle text-center" rowspan="2">';
-      $contenid0 .= $Session_Razonsocial;
-      $contenid0 .= '</td>';
-      $contenid0 .= '<td class="align-middle text-center" rowspan="2">';
-      $contenid0 .= '<b>Reporte e Hallazgos de Auditoria</b>';
-      $contenid0 .= '</td>';
-      $contenid0 .= '<td class="align-middle text-center">';
-      $contenid0 .= '<b>Fecha de autorización: 01-01-2024</b>';
-      $contenid0 .= '</td>';
-      $contenid0 .= '</tr>';
-      //------------------------------------------------------------------
-      $contenid0 .= '<tr>';
-      $contenid0 .= '<td class="align-middle text-center">';
-      $contenid0 .= 'Fo.SGM.019';
-      $contenid0 .= '</td>';
-      $contenid0 .= '</tr>';
-      //------------------------------------------------------------------
-      $contenid0 .= '<tr>';
-      $contenid0 .= '<td class="align-middle text-center">';
-      $contenid0 .= 'Realizado por: '.$realizadopor['nombre'];
-      $contenid0 .= '</td>';
-      $contenid0 .= '<td class="align-middle text-center">';
-      $contenid0 .= 'Revisado por:<br> Nelly Estrada Garcia ';
-      $contenid0 .= '</td>';
-      $contenid0 .= '<td class="align-middle text-center">';
-      $contenid0 .= 'Autorizado por:<br> '.$Session_ApoderadoLegal.'';
-      $contenid0 .= '</td>';
-      $contenid0 .= '</tr>';
-      $contenid0 .= '</tbody>';
-      $contenid0 .= '</table>';
+$contenid0 .= '<table class="table table-bordered">';
+$contenid0 .= '<tbody>';
+$contenid0 .= '<tr>';
+$contenid0 .= '<td class="align-middle text-center" rowspan="2">';
+$contenid0 .= $Session_Razonsocial;
+$contenid0 .= '</td>';
+$contenid0 .= '<td class="align-middle text-center" rowspan="2">';
+$contenid0 .= '<b>Reporte e Hallazgos de Auditoria</b>';
+$contenid0 .= '</td>';
+$contenid0 .= '<td class="align-middle text-center">';
+$contenid0 .= '<b>Fecha de autorización: 01-01-2024</b>';
+$contenid0 .= '</td>';
+$contenid0 .= '</tr>';
+//------------------------------------------------------------------
+$contenid0 .= '<tr>';
+$contenid0 .= '<td class="align-middle text-center">';
+$contenid0 .= 'Fo.SGM.019';
+$contenid0 .= '</td>';
+$contenid0 .= '</tr>';
+//------------------------------------------------------------------
+$contenid0 .= '<tr>';
+$contenid0 .= '<td class="align-middle text-center">';
+$contenid0 .= 'Realizado por: '.$realizadopor['nombre'];
+$contenid0 .= '</td>';
+$contenid0 .= '<td class="align-middle text-center">';
+$contenid0 .= 'Revisado por:<br> Eduardo Galicia Flores ';
+$contenid0 .= '</td>';
+$contenid0 .= '<td class="align-middle text-center">';
+$contenid0 .= 'Autorizado por:<br> '.$Session_ApoderadoLegal.'';
+$contenid0 .= '</td>';
+$contenid0 .= '</tr>';
+$contenid0 .= '</tbody>';
+$contenid0 .= '</table>';
 //-----------------------------------------------------------------
 
-      $contenid0 .= '<table class="table table-bordered table-sm pb-0 mb-0 ">
-        <tbody>
-          <tr>
-            <td colspan="3" class="bg-secondary text-white"><b>I. DATOS GENERALES DEL PERMISIONARIO</b></td>
-          </tr>
-          <tr>
-            <td class="align-middle bg-light">NOMBRE, DENOMINACIÓN O RAZÓN SOCIAL:</td>
-            <td class="align-middle bg-light">PERMISO CRE:</td>
-            <td class="align-middle bg-light">FECHA DE ELABORACIÓN:</td>
-          </tr>
-          <tr>
-            <td class="align-middle bg-light">'.$Session_Razonsocial.'</td>
-            <td class="align-middle bg-light">'.$Session_Permisocre.'</td>
-            <td class="align-middle">'.FormatoFecha($fecha).'</td>
-          </tr>
+$contenid0 .= '<table class="table table-bordered table-sm pb-0 mb-0 ">
+<tbody>
+  <tr>
+    <td colspan="3" class="bg-secondary text-white"><b>I. DATOS GENERALES DEL PERMISIONARIO</b></td>
+  </tr>
+  <tr>
+    <td class="align-middle bg-light">NOMBRE, DENOMINACIÓN O RAZÓN SOCIAL:</td>
+    <td class="align-middle bg-light">PERMISO CRE:</td>
+    <td class="align-middle bg-light">FECHA DE ELABORACIÓN:</td>
+  </tr>
+  <tr>
+    <td class="align-middle bg-light">'.$Session_Razonsocial.'</td>
+    <td class="align-middle bg-light">'.$Session_Permisocre.'</td>
+    <td class="align-middle">'.$fecha.'</td>
+  </tr>
 
-          <tr>
-            <td class="align-middle bg-light">NOMBRES DEL RESPONSABLE DEL SGM:</td>
-            <td colspan="2" class="p-0 m-0">';
+  <tr>
+    <td class="align-middle bg-light">NOMBRES DEL RESPONSABLE DEL SGM:</td>
+    <td colspan="2" class="p-0 m-0">';
 
-            $sql_sgmr = "SELECT id_responsable FROM sgm_hallazgo_auditoria_responsable WHERE id_hallazgo = '".$id."' ";
-            $result_sgmr = mysqli_query($con, $sql_sgmr);
-            $numero_sgmr = mysqli_num_rows($result_sgmr);
+    $sql_sgmr = "SELECT id_responsable FROM sgm_hallazgo_auditoria_responsable WHERE id_hallazgo = '".$id."' ";
+    $result_sgmr = mysqli_query($con, $sql_sgmr);
+    $numero_sgmr = mysqli_num_rows($result_sgmr);
 
-            $contenid0 .= '<table class="table table-sm table-bordered p-0 m-0">';
-            while($row_sgmr = mysqli_fetch_array($result_sgmr, MYSQLI_ASSOC)){
+    $contenid0 .= '<table class="table table-sm table-bordered p-0 m-0">';
+    while($row_sgmr = mysqli_fetch_array($result_sgmr, MYSQLI_ASSOC)){
 
-            $nombre_sgmr = usuario($row_sgmr['id_responsable'],$con);
+    $nombre_sgmr = usuario($row_sgmr['id_responsable'],$con);
 
-            $contenid0 .= '<tr>
-            <td><small>'.$nombre_sgmr['nombre'].'</small></td>
-            </tr>';
-            }
-            $contenid0 .= '</table>';
-              
-          $contenid0 .= '</td>
-              </tr>
-              </tbody>
-              </table>';
+    $contenid0 .= '<tr>
+    <td><small>'.$nombre_sgmr['nombre'].'</small></td>
+    </tr>';
+    }
+    $contenid0 .= '</table>';
+      
+    $contenid0 .= '</td>
+      </tr>
+      </tbody>
+      </table>';
 
-        $contenid0 .= '<table class="table table-sm table-bordered mb-0">
+      $contenid0 .= '<table class="table table-sm table-bordered mb-0">
         <tbody>
         <tr>
           <td colspan="2" class="bg-secondary text-white"><b>I.  DATOS DE LA AUDITORÍA</b></td>

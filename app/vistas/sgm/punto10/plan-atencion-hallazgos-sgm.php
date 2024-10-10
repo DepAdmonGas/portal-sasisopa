@@ -125,14 +125,15 @@ $realizadopor = $row['realizadopor'];
   <link rel="apple-touch-icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
   <link rel="stylesheet" href="<?=RUTA_CSS?>alertify.css">
   <link rel="stylesheet" href="<?=RUTA_CSS?>themes/default.rtl.css">
-  <link href="<?=RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?=RUTA_CSS ?>bootstrap.css" />
   <link rel="stylesheet" href="<?=RUTA_CSS?>componentes.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
   <script type="text/javascript" src="<?=RUTA_JS?>alertify.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
   <style media="screen">
   .LoaderPage {
   position: fixed;
@@ -254,23 +255,24 @@ $realizadopor = $row['realizadopor'];
     <div class="LoaderPage"></div>
 
     <div class="fixed-top navbar-admin">
-    <?php require('public/componentes/header.menu.php'); ?>
+    <?php require('app/vistas/componentes/navbar-perfil.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-     
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
+    <!-- Inicio -->
+    <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
+      <ol class="breadcrumb breadcrumb-caret">
+      <li class="breadcrumb-item text-primary c-pointer" onclick="window.history.go(-2);"><i class="fa-solid fa-house"></i> SGM</li>
+      <li aria-current="page" class="breadcrumb-item c-pointer" onclick="regresarP()">10. Auditorias, Internas, externas y Atención de hallazgos</li>
+      <li aria-current="page" class="breadcrumb-item active">Plan de atencion de Hallazgos</li>
+      </ol>
       </div>
-    <div class="float-left"><h4>Plan de atencion de Hallazgos</h4></div>
-    </div>
-   
-    <div class="card-body">
+      <!-- Fin -->
+
+      <h3>Plan de atencion de Hallazgos</h3>
+
+      <div class="bg-white p-3 mt-3">
 
       <table class="table table-bordered table-sm">
         <tbody>
@@ -295,8 +297,8 @@ $realizadopor = $row['realizadopor'];
             <td class="p-0 m-0" colspan="2"><input type="text" class="form-control border-0 rounded-0" value="<?=$sitio_area;?>" onkeyup="Editar(this,<?=$id;?>,2)"></td>
             <td class="p-0 m-0">
 
-               <select class="form-control rounded-0 rounded-0 border-0" onchange="Editar(this,<?=$id;?>,3)">
-               <option value="<?=$responsable;?>"><?=$nom_responsable['nombre'];?></option>
+              <select class="form-control rounded-0 rounded-0 border-0" onchange="Editar(this,<?=$id;?>,3)">
+              <option value="<?=$responsable;?>"><?=$nom_responsable['nombre'];?></option>
                 <?php
                 $sql_res = "SELECT * FROM tb_usuarios WHERE id_gas = '".$Session_IDEstacion."' AND estatus = 0 ";
                 $result_res = mysqli_query($con, $sql_res);
@@ -324,7 +326,7 @@ $realizadopor = $row['realizadopor'];
             <td colspan="3"><b>III. ANÁLISIS DE LA CAUSA RAÍZ</b></td>
           </tr>
           <tr>
-             <td colspan="3" class="p-0 m-0"><textarea class="form-control rounded-0 border-0" onkeyup="Editar(this,<?=$id;?>,5)"><?=$analisis_causa;?></textarea></td>
+            <td colspan="3" class="p-0 m-0"><textarea class="form-control rounded-0 border-0" onkeyup="Editar(this,<?=$id;?>,5)"><?=$analisis_causa;?></textarea></td>
           </tr>
 
           <tr class="bg-secondary text-white">
@@ -369,8 +371,8 @@ $realizadopor = $row['realizadopor'];
           <tr>
             <td class="bg-light">RESPONSABLE DEL SGM:</td>
             <td class="p-0 m-0">
-               <select class="form-control rounded-0 rounded-0 border-0" onchange="Editar(this,<?=$id;?>,10)">
-               <option value="<?=$responsable_sgm;?>"><?=$nom_responsable_sgm['nombre'];?></option>
+              <select class="form-control rounded-0 rounded-0 border-0" onchange="Editar(this,<?=$id;?>,10)">
+              <option value="<?=$responsable_sgm;?>"><?=$nom_responsable_sgm['nombre'];?></option>
                 <?php
                 $sql_res_sgm = "SELECT * FROM tb_usuarios WHERE id_gas = '".$Session_IDEstacion."' AND estatus = 0 ";
                 $result_res_sgm = mysqli_query($con, $sql_res_sgm);
@@ -389,18 +391,15 @@ $realizadopor = $row['realizadopor'];
         </tbody>
       </table>
 
-      <div class="text-right">
+      <div class="text-end">
         <button class="btn btn-primary" onclick="Finalizar()">Finalizar Plan de atencion de Hallazgos</button>      
       </div>
 
 
-    </div>
-    </div>
-    </div>
-    </div>
+      </div>
+
     </div>
 
- 
   <script src="<?php echo RUTA_JS ?>bootstrap.min.js"></script>
   </body>
   </html>

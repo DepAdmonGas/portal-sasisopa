@@ -55,7 +55,7 @@ $numero_bitacora = mysqli_num_rows($result_bitacora);
 $row_bitacora = mysqli_fetch_array($result_bitacora, MYSQLI_ASSOC);
   
   $id = $row_bitacora['id'];
-  $fecha = ($row_bitacora['fecha'] == '0000-00-00') ? FormatoFecha($fecha) : 'S/I';
+  $fecha = ($row['fecha'] == '0000-00-00') ?  'S/I' : FormatoFecha($row['fecha']);
   $hora = $row_bitacora['hora'];
   $no_tanque = $row_bitacora['no_tanque'];
   $marca = $row_bitacora['marca'];

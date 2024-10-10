@@ -152,14 +152,15 @@ validaResultados($id,$con);
   <link rel="apple-touch-icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
   <link rel="stylesheet" href="<?=RUTA_CSS?>alertify.css">
   <link rel="stylesheet" href="<?=RUTA_CSS?>themes/default.rtl.css">
-  <link href="<?=RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?=RUTA_CSS ?>bootstrap.css" />
   <link rel="stylesheet" href="<?=RUTA_CSS?>componentes.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
   <script type="text/javascript" src="<?=RUTA_JS?>alertify.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
   <style media="screen">
   .LoaderPage {
   position: fixed;
@@ -592,234 +593,232 @@ function GuardarHallazgoConforme(id){
     <div class="LoaderPage"></div>
 
     <div class="fixed-top navbar-admin">
-    <?php require('public/componentes/header.menu.php'); ?>
+    <?php require('app/vistas/componentes/navbar-perfil.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-     
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
+      <!-- Inicio -->
+      <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
+      <ol class="breadcrumb breadcrumb-caret">
+      <li class="breadcrumb-item text-primary c-pointer" onclick="window.history.go(-2);"><i class="fa-solid fa-house"></i> SGM</li>
+      <li aria-current="page" class="breadcrumb-item c-pointer" onclick="regresarP()">10. Auditorias, Internas, externas y Atención de hallazgos</li>
+      <li aria-current="page" class="breadcrumb-item active">Reporte e Hallazgos de Auditoria</li>
+      </ol>
       </div>
-    <div class="float-left"><h4>Reporte e Hallazgos de Auditoria</h4></div>
-    </div>
-   
-    <div class="card-body">
+      <!-- Fin -->
 
-      <table class="table table-bordered table-sm mb-0">
-        <tbody>
-          <tr>
-            <td colspan="3" class="bg-secondary text-white"><b>I. DATOS GENERALES DEL PERMISIONARIO</b></td>
-          </tr>
-          <tr>
-            <td class="bg-light">NOMBRE, DENOMINACIÓN O RAZÓN SOCIAL:</td>
-            <td class="bg-light">PERMISO CRE:</td>
-            <td class="bg-light">FECHA DE ELABORACIÓN:</td>
-          </tr>
-          <tr>
-            <td class="bg-light"><?=$Session_Razonsocial;?></td>
-            <td class="bg-light"><?=$Session_Permisocre;?></td>
-            <td class="p-0 m-0"><input type="date" class="form-control border-0 rounded-0" value="<?=$fecha;?>" onchange="Editar(this,<?=$id;?>,1)"></td>
-          </tr>
+      <h3>Reporte e Hallazgos de Auditoria</h3>
 
-          <tr>
-            <td class="align-middle bg-light">NOMBRES DEL RESPONSABLE DEL SGM:</td>
-            <td colspan="2" class="p-0 m-0">
-              <div id="ListaPersonalResponsable"></div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="bg-white mtt-3 p-3">
 
-      <table class="table table-sm table-bordered mb-0">
-        <tbody>
-        <tr>
-          <td colspan="2" class="bg-secondary text-white"><b>I.  DATOS DE LA AUDITORÍA</b></td>
-        </tr>
-        <tr>
-          <td class="bg-light">FECHA Y UBICACIÓN DE LA AUDITORÍA:</td>
-          <td class="p-0 m-0"><input type="text" class="form-control border-0" value="<?=$fecha_ubicacion;?>" onkeyup="Editar(this,<?=$id;?>,2)"></td>
-        </tr>
-        <tr>
-          <td class="bg-light">OBJETIVO DE LA AUDITORÍA:</td>
-          <td class="p-0 m-0"><input type="text" class="form-control border-0" value="<?=$objetivo_auditoria;?>" onkeyup="Editar(this,<?=$id;?>,3)"></td>
-        </tr>
-        <tr>
-          <td class="bg-light">ALCANCE DE LA AUDITORÍA:</td>
-          <td class="p-0 m-0"><input type="text" class="form-control border-0" value="<?=$alcance_auditoria;?>" onkeyup="Editar(this,<?=$id;?>,4)"></td>
-        </tr>
-        </tbody>
-      </table>
+    <table class="table table-bordered table-sm mb-0">
+  <tbody>
+    <tr>
+      <td colspan="3" class="bg-secondary text-white"><b>I. DATOS GENERALES DEL PERMISIONARIO</b></td>
+    </tr>
+    <tr>
+      <td class="bg-light">NOMBRE, DENOMINACIÓN O RAZÓN SOCIAL:</td>
+      <td class="bg-light">PERMISO CRE:</td>
+      <td class="bg-light">FECHA DE ELABORACIÓN:</td>
+    </tr>
+    <tr>
+      <td class="bg-light"><?=$Session_Razonsocial;?></td>
+      <td class="bg-light"><?=$Session_Permisocre;?></td>
+      <td class="p-0 m-0"><input type="date" class="form-control border-0 rounded-0" value="<?=$fecha;?>" onchange="Editar(this,<?=$id;?>,1)"></td>
+    </tr>
 
-      <div class="text-right mt-3 mb-3"><a onclick="modalEntrevistado(<?=$id;?>)" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Agregar registro"><img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>"></a></div>
+    <tr>
+      <td class="align-middle bg-light">NOMBRES DEL RESPONSABLE DEL SGM:</td>
+      <td colspan="2" class="p-0 m-0">
+        <div id="ListaPersonalResponsable"></div>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-      <div id="ListaPersonalEntrevistado"></div>
+<table class="table table-sm table-bordered mb-0">
+  <tbody>
+  <tr>
+    <td colspan="2" class="bg-secondary text-white"><b>I.  DATOS DE LA AUDITORÍA</b></td>
+  </tr>
+  <tr>
+    <td class="bg-light">FECHA Y UBICACIÓN DE LA AUDITORÍA:</td>
+    <td class="p-0 m-0"><input type="text" class="form-control border-0" value="<?=$fecha_ubicacion;?>" onkeyup="Editar(this,<?=$id;?>,2)"></td>
+  </tr>
+  <tr>
+    <td class="bg-light">OBJETIVO DE LA AUDITORÍA:</td>
+    <td class="p-0 m-0"><input type="text" class="form-control border-0" value="<?=$objetivo_auditoria;?>" onkeyup="Editar(this,<?=$id;?>,3)"></td>
+  </tr>
+  <tr>
+    <td class="bg-light">ALCANCE DE LA AUDITORÍA:</td>
+    <td class="p-0 m-0"><input type="text" class="form-control border-0" value="<?=$alcance_auditoria;?>" onkeyup="Editar(this,<?=$id;?>,4)"></td>
+  </tr>
+  </tbody>
+</table>
 
-      <div class="text-right mt-3 mb-3"><a onclick="modalEquipoAuditor(<?=$id;?>)" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Agregar registro"><img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>"></a></div>
+<div class="text-end mt-3 mb-3"><a onclick="modalEntrevistado(<?=$id;?>)" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Agregar registro"><img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>"></a></div>
 
-      <div id="ListaEquipoAuditor"></div>
+<div id="ListaPersonalEntrevistado"></div>
 
-     <table class="table table-sm table-bordered mb-0">
-      <tbody>
-        <tr>
-            <td colspan="3" class="bg-secondary text-white"><b>II.  RESULTADO DE LA AUDITORÍA</b></td>
-          </tr>
-          <tr>
-            <td colspan="3" class="bg-light text-center">
-              ¿Durante la auditoría se revisaron los siguientes elementos?<br>
-              Marcar el resultado como C= Conforme, NC= No Conforme, OM= Oportunidad de Mejora
-            </td>
-          </tr>
-          <tr class="bg-light">
-            <td>No.</td>
-            <td>CRITERIO:</td>
-            <td>RESULTADO:</td>
-          </tr>
-          <?php 
-          $resultado = '';
-          $sql_sgme = "SELECT
-          sgm_hallazgo_auditoria_resultado.id,
-          sgm_hallazgo_auditoria_resultado.id_elemento,
-          sgm_hallazgo_auditoria_resultado.resultado,
-          sgm_elementos.no,
-          sgm_elementos.criterio
-          FROM sgm_hallazgo_auditoria_resultado 
-          INNER JOIN sgm_elementos 
-          ON sgm_hallazgo_auditoria_resultado.id_elemento = sgm_elementos.id
-           WHERE sgm_hallazgo_auditoria_resultado.id_hallazgo = '".$id."' ";
-          $result_sgme = mysqli_query($con, $sql_sgme);
-          $numero_sgme = mysqli_num_rows($result_sgme);
-          while($row_sgme = mysqli_fetch_array($result_sgme, MYSQLI_ASSOC)){
+<div class="text-end mt-3 mb-3"><a onclick="modalEquipoAuditor(<?=$id;?>)" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Agregar registro"><img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>"></a></div>
 
-            if($row_sgme['resultado'] == 'C'){
-              $resultado = 'C= Conforme';
-            }else if($row_sgme['resultado'] == 'NC'){
-              $resultado = 'NC= No Conforme';
-            }else if($row_sgme['resultado'] == 'OM'){
-              $resultado = 'OM= Oportunidad de Mejora';
-            }
+<div id="ListaEquipoAuditor"></div>
 
-          echo '<tr>
-          <td>'.$row_sgme['no'].'</td>
-          <td>'.$row_sgme['criterio'].'</td>
-          <td class="m-0 p-0">
-          <select class="form-control rounded-0 rounded-0 border-0" onchange="Editar(this,'.$row_sgme['id'].',16)">
-          <option value="'.$row_sgme['resultado'].'">'.$resultado.'</option>
-          <option value="C">C= Conforme</option>
-          <option value="NC">NC= No Conforme</option>
-          <option value="OM">OM= Oportunidad de Mejora</option>
-          </select>
-          </td>
-          </tr>';
+<table class="table table-sm table-bordered mb-0">
+<tbody>
+  <tr>
+      <td colspan="3" class="bg-secondary text-white"><b>II.  RESULTADO DE LA AUDITORÍA</b></td>
+    </tr>
+    <tr>
+      <td colspan="3" class="bg-light text-center">
+        ¿Durante la auditoría se revisaron los siguientes elementos?<br>
+        Marcar el resultado como C= Conforme, NC= No Conforme, OM= Oportunidad de Mejora
+      </td>
+    </tr>
+    <tr class="bg-light">
+      <td>No.</td>
+      <td>CRITERIO:</td>
+      <td>RESULTADO:</td>
+    </tr>
+    <?php 
+    $resultado = '';
+    $sql_sgme = "SELECT
+    sgm_hallazgo_auditoria_resultado.id,
+    sgm_hallazgo_auditoria_resultado.id_elemento,
+    sgm_hallazgo_auditoria_resultado.resultado,
+    sgm_elementos.no,
+    sgm_elementos.criterio
+    FROM sgm_hallazgo_auditoria_resultado 
+    INNER JOIN sgm_elementos 
+    ON sgm_hallazgo_auditoria_resultado.id_elemento = sgm_elementos.id
+     WHERE sgm_hallazgo_auditoria_resultado.id_hallazgo = '".$id."' ";
+    $result_sgme = mysqli_query($con, $sql_sgme);
+    $numero_sgme = mysqli_num_rows($result_sgme);
+    while($row_sgme = mysqli_fetch_array($result_sgme, MYSQLI_ASSOC)){
+
+      if($row_sgme['resultado'] == 'C'){
+        $resultado = 'C= Conforme';
+      }else if($row_sgme['resultado'] == 'NC'){
+        $resultado = 'NC= No Conforme';
+      }else if($row_sgme['resultado'] == 'OM'){
+        $resultado = 'OM= Oportunidad de Mejora';
+      }
+
+    echo '<tr>
+    <td>'.$row_sgme['no'].'</td>
+    <td>'.$row_sgme['criterio'].'</td>
+    <td class="m-0 p-0">
+    <select class="form-control rounded-0 rounded-0 border-0" onchange="Editar(this,'.$row_sgme['id'].',16)">
+    <option value="'.$row_sgme['resultado'].'">'.$resultado.'</option>
+    <option value="C">C= Conforme</option>
+    <option value="NC">NC= No Conforme</option>
+    <option value="OM">OM= Oportunidad de Mejora</option>
+    </select>
+    </td>
+    </tr>';
+    }
+
+    ?>
+  
+</tbody>
+</table>
+
+<div class="text-end mt-3 mb-3"><a onclick="modalHallazgoConforme(<?=$id;?>)" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Agregar registro"><img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>"></a></div>
+
+<div id="ListaHallazgoConforme"></div>
+
+
+<div class="text-end mt-3 mb-3"><a onclick="modalMejoras(<?=$id;?>)" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Agregar registro"><img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>"></a></div>
+
+<div id="ListaMejoras"></div>
+
+
+<table class="table table-bordered table-sm">
+<tbody>
+  <tr>
+    <td colspan="2" class="bg-secondary text-white"><b>V. COMENTARIOS</b></td>
+  </tr>
+  <tr><td colspan="2" class="p-0 m-0">
+    <textarea class="form-control border-0" onkeyup="Editar(this,<?=$id;?>,5)"><?=$comentarios;?></textarea>
+  </td></tr>
+
+  <tr>
+    <td colspan="2" class="bg-light">NOTA: EN CASO DE QUE DURANTE LA AUDITORÍA, EL EQUIPO AUDITOR DETECTE UNA SITUACIÓN DE RIESGO PARA LA SEGURIDAD INDUSTRIAL, SEGURIDAD OPERATIVA O PARA EL MEDIO AMBIENTE EN LAS INSTALACIONES DEL REGULADO, DEBERÁ REPORTARLA EN ESTA SECCIÓN.</td>
+  </tr>
+  <tr><td colspan="2" class="p-0 m-0">
+    <textarea class="form-control border-0" onkeyup="Editar(this,<?=$id;?>,6)"><?=$nota;?></textarea>
+  </td></tr>
+
+  <tr>
+    <td colspan="2" class="bg-light">MOTIVOS DE FINALIZACIÓN DE AUDITORÍA ANTES DE TIEMPO (SI APLICA):</td>
+  </tr>
+  <tr><td colspan="2" class="p-0 m-0">
+    <textarea class="form-control border-0" onkeyup="Editar(this,<?=$id;?>,7)"><?=$motivos;?></textarea>
+  </td></tr>
+
+  <tr>
+    <td colspan="2" class="bg-secondary text-white"><b>VI.  CONCLUSIONES</b></td>
+  </tr>
+  <tr><td colspan="2" class="p-0 m-0">
+    <textarea class="form-control border-0" onkeyup="Editar(this,<?=$id;?>,8)"><?=$conclusiones;?></textarea>
+  </td></tr>
+</tbody>      
+</table>
+
+<table class="table table-sm table-bordered">
+<tbody>
+  <tr class="bg-light">
+    <td>Lugar y fecha</td>
+    <td>Auditor lider</td>
+    <td>Responsable del SGM</td>
+  </tr>
+  <tr>
+    <td class="p-0 m-0">
+      <input type="text" class="form-control border-0" value="<?=$lugar_fecha;?>" onkeyup="Editar(this,<?=$id;?>,9)">
+    </td>
+    <td class="p-0 m-0">
+        <select class="form-control rounded-0 rounded-0 border-0" onchange="Editar(this,<?=$id;?>,10)">
+         <option value="<?=$auditor_lider;?>"><?=$nom_auditor['nombre'];?></option>
+          <?php
+          $sql_auditor = "SELECT * FROM tb_usuarios WHERE id_gas = '".$Session_IDEstacion."' AND estatus = 0 ";
+          $result_auditor = mysqli_query($con, $sql_auditor);
+          $numero_auditor = mysqli_num_rows($result_auditor);
+          while($row_auditor = mysqli_fetch_array($result_auditor, MYSQLI_ASSOC)){
+
+          $nom_auditor = $row_auditor['nombre'];
+          
+          echo "<option value='".$row_auditor['id']."'>".$nom_auditor."</option>";
+
           }
+          ?> 
+        </select>
+    </td>
+     <td class="p-0 m-0">
+        <select class="form-control rounded-0 rounded-0 border-0" onchange="Editar(this,<?=$id;?>,11)">
+         <option value="<?=$responsable_sgm;?>"><?=$nom_responsable['nombre'];?></option>
+          <?php
+          $sql_res = "SELECT * FROM tb_usuarios WHERE id_gas = '".$Session_IDEstacion."' AND estatus = 0 ";
+          $result_res = mysqli_query($con, $sql_res);
+          $numero_res = mysqli_num_rows($result_res);
+          while($row_res = mysqli_fetch_array($result_res, MYSQLI_ASSOC)){
 
-          ?>
-        
-      </tbody>
+          $nombre = $row_res['nombre'];
+          
+          echo "<option value='".$row_res['id']."'>".$nombre."</option>";
+
+          }
+          ?> 
+        </select>
+    </td>
+  </tr>
+    </tbody>
     </table>
 
-    <div class="text-right mt-3 mb-3"><a onclick="modalHallazgoConforme(<?=$id;?>)" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Agregar registro"><img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>"></a></div>
-
-    <div id="ListaHallazgoConforme"></div>
-
-
-    <div class="text-right mt-3 mb-3"><a onclick="modalMejoras(<?=$id;?>)" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Agregar registro"><img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>"></a></div>
-
-    <div id="ListaMejoras"></div>
-
-
-    <table class="table table-bordered table-sm">
-      <tbody>
-        <tr>
-          <td colspan="2" class="bg-secondary text-white"><b>V. COMENTARIOS</b></td>
-        </tr>
-        <tr><td colspan="2" class="p-0 m-0">
-          <textarea class="form-control border-0" onkeyup="Editar(this,<?=$id;?>,5)"><?=$comentarios;?></textarea>
-        </td></tr>
-
-        <tr>
-          <td colspan="2" class="bg-light">NOTA: EN CASO DE QUE DURANTE LA AUDITORÍA, EL EQUIPO AUDITOR DETECTE UNA SITUACIÓN DE RIESGO PARA LA SEGURIDAD INDUSTRIAL, SEGURIDAD OPERATIVA O PARA EL MEDIO AMBIENTE EN LAS INSTALACIONES DEL REGULADO, DEBERÁ REPORTARLA EN ESTA SECCIÓN.</td>
-        </tr>
-        <tr><td colspan="2" class="p-0 m-0">
-          <textarea class="form-control border-0" onkeyup="Editar(this,<?=$id;?>,6)"><?=$nota;?></textarea>
-        </td></tr>
-
-        <tr>
-          <td colspan="2" class="bg-light">MOTIVOS DE FINALIZACIÓN DE AUDITORÍA ANTES DE TIEMPO (SI APLICA):</td>
-        </tr>
-        <tr><td colspan="2" class="p-0 m-0">
-          <textarea class="form-control border-0" onkeyup="Editar(this,<?=$id;?>,7)"><?=$motivos;?></textarea>
-        </td></tr>
-
-        <tr>
-          <td colspan="2" class="bg-secondary text-white"><b>VI.  CONCLUSIONES</b></td>
-        </tr>
-        <tr><td colspan="2" class="p-0 m-0">
-          <textarea class="form-control border-0" onkeyup="Editar(this,<?=$id;?>,8)"><?=$conclusiones;?></textarea>
-        </td></tr>
-      </tbody>      
-    </table>
-
-    <table class="table table-sm table-bordered">
-      <tbody>
-        <tr class="bg-light">
-          <td>Lugar y fecha</td>
-          <td>Auditor lider</td>
-          <td>Responsable del SGM</td>
-        </tr>
-        <tr>
-          <td class="p-0 m-0">
-            <input type="text" class="form-control border-0" value="<?=$lugar_fecha;?>" onkeyup="Editar(this,<?=$id;?>,9)">
-          </td>
-          <td class="p-0 m-0">
-              <select class="form-control rounded-0 rounded-0 border-0" onchange="Editar(this,<?=$id;?>,10)">
-               <option value="<?=$auditor_lider;?>"><?=$nom_auditor['nombre'];?></option>
-                <?php
-                $sql_auditor = "SELECT * FROM tb_usuarios WHERE id_gas = '".$Session_IDEstacion."' AND estatus = 0 ";
-                $result_auditor = mysqli_query($con, $sql_auditor);
-                $numero_auditor = mysqli_num_rows($result_auditor);
-                while($row_auditor = mysqli_fetch_array($result_auditor, MYSQLI_ASSOC)){
-
-                $nom_auditor = $row_auditor['nombre'];
-                
-                echo "<option value='".$row_auditor['id']."'>".$nom_auditor."</option>";
-
-                }
-                ?> 
-              </select>
-          </td>
-           <td class="p-0 m-0">
-              <select class="form-control rounded-0 rounded-0 border-0" onchange="Editar(this,<?=$id;?>,11)">
-               <option value="<?=$responsable_sgm;?>"><?=$nom_responsable['nombre'];?></option>
-                <?php
-                $sql_res = "SELECT * FROM tb_usuarios WHERE id_gas = '".$Session_IDEstacion."' AND estatus = 0 ";
-                $result_res = mysqli_query($con, $sql_res);
-                $numero_res = mysqli_num_rows($result_res);
-                while($row_res = mysqli_fetch_array($result_res, MYSQLI_ASSOC)){
-
-                $nombre = $row_res['nombre'];
-                
-                echo "<option value='".$row_res['id']."'>".$nombre."</option>";
-
-                }
-                ?> 
-              </select>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-                <div class="text-right">
-        <button class="btn btn-primary" onclick="Finalizar()">Finalizar Reporte e Hallazgos de Auditoria</button>      
-      </div>
-
+    <div class="text-end">
+      <button class="btn btn-primary" onclick="Finalizar()">Finalizar Reporte e Hallazgos de Auditoria</button>      
     </div>
-    </div>
-    </div>
+
     </div>
     </div>
 
