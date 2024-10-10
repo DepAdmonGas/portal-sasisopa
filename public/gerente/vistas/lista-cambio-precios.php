@@ -12,14 +12,14 @@ $numero_precio = mysqli_num_rows($result_precio);
 <div style="overflow-y: hidden;">
 <table id="table_precios" class="table table-bordered table-striped table-sm table-hover">
 <thead>	
-<tr>
+<tr class="bg-primary text-white">
 <th class="text-center align-middle">#</th>
 <th class="text-center align-middle">Fecha</th>
 <th class="text-center align-middle">Hora</th>
 <th class="text-center align-middle">G Super</th>
 <th class="text-center align-middle">G Premium</th>
 <th class="text-center align-middle">G Diesel</th>
-<td class='text-center font font-weight-bold align-middle' width='20px'><img src='<?=RUTA_IMG_ICONOS?>eliminar-red-16.png'></td>
+<td class="text-center align-middle"></td>
 <th class="text-center align-middle"></th>
 </tr>
 </thead>

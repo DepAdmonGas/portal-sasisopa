@@ -68,7 +68,7 @@ $numero_usuarios = mysqli_num_rows($result_usuarios);
   <div style="overflow-y: hidden;">
     <table id="table_personal" class="table table-bordered table-striped table-hover table-sm" style="font-size: .9em;">
       <thead>
-        <tr>
+        <tr class="bg-primary text-white">
           <th class="text-center">#</th>
           <th class="text-center">Nombre Usuario</th>
           <th class="text-center">Puesto</th>
