@@ -79,7 +79,7 @@ require('app/help.php');
     <!-- Inicio -->
     <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
       <ol class="breadcrumb breadcrumb-caret">
-        <li class="breadcrumb-item text-primary c-pointer" onclick="history.go(-1)"><i class="fa-solid fa-house"></i> SASISOPA</li>
+        <li class="breadcrumb-item text-primary c-pointer" onclick="regresarP()"><i class="fa-solid fa-house"></i> SASISOPA</li>
         <li aria-current="page" class="breadcrumb-item active">REPORTE ESTADÍSTICO DE LA CRE</li>
       </ol>
     </div>
