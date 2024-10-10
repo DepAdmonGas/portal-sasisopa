@@ -205,15 +205,15 @@ $row_bitacora = mysqli_fetch_array($result_bitacora, MYSQLI_ASSOC);
   <link rel="apple-touch-icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
   <link rel="stylesheet" href="<?=RUTA_CSS?>alertify.css">
   <link rel="stylesheet" href="<?=RUTA_CSS?>themes/default.rtl.css">
-  <link href="<?=RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?=RUTA_CSS ?>bootstrap.css" />
   <link rel="stylesheet" href="<?=RUTA_CSS?>componentes.css">
-  <link rel="stylesheet" href="<?=RUTA_CSS?>bootstrap-select.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
   <script type="text/javascript" src="<?=RUTA_JS?>alertify.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
   <style media="screen">
   .LoaderPage {
   position: fixed;
@@ -303,99 +303,97 @@ $row_bitacora = mysqli_fetch_array($result_bitacora, MYSQLI_ASSOC);
     <div class="LoaderPage"></div>
 
     <div class="fixed-top navbar-admin">
-    <?php require('public/componentes/header.menu.php'); ?>
+    <?php require('app/vistas/componentes/navbar-perfil.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-     
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-      </div>
-    <div class="float-left"><h4>Bitácora para la verificación de equipos de medicion</h4></div>
-
+     <!-- Inicio -->
+     <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
+    <ol class="breadcrumb breadcrumb-caret">
+    <li class="breadcrumb-item text-primary c-pointer" onclick="window.history.go(-3);"><i class="fa-solid fa-house"></i> SGM</li>
+    <li aria-current="page" class="breadcrumb-item c-pointer" onclick="regresarP(-2)">7. Procesos de medición</li>
+    <li aria-current="page" class="breadcrumb-item c-pointer" onclick="regresarP()">Bitácora para la verificación de equipos de medicion</li>
+    <li aria-current="page" class="breadcrumb-item active">Editar</li>
+    </ol>
     </div>
-   
-    <div class="card-body">
+    <!-- Fin -->
+
+    <h3>Bitácora para la verificación de equipos de medicion</h3>
+
+    <div class="bg-white p-3 mt-3">
 
     <table class="table table-bordered table-sm">
-        <tbody>
-          <tr>
-            <td class="align-middle" width="1000"><b>Fecha:</b></td>
-            <td class="p-0 m-0"><input type="date" class="form-control border-0" value="<?=$fecha;?>" onchange="Editar(this,<?=$id;?>,1)"></td>
-          </tr>
-          <tr>
-            <td class="align-middle" width="1000"><b>Hora:</b></td>
-            <td class="p-0 m-0"><input type="time" class="form-control border-0" value="<?=$hora;?>" onchange="Editar(this,<?=$id;?>,2)"></td>
-          </tr>
-          <tr class="bg-secondary text-white">
-            <td><b>Verificacion de sensores de nivel y temperatura</b></td>
-            <td><b>Resultado</b></td>
-          </tr>
-          <tr>
-            <td class="align-middle" width="1000"><b>No de tanque:</b></td>
-            <td class="p-0 m-0"><input type="text" class="form-control border-0" value="<?=$no_tanque;?>" onkeyup="Editar(this,<?=$id;?>,3)"></td>
-          </tr>
-          <tr>
-            <td class="align-middle" width="1000"><b>Marca:</b></td>
-            <td class="p-0 m-0"><input type="text" class="form-control border-0" value="<?=$marca;?>" onkeyup="Editar(this,<?=$id;?>,4)"></td>
-          </tr>
-          <tr>
-            <td class="align-middle" width="1000"><b>Capacidad:</b></td>
-            <td class="p-0 m-0"><input type="text" class="form-control border-0" value="<?=$capacidad;?>" onkeyup="Editar(this,<?=$id;?>,5)"></td>
-          </tr>
-          <tr>
-            <td class="align-middle" width="1000"><b>Producto que almacena:</b></td>
-            <td class="p-0 m-0"><input type="text" class="form-control border-0" value="<?=$producto;?>" onkeyup="Editar(this,<?=$id;?>,6)"></td>
-          </tr>
-          <tr>
-            <td class="align-middle" width="1000"><b>La verificación es realizada por personal Interno o Externo, ( en caso de ser externo colocar nombre de la empresa y datos relevantes):</b></td>
-          <td class="p-0 m-0">
-              <textarea class="form-control border-0" onkeyup="Editar(this,<?=$id;?>,7)"><?=$interno_externo;?></textarea>
-          </tr>
-          <tr>
-            <td class="align-middle" width="1000"><b>Al momento de iniciar la calibración se asegura que el producto se encuentre sin movimiento:</b></td>
-            <td class="p-0 m-0"><input type="text" class="form-control border-0" value="<?=$verificacion_movimiento;?>" onkeyup="Editar(this,<?=$id;?>,8)"></td>
-          </tr>
-          <tr>
-            <td class="align-middle" width="1000"><b>Método para determinar el nivel liquido dentro del tanque (Inmersión o medida seca):</b></td>
-            <td class="p-0 m-0"><input type="text" class="form-control border-0" value="<?=$metodo_nivel;?>" onkeyup="Editar(this,<?=$id;?>,9)"></td>
-          </tr>
-        </tbody>
-      </table>
+    <tbody>
+      <tr>
+        <td class="align-middle" width="1000"><b>Fecha:</b></td>
+        <td class="p-0 m-0"><input type="date" class="form-control border-0" value="<?=$fecha;?>" onchange="Editar(this,<?=$id;?>,1)"></td>
+      </tr>
+      <tr>
+        <td class="align-middle" width="1000"><b>Hora:</b></td>
+        <td class="p-0 m-0"><input type="time" class="form-control border-0" value="<?=$hora;?>" onchange="Editar(this,<?=$id;?>,2)"></td>
+      </tr>
+      <tr class="bg-secondary text-white">
+        <td><b>Verificacion de sensores de nivel y temperatura</b></td>
+        <td><b>Resultado</b></td>
+      </tr>
+      <tr>
+        <td class="align-middle" width="1000"><b>No de tanque:</b></td>
+        <td class="p-0 m-0"><input type="text" class="form-control border-0" value="<?=$no_tanque;?>" onkeyup="Editar(this,<?=$id;?>,3)"></td>
+      </tr>
+      <tr>
+        <td class="align-middle" width="1000"><b>Marca:</b></td>
+        <td class="p-0 m-0"><input type="text" class="form-control border-0" value="<?=$marca;?>" onkeyup="Editar(this,<?=$id;?>,4)"></td>
+      </tr>
+      <tr>
+        <td class="align-middle" width="1000"><b>Capacidad:</b></td>
+        <td class="p-0 m-0"><input type="text" class="form-control border-0" value="<?=$capacidad;?>" onkeyup="Editar(this,<?=$id;?>,5)"></td>
+      </tr>
+      <tr>
+        <td class="align-middle" width="1000"><b>Producto que almacena:</b></td>
+        <td class="p-0 m-0"><input type="text" class="form-control border-0" value="<?=$producto;?>" onkeyup="Editar(this,<?=$id;?>,6)"></td>
+      </tr>
+      <tr>
+        <td class="align-middle" width="1000"><b>La verificación es realizada por personal Interno o Externo, ( en caso de ser externo colocar nombre de la empresa y datos relevantes):</b></td>
+      <td class="p-0 m-0">
+          <textarea class="form-control border-0" onkeyup="Editar(this,<?=$id;?>,7)"><?=$interno_externo;?></textarea>
+      </tr>
+      <tr>
+        <td class="align-middle" width="1000"><b>Al momento de iniciar la calibración se asegura que el producto se encuentre sin movimiento:</b></td>
+        <td class="p-0 m-0"><input type="text" class="form-control border-0" value="<?=$verificacion_movimiento;?>" onkeyup="Editar(this,<?=$id;?>,8)"></td>
+      </tr>
+      <tr>
+        <td class="align-middle" width="1000"><b>Método para determinar el nivel liquido dentro del tanque (Inmersión o medida seca):</b></td>
+        <td class="p-0 m-0"><input type="text" class="form-control border-0" value="<?=$metodo_nivel;?>" onkeyup="Editar(this,<?=$id;?>,9)"></td>
+      </tr>
+    </tbody>
+  </table>
 
 
-<table class="table table-bordered table-sm">
-  <?php 
+    <table class="table table-bordered table-sm">
+    <?php 
 
-  echo contenidoTabla($GET_idRegistro,'1. Aspecto a verificar en los patrones de referencia',$con);
-  echo contenidoTabla($GET_idRegistro,'2. Sistema de nivel automático (tirilla del Sistema de Control de Inventarios)',$con);
-  echo contenidoTabla($GET_idRegistro,'3. Medición de la cinta petrolera (en mm) y termómetro (en °C)',$con);
-  echo contenidoTabla($GET_idRegistro,'4. Resultado: Diferencia entre ambas mediciones',$con);
+    echo contenidoTabla($GET_idRegistro,'1. Aspecto a verificar en los patrones de referencia',$con);
+    echo contenidoTabla($GET_idRegistro,'2. Sistema de nivel automático (tirilla del Sistema de Control de Inventarios)',$con);
+    echo contenidoTabla($GET_idRegistro,'3. Medición de la cinta petrolera (en mm) y termómetro (en °C)',$con);
+    echo contenidoTabla($GET_idRegistro,'4. Resultado: Diferencia entre ambas mediciones',$con);
 
-  ?>
-</table>
+    ?>
+    </table>
 
-<div class="bg-light p-3">
-  "<b>Nota 1:</b> Referente al nivel puede existir una variación de +/- 3 mm, sin embargo, para aplicaciones fiscales o de transferencia de custodia, los equipos deben cumplir con un EMP de Â± 4 mm, en todo el intervalo de medición.<br>
-<b>Nota 2:</b> referente a la temperatura puede existir una variación igual o menor de 0.5 °C"   
+    <div class="bg-light p-3">
+    "<b>Nota 1:</b> Referente al nivel puede existir una variación de +/- 3 mm, sin embargo, para aplicaciones fiscales o de transferencia de custodia, los equipos deben cumplir con un EMP de Â± 4 mm, en todo el intervalo de medición.<br>
+    <b>Nota 2:</b> referente a la temperatura puede existir una variación igual o menor de 0.5 °C"   
 
-</div>
+    </div>
 
-  <div class="text-right mt-3">
-  <button type="button" class="btn btn-primary rounded-0" onclick="Finalizar(1,<?=$GET_idRegistro;?>,11)">Finalizar bitacora de verificación</button>
-  </div>
+    <div class="text-end mt-3">
+    <button type="button" class="btn btn-primary rounded-0" onclick="Finalizar(1,<?=$GET_idRegistro;?>,11)">Finalizar bitacora de verificación</button>
+    </div>
 
 
     </div>
-    
-    </div>
-    </div>
-    </div>
+
     </div>
 
     <div class="modal fade bd-example-modal-lg" id="modalAgregarEquipo" data-backdrop="static">

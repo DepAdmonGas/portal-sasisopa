@@ -296,8 +296,8 @@ $S35 = "";
       <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
       <ol class="breadcrumb breadcrumb-caret">
       <li class="breadcrumb-item text-primary c-pointer" onclick="window.history.go(-2);"><i class="fa-solid fa-house"></i> SGM</li>
-      <li aria-current="page" class="breadcrumb-item active c-pointer" onclick="regresarP()">4. Establecimiento de objetivos enfocados al cliente</li>
-      <li aria-current="page" class="breadcrumb-item">Fo.SGM.004 Seguimiento de objetivos e indicadores</li>
+      <li aria-current="page" class="breadcrumb-item c-pointer" onclick="regresarP()">4. Establecimiento de objetivos enfocados al cliente</li>
+      <li aria-current="page" class="breadcrumb-item active">Fo.SGM.004 Seguimiento de objetivos e indicadores</li>
       </ol>
       </div>
       <!-- Fin -->

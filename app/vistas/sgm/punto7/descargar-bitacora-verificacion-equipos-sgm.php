@@ -55,7 +55,7 @@ $numero_bitacora = mysqli_num_rows($result_bitacora);
 $row_bitacora = mysqli_fetch_array($result_bitacora, MYSQLI_ASSOC);
   
   $id = $row_bitacora['id'];
-  $fecha = $row_bitacora['fecha'];
+  $fecha = ($row['fecha'] == '0000-00-00') ?  'S/I' : FormatoFecha($row['fecha']);
   $hora = $row_bitacora['hora'];
   $no_tanque = $row_bitacora['no_tanque'];
   $marca = $row_bitacora['marca'];
@@ -268,7 +268,7 @@ $contenid0 .= '<td class="align-middle text-center">';
 $contenid0 .= 'Realizado por: '.$realizadopor['nombre'];
 $contenid0 .= '</td>';
 $contenid0 .= '<td class="align-middle text-center">';
-$contenid0 .= 'Revisado por:<br> Nelly Estrada Garcia ';
+$contenid0 .= 'Revisado por:<br> Eduardo Galicia Flores ';
 $contenid0 .= '</td>';
 $contenid0 .= '<td class="align-middle text-center">';
 $contenid0 .= 'Autorizado por:<br> '.$Session_ApoderadoLegal.'';
@@ -283,7 +283,7 @@ $contenid0 .= '</table>';
         <tbody>
           <tr>
             <td class="align-middle"><b>Fecha:</b></td>
-            <td class="align-middle">'.FormatoFecha($fecha).'</td>
+            <td class="align-middle">'.$fecha.'</td>
           </tr>
           <tr>
             <td class="align-middle"><b>Hora:</b></td>

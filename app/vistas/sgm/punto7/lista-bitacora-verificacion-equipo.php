@@ -29,34 +29,46 @@ while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 if($row['nombre'] == 'Sensor de nivel y temperatura'){
 if($row['estado'] == 0){
 
-$trColor = 'table-warning';
-$Editar = '<img src="'.RUTA_IMG_ICONOS.'editar.png" style="cursor: pointer;" onclick="Editar('.$row['id'].')">';
-$Detalle = '<img class="grayscale" src="'.RUTA_IMG_ICONOS.'ojo.png">';
-$pdf = '<img class="grayscale" src="'.RUTA_IMG_ICONOS.'pdf.png">';
+$trColor = 'style="background-color: #fbf8ce"';
+$Editar = '<a class="dropdown-item" onclick="Editar('.$row['id'].')"><i class="fa-regular fa-pen-to-square"></i> Editar</a>';
+$Detalle = '<a class="dropdown-item disabled"><i class="fa-regular fa-eye"></i> Detalle</a>';
+$Descargar = '<a class="dropdown-item disabled"><i class="fa-regular fa-file-pdf"></i> Descargar PDF</a>';
 
 }else if($row['estado'] == 1){
-$trColor = 'table-success';
-$Editar = '<img class="grayscale" src="'.RUTA_IMG_ICONOS.'editar.png" onclick="Editar('.$row['id'].')">';
-$Detalle = '<img src="'.RUTA_IMG_ICONOS.'ojo.png" style="cursor: pointer;" onclick="Detalle('.$row['id'].')">';
-$pdf = '<img src="'.RUTA_IMG_ICONOS.'pdf.png" style="cursor: pointer;" onclick="Descargar('.$row['id'].')">';
+$trColor = 'style="background-color: #cffbce"';
+$Editar = '<a class="dropdown-item" onclick="Editar('.$row['id'].')"><i class="fa-regular fa-pen-to-square"></i> Editar</a>';
+$Detalle = '<a class="dropdown-item" onclick="Detalle('.$row['id'].')"><i class="fa-regular fa-eye"></i> Detalle</a>';
+$Descargar = '<a class="dropdown-item" onclick="Descargar('.$row['id'].')"><i class="fa-regular fa-file-pdf"></i> Descargar PDF</a>';
 }
 
 }else{
-$trColor = 'table-light';
-$Editar = '<img class="grayscale" src="'.RUTA_IMG_ICONOS.'editar.png">';
-$Detalle = '<img class="grayscale" src="'.RUTA_IMG_ICONOS.'ojo.png">';
-$pdf = '<img class="grayscale" src="'.RUTA_IMG_ICONOS.'pdf.png">';
+
+$trColor = 'style="background-color: #fefefe"';
+$Editar = '<a class="dropdown-item disabled"><i class="fa-regular fa-pen-to-square"></i> Editar</a>';
+$Detalle = '<a class="dropdown-item disabled"><i class="fa-regular fa-eye"></i> Detalle</a>';
+$Descargar = '<a class="dropdown-item disabled"><i class="fa-regular fa-file-pdf"></i> Descargar PDF</a>';
 
 }
 
-$contenido .= '<tr class="'.$trColor.'">
+$contenido .= '<tr '.$trColor.'>
 <td>'.$row['nombre'].'</td>
 <td>'.$row['periodicidad'].'</td>
-<td>'.FormatoFecha($row['fecha']).'</td>
-<td class="text-center align-middle" width="30">'.$Editar.'</td>
-<td class="text-center align-middle" width="30">'.$Detalle.'</td>
-<td class="text-center align-middle" width="30">'.$pdf.'</td>
-</tr>';
+<td>'.FormatoFecha($row['fecha']).'</td>';
+
+$contenido .= '<td class="text-center align-middle" width="20px" style="cursor: pointer;">
+  <div class="dropdown dropstart">
+  <a class="btn btn-sm btn-icon-only text-dropdown-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+  <i class="fas fa-ellipsis-v"></i>
+  </a>
+  <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+  '.$Editar.'
+  '.$Detalle.'
+  '.$Descargar.'
+  </div>
+  </div>
+  </td>';
+
+  $contenido .= '</tr>';
 
 }
 }else{
@@ -67,15 +79,13 @@ return $contenido;
 }
 ?>
 
-<table class="table table-bordered table-sm mb-0 pb-0 mt-2">
+<table class="table table-bordered table-sm" id="bitacora-verificacion-equipos-medicion">
 <thead>
 <tr class="bg-primary text-white">
 <th>Equipo a calibrar</th>
 <th>Periodicidad</th>
 <th>Fechas programadas</th>
-<th></th>
-<th></th>
-<th></th>
+<th class="text-center align-middle" width="35px"><i class="fas fa-ellipsis-v"></i></th>
 </tr>
 </thead>
 <tbody>

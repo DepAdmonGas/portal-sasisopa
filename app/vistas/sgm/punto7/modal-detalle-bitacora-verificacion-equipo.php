@@ -39,6 +39,9 @@ $row_bitacora = mysqli_fetch_array($result_bitacora, MYSQLI_ASSOC);
   
   $id = $row_bitacora['id'];
   $fecha = $row_bitacora['fecha'];
+
+  $fecha = ($row_bitacora['fecha'] == '0000-00-00') ? FormatoFecha($fecha) : 'S/I';
+
   $hora = $row_bitacora['hora'];
   $no_tanque = $row_bitacora['no_tanque'];
   $marca = $row_bitacora['marca'];
@@ -49,11 +52,9 @@ $row_bitacora = mysqli_fetch_array($result_bitacora, MYSQLI_ASSOC);
   $metodo_nivel = $row_bitacora['metodo_nivel'];
   $realizadopor = $row_bitacora['realizadopor'];
 ?>
-     <div class="modal-header">
-       <h4 class="modal-title">Bitácora para la verificación de equipos de medicion</h4>
-         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-       <span aria-hidden="true">&times;</span>
-     </button>
+     <div class="modal-header rounded-0 head-modal">
+       <h4 class="modal-title text-white">Bitácora para la verificación de equipos de medicion</h4>
+       <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
      </div>
      <div class="modal-body">
 
@@ -62,7 +63,7 @@ $row_bitacora = mysqli_fetch_array($result_bitacora, MYSQLI_ASSOC);
         <tbody>
           <tr>
             <td class="align-middle"><b>Fecha:</b></td>
-            <td class="align-middle"><?=FormatoFecha($fecha);?></td>
+            <td class="align-middle"><?=$fecha;?></td>
           </tr>
           <tr>
             <td class="align-middle"><b>Hora:</b></td>

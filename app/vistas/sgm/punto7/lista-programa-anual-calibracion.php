@@ -63,8 +63,8 @@ return $contenido;
 }
 ?>
 
-    <div class="text-right">
-    <a onclick="DescargarProgramaAnual(<?=$year;?>,<?=$formato;?>)" style="cursor: pointer;"><img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>"></a> 
+    <div class="text-end">
+    <a class="me-1" onclick="DescargarProgramaAnual(<?=$year;?>,<?=$formato;?>)" style="cursor: pointer;"><img src="<?php echo RUTA_IMG_ICONOS."pdf.png"; ?>"></a> 
     </div>
 
 <table class="table table-bordered table-sm mb-0 pb-0 mt-2">

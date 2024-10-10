@@ -11,11 +11,16 @@ function usuario($usuario,$con){
   ON tb_usuarios.id_puesto = tb_puestos.id WHERE tb_usuarios.id = '".$usuario."' ";
     $result = mysqli_query($con, $sql);
     $numero = mysqli_num_rows($result);
+    if($numero >= 1){
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
     $Nombre = $row['nombre'];
     $puesto = $row['tipo_puesto'];
     $firma = $row['firma'];
-  
+    }else{
+    $Nombre = '';
+    $puesto = '';
+    $firma = '';
+    }
     $array = array('nombre' => $Nombre, 'puesto' => $puesto, 'firma' => $firma);
     return $array;
     }
@@ -25,7 +30,7 @@ $result = mysqli_query($con, $sql);
 $numero = mysqli_num_rows($result);
 $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 $id = $row['id'];
-$fecha = $row['fecha'];
+$fecha = ($row['fecha'] == '0000-00-00') ?  'S/I' : FormatoFecha($row['fecha']);
 $sitio_area = $row['sitio_area'];
 
 $responsable = $row['responsable'];
@@ -240,7 +245,7 @@ $contenid0 .= '<div>';
       $contenid0 .= 'Realizado por: '.$realizadopor['nombre'];
       $contenid0 .= '</td>';
       $contenid0 .= '<td class="align-middle text-center">';
-      $contenid0 .= 'Revisado por:<br> Nelly Estrada Garcia ';
+      $contenid0 .= 'Revisado por:<br> Eduardo Galicia Flores ';
       $contenid0 .= '</td>';
       $contenid0 .= '<td class="align-middle text-center">';
       $contenid0 .= 'Autorizado por:<br> '.$Session_ApoderadoLegal.'';
@@ -263,7 +268,7 @@ $contenid0 .= '<div>';
           <tr>
             <td class="bg-light">'.$Session_Razonsocial.'</td>
             <td class="bg-light">'.$Session_Permisocre.'</td>
-            <td class="">'.FormatoFecha($fecha).'</td>
+            <td class="">'.$fecha.'</td>
           </tr>
           <tr>
             <td colspan="2" class="bg-light">SITIO/ÁREA:</td>
