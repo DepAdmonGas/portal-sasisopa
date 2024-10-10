@@ -57,19 +57,19 @@ return $contenido;
   <title>SGM</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width initial-scale=1.0">
-  <link rel="shortcut icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
-  <link rel="apple-touch-icon" href="<?php echo RUTA_IMG_ICONOS ?>/icono-web.png">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>alertify.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>themes/default.rtl.css">
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>componentes.css">
-  <link href="<?php echo RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
-  <link rel="stylesheet" href="<?php echo RUTA_CSS ?>bootstrap-select.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-  <script type="text/javascript" src="<?php echo RUTA_JS ?>alertify.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link rel="shortcut icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
+  <link rel="apple-touch-icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>alertify.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS?>themes/default.rtl.css">
+  <link rel="stylesheet" href="<?=RUTA_CSS ?>bootstrap.css" />
+  <link rel="stylesheet" href="<?=RUTA_CSS?>componentes.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="<?=RUTA_JS?>alertify.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <style media="screen">
   .LoaderPage {
   position: fixed;
@@ -158,51 +158,49 @@ return $contenido;
     <div class="LoaderPage"></div>
 
     <div class="fixed-top navbar-admin">
-    <?php require('public/componentes/header.menu.php'); ?>
+    <?php require('app/vistas/componentes/navbar-perfil.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
-    <div class="row no-gutters">
-     
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-    <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-    <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-    </div>
-    <div class="float-left"><h4>Revisión del SGM, procedimientos y registros</h4></div>
-    </div>
-   
-    <div class="card-body">
-    <?php  
-    echo revision($GET_idRegistro,$con);
-    ?>
-    <h4 class="text-info">SGM</h4>
-    <?php  
-    echo detalleRevision($GET_idRegistro,'SGM',$con);
-    ?>
-    <hr>
-    <h4 class="mt-2 text-info">Procedimientos</h4>
-    <?php  
-    echo detalleRevision($GET_idRegistro,'Procedimientos',$con);
-    ?>
-    <hr>
-    <h4 class="mt-2 text-info">Registros</h4>
-    <?php  
-    echo detalleRevision($GET_idRegistro,'Registros',$con);
+    <div class="magir-top-principal p-3">
 
-    if($estado == 0){
-    echo '<div class="text-right"><button type="button" class="btn btn-primary rounded-0" onclick="finalizar('.$GET_idRegistro.')" >Finalizar Revisión del SGM</button></div>';
-    }
-    ?>
-    
+      <!-- Inicio -->
+      <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
+      <ol class="breadcrumb breadcrumb-caret">
+      <li class="breadcrumb-item text-primary c-pointer" onclick="regresarP()"><i class="fa-solid fa-house"></i> SGM</li>
+      <li aria-current="page" class="breadcrumb-item active">Revisión del SGM, procedimientos y registros</li>
+      </ol>
+      </div>
+      <!-- Fin -->
 
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
+      <h3>Revisión del SGM, procedimientos y registros</h3>
 
+      <div class="bg-white p-3 mt-3">
+
+        <?php  
+        echo revision($GET_idRegistro,$con);
+        ?>
+        <h4 class="text-info">SGM</h4>
+        <?php  
+        echo detalleRevision($GET_idRegistro,'SGM',$con);
+        ?>
+        <hr>
+        <h4 class="mt-2 text-info">Procedimientos</h4>
+        <?php  
+        echo detalleRevision($GET_idRegistro,'Procedimientos',$con);
+        ?>
+        <hr>
+        <h4 class="mt-2 text-info">Registros</h4>
+        <?php  
+        echo detalleRevision($GET_idRegistro,'Registros',$con);
+
+        if($estado == 0){
+        echo '<div class="text-end"><button type="button" class="btn btn-primary rounded-0" onclick="finalizar('.$GET_idRegistro.')" >Finalizar Revisión del SGM</button></div>';
+        }
+        ?>
+
+      </div>
+
+     </div>
        
   <script src="<?php echo RUTA_JS ?>bootstrap.min.js"></script>
   </body>

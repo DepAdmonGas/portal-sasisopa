@@ -215,7 +215,7 @@ $contenid0 .= '<div>';
       $contenid0 .= 'Realizado por: '.$realizadopor['nombre'];
       $contenid0 .= '</td>';
       $contenid0 .= '<td class="align-middle text-center">';
-      $contenid0 .= 'Revisado por:<br> Nelly Estrada Garcia ';
+      $contenid0 .= 'Revisado por:<br> Eduardo Galicia Flores';
       $contenid0 .= '</td>';
       $contenid0 .= '<td class="align-middle text-center">';
       $contenid0 .= 'Autorizado por:<br> '.$Session_ApoderadoLegal.'';

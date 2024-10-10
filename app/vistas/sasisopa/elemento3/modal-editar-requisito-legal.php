@@ -229,7 +229,7 @@ if($row['permiso'] == ""){$per = "";}else{$per = ", ".$row['permiso'];}
 
 </div>
 <div class="modal-footer">
-<button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-radius: 0px;">Cancelar</button>
+<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="border-radius: 0px;">Cancelar</button>
 <button type="button" class="btn btn-primary" style="border-radius: 0px;" onclick="EditarRL(<?=$ID;?>)">Editar</button>
 </div>
 </div>

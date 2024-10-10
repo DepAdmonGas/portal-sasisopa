@@ -10,14 +10,13 @@ $result_telefono1 = mysqli_query($con, $sql_telefono1);
 $numero_telefono1 = mysqli_num_rows($result_telefono1)
 
 ?> 
-<div class="modal-header">
-<h4 class="modal-title">Teléfonos de emergencias</h4>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<div class="modal-header rounded-0 head-modal">
+<h4 class="modal-title text-white">Teléfonos de emergencias</h4>
+<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
 
-<div class="text-right mb-2">
+<div class="text-end mb-2">
 <button type="button" class="btn btn-success btn-sm rounded-0" onclick="BtnNewTelefono()">Nuevo teléfono</button>
 <hr>
 </div>
@@ -36,7 +35,7 @@ $telefono = $row_telefono1['telefono'];
 
 echo "<div class='col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3'>
 <div class='border border-danger p-2'>
-<div class='text-right'><img src='".RUTA_IMG_ICONOS."edit-black-16.png' style='cursor: pointer;' onclick='editartelefono(".$id.")'></div>
+<div class='text-end'><img src='".RUTA_IMG_ICONOS."edit-black-16.png' style='cursor: pointer;' onclick='editartelefono(".$id.")'></div>
 <div class='text-center font-weight-bold'>".$row_telefono1['titulo']."</div>
 <div class='text-center'>".$telefono."</div>
 </div>
@@ -45,13 +44,14 @@ echo "<div class='col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3'>
 ?>
 </div>
 
-<div style="overflow-y: hidden;">
 <table class="table table-bordered table-striped table-hover table-sm mt-2">
 <thead>
+<tr class="bg-primary text-white">
 <th>Servicio de emergencia</th>
 <th class="text-center">Teléfono</th>
-<th width="20px"><img src="<?=RUTA_IMG_ICONOS;?>edit-black-16.png"></th>
-<th width="20px"><img src="<?=RUTA_IMG_ICONOS;?>eliminar-red-16.png"></th>
+<th class="align-middle" width="20px"><i class="fa-regular fa-pen-to-square"></i></th>
+<th class="align-middle" width="20px"><i class="fa-regular fa-trash-can"></i></th>
+</tr>
 </thead>	
 <tbody>
 <?php
@@ -67,8 +67,8 @@ $telefono = $row_telefono['telefono'];
 echo "<tr>";
 echo "<td>".$row_telefono['titulo']."</td>";
 echo "<td class='text-center'>".$telefono."</td>";
-echo "<td class='text-center align-middle' width='20px' style='cursor: pointer;'><img src='".RUTA_IMG_ICONOS."edit-black-16.png' onclick='editartelefono(".$id.")'></td>";
-echo "<td class='text-center align-middle'width='20px' style='cursor: pointer;'><img src='".RUTA_IMG_ICONOS."eliminar-red-16.png' onclick='eliminartelefono(".$id.")'></td>";
+echo "<td class='text-center align-middle' width='20px' style='cursor: pointer;'><a onclick='editartelefono(".$id.")'><i class='fa-regular fa-pen-to-square'></i></i></a></td>";
+echo "<td class='text-center align-middle' width='20px' style='cursor: pointer;'><a onclick='eliminartelefono(".$id.")'><i class='fa-regular fa-trash-can'></i></a></td>";
 
 
 echo "</tr>";
@@ -79,6 +79,5 @@ echo "<tr><td colspan='4' class='text-center'><small>No se encontró informació
 ?>
 </tbody>
 </table>
-</div>
 
 </div>

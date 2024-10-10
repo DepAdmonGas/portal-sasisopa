@@ -21,8 +21,7 @@ function validaDocumento($nombre,$idEstacion,$con){
           $array = array('archivo' => $row_lista['archivo']);
         }else{
           $array = array('archivo' => 0);
-        }
-        
+        }        
         return $array;
       }
 

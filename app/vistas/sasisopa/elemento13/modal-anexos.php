@@ -2,11 +2,10 @@
 require('../../../../app/help.php');
 $idProtocolo = $_GET['idProtocolo'];
 ?>
-<div class="modal-header">
-<h4 class="modal-title">Anexo protocolo de respuesta a emergencias
+<div class="modal-header rounded-0 head-modal">
+<h4 class="modal-title text-white">Anexo protocolo de respuesta a emergencias
 </h4>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
+<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
 
@@ -32,13 +31,14 @@ $result_protocolo = mysqli_query($con, $sql_protocolo);
 $numero_protocolo = mysqli_num_rows($result_protocolo);
 
 ?>
-
 <table class="table table-bordered table-striped table-hover table-sm mt-2">
 <thead>
+<tr class="bg-primary text-white">
 <th>Nombre</th>
 <th>Fecha elaboración</th>
 <th class="text-center" width="50px" style="font-size: .8em;">PDF</th>
 <th class="text-center" width="50px" style="font-size: .8em;">Eliminar</th>
+</tr>
 </thead>	
 <tbody>
 <?php

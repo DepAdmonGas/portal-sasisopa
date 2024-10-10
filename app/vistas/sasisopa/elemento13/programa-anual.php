@@ -20,22 +20,22 @@ $class_preparacion_emergencias = new PreparacionEmergencias();
 </table>
 </div>
 
-<div class="text-right mt-2">
+<div class="text-end mt-2">
 <img class="mr-2" src="<?=RUTA_IMG_ICONOS;?>lupa.png" onclick="BuscarReporte()">
 <button type="button" class="btn btn-success btn-sm rounded-0" onclick="ModalPrograma(0)">Nuevo programa anual</button>
 </div>
 
-<div class="" style="overflow-y: hidden;">
 <table class="table table-bordered table-striped table-hover table-sm mt-3 mb-0 pb-0">
 <thead>
+<tr class="bg-primary text-white">
 <th class="text-center align-middle">Nombre del simulacro</th>
 <th class="text-center align-middle">Periodicidad</th>
 <th class="text-center align-middle">Fecha</th>
-<th colspan="2" class="text-center align-middle"><span class="badge badge-primary">1</span> Personal que asiste</th>
-<th colspan="2" class="text-center align-middler"><span class="badge badge-primary">2</span> Resumen</th>
-<th colspan="3" class="text-center align-middle"><span class="badge badge-primary">3</span> Evaluaci처n (Fo.ADMONGAS.016a)</th>
-<th class="text-center align-middle" width="24"><img src="<?=RUTA_IMG_ICONOS;?>editar.png"></th>
-<th class="text-center align-middle" width="24"><img src="<?=RUTA_IMG_ICONOS;?>eliminar.png"></th>
+<th colspan="2" class="text-center align-middle"><span class="badge rounded-pill bg-secondary">1</span> Personal que asiste</th>
+<th colspan="2" class="text-center align-middler"><span class="badge rounded-pill bg-secondary">2</span> Resumen</th>
+<th colspan="3" class="text-center align-middle"><span class="badge rounded-pill bg-secondary">3</span> Evaluaci처n (Fo.ADMONGAS.016a)</th>
+<th class="text-center align-middle" width="35px"><i class="fas fa-ellipsis-v"></i></th>
+</tr>
 </thead>	
 <tbody>
 <?php
@@ -80,10 +80,20 @@ echo "<td class='text-center align-middle' style='cursor: pointer;' >
 <a href='".RUTA_ARCHIVOS_ADMONGAS."Fo.ADMONGAS.016a.doc' download><img src='".RUTA_IMG_ICONOS."descargar.png'></a></td>";
 echo "<td class='text-center align-middle' style='cursor: pointer;' onclick='ModalArchivo(".$id.")'><img src='".RUTA_IMG_ICONOS."subir.png'></td>";
 echo "<td class='text-center align-middle' style='cursor: pointer;' >".$imgPDF."</td>";
-echo "<td class='text-center align-middle' style='cursor: pointer;' onclick='ModalPrograma(".$id.")'><img src='".RUTA_IMG_ICONOS."editar.png'></td>";
-echo "<td class='text-center align-middle' style='cursor: pointer;' onclick='EliminarPAS(".$id.")'><img src='".RUTA_IMG_ICONOS."eliminar.png'></td>";
-echo "</tr>";
 
+echo '<td class="text-center align-middle" width="20px" style="cursor: pointer;">
+<div class="dropdown dropstart">
+<a class="btn btn-sm btn-icon-only text-dropdown-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+<i class="fas fa-ellipsis-v"></i>
+</a>
+<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+  <a class="dropdown-item" onclick="ModalPrograma('.$id.')"><i class="fa-regular fa-pen-to-square"></i> Editar</a>
+  <a class="dropdown-item" onclick="EliminarPAS('.$id.')"><i class="fa-regular fa-trash-can"></i> Eliminar</a>
+</div>
+</div>
+</td>';
+
+echo "</tr>";
 }
 }else{
 echo "<tr><td colspan='12' class='text-center'><small>No se encontr처 informaci처n para mostrar</small></td></tr>";	
@@ -91,7 +101,6 @@ echo "<tr><td colspan='12' class='text-center'><small>No se encontr처 informaci�
 ?>	
 </tbody>
 </table>
-</div>
 
 <?php  
 if ($numero_programa == 0) {

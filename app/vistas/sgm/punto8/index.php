@@ -12,14 +12,16 @@ require('app/help.php');
   <link rel="apple-touch-icon" href="<?=RUTA_IMG_ICONOS?>/icono-web.png">
   <link rel="stylesheet" href="<?=RUTA_CSS?>alertify.css">
   <link rel="stylesheet" href="<?=RUTA_CSS?>themes/default.rtl.css">
-  <link href="<?=RUTA_CSS ?>bootstrap.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?=RUTA_CSS ?>bootstrap.css" />
   <link rel="stylesheet" href="<?=RUTA_CSS?>componentes.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
   <script type="text/javascript" src="<?=RUTA_JS?>alertify.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.0.3/b-3.0.1/b-colvis-3.0.1/b-html5-3.0.1/b-print-3.0.1/datatables.min.css" rel="stylesheet">
   <style media="screen">
   .LoaderPage {
   position: fixed;
@@ -51,7 +53,20 @@ require('app/help.php');
   }
 
   function ListaAsistencia(idSasisopa){
-  $('#ListaAsistencia').load('app/vistas/sasisopa/asistencia/lista-asistencia.php?idSasisopa=' + idSasisopa); 
+    let targets = [1,2,3];
+  $('#ListaAsistencia').load('app/vistas/sasisopa/asistencia/lista-asistencia.php?idSasisopa=' + idSasisopa, function() {
+  $('#lista-asistencia').DataTable({
+    "language": {
+    "url": "<?=RUTA_JS?>es-ES.json"
+  },
+  "stateSave": true,
+    "lengthMenu": [15,35,45],
+    "columnDefs": [
+    { "orderable": false, "targets": targets },
+    { "searchable": false, "targets": targets }
+    ]
+  });
+  });  
   }
 
   function btnListaAsistencia(elemento,herramienta){
@@ -114,7 +129,7 @@ window.location = "lista-asistencia/" + id;
      success:  function (response) {
 
     if (response == 1) {
-    ListaAsistencia(101)
+    ListaAsistencia(108)
     }else{
     alertify.error('Error al eliminar')
     }
@@ -134,34 +149,41 @@ window.location = "lista-asistencia/" + id;
     <div class="LoaderPage"></div>
 
     <div class="fixed-top navbar-admin">
-    <?php require('public/componentes/header.menu.php'); ?>
+    <?php require('app/vistas/componentes/navbar-perfil.php'); ?>
     </div>
 
-    <div class="magir-top-principal">
+    <div class="magir-top-principal p-3">
 
-    <div class="row no-gutters">
-     
-    <div class="col-12">
-    <div class="card adm-card" style="border: 0;">
-    <div class="adm-car-title">
-      <div class="float-left" style="padding-right: 20px;margin-top: 5px;">
-      <a onclick="regresarP()" style="cursor: pointer;" data-toggle="tooltip" data-placement="right" title="Regresar"><img src="<?php echo RUTA_IMG_ICONOS."regresar.png"; ?>"></a>
-      </div>
-    <div class="float-left"><h4>8. Gestión de Riesgos que impactan en la medición</h4></div>
-            <div class="float-right" style="margin-top: 6px;margin-left: 10px;">
-    <a onclick="btnAyuda()" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Ayuda" >
-    <img src="<?php echo RUTA_IMG_ICONOS."info.png"; ?>">
-    </a> 
+    <!-- Inicio -->
+    <div class="float-end">
+    <div class="dropdown dropdown-sm d-inline ms-2">
+    <button type="button" class="btn dropdown-toggle btn-primary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="fa-solid fa-screwdriver-wrench"></i></span>
+    </button>
+    <ul class="dropdown-menu">
+    <li onclick="btnAyuda()"><a class="dropdown-item c-pointer"> <i class="fa-regular fa-circle-question"></i> Ayuda</a></li>
+    </ul>
     </div>
     </div>
-   
-    <div class="card-body">
+    <!-- Fin -->
+
+    <!-- Inicio -->
+    <div aria-label="breadcrumb" style="padding-left: 0; margin-bottom: 0;">
+    <ol class="breadcrumb breadcrumb-caret">
+    <li class="breadcrumb-item text-primary c-pointer" onclick="regresarP()"><i class="fa-solid fa-house"></i> SGM</li>
+    <li aria-current="page" class="breadcrumb-item active">8. Gestión de Riesgos que impactan en la mediciónn</li>
+    </ol>
+    </div>
+    <!-- Fin -->
+
+  <h3>8. Gestión de Riesgos que impactan en la medición</h3>
+
+  <div class="mt-3">
 
       <div class="row">
-        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2">
-
-
-          <h5>Dispensadores de Combustible</h5>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+          <div class="bg-white p-3">
+          <h5 class="text-secondary">Dispensadores de Combustible</h5>
 
           <p>Calibración regular y revisión técnica semestral o de acuerdo a lo que indique el proveedor y la normatividad para los medidores de flujo, garantizando mediciones precisas y confiables.</p>
 
@@ -171,7 +193,7 @@ window.location = "lista-asistencia/" + id;
 
           <hr>
 
-          <h5>Tanques de Almacenamiento</h5>
+          <h5 class="text-secondary">Tanques de Almacenamiento</h5>
 
           <p>Calibración regular e inspecciones trimestrales (o de acuerdo a lo que indique el proveedor y la normatividad) de sensores de nivel para mantener un inventario preciso y prevenir sobrellenados.</p>
           <p>Limpieza semestral y revisión de integridad estructural del sistema de ventilación para evitar presiones excesivas y riesgos de explosión.</p>
@@ -179,26 +201,22 @@ window.location = "lista-asistencia/" + id;
 
           <hr>
 
-          <h5>Sistema de Software de Gestión</h5>
+          <h5 class="text-secondary">Sistema de Software de Gestión</h5>
 
           <p>Backups diarios y sistemas de seguridad cibernética robustos para proteger la base de datos de transacciones contra corrupción de datos y ataques cibernéticos.</p>
           <p>Pruebas de usuario continuas y actualizaciones basadas en feedback para mejorar la interfaz de usuario y asegurar eficiencia operativa.</p>
-
-          
-
-
         </div>
-        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mt-2">
-          
-
-          <div class="border">
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+           
+          <div class="bg-white">
             <div class="p-3">        
               <div class="row">
                 <div class="col-10">
-                <h5>Fo.SGM.001 Lista de asistencia</h5>
+                <h5 class="text-secondary">Fo.SGM.001 Lista de asistencia</h5>
                 </div>
                 <div class="col-2">
-                <a class="float-right" onclick="btnListaAsistencia(108,2)" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Crear" >
+                <a class="float-end" onclick="btnListaAsistencia(108,2)" style="cursor: pointer;" data-toggle="tooltip" data-placement="left" title="Crear" >
                 <img src="<?php echo RUTA_IMG_ICONOS."agregar.png"; ?>">
                 </a>
                 </div>
@@ -213,19 +231,15 @@ window.location = "lista-asistencia/" + id;
 
 
     </div>
-    </div>
-    </div>
-    </div>
+
     </div>
 
-            <div class="modal fade bd-example-modal-lg" id="myModal" >
+    <div class="modal fade bd-example-modal-lg" id="myModal" >
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content" style="border-radius: 0px;border: 0px;">
-        <div class="modal-header">
-          <h4 class="modal-title">Ayuda</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <div class="modal-header rounded-0 head-modal">
+          <h4 class="modal-title text-white">Ayuda</h4>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
 
@@ -237,8 +251,12 @@ window.location = "lista-asistencia/" + id;
     </div>
     </div>
 
- 
   <script src="<?php echo RUTA_JS ?>bootstrap.min.js"></script>
+  <!---------- LIBRERIAS DEL DATATABLE ---------->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.0.3/b-3.0.1/b-colvis-3.0.1/b-html5-3.0.1/b-print-3.0.1/datatables.min.js"></script>
+  
   </body>
   </html>
 

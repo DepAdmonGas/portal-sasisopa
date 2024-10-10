@@ -8,17 +8,16 @@ $numero_capacitacion = mysqli_num_rows($result_capacitacion);
 
 ?>
 
-<div style="overflow-y: hidden;">
-<table class="table table-bordered table-striped table-sm mb-0 pb-0">
+<table class="table table-bordered table-striped table-sm" id="table-inventario-normatividad-aplicable">
 <thead>	
-<tr>
+<tr class="bg-primary text-white">
 <th class="text-center align-middle">#</th>
 <th class="text-center align-middle">Norma, acuerdo o disposición</th>
 <th class="text-center align-middle">Fecha de publicación</th>
 <th class="text-center align-middle">Fecha de aplicación</th>
 <th class="text-center align-middle">Equipo o procedimiento de medición al que aplica</th>
 <th class="text-center align-middle">Link</th>
-<th class="text-center align-middle"></th>
+<th class="text-center align-middle"><i class='fa-regular fa-trash-can'></i></th>
 </tr>
 </thead>
 <tbody>
@@ -37,16 +36,12 @@ echo "<td class='text-center align-middle'>".FormatoFecha($row_capacitacion['fec
 echo "<td class='text-center align-middle'>".$fecha_aplicacion."</td>";
 echo "<td class='text-center align-middle'>".$row_capacitacion['equipo']."</td>";
 echo "<td class='text-center align-middle'><small>".$row_capacitacion['link']."</small></td>";
-echo "<td class='text-center align-middle'width='20px' style='cursor: pointer;'><img src='".RUTA_IMG_ICONOS."eliminar.png' onclick='eliminar(".$id.")'></td>";
+echo "<td class='text-center align-middle'width='20px' style='cursor: pointer;'><a onclick='eliminar(".$id.")'><i class='fa-regular fa-trash-can'></i></a></td>";
 echo "</tr>";
 
 $i++;
 }
-}else{
-echo "<td colspan='7' class='text-center text-secondary' style='font-size: .8em;'>No se encontró información para mostrar</td>";
-
 }
 ?>	
 </tbody>
 </table>
-</div>
